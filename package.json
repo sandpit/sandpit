@@ -1,0 +1,22 @@
+{
+  "name": "sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.8.4"
+  },
+  "dependencies": {
+    "dat.gui": "^0.6.1",
+    "debounce": "^1.0.0",
+    "mobx": "^2.7.0",
+    "queryfetch": "^1.2.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
