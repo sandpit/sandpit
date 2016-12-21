@@ -1,15 +1,15 @@
-import Sandbox from './Sandbox'
 import './index.css'
+import Sandbox from './Sandbox'
 
-let sandbox = new Sandbox('#root', '2d')
-sandbox.settings({size: 2, radius: 100}, true)
+let sandbox = new Sandbox('#root', Sandbox.CANVAS)
+sandbox.settings({size: 2, radius: 100, color: 255}, true)
 
 let canvas = sandbox.canvas()
 let ctx = sandbox.context()
 
 let time = 0.0
 sandbox.loop = () => {
-  ctx.fillStyle = `rgba(255, 255, 255, 0.5)`
+  ctx.fillStyle = `rgba(255, 255, ${sandbox.settings.color}, 0.5)`
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   ctx.fillStyle = '#000'
   ctx.fillRect(
@@ -19,6 +19,10 @@ sandbox.loop = () => {
     sandbox.settings.size
   )
   time += 0.1
+}
+
+sandbox.move = () => {
+  console.log(sandbox.input.x, sandbox.input.y)
 }
 
 sandbox.start()

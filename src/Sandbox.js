@@ -4,13 +4,16 @@ import queryfetch from 'queryfetch'
 import debounce from 'debounce'
 
 class Sandbox {
+  static get CANVAS () { return '2d' }
+  static get WEBGL () { return '3d' }
+
   /**
    * Constructor
    */
   constructor (container, type) {
     console.log('⛱ Welcome to Sandbox')
+
     this._context = this._setup(container, type)
-    this._loop = this._loop.bind(this)
   }
 
   /**
@@ -20,9 +23,10 @@ class Sandbox {
     if (typeof container !== 'string') {
       throw new Error('Please provide a string reference to the container, like ".container"')
     }
-    if (typeof type !== 'string' || (type !== '2d' && type !== '3d')) {
-      throw new Error('Please provide a context type - either "2d" or "3d"')
+    if (typeof type !== 'string' || (type !== Sandbox.CANVAS && type !== Sandbox.WEBGL)) {
+      throw new Error('Please provide a context type - either `Sandbox.CANVAS` or `Sandbox.WEBGL`')
     }
+    // TODO: Allow for an object to be passed, or a string
     const _container = document.querySelector(container)
     this._canvas = document.createElement('canvas')
     this._canvas.width = window.innerWidth
@@ -72,7 +76,7 @@ class Sandbox {
   _loop () {
     if (this._autoClear) this._context.clearRect(0, 0, this._canvas.width, this._canvas.height)
     if (this.loop) this.loop()
-    this._animationFrame = window.requestAnimationFrame(this._loop)
+    this._animationFrame = window.requestAnimationFrame(this._loop.bind(this))
   }
 
   _setupResize () {
@@ -91,7 +95,19 @@ class Sandbox {
   _move () {
     if (this.move) {
       // TODO: Set up mousemove and touchmove
+      this._mouseMoveEvent = this.move
+      window.addEventListener('mousemove', this._handleMove.bind(this))
     }
+  }
+
+  _handleMove(event) {
+    this._handleInput(event)
+    this.move(event)
+  }
+
+  _handleInput(event) {
+    // TODO: Normalise input, whether touch or mouse
+    this.input = {x: event.pageX, y: event.pageY}
   }
 
   _accelerometer () {
