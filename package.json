@@ -1,5 +1,5 @@
 {
-  "name": "sandbox",
+  "name": "sandpit",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -8,7 +8,6 @@
   "dependencies": {
     "dat.gui": "^0.6.1",
     "debounce": "^1.0.0",
-    "mobx": "^2.7.0",
     "queryfetch": "^1.2.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1"

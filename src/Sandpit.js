@@ -3,7 +3,7 @@ import logger from './utils/logger'
 import queryfetch from 'queryfetch'
 import debounce from 'debounce'
 
-class Sandbox {
+class Sandpit {
   static get CANVAS () { return '2d' }
   static get WEBGL () { return '3d' }
 
@@ -11,7 +11,7 @@ class Sandbox {
    * Constructor
    */
   constructor (container, type) {
-    console.log('⛱ Welcome to Sandbox')
+    console.log('⛱ Welcome to Sandpit')
 
     this._context = this._setup(container, type)
   }
@@ -23,8 +23,8 @@ class Sandbox {
     if (typeof container !== 'string') {
       throw new Error('Please provide a string reference to the container, like ".container"')
     }
-    if (typeof type !== 'string' || (type !== Sandbox.CANVAS && type !== Sandbox.WEBGL)) {
-      throw new Error('Please provide a context type - either `Sandbox.CANVAS` or `Sandbox.WEBGL`')
+    if (typeof type !== 'string' || (type !== Sandpit.CANVAS && type !== Sandpit.WEBGL)) {
+      throw new Error('Please provide a context type - either `Sandpit.CANVAS` or `Sandpit.WEBGL`')
     }
     // TODO: Allow for an object to be passed, or a string
     const _container = document.querySelector(container)
@@ -100,12 +100,14 @@ class Sandbox {
     }
   }
 
-  _handleMove(event) {
+  _handleMove (event) {
     this._handleInput(event)
     this.move(event)
   }
 
-  _handleInput(event) {
+  _handleInput (event) {
+    event.preventDefault()
+
     // TODO: Normalise input, whether touch or mouse
     this.input = {x: event.pageX, y: event.pageY}
   }
@@ -154,4 +156,4 @@ class Sandbox {
   }
 }
 
-export default Sandbox
+export default Sandpit

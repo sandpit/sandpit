@@ -13,7 +13,7 @@ const logger = {
     logger.print('info', message)
   },
   print: (type, message) => {
-    if (logger.active) console[type](`👉 Sandbox: ${message}`)
+    if (logger.active) console[type](`👉 Sandpit: ${message}`)
   }
 }
 
