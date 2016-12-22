@@ -1,3 +1,5 @@
+⛱ **Sandpit**
+
 Early concept for a creative coding sandpit thingy, inspired by [sketch.js](https://github.com/soulwire/sketch.js).
 
 For more information, [check out the Wiki](https://github.com/superhighfives/sandpit/wiki).
