@@ -29,7 +29,7 @@
     "build-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "build-site": "react-scripts build && cp -r dist build/dist",
     "serve": "node_modules/.bin/pushstate-server build",
-    "deploy": "npm run build && node_modules/.bin/surge -p build -d sandboxjs.com"
+    "deploy": "npm run build && node_modules/.bin/surge -p build -d sandpitjs.com"
   },
   "repository": {
     "type": "git",
