@@ -66,7 +66,7 @@ class Sandpit {
    * in the query string for easy sharing
    */
   _setupGui (settings, queryable) {
-    this.defaults = 
+    this.defaults = settings
     this.settings = {}
     this.gui = new dat.GUI()
 

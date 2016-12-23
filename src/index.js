@@ -7,8 +7,9 @@ let sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
 sandpit.settings({
   gravity: {value: 2, step: 0.1, min: 0.1, max: 5},
   count: {value: 50, step: 1, min: 1, max: 500},
-  size: {value: 5, step: 1, min: 1, max: 20},
+  size: {value: 20, step: 1, min: 1, max: 50},
   color: {value: '#000', color: true},
+  keepDrawing: {value: false},
   background: {value: {white: 'hsl(0, 100%, 100%)', aqua: 'hsl(175, 100%, 45%)', blue: 'hsl(185, 69%, 63%)', orange: 'hsl(39, 100%, 54%)', pink: 'hsl(333, 100%, 68%)', green: 'hsl(84, 100%, 68%)', violet: 'hsl(270, 100%, 80%)'}}
 }, true)
 
@@ -29,11 +30,11 @@ function Particle () {
 
   this.update = () => {
     let force = new Vector(Math.cos(random() * Math.PI * 2), Math.sin(random() * Math.PI * 2))
-    acceleration.add(new Vector(1 + random(), 1 + random()).multiply(force))
+    acceleration.add(new Vector(1 + random() * 0.9, 1 + random() * 0.9).multiply(force))
 
     const dx = position.x - sandpit.width() / 2
     const dy = position.y - sandpit.height() / 2
-    const fSpring = new Vector(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - (sandpit.settings.gravity - 0.1))))
+    const fSpring = new Vector(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - sandpit.settings.gravity + 0.1)))
     acceleration.add(fSpring)
 
     velocity.add(acceleration)
@@ -51,7 +52,7 @@ function Particle () {
       ctx.moveTo(first.x, first.y)
       rest.forEach(p => ctx.lineTo(p.x, p.y))
       ctx.lineTo(position.x, position.y)
-      if (previousPositions.length === sandpit.settings.size) previousPositions.shift()
+      if (previousPositions.length >= sandpit.settings.size && !sandpit.settings.keepDrawing) previousPositions.shift()
     }
 
     previousPositions.push(position.clone())
