@@ -5,13 +5,14 @@ import Color from 'color'
 
 let sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
 sandpit.settings({
+  follow: {value: false},
   gravity: {value: 2, step: 0.1, min: 0.1, max: 5},
   count: {value: 50, step: 1, min: 1, max: 500},
   size: {value: 20, step: 1, min: 1, max: 50},
   color: {value: '#000', color: true},
-  keepDrawing: {value: false},
   strokeWidth: {value: 1, min: 1, max: 10, step: 1},
-  background: {value: {white: 'hsl(0, 100%, 100%)', aqua: 'hsl(175, 100%, 45%)', blue: 'hsl(185, 69%, 63%)', orange: 'hsl(39, 100%, 54%)', pink: 'hsl(333, 100%, 68%)', green: 'hsl(84, 100%, 68%)', violet: 'hsl(270, 100%, 80%)'}}
+  background: {value: {white: 'hsl(0, 100%, 100%)', aqua: 'hsl(175, 100%, 45%)', blue: 'hsl(185, 69%, 63%)', orange: 'hsl(39, 100%, 54%)', pink: 'hsl(333, 100%, 68%)', green: 'hsl(84, 100%, 68%)', violet: 'hsl(270, 100%, 80%)'}},
+  keepDrawing: {value: false}
 }, true)
 
 let ctx = sandpit.context()
@@ -39,11 +40,13 @@ function Particle () {
     const fSpring = new Vector(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - sandpit.settings.gravity + 0.1)))
     acceleration.add(fSpring)
 
-    if (sandpit.input.x && sandpit.input.y) {
-      var mx = sandpit.input.x - position.x
-      var my = sandpit.input.y - position.y
-      var distance = Math.sqrt(mx * mx + my * my)
-      attraction.add(new Vector(mx / distance, my / distance).multiplyScalar(1))
+    if(sandpit.settings.follow) {
+      if (sandpit.input.x && sandpit.input.y) {
+        var mx = sandpit.input.x - position.x
+        var my = sandpit.input.y - position.y
+        var distance = Math.sqrt(mx * mx + my * my)
+        attraction.add(new Vector(mx / distance, my / distance).multiplyScalar(1))
+      }
     }
 
     velocity.add(acceleration)
