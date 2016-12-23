@@ -282,6 +282,7 @@ class Sandpit {
   /**
    * Handles the mousemove event
    * @param {event} event
+   * @private
    */
   _handleMouseMove (event) {
     this.input.x = event.pageX

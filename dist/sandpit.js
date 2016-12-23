@@ -363,6 +363,7 @@ var Sandpit = function () {
     /**
      * Handles the mousemove event
      * @param {event} event
+     * @private
      */
 
   }, {
