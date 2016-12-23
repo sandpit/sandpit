@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="is.html">is</a><ul class='methods'><li data-type='method'><a href="is.html#element">element</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#canvas">canvas</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="is.html">is</a><ul class='methods'><li data-type='method'><a href="is.html#.array">array</a></li><li data-type='method'><a href="is.html#.element">element</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#_change">_change</a></li><li data-type='method'><a href="Sandpit.html#_handleAccelerometer">_handleAccelerometer</a></li><li data-type='method'><a href="Sandpit.html#_handleInput">_handleInput</a></li><li data-type='method'><a href="Sandpit.html#_handleMouseMove">_handleMouseMove</a></li><li data-type='method'><a href="Sandpit.html#_loop">_loop</a></li><li data-type='method'><a href="Sandpit.html#_setupAccelerometer">_setupAccelerometer</a></li><li data-type='method'><a href="Sandpit.html#_setupEvents">_setupEvents</a></li><li data-type='method'><a href="Sandpit.html#_setupGui">_setupGui</a></li><li data-type='method'><a href="Sandpit.html#_setupInput">_setupInput</a></li><li data-type='method'><a href="Sandpit.html#_setupLoop">_setupLoop</a></li><li data-type='method'><a href="Sandpit.html#_setupMouse">_setupMouse</a></li><li data-type='method'><a href="Sandpit.html#_setupResize">_setupResize</a></li><li data-type='method'><a href="Sandpit.html#_setupTouches">_setupTouches</a></li><li data-type='method'><a href="Sandpit.html#autoClear">autoClear</a></li><li data-type='method'><a href="Sandpit.html#canvas">canvas</a></li><li data-type='method'><a href="Sandpit.html#context">context</a></li><li data-type='method'><a href="Sandpit.html#debug">debug</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#height">height</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#settings">settings</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li><li data-type='method'><a href="Sandpit.html#time">time</a></li><li data-type='method'><a href="Sandpit.html#width">width</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -41,6 +41,7 @@
             <pre class="prettyprint source linenums"><code>import dat from 'dat.gui/build/dat.gui'
 import queryfetch from 'queryfetch'
 import debounce from 'debounce'
+import seedrandom from 'seedrandom'
 
 import logger from './utils/logger'
 import is from './utils/is'
@@ -84,85 +85,263 @@ class Sandpit {
     }
 
     // Check the container is a dom element
-    console.log(is.element(_container))
-    this._canvas = document.createElement('canvas')
-    this._canvas.width = window.innerWidth
-    this._canvas.height = window.innerHeight
-    _container.appendChild(this._canvas)
-    // Grab the context
-    this._context = this._canvas.getContext(type)
+    if (is.element(_container)) {
+      this._canvas = document.createElement('canvas')
+      this._canvas.width = window.innerWidth
+      this._canvas.height = window.innerHeight
+      _container.appendChild(this._canvas)
+      // Grab the context
+      this._context = this._canvas.getContext(type)
+      this._type = type
+    } else {
+      throw new Error('The container is not a HTMLElement')
+    }
   }
 
-  _createGui (settings, queryable) {
+  /**
+   * Sets up the settings gui via dat.gui
+   * @param {object} settings - An object of key value pairs
+   * for the setting name and default value
+   * @param {boolean} queryable - Whether or not to store settings
+   * in the query string for easy sharing
+   */
+  _setupGui (settings, queryable) {
+    // Sort the original settings in defaults
+    this.defaults = settings
     this.settings = {}
     this.gui = new dat.GUI()
 
+    // If queryable is true, set up the query string management
+    // for storing settings
     if (queryable) {
       this._queryable = true
       if (window.location.search) {
         let params = queryfetch.parse(window.location.search)
-        Object.keys(params).forEach((param) => {
-          if (settings[param]) settings[param] = params[param]
+        Object.keys(params).forEach((key) => {
+          // If a setting matches the param, use the param
+          if (settings[key]) {
+            let param = params[key]
+            // Convert string to boolean if 'true' or 'false'
+            if (param === 'true') param = true
+            if (param === 'false') param = false
+            if (typeof settings[key].value !== 'object') {
+              settings[key].value = param
+            } else {
+              // If the param is an object, store the
+              // name in a selected property
+              settings[key].selected = param
+            }
+          }
         })
       }
-      const query = queryfetch.serialize(settings)
+    }
+
+    // Create settings folder and add each item to it
+    const group = this.gui.addFolder('Settings')
+    Object.keys(settings).forEach(name => {
+      let options = false
+      let value = settings[name].value
+
+      // If it's an object, supply the array or object,
+      // and grab the right value
+      if (typeof value === 'object') {
+        options = value
+        // If a selected option is available via the query
+        // string, use that
+        if (settings[name].selected) {
+          this.settings[name] = settings[name].selected
+        } else {
+          // If not, grab the first item in the object or array
+          this.settings[name] = is.array(value)
+            ? value[0]
+            : value[Object.keys(value)[0]]
+        }
+      } else {
+        // If it's not an object, pass the setting on
+        this.settings[name] = settings[name].value
+      }
+
+      // If it's a colour, use a different method
+      let guiField = settings[name].color
+        ? group.addColor(this.settings, name)
+        : group.add(this.settings, name, options)
+
+      // Check for min, max and step, and add to the gui field
+      if (settings[name].min !== undefined) guiField = guiField.min(settings[name].min)
+      if (settings[name].max !== undefined) guiField = guiField.max(settings[name].max)
+      if (settings[name].step !== undefined) guiField = guiField.step(settings[name].step)
+
+      // Handle the change event
+      guiField.onChange(debounce((value) => {
+        this._change(name, value)
+      }), 300)
+    })
+    // Open the settings drawer
+    group.open()
+
+    // If queryable is enabled, serialize the final settings
+    // and push them to the query string
+    if (queryable) {
+      const query = queryfetch.serialize(this.settings)
       window.history.pushState({}, null, '/?' + query)
+      // Adds a reset button to the gui interface
       this.gui.add({reset: () => {
         window.history.pushState({}, null, '/')
         window.location.reload()
       }}, 'reset')
     }
-
-    const group = this.gui.addFolder('Settings')
-    Object.keys(settings).forEach(name => {
-      this.settings[name] = settings[name]
-      let guiField = group.add(this.settings, name)
-      guiField.onChange(debounce((value) => {
-        this._change(name, value)
-      }), 300)
-    })
   }
 
+  /**
+   * Handles a changed setting
+   * @param {string} name - Setting name
+   * @param {*} value - The new setting value
+   */
   _change (name, value) {
     logger.info(`Update fired on ${name}: ${value}`)
     if (this._queryable) {
       const query = queryfetch.serialize(this.settings)
       window.history.pushState({}, null, '/?' + query)
     }
+    // If there is a change hook, use it
+    if (this.change) {
+      this.change(name, value)
+    }
   }
 
+  /**
+   * Sets up the primary animation loop
+   */
+  _setupLoop () {
+    this._time = 0
+    this._loop()
+  }
+
+  /**
+   * The primary animation loop
+   */
   _loop () {
-    if (this._autoClear) this._context.clearRect(0, 0, this._canvas.width, this._canvas.height)
+    // Clear the canvas if autoclear is set
+    if (this._autoClear) {
+      if (this._type === Sandpit.CANVAS) {
+        this._context.clearRect(0, 0, this._canvas.width, this._canvas.height)
+      } else if (this._type === Sandpit.WEGBL) {
+        // TODO: Implement auto clear for WebGL instances
+      }
+    }
+    // Loop!
     if (this.loop) this.loop()
+    // Increment time
+    this._time++
     this._animationFrame = window.requestAnimationFrame(this._loop.bind(this))
   }
 
+  /**
+   * Sets up event management
+   */
+  _setupEvents () {
+    this._events = {}
+    this._setupResize()
+    this._setupInput()
+
+    // Loop through and add event listeners
+    Object.keys(this._events).forEach(event => {
+      window.addEventListener(event, this._events[event].bind(this), false)
+    })
+  }
+
+  /**
+   * Sets up the resize event, optionally using a user defined option
+   */
   _setupResize () {
     if (this.resize) {
       this._resizeEvent = this.resize
     } else {
       this._resizeEvent = () => {
-        logger.info('Resizing')
         this._canvas.width = window.innerWidth
         this._canvas.height = window.innerHeight
       }
     }
-    window.addEventListener('resize', this._resizeEvent)
+    this._events['resize'] = this._resizeEvent
   }
 
-  _move () {
+  /**
+   * Hooks up the mouse events
+   */
+  _setupMouse () {
     if (this.move) {
-      // TODO: Set up mousemove and touchmove
       this._mouseMoveEvent = this.move
-      window.addEventListener('mousemove', this._handleMove.bind(this))
+      this.events['mousemove'] = this._handleMouseMove
+    }
+    if (this.touch) {
+      this._mouseDownEvent = this.touch
+      this.events['mousedown'] = this._handleMouseDown
+      this.events['mouseup'] = this._handleMouseUp
     }
   }
 
-  _handleMove (event) {
+  /**
+   * Hooks up the touch events
+   */
+  _setupTouches () {
+    if (this.move) {
+      this._touchMoveEvent = this.move
+      this.events['touchmove'] = this._handleTouchMove
+    }
+    if (this.touch) {
+      this._touchStartEvent = this.touch
+      this.events['touchstart'] = this._handleTouchStart
+      this.events['touchend'] = this._handleTouchEnd
+    }
+  }
+
+  /**
+   * Hooks up the accelerometer events
+   */
+  _setupAccelerometer () {
+    if (this.accelerometer) {
+      if (window.DeviceOrientationEvent) {
+        this._accelerometerEvent = this.accelerometer
+        window.addEventListener('deviceorientation', this._handleAccelerometer.bind(this))
+      } else {
+        logger.warn('Accelerometer is not supported by this device')
+      }
+    }
+  }
+
+  /**
+   * Defines the input object and sets up the mouse, accelerometer and touches
+   * @param {event} event
+   */
+  _setupInput () {
+    this.input = {}
+    this._setupMouse()
+    this._setupTouches()
+    this._setupAccelerometer()
+  }
+
+  /**
+   * Handles up the move events
+   * @param {event} event
+   */
+  _handleMouseMove (event) {
     this._handleInput(event)
     this.move(event)
   }
 
+  /**
+   * Handles the accelerometer events
+   * @param {event} event
+   */
+  _handleAccelerometer (event) {
+    this._handleInput(event)
+    this.accelerometer(event)
+  }
+
+  /**
+   * Hooks up the input events, normalising touches and mouse movements
+   * @param {event} event
+   */
   _handleInput (event) {
     event.preventDefault()
 
@@ -170,48 +349,125 @@ class Sandpit {
     this.input = {x: event.pageX, y: event.pageY}
   }
 
-  _accelerometer () {
-    if (this.accelerometer) {
-      // TODO: Set up accelerometer
-    }
-  }
-
+  /**
+   * Creates the settings GUI
+   * @param {object} settings - An object containing key value pairs for each setting
+   * @param {boolean} queryable - Enables query string storage of settings
+   * @return {object} Context
+   */
   settings (settings, queryable) {
-    this._createGui(settings, queryable)
+    this._setupGui(settings, queryable)
   }
 
-  logger (boolean) {
+  /**
+   * Defines whether or not to return debugger messages from Sandpit
+   * @param {boolean} boolean
+   * @return {object} Context
+   */
+  debug (boolean) {
     logger.active = boolean
   }
 
+  /**
+   * Sets whether the canvas autoclears after each render
+   * @param {boolean} boolean
+   */
   autoClear (boolean) {
     this._autoClear = boolean
   }
 
+  clear () {
+    if (this._type === Sandpit.CANVAS) {
+      this._context.clearRect(0, 0, this.width(), this.height())
+    } else if (this._type === Sandpit.WEGBL) {
+      // TODO: Implement clear for WebGL instances
+    }
+  }
+
+  /**
+   * Returns the canvas context
+   * @return {object} Context
+   */
   context () {
     return this._context
   }
 
   /**
    * Returns the canvas object
-   * @return {canvas} the canvas
+   * @return {canvas} Canvas
    */
   canvas () {
     return this._canvas
   }
 
-  start () {
-    this._setupResize()
-
-    if (!this.loop) logger.warn('Looks like you need to define a loop')
-    this._loop()
-
-    this._move()
+  /**
+   * Returns the frame increment
+   * @returns {number} Canvas width
+   */
+  time () {
+    return this._time
   }
 
+  /**
+   * Returns the canvas width
+   * @returns {number} Canvas width
+   */
+  width () {
+    return this._canvas.width
+  }
+
+  /**
+   * Returns the canvas height
+   * @returns {number} Canvas height
+   */
+  height () {
+    return this._canvas.height
+  }
+
+  /**
+   * Fills the canvas with the provided colour
+   * @param {string} color - The color to fill with, in string format
+   * (for example, '#000', 'rgba(0, 0, 0, 0.5)')
+   */
+  fill (color) {
+    if (this._type === Sandpit.CANVAS) {
+      this._context.fillStyle = color
+      this._context.fillRect(0, 0, this.width(), this.height())
+    } else if (this._type === Sandpit.WEGBL) {
+      // TODO: Implement fill background for WebGL instances
+    }
+  }
+
+  /**
+   * Returns a random number generator based on a seed
+   * @param {string} seed - The seed with which to create the random number
+   * @returns {function} A function that returns a random number
+   */
+  random (seed) {
+    return seedrandom(seed)
+  }
+
+  /**
+   * Sets up resizing and input events and starts the loop
+   */
+  start () {
+    // Sets up the events
+    this._setupEvents()
+    // Loop!
+    if (!this.loop) logger.warn('Looks like you need to define a loop')
+    this._setupLoop()
+  }
+
+  /**
+   * Stops the loop and removes event listeners
+   */
   stop () {
+    // Stop the animation frame loop
     window.cancelAnimationFrame(this._animationFrame)
-    window.removeEventListener('resize', this._resizeEvent)
+    // Remove all event listeners
+    Object.keys(this._events).forEach(event => {
+      window.removeEventListener(event, this._events[event])
+    })
   }
 }
 
@@ -228,7 +484,7 @@ export default Sandpit
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 10:56:02 GMT+0000 (GMT) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 18:53:45 GMT+0000 (GMT) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

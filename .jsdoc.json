@@ -17,7 +17,7 @@
     "useLongnameInNav": false
   },
   "opts": {
-    "destination": "./docs/",
+    "destination": "./build/docs/",
     "encoding": "utf8",
     "recurse": true,
     "template": "./node_modules/minami"

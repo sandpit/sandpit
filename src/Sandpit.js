@@ -64,8 +64,10 @@ class Sandpit {
    * for the setting name and default value
    * @param {boolean} queryable - Whether or not to store settings
    * in the query string for easy sharing
+   * @private
    */
   _setupGui (settings, queryable) {
+    // Sort the original settings in defaults
     this.defaults = settings
     this.settings = {}
     this.gui = new dat.GUI()
@@ -155,6 +157,7 @@ class Sandpit {
    * Handles a changed setting
    * @param {string} name - Setting name
    * @param {*} value - The new setting value
+   * @private
    */
   _change (name, value) {
     logger.info(`Update fired on ${name}: ${value}`)
@@ -170,6 +173,7 @@ class Sandpit {
 
   /**
    * Sets up the primary animation loop
+   * @private
    */
   _setupLoop () {
     this._time = 0
@@ -178,6 +182,7 @@ class Sandpit {
 
   /**
    * The primary animation loop
+   * @private
    */
   _loop () {
     // Clear the canvas if autoclear is set
@@ -197,6 +202,7 @@ class Sandpit {
 
   /**
    * Sets up event management
+   * @private
    */
   _setupEvents () {
     this._events = {}
@@ -205,12 +211,13 @@ class Sandpit {
 
     // Loop through and add event listeners
     Object.keys(this._events).forEach(event => {
-      window.addEventListener(event, this._events[event].bind(this), false)
+      document.addEventListener(event, this._events[event].bind(this), false)
     })
   }
 
   /**
    * Sets up the resize event, optionally using a user defined option
+   * @private
    */
   _setupResize () {
     if (this.resize) {
@@ -226,42 +233,34 @@ class Sandpit {
 
   /**
    * Hooks up the mouse events
+   * @private
    */
   _setupMouse () {
-    if (this.move) {
-      this._mouseMoveEvent = this.move
-      this.events['mousemove'] = this._handleMouseMove
-    }
-    if (this.touch) {
-      this._mouseDownEvent = this.touch
-      this.events['mousedown'] = this._handleMouseDown
-      this.events['mouseup'] = this._handleMouseUp
-    }
+    this._events['mousemove'] = this._handleMouseMove
+    this._events['mousedown'] = this._handleMouseDown
+    this._events['mouseenter'] = this._handleMouseEnter
+    this._events['mouseleave'] = this._handleMouseLeave
+    this._events['mouseup'] = this._handleMouseUp
   }
 
   /**
    * Hooks up the touch events
+   * @private
    */
   _setupTouches () {
-    if (this.move) {
-      this._touchMoveEvent = this.move
-      this.events['touchmove'] = this._handleTouchMove
-    }
-    if (this.touch) {
-      this._touchStartEvent = this.touch
-      this.events['touchstart'] = this._handleTouchStart
-      this.events['touchend'] = this._handleTouchEnd
-    }
+    this._events['touchmove'] = this._handleTouchMove
+    this._events['touchstart'] = this._handleTouchStart
+    this._events['touchend'] = this._handleTouchEnd
   }
 
   /**
    * Hooks up the accelerometer events
+   * @private
    */
   _setupAccelerometer () {
     if (this.accelerometer) {
       if (window.DeviceOrientationEvent) {
-        this._accelerometerEvent = this.accelerometer
-        window.addEventListener('deviceorientation', this._handleAccelerometer.bind(this))
+        this._events['deviceorientation'] = this._handleAccelerometer
       } else {
         logger.warn('Accelerometer is not supported by this device')
       }
@@ -271,6 +270,7 @@ class Sandpit {
   /**
    * Defines the input object and sets up the mouse, accelerometer and touches
    * @param {event} event
+   * @private
    */
   _setupInput () {
     this.input = {}
@@ -280,32 +280,100 @@ class Sandpit {
   }
 
   /**
-   * Handles up the move events
+   * Handles the mousemove event
    * @param {event} event
    */
   _handleMouseMove (event) {
-    this._handleInput(event)
-    this.move(event)
+    this.input.x = event.pageX
+    this.input.y = event.pageY
+    if (this.move) this.move(event)
   }
 
   /**
-   * Handles the accelerometer events
+   * Handles the mousedown event
    * @param {event} event
+   * @private
+   */
+  _handleMouseDown (event) {
+    this.input.x = event.pageX
+    this.input.y = event.pageY
+    if (this.touch) this.touch(event)
+  }
+
+  /**
+   * Handles the mouseup event
+   * @param {event} event
+   * @private
+   */
+  _handleMouseUp (event) {
+    delete this.input.x
+    delete this.input.y
+    if (this.release) this.release(event)
+  }
+
+  /**
+   * Handles the mouseenter event
+   * @param {event} event
+   * @private
+   */
+  _handleMouseEnter (event) {
+    this.input.x = event.pageX
+    this.input.y = event.pageY
+    if (this.release) this.release(event)
+  }
+
+  /**
+   * Handles the mouseleave event
+   * @param {event} event
+   * @private
+   */
+  _handleMouseLeave (event) {
+    delete this.input.x
+    delete this.input.y
+    if (this.release) this.release(event)
+  }
+
+  /**
+   * Handles the touchmove event
+   * @param {event} event
+   * @private
+   */
+  _handleTouchMove (event) {
+    this.input.x = event.pageX
+    this.input.y = event.pageY
+    if (this.move) this.move(event)
+  }
+
+  /**
+   * Handles the touchstart event
+   * @param {event} event
+   * @private
+   */
+  _handleTouchStart (event) {
+    this.input.x = event.pageX
+    this.input.y = event.pageY
+    if (this.touch) this.touch(event)
+  }
+
+  /**
+   * Handles the touchend event
+   * @param {event} event
+   * @private
+   */
+  _handleTouchEnd (event) {
+    delete this.input.x
+    delete this.input.y
+    if (this.release) this.release(event)
+  }
+
+  /**
+   * Handles the accelerometer event
+   * @param {event} event
+   * @private
    */
   _handleAccelerometer (event) {
-    this._handleInput(event)
-    this.accelerometer(event)
-  }
-
-  /**
-   * Hooks up the input events, normalising touches and mouse movements
-   * @param {event} event
-   */
-  _handleInput (event) {
-    event.preventDefault()
-
-    // TODO: Normalise input, whether touch or mouse
-    this.input = {x: event.pageX, y: event.pageY}
+    // TODO: Manage the accelerometer event
+    if (this.accelerometer) this.accelerometer(event)
   }
 
   /**
@@ -425,7 +493,7 @@ class Sandpit {
     window.cancelAnimationFrame(this._animationFrame)
     // Remove all event listeners
     Object.keys(this._events).forEach(event => {
-      window.removeEventListener(event, this._events[event])
+      document.removeEventListener(event, this._events[event])
     })
   }
 }

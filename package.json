@@ -2,7 +2,7 @@
   "name": "Sandpit",
   "version": "0.1.0",
   "description": "A playground for creative coding using JavaScript and the canvas element",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "private": true,
   "devDependencies": {
@@ -12,18 +12,24 @@
     "debounce": "^1.0.0",
     "jsdoc": "^3.4.3",
     "minami": "^1.1.1",
+    "pushstate-server": "^2.1.0",
     "queryfetch": "^1.2.1",
     "react-scripts": "0.8.4",
     "seedrandom": "^2.4.2",
+    "surge": "^0.18.0",
+    "uglifyjs": "^2.4.10",
     "victor": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
-    "build": "babel src --presets babel-preset-es2015 --out-dir build",
-    "docs": "node_modules/.bin/http-server docs -s",
+    "build": "npm run build-library && npm run build-site && npm run build-docs",
+    "minify": "node_modules/.bin/uglifyjs dist/sandpit.js -o dist/sandpit.min.js",
+    "build-library": "mkdir -p dist && babel src --presets babel-preset-es2015 --out-file dist/sandpit.js && npm run minify",
     "build-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "build-site": "react-scripts build"
+    "build-site": "react-scripts build && cp -r dist build/dist",
+    "serve": "node_modules/.bin/pushstate-server build",
+    "deploy": "npm run build && node_modules/.bin/surge -p build -d sandboxjs.com"
   },
   "repository": {
     "type": "git",
