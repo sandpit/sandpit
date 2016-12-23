@@ -38,3 +38,7 @@ canvas {
 p {
   margin: 0;
 }
+
+.dg .selector {
+  box-sizing: content-box;
+}

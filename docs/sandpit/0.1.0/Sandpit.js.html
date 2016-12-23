@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sandpit.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="is.html">is</a><ul class='methods'><li data-type='method'><a href="is.html#element">element</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#canvas">canvas</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Sandpit.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import dat from 'dat.gui/build/dat.gui'
+import queryfetch from 'queryfetch'
+import debounce from 'debounce'
+
+import logger from './utils/logger'
+import is from './utils/is'
+
+/**
+ * A playground for creative coding
+ */
+class Sandpit {
+  static get CANVAS () { return '2d' }
+  static get WEBGL () { return '3d' }
+
+  /**
+   * @param {(string|object)} container - The container for the canvas to be added to
+   * @param {string} type - Defines whether the context is 2d or 3d
+   */
+  constructor (container, type) {
+    console.log('⛱ Welcome to Sandpit')
+    this._setupContext(container, type)
+  }
+
+  /**
+   * Set up the canvas
+   * @private
+   */
+  _setupContext (container, type) {
+    // Check that the correct container type has been passed
+    if (typeof container !== 'string' &amp;&amp; typeof container !== 'object') {
+      throw new Error('Please provide a string or object reference to the container, like ".container", or ')
+    }
+    // Check that the type is set
+    if (typeof type !== 'string' || (type !== Sandpit.CANVAS &amp;&amp; type !== Sandpit.WEBGL)) {
+      throw new Error('Please provide a context type - either `Sandpit.CANVAS` or `Sandpit.WEBGL`')
+    }
+
+    // Either find the container, or just use the object
+    let _container
+    if (typeof container === 'string') {
+      _container = document.querySelector(container)
+    } else if (typeof container === 'object') {
+      _container = container
+    }
+
+    // Check the container is a dom element
+    console.log(is.element(_container))
+    this._canvas = document.createElement('canvas')
+    this._canvas.width = window.innerWidth
+    this._canvas.height = window.innerHeight
+    _container.appendChild(this._canvas)
+    // Grab the context
+    this._context = this._canvas.getContext(type)
+  }
+
+  _createGui (settings, queryable) {
+    this.settings = {}
+    this.gui = new dat.GUI()
+
+    if (queryable) {
+      this._queryable = true
+      if (window.location.search) {
+        let params = queryfetch.parse(window.location.search)
+        Object.keys(params).forEach((param) => {
+          if (settings[param]) settings[param] = params[param]
+        })
+      }
+      const query = queryfetch.serialize(settings)
+      window.history.pushState({}, null, '/?' + query)
+      this.gui.add({reset: () => {
+        window.history.pushState({}, null, '/')
+        window.location.reload()
+      }}, 'reset')
+    }
+
+    const group = this.gui.addFolder('Settings')
+    Object.keys(settings).forEach(name => {
+      this.settings[name] = settings[name]
+      let guiField = group.add(this.settings, name)
+      guiField.onChange(debounce((value) => {
+        this._change(name, value)
+      }), 300)
+    })
+  }
+
+  _change (name, value) {
+    logger.info(`Update fired on ${name}: ${value}`)
+    if (this._queryable) {
+      const query = queryfetch.serialize(this.settings)
+      window.history.pushState({}, null, '/?' + query)
+    }
+  }
+
+  _loop () {
+    if (this._autoClear) this._context.clearRect(0, 0, this._canvas.width, this._canvas.height)
+    if (this.loop) this.loop()
+    this._animationFrame = window.requestAnimationFrame(this._loop.bind(this))
+  }
+
+  _setupResize () {
+    if (this.resize) {
+      this._resizeEvent = this.resize
+    } else {
+      this._resizeEvent = () => {
+        logger.info('Resizing')
+        this._canvas.width = window.innerWidth
+        this._canvas.height = window.innerHeight
+      }
+    }
+    window.addEventListener('resize', this._resizeEvent)
+  }
+
+  _move () {
+    if (this.move) {
+      // TODO: Set up mousemove and touchmove
+      this._mouseMoveEvent = this.move
+      window.addEventListener('mousemove', this._handleMove.bind(this))
+    }
+  }
+
+  _handleMove (event) {
+    this._handleInput(event)
+    this.move(event)
+  }
+
+  _handleInput (event) {
+    event.preventDefault()
+
+    // TODO: Normalise input, whether touch or mouse
+    this.input = {x: event.pageX, y: event.pageY}
+  }
+
+  _accelerometer () {
+    if (this.accelerometer) {
+      // TODO: Set up accelerometer
+    }
+  }
+
+  settings (settings, queryable) {
+    this._createGui(settings, queryable)
+  }
+
+  logger (boolean) {
+    logger.active = boolean
+  }
+
+  autoClear (boolean) {
+    this._autoClear = boolean
+  }
+
+  context () {
+    return this._context
+  }
+
+  /**
+   * Returns the canvas object
+   * @return {canvas} the canvas
+   */
+  canvas () {
+    return this._canvas
+  }
+
+  start () {
+    this._setupResize()
+
+    if (!this.loop) logger.warn('Looks like you need to define a loop')
+    this._loop()
+
+    this._move()
+  }
+
+  stop () {
+    window.cancelAnimationFrame(this._animationFrame)
+    window.removeEventListener('resize', this._resizeEvent)
+  }
+}
+
+export default Sandpit
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Dec 23 2016 10:56:02 GMT+0000 (GMT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

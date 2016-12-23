@@ -1,21 +1,40 @@
 {
-  "name": "sandpit",
+  "name": "Sandpit",
   "version": "0.1.0",
+  "description": "A playground for creative coding using JavaScript and the canvas element",
+  "main": "build/index.js",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.8.4"
-  },
-  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "color": "^1.0.3",
     "dat.gui": "^0.6.1",
     "debounce": "^1.0.0",
+    "jsdoc": "^3.4.3",
+    "minami": "^1.1.1",
     "queryfetch": "^1.2.1",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-scripts": "0.8.4",
+    "seedrandom": "^2.4.2",
+    "victor": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "build": "babel src --presets babel-preset-es2015 --out-dir build",
+    "docs": "node_modules/.bin/http-server docs -s",
+    "build-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "build-site": "react-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/superhighfives/sandpit.git"
+  },
+  "keywords": [
+    "sketch",
+    "creative",
+    "canvas",
+    "processing",
+    "animation"
+  ],
+  "author": "Charlie Gleason (http://charliegleason.com/)"
 }
