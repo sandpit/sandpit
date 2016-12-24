@@ -5392,6 +5392,20 @@ text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
+three:
+  version "0.83.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.83.0.tgz#3b7f94790af3e021dac1f44a2617569ca2032b0b"
+
+three-trackballcontrols:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/three-trackballcontrols/-/three-trackballcontrols-0.0.5.tgz#d07818f0da68c39ed260bc8a90b5c7b818a6c644"
+  dependencies:
+    three "^0.74.0"
+
+three@^0.74.0:
+  version "0.74.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.74.0.tgz#648a2a418dae9e8b5de14661fdc84d38429b72da"
+
 throat@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-3.0.0.tgz#e7c64c867cbb3845f10877642f7b60055b8ec0d6"

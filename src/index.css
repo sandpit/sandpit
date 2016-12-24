@@ -14,6 +14,10 @@ a {
   color: inherit;
 }
 
+p {
+  margin: 0;
+}
+
 canvas {
   display: block;
 }
@@ -35,10 +39,22 @@ canvas {
   margin-top: 1rem;
 }
 
-p {
-  margin: 0;
+.demos::before {
+  content: "Demos";
+  color: #999;
 }
 
+.demos > * {
+  text-decoration: underline;
+  cursor: pointer;
+  display: block;
+}
+
+.demos > * + * {
+  margin-top: 0.25rem;
+}
+
+/* dat.GUI */
 .dg .selector {
   box-sizing: content-box;
 }

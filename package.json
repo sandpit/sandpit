@@ -17,6 +17,8 @@
     "react-scripts": "0.8.4",
     "seedrandom": "^2.4.2",
     "surge": "^0.18.0",
+    "three": "^0.83.0",
+    "three-trackballcontrols": "^0.0.5",
     "uglifyjs": "^2.4.10",
     "victor": "^1.1.0"
   },
