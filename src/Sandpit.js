@@ -211,6 +211,7 @@ class Sandpit {
 
     // Loop through and add event listeners
     Object.keys(this._events).forEach(event => {
+      // TODO: Use context instead of document
       document.addEventListener(event, this._events[event].bind(this), false)
     })
   }
@@ -220,6 +221,7 @@ class Sandpit {
    * @private
    */
   _setupResize () {
+    // TODO: Fix context here: this_events['trigger'] = {event: event, context: context}?
     if (this.resize) {
       this._resizeEvent = this.resize
     } else {
