@@ -87,6 +87,8 @@ const playground = () => {
     particles.forEach(particle => particle.update())
   }
 
+  // TODO: Add click event for sucking particles in
+
   sandpit.start()
 }
 
