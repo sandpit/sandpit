@@ -115,35 +115,33 @@ var Sandpit = function () {
      */
 
   }, {
-    key: '_setupGui',
-    value: function _setupGui(settings, queryable) {
+    key: '_setupSettings',
+    value: function _setupSettings() {
       var _this = this;
 
       // Sort the original settings in defaults
-      this.defaults = settings;
       this.settings = {};
-      this.gui = new _dat2.default.GUI();
+      this._gui = new _dat2.default.GUI();
 
       // If queryable is true, set up the query string management
       // for storing settings
-      if (queryable) {
-        this._queryable = true;
+      if (this._queryable) {
         if (window.location.search) {
           (function () {
             var params = _queryfetch2.default.parse(window.location.search);
             Object.keys(params).forEach(function (key) {
               // If a setting matches the param, use the param
-              if (settings[key]) {
+              if (_this.defaults[key]) {
                 var param = params[key];
                 // Convert string to boolean if 'true' or 'false'
                 if (param === 'true') param = true;
                 if (param === 'false') param = false;
-                if (_typeof(settings[key].value) !== 'object') {
-                  settings[key].value = param;
+                if (_typeof(_this.defaults[key].value) !== 'object') {
+                  _this.defaults[key].value = param;
                 } else {
                   // If the param is an object, store the
                   // name in a selected property
-                  settings[key].selected = param;
+                  _this.defaults[key].selected = param;
                 }
               }
             });
@@ -152,10 +150,10 @@ var Sandpit = function () {
       }
 
       // Create settings folder and add each item to it
-      var group = this.gui.addFolder('Settings');
-      Object.keys(settings).forEach(function (name) {
+      var group = this._gui.addFolder('Settings');
+      Object.keys(this.defaults).forEach(function (name) {
         var options = false;
-        var value = settings[name].value;
+        var value = _this.defaults[name].value;
 
         // If it's an object, supply the array or object,
         // and grab the right value
@@ -163,24 +161,24 @@ var Sandpit = function () {
           options = value;
           // If a selected option is available via the query
           // string, use that
-          if (settings[name].selected) {
-            _this.settings[name] = settings[name].selected;
+          if (_this.defaults[name].selected) {
+            _this.settings[name] = _this.defaults[name].selected;
           } else {
             // If not, grab the first item in the object or array
             _this.settings[name] = _is2.default.array(value) ? value[0] : value[Object.keys(value)[0]];
           }
         } else {
           // If it's not an object, pass the setting on
-          _this.settings[name] = settings[name].value;
+          _this.settings[name] = _this.defaults[name].value;
         }
 
         // If it's a colour, use a different method
-        var guiField = settings[name].color ? group.addColor(_this.settings, name) : group.add(_this.settings, name, options);
+        var guiField = _this.defaults[name].color ? group.addColor(_this.settings, name) : group.add(_this.settings, name, options);
 
         // Check for min, max and step, and add to the gui field
-        if (settings[name].min !== undefined) guiField = guiField.min(settings[name].min);
-        if (settings[name].max !== undefined) guiField = guiField.max(settings[name].max);
-        if (settings[name].step !== undefined) guiField = guiField.step(settings[name].step);
+        if (_this.defaults[name].min !== undefined) guiField = guiField.min(_this.defaults[name].min);
+        if (_this.defaults[name].max !== undefined) guiField = guiField.max(_this.defaults[name].max);
+        if (_this.defaults[name].step !== undefined) guiField = guiField.step(_this.defaults[name].step);
 
         // Handle the change event
         guiField.onChange((0, _debounce2.default)(function (value) {
@@ -192,11 +190,11 @@ var Sandpit = function () {
 
       // If queryable is enabled, serialize the final settings
       // and push them to the query string
-      if (queryable) {
+      if (this._queryable) {
         var query = _queryfetch2.default.serialize(this.settings);
         window.history.pushState({}, null, '/?' + query);
         // Adds a reset button to the gui interface
-        this.gui.add({ reset: function reset() {
+        this._gui.add({ reset: function reset() {
             window.history.pushState({}, null, '/');
             window.location.reload();
           } }, 'reset');
@@ -275,6 +273,7 @@ var Sandpit = function () {
 
       // Loop through and add event listeners
       Object.keys(this._events).forEach(function (event) {
+        // TODO: Use context instead of document
         document.addEventListener(event, _this2._events[event].bind(_this2), false);
       });
     }
@@ -289,6 +288,7 @@ var Sandpit = function () {
     value: function _setupResize() {
       var _this3 = this;
 
+      // TODO: Fix context here: this_events['trigger'] = {event: event, context: context}?
       if (this.resize) {
         this._resizeEvent = this.resize;
       } else {
@@ -453,6 +453,7 @@ var Sandpit = function () {
   }, {
     key: '_handleTouchStart',
     value: function _handleTouchStart(event) {
+      // TODO: Handle multiple touches
       this.input.x = event.pageX;
       this.input.y = event.pageY;
       if (this.touch) this.touch(event);
@@ -495,7 +496,8 @@ var Sandpit = function () {
   }, {
     key: 'settings',
     value: function settings(_settings, queryable) {
-      this._setupGui(_settings, queryable);
+      this.defaults = _settings;
+      this._queryable = queryable;
     }
 
     /**
@@ -621,6 +623,8 @@ var Sandpit = function () {
   }, {
     key: 'start',
     value: function start() {
+      // Sets up settings
+      if (this.defaults && Object.keys(this.defaults).length) this._setupSettings();
       // Sets up the events
       this._setupEvents();
       // Loop!
@@ -637,6 +641,7 @@ var Sandpit = function () {
     value: function stop() {
       var _this4 = this;
 
+      if (this._gui) this._gui.destroy();
       // Stop the animation frame loop
       window.cancelAnimationFrame(this._animationFrame);
       // Remove all event listeners
@@ -659,13 +664,35 @@ it('thinks Charlie is great', function () {
 });
 'use strict';
 
-require('./index.css');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _Sandpit = require('./Sandpit');
+var _particles = require('./particles');
+
+var _particles2 = _interopRequireDefault(_particles);
+
+var _threedee = require('./threedee');
+
+var _threedee2 = _interopRequireDefault(_threedee);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  particles: _particles2.default,
+  threedee: _threedee2.default
+};
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Sandpit = require('../Sandpit');
 
 var _Sandpit2 = _interopRequireDefault(_Sandpit);
 
-var _vector = require('./utils/vector');
+var _vector = require('../utils/vector');
 
 var _vector2 = _interopRequireDefault(_vector);
 
@@ -675,99 +702,185 @@ var _color2 = _interopRequireDefault(_color);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.CANVAS);
-sandpit.settings({
-  follow: { value: false },
-  gravity: { value: 2, step: 0.1, min: 0.1, max: 5 },
-  count: { value: 50, step: 1, min: 1, max: 500 },
-  size: { value: 20, step: 1, min: 1, max: 50 },
-  color: { value: '#000', color: true },
-  strokeWidth: { value: 1, min: 1, max: 10, step: 1 },
-  background: { value: { white: 'hsl(0, 100%, 100%)', aqua: 'hsl(175, 100%, 45%)', blue: 'hsl(185, 69%, 63%)', orange: 'hsl(39, 100%, 54%)', pink: 'hsl(333, 100%, 68%)', green: 'hsl(84, 100%, 68%)', violet: 'hsl(270, 100%, 80%)' } },
-  keepDrawing: { value: false }
-}, true);
+var sandpit = void 0;
+var playground = function playground() {
+  sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.CANVAS);
+  sandpit.settings({
+    follow: { value: false },
+    gravity: { value: 2, step: 0.1, min: 0.1, max: 5 },
+    count: { value: 50, step: 1, min: 1, max: 500 },
+    size: { value: 20, step: 1, min: 1, max: 50 },
+    color: { value: '#000', color: true },
+    strokeWidth: { value: 1, min: 1, max: 10, step: 1 },
+    background: { value: { white: 'hsl(0, 100%, 100%)', aqua: 'hsl(175, 100%, 45%)', blue: 'hsl(185, 69%, 63%)', orange: 'hsl(39, 100%, 54%)', pink: 'hsl(333, 100%, 68%)', green: 'hsl(84, 100%, 68%)', violet: 'hsl(270, 100%, 80%)' } },
+    keepDrawing: { value: false }
+  }, true);
 
-var ctx = sandpit.context();
-var random = sandpit.random('Hello!');
+  var ctx = sandpit.context();
+  var random = sandpit.random('Hello!');
 
-function Particle() {
-  var shadowBlur = Math.ceil(random() * 3);
-  var strokeWidth = sandpit.settings.strokeWidth;
-  var strokeStyle = (0, _color2.default)(sandpit.settings.color).alpha(random() * 0.5);
+  function Particle(i) {
+    var _this = this;
 
-  var initX = random() * sandpit.width();
-  var initY = random() * sandpit.height();
-  var position = new _vector2.default(initX, initY);
-  var velocity = new _vector2.default(0, 0);
-  var acceleration = new _vector2.default(0, 0);
-  var attraction = new _vector2.default(0, 0);
-  var previousPositions = [];
+    this.count = i;
+    var shadowBlur = Math.ceil(random() * 3);
+    var strokeWidth = sandpit.settings.strokeWidth;
+    var strokeStyle = (0, _color2.default)(sandpit.settings.color).alpha(random() * 0.5);
 
-  this.update = function () {
-    var force = new _vector2.default(Math.cos(random() * Math.PI * 2), Math.sin(random() * Math.PI * 2));
-    acceleration.add(new _vector2.default(1 + random() * 0.9, 1 + random() * 0.9).multiply(force));
+    var initX = random() * sandpit.width();
+    var initY = random() * sandpit.height();
+    var position = new _vector2.default(initX, initY);
+    var velocity = new _vector2.default(0, 0);
+    var acceleration = new _vector2.default(0, 0);
+    var attraction = new _vector2.default(0, 0);
+    var previousPositions = [];
 
-    var dx = position.x - sandpit.width() / 2;
-    var dy = position.y - sandpit.height() / 2;
-    var fSpring = new _vector2.default(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - sandpit.settings.gravity + 0.1)));
-    acceleration.add(fSpring);
+    this.update = function () {
+      var force = new _vector2.default(Math.cos(random() * Math.PI * 2), Math.sin(random() * Math.PI * 2));
+      acceleration.add(new _vector2.default(1 + random() * 0.9, 1 + random() * 0.9).multiply(force));
 
-    if (sandpit.settings.follow) {
-      if (sandpit.input.x && sandpit.input.y) {
-        var mx = sandpit.input.x - position.x;
-        var my = sandpit.input.y - position.y;
-        var distance = Math.sqrt(mx * mx + my * my);
-        attraction.add(new _vector2.default(mx / distance, my / distance).multiplyScalar(1));
+      var dx = position.x - sandpit.width() / 2;
+      var dy = position.y - sandpit.height() / 2;
+      var fSpring = new _vector2.default(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - sandpit.settings.gravity + 0.1)));
+      acceleration.add(fSpring);
+
+      if (sandpit.settings.follow && _this.count % 1 === 0) {
+        if (sandpit.input.x && sandpit.input.y) {
+          var mx = sandpit.input.x - position.x;
+          var my = sandpit.input.y - position.y;
+          var distance = Math.sqrt(mx * mx + my * my);
+          attraction.add(new _vector2.default(mx / distance, my / distance).multiplyScalar(1));
+        }
       }
-    }
 
-    velocity.add(acceleration);
-    velocity.add(attraction);
-    velocity.limit(10, 0.9);
-    position.add(velocity);
-    acceleration.multiply(new _vector2.default(0, 0));
-    attraction.multiply(new _vector2.default(0, 0));
+      velocity.add(acceleration);
+      velocity.add(attraction);
+      velocity.limit(10, 0.9);
+      position.add(velocity);
+      acceleration.multiply(new _vector2.default(0, 0));
+      attraction.multiply(new _vector2.default(0, 0));
 
-    ctx.beginPath();
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = strokeStyle;
-    ctx.shadowBlur = shadowBlur;
-    ctx.shadowColor = sandpit.settings.color;
-    if (previousPositions.length > 1) {
-      var first = previousPositions[0],
-          rest = previousPositions.slice(1);
+      ctx.beginPath();
+      ctx.lineWidth = strokeWidth;
+      ctx.strokeStyle = strokeStyle;
+      ctx.shadowBlur = shadowBlur;
+      ctx.shadowColor = sandpit.settings.color;
+      if (previousPositions.length > 1) {
+        var first = previousPositions[0],
+            rest = previousPositions.slice(1);
 
-      ctx.moveTo(first.x, first.y);
-      rest.forEach(function (p) {
-        return ctx.lineTo(p.x, p.y);
-      });
-      ctx.lineTo(position.x, position.y);
-      if (previousPositions.length >= sandpit.settings.size && !sandpit.settings.keepDrawing) previousPositions.shift();
-    }
+        ctx.moveTo(first.x, first.y);
+        rest.forEach(function (p) {
+          return ctx.lineTo(p.x, p.y);
+        });
+        ctx.lineTo(position.x, position.y);
+        if (previousPositions.length >= sandpit.settings.size && !sandpit.settings.keepDrawing) previousPositions.shift();
+      }
 
-    previousPositions.push(position.clone());
-    ctx.stroke();
+      previousPositions.push(position.clone());
+      ctx.stroke();
+    };
+  }
+
+  var particles = [];
+
+  var i = 0;
+  sandpit.change = function () {
+    particles = Array(Math.round(sandpit.settings.count)).fill().map(function () {
+      return new Particle(i++);
+    });
   };
-}
 
-var particles = [];
+  sandpit.loop = function () {
+    sandpit.fill(sandpit.settings.background);
+    particles.forEach(function (particle) {
+      return particle.update();
+    });
+  };
 
-sandpit.change = function () {
-  particles = Array(Math.round(sandpit.settings.count)).fill().map(function () {
-    return new Particle();
-  });
+  // TODO: Add click event for sucking particles in
+  sandpit.start();
+  sandpit.change();
+
+  // Give a hook back to the sandpit
+  playground.prototype.sandpit = sandpit;
 };
 
-sandpit.change();
+exports.default = playground;
+'use strict';
 
-sandpit.loop = function () {
-  sandpit.fill(sandpit.settings.background);
-  particles.forEach(function (particle) {
-    return particle.update();
-  });
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Sandpit = require('../Sandpit');
+
+var _Sandpit2 = _interopRequireDefault(_Sandpit);
+
+var _three = require('three');
+
+var _threeTrackballcontrols = require('three-trackballcontrols');
+
+var _threeTrackballcontrols2 = _interopRequireDefault(_threeTrackballcontrols);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var playground = function playground() {
+  var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.WEBGL);
+  sandpit.settings({}, true);
+
+  var renderer = new _three.WebGLRenderer({ canvas: sandpit.canvas(), antialias: true });
+  renderer.setClearColor(0xffffff, 1);
+  renderer.setSize(sandpit.width(), sandpit.height());
+
+  var camera = new _three.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+  camera.position.z = 50;
+
+  var scene = new _three.Scene();
+  scene.add(camera);
+
+  var cube = new _three.Mesh(new _three.BoxGeometry(10, 10, 10), new _three.MeshBasicMaterial({ wireframe: true, color: 0x000000 }));
+  scene.add(cube);
+
+  var controls = new _threeTrackballcontrols2.default(camera, renderer.domElement);
+
+  sandpit.loop = function () {
+    cube.rotation.x += 0.001;
+    cube.rotation.y += 0.001;
+    cube.rotation.z += 0.001;
+
+    controls.update();
+    renderer.render(scene, camera);
+  };
+
+  sandpit.start();
+
+  // Give a hook back to the sandpit
+  playground.prototype.sandpit = sandpit;
 };
 
-sandpit.start();
+exports.default = playground;
+'use strict';
+
+require('./index.css');
+
+var demos = require('./demos/index').default;
+
+var playground = void 0;
+var div = document.createElement('div');
+div.classList.add('demos');
+
+Object.keys(demos).forEach(function (demo) {
+  var link = document.createElement('a');
+  link.appendChild(document.createTextNode(demo));
+  link.addEventListener('mousedown', function (event) {
+    if (playground) playground.sandpit.stop();
+    playground = new demos[event.currentTarget.textContent]();
+  });
+  div.appendChild(link);
+});
+
+document.querySelector('.overlay').appendChild(div);
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
