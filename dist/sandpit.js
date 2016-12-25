@@ -880,6 +880,8 @@ Object.keys(demos).forEach(function (demo) {
   div.appendChild(link);
 });
 
+playground = new demos[Object.keys(demos)[0]]();
+
 document.querySelector('.overlay').appendChild(div);
 'use strict';
 
