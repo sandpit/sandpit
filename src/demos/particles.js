@@ -2,8 +2,9 @@ import Sandpit from '../Sandpit'
 import Vector from '../utils/vector'
 import Color from 'color'
 
+let sandpit
 const playground = () => {
-  const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
+  sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
   sandpit.settings({
     follow: {value: false},
     gravity: {value: 2, step: 0.1, min: 0.1, max: 5},
@@ -18,7 +19,8 @@ const playground = () => {
   let ctx = sandpit.context()
   let random = sandpit.random('Hello!')
 
-  function Particle () {
+  function Particle (i) {
+    this.count = i
     const shadowBlur = Math.ceil(random() * 3)
     const strokeWidth = sandpit.settings.strokeWidth
     const strokeStyle = Color(sandpit.settings.color).alpha(random() * 0.5)
@@ -40,7 +42,7 @@ const playground = () => {
       const fSpring = new Vector(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - sandpit.settings.gravity + 0.1)))
       acceleration.add(fSpring)
 
-      if(sandpit.settings.follow) {
+      if (sandpit.settings.follow && this.count % 1 === 0) {
         if (sandpit.input.x && sandpit.input.y) {
           var mx = sandpit.input.x - position.x
           var my = sandpit.input.y - position.y
@@ -76,11 +78,10 @@ const playground = () => {
 
   let particles = []
 
+  let i = 0
   sandpit.change = () => {
-    particles = Array(Math.round(sandpit.settings.count)).fill().map(() => new Particle())
+    particles = Array(Math.round(sandpit.settings.count)).fill().map(() => new Particle(i++))
   }
-
-  sandpit.change()
 
   sandpit.loop = () => {
     sandpit.fill(sandpit.settings.background)
@@ -88,8 +89,11 @@ const playground = () => {
   }
 
   // TODO: Add click event for sucking particles in
-
   sandpit.start()
+  sandpit.change()
+
+  // Give a hook back to the sandpit
+  playground.prototype.sandpit = sandpit
 }
 
 export default playground

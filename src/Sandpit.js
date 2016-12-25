@@ -66,31 +66,29 @@ class Sandpit {
    * in the query string for easy sharing
    * @private
    */
-  _setupGui (settings, queryable) {
+  _setupSettings () {
     // Sort the original settings in defaults
-    this.defaults = settings
     this.settings = {}
-    this.gui = new dat.GUI()
+    this._gui = new dat.GUI()
 
     // If queryable is true, set up the query string management
     // for storing settings
-    if (queryable) {
-      this._queryable = true
+    if (this._queryable) {
       if (window.location.search) {
         let params = queryfetch.parse(window.location.search)
         Object.keys(params).forEach((key) => {
           // If a setting matches the param, use the param
-          if (settings[key]) {
+          if (this.defaults[key]) {
             let param = params[key]
             // Convert string to boolean if 'true' or 'false'
             if (param === 'true') param = true
             if (param === 'false') param = false
-            if (typeof settings[key].value !== 'object') {
-              settings[key].value = param
+            if (typeof this.defaults[key].value !== 'object') {
+              this.defaults[key].value = param
             } else {
               // If the param is an object, store the
               // name in a selected property
-              settings[key].selected = param
+              this.defaults[key].selected = param
             }
           }
         })
@@ -98,10 +96,10 @@ class Sandpit {
     }
 
     // Create settings folder and add each item to it
-    const group = this.gui.addFolder('Settings')
-    Object.keys(settings).forEach(name => {
+    const group = this._gui.addFolder('Settings')
+    Object.keys(this.defaults).forEach(name => {
       let options = false
-      let value = settings[name].value
+      let value = this.defaults[name].value
 
       // If it's an object, supply the array or object,
       // and grab the right value
@@ -109,8 +107,8 @@ class Sandpit {
         options = value
         // If a selected option is available via the query
         // string, use that
-        if (settings[name].selected) {
-          this.settings[name] = settings[name].selected
+        if (this.defaults[name].selected) {
+          this.settings[name] = this.defaults[name].selected
         } else {
           // If not, grab the first item in the object or array
           this.settings[name] = is.array(value)
@@ -119,18 +117,18 @@ class Sandpit {
         }
       } else {
         // If it's not an object, pass the setting on
-        this.settings[name] = settings[name].value
+        this.settings[name] = this.defaults[name].value
       }
 
       // If it's a colour, use a different method
-      let guiField = settings[name].color
+      let guiField = this.defaults[name].color
         ? group.addColor(this.settings, name)
         : group.add(this.settings, name, options)
 
       // Check for min, max and step, and add to the gui field
-      if (settings[name].min !== undefined) guiField = guiField.min(settings[name].min)
-      if (settings[name].max !== undefined) guiField = guiField.max(settings[name].max)
-      if (settings[name].step !== undefined) guiField = guiField.step(settings[name].step)
+      if (this.defaults[name].min !== undefined) guiField = guiField.min(this.defaults[name].min)
+      if (this.defaults[name].max !== undefined) guiField = guiField.max(this.defaults[name].max)
+      if (this.defaults[name].step !== undefined) guiField = guiField.step(this.defaults[name].step)
 
       // Handle the change event
       guiField.onChange(debounce((value) => {
@@ -142,11 +140,11 @@ class Sandpit {
 
     // If queryable is enabled, serialize the final settings
     // and push them to the query string
-    if (queryable) {
+    if (this._queryable) {
       const query = queryfetch.serialize(this.settings)
       window.history.pushState({}, null, '/?' + query)
       // Adds a reset button to the gui interface
-      this.gui.add({reset: () => {
+      this._gui.add({reset: () => {
         window.history.pushState({}, null, '/')
         window.location.reload()
       }}, 'reset')
@@ -353,6 +351,7 @@ class Sandpit {
    * @private
    */
   _handleTouchStart (event) {
+    // TODO: Handle multiple touches
     this.input.x = event.pageX
     this.input.y = event.pageY
     if (this.touch) this.touch(event)
@@ -386,7 +385,8 @@ class Sandpit {
    * @return {object} Context
    */
   settings (settings, queryable) {
-    this._setupGui(settings, queryable)
+    this.defaults = settings
+    this._queryable = queryable
   }
 
   /**
@@ -481,6 +481,8 @@ class Sandpit {
    * Sets up resizing and input events and starts the loop
    */
   start () {
+    // Sets up settings
+    if (this.defaults && Object.keys(this.defaults).length) this._setupSettings()
     // Sets up the events
     this._setupEvents()
     // Loop!
@@ -492,6 +494,7 @@ class Sandpit {
    * Stops the loop and removes event listeners
    */
   stop () {
+    if (this._gui) this._gui.destroy()
     // Stop the animation frame loop
     window.cancelAnimationFrame(this._animationFrame)
     // Remove all event listeners

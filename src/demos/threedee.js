@@ -3,8 +3,10 @@ import { WebGLRenderer, PerspectiveCamera,
          Scene, BoxGeometry, MeshBasicMaterial, Mesh } from 'three'
 import TrackballControls from 'three-trackballcontrols'
 
+
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.WEBGL)
+  sandpit.settings({}, true)
 
   const renderer = new WebGLRenderer({canvas: sandpit.canvas(), antialias: true})
   renderer.setClearColor(0xffffff, 1)
@@ -31,6 +33,9 @@ const playground = () => {
   }
 
   sandpit.start()
+
+  // Give a hook back to the sandpit
+  playground.prototype.sandpit = sandpit
 }
 
 export default playground

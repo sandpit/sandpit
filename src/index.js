@@ -9,8 +9,7 @@ Object.keys(demos).forEach(demo => {
   let link = document.createElement('a')
   link.appendChild(document.createTextNode(demo))
   link.addEventListener('mousedown', (event) => {
-    // TODO: Manage trashing demos, like: if (playground) console.log('trash')
-    if (playground) console.log('Trash playground')
+    if (playground) playground.sandpit.stop()
     playground = new demos[event.currentTarget.textContent]()
   })
   div.appendChild(link)
