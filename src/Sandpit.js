@@ -5,6 +5,7 @@ import seedrandom from 'seedrandom'
 
 import logger from './utils/logger'
 import is from './utils/is'
+import 'whatwg-fetch'
 
 /**
  * A playground for creative coding
@@ -219,6 +220,7 @@ class Sandpit {
    * @private
    */
   _setupResize () {
+    // TODO: Fix onResize
     // TODO: Fix context here: this_events['trigger'] = {event: event, context: context}?
     if (this.resize) {
       this._resizeEvent = this.resize
@@ -469,6 +471,24 @@ class Sandpit {
   }
 
   /**
+   * Returns a promise using fetch
+   * https://github.com/github/fetch
+   * @param {string} url - The url to fetch
+   */
+  get (url) {
+    /* global fetch */
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then((response) => {
+          resolve(response.text())
+        }).catch((error) => {
+          logger.info('Get fail', error)
+          reject()
+        })
+    })
+  }
+
+  /**
    * Returns a random number generator based on a seed
    * @param {string} seed - The seed with which to create the random number
    * @returns {function} A function that returns a random number
@@ -485,6 +505,8 @@ class Sandpit {
     if (this.defaults && Object.keys(this.defaults).length) this._setupSettings()
     // Sets up the events
     this._setupEvents()
+    // Sets up setup
+    if (this.setup) this.setup()
     // Loop!
     if (!this.loop) logger.warn('Looks like you need to define a loop')
     this._setupLoop()
@@ -494,6 +516,12 @@ class Sandpit {
    * Stops the loop and removes event listeners
    */
   stop () {
+    // Delete element, if initiated
+    if (this.canvas()) {
+      this.canvas().outerHTML = ''
+      delete this.canvas()
+    }
+    // Remove Gui, if initiated
     if (this._gui) this._gui.destroy()
     // Stop the animation frame loop
     window.cancelAnimationFrame(this._animationFrame)

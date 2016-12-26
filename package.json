@@ -20,7 +20,8 @@
     "three": "^0.83.0",
     "three-trackballcontrols": "^0.0.5",
     "uglifyjs": "^2.4.10",
-    "victor": "^1.1.0"
+    "victor": "^1.1.0",
+    "whatwg-fetch": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
