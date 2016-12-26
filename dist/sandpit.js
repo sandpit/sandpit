@@ -122,7 +122,7 @@ var Sandpit = function () {
       var _this = this;
 
       // Sort the original settings in defaults
-      this.settings = {};
+      this.setting = {};
       this._gui = new _dat2.default.GUI();
 
       // If queryable is true, set up the query string management
@@ -894,7 +894,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var playground = function playground() {
   var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.WEBGL);
-  sandpit.settings({}, true);
+  sandpit.settings({
+    size: { value: 10, step: 1, min: 1, max: 50 }
+  }, true);
 
   var renderer = new _three.WebGLRenderer({ canvas: sandpit.canvas(), antialias: true });
   renderer.setClearColor(0xffffff, 1);
@@ -906,21 +908,26 @@ var playground = function playground() {
   var scene = new _three.Scene();
   scene.add(camera);
 
-  var cube = new _three.Mesh(new _three.BoxGeometry(10, 10, 10), new _three.MeshBasicMaterial({ wireframe: true, color: 0x000000 }));
-  scene.add(cube);
-
   var controls = new _threeTrackballcontrols2.default(camera, renderer.domElement);
 
+  var cube = new _three.Mesh(new _three.BoxGeometry(sandpit.settings.size, sandpit.settings.size, sandpit.settings.size), new _three.MeshBasicMaterial({ wireframe: true, color: 0x000000 }));
+  scene.add(cube);
+
+  sandpit.change = function () {};
+
   sandpit.loop = function () {
-    cube.rotation.x += 0.001;
-    cube.rotation.y += 0.001;
-    cube.rotation.z += 0.001;
+    if (cube) {
+      cube.rotation.x += 0.001;
+      cube.rotation.y += 0.001;
+      cube.rotation.z += 0.001;
+    }
 
     controls.update();
     renderer.render(scene, camera);
   };
 
   sandpit.start();
+  sandpit.change();
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit;

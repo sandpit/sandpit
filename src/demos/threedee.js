@@ -21,10 +21,10 @@ const playground = () => {
 
   let controls = new TrackballControls(camera, renderer.domElement)
 
-  let cube
+  let cube = new Mesh(new BoxGeometry(sandpit.settings.size, sandpit.settings.size, sandpit.settings.size), new MeshBasicMaterial({wireframe: true, color: 0x000000}))
+  scene.add(cube)
+
   sandpit.change = () => {
-    cube = new Mesh(new BoxGeometry(sandpit.settings.size, sandpit.settings.size, sandpit.settings.size), new MeshBasicMaterial({wireframe: true, color: 0x000000}))
-    scene.add(cube)
   }
 
   sandpit.loop = () => {
