@@ -5,7 +5,9 @@ import TrackballControls from 'three-trackballcontrols'
 
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.WEBGL)
-  sandpit.settings({}, true)
+  sandpit.settings({
+    size: {value: 10, step: 1, min: 1, max: 50}
+  }, true)
 
   const renderer = new WebGLRenderer({canvas: sandpit.canvas(), antialias: true})
   renderer.setClearColor(0xffffff, 1)
@@ -17,21 +19,27 @@ const playground = () => {
   let scene = new Scene()
   scene.add(camera)
 
-  let cube = new Mesh(new BoxGeometry(10, 10, 10), new MeshBasicMaterial({wireframe: true, color: 0x000000}))
-  scene.add(cube)
-
   let controls = new TrackballControls(camera, renderer.domElement)
 
+  let cube
+  sandpit.change = () => {
+    cube = new Mesh(new BoxGeometry(sandpit.settings.size, sandpit.settings.size, sandpit.settings.size), new MeshBasicMaterial({wireframe: true, color: 0x000000}))
+    scene.add(cube)
+  }
+
   sandpit.loop = () => {
-    cube.rotation.x += 0.001
-    cube.rotation.y += 0.001
-    cube.rotation.z += 0.001
+    if (cube) {
+      cube.rotation.x += 0.001
+      cube.rotation.y += 0.001
+      cube.rotation.z += 0.001
+    }
 
     controls.update()
     renderer.render(scene, camera)
   }
 
   sandpit.start()
+  sandpit.change()
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit

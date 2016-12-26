@@ -32,6 +32,8 @@ var _is = require('./utils/is');
 
 var _is2 = _interopRequireDefault(_is);
 
+require('whatwg-fetch');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -288,6 +290,7 @@ var Sandpit = function () {
     value: function _setupResize() {
       var _this3 = this;
 
+      // TODO: Fix onResize
       // TODO: Fix context here: this_events['trigger'] = {event: event, context: context}?
       if (this.resize) {
         this._resizeEvent = this.resize;
@@ -605,6 +608,26 @@ var Sandpit = function () {
     }
 
     /**
+     * Returns a promise using fetch
+     * https://github.com/github/fetch
+     * @param {string} url - The url to fetch
+     */
+
+  }, {
+    key: 'get',
+    value: function get(url) {
+      /* global fetch */
+      return new Promise(function (resolve, reject) {
+        fetch(url).then(function (response) {
+          resolve(response.text());
+        }).catch(function (error) {
+          _logger2.default.info('Get fail', error);
+          reject();
+        });
+      });
+    }
+
+    /**
      * Returns a random number generator based on a seed
      * @param {string} seed - The seed with which to create the random number
      * @returns {function} A function that returns a random number
@@ -627,6 +650,8 @@ var Sandpit = function () {
       if (this.defaults && Object.keys(this.defaults).length) this._setupSettings();
       // Sets up the events
       this._setupEvents();
+      // Sets up setup
+      if (this.setup) this.setup();
       // Loop!
       if (!this.loop) _logger2.default.warn('Looks like you need to define a loop');
       this._setupLoop();
@@ -641,6 +666,12 @@ var Sandpit = function () {
     value: function stop() {
       var _this4 = this;
 
+      // Delete element, if initiated
+      if (this.canvas()) {
+        this.canvas().outerHTML = '';
+        delete this.canvas();
+      }
+      // Remove Gui, if initiated
       if (this._gui) this._gui.destroy();
       // Stop the animation frame loop
       window.cancelAnimationFrame(this._animationFrame);
@@ -668,6 +699,41 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+require('whatwg-fetch');
+
+var _Sandpit = require('../Sandpit');
+
+var _Sandpit2 = _interopRequireDefault(_Sandpit);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Credit: http://www.setgetgo.com/randomword/
+var dataAPI = 'http://www.setgetgo.com/randomword/get.php';
+
+var playground = function playground() {
+  var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.CANVAS);
+  sandpit.settings({}, true);
+
+  sandpit.setup = function () {
+    sandpit.get(dataAPI).then(function (response) {
+      sandpit.context().font = "48px serif";
+      sandpit.context().fillText(response, sandpit.width() / 2, sandpit.height() / 2);
+    });
+  };
+
+  sandpit.start();
+
+  // Give a hook back to the sandpit
+  playground.prototype.sandpit = sandpit;
+};
+
+exports.default = playground;
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _particles = require('./particles');
 
 var _particles2 = _interopRequireDefault(_particles);
@@ -676,11 +742,16 @@ var _threedee = require('./threedee');
 
 var _threedee2 = _interopRequireDefault(_threedee);
 
+var _data = require('./data');
+
+var _data2 = _interopRequireDefault(_data);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   particles: _particles2.default,
-  threedee: _threedee2.default
+  threedee: _threedee2.default,
+  data: _data2.default
 };
 'use strict';
 
@@ -696,7 +767,7 @@ var _vector = require('../utils/vector');
 
 var _vector2 = _interopRequireDefault(_vector);
 
-var _color = require('color');
+var _color = require('../utils/color');
 
 var _color2 = _interopRequireDefault(_color);
 
@@ -719,10 +790,7 @@ var playground = function playground() {
   var ctx = sandpit.context();
   var random = sandpit.random('Hello!');
 
-  function Particle(i) {
-    var _this = this;
-
-    this.count = i;
+  function Particle() {
     var shadowBlur = Math.ceil(random() * 3);
     var strokeWidth = sandpit.settings.strokeWidth;
     var strokeStyle = (0, _color2.default)(sandpit.settings.color).alpha(random() * 0.5);
@@ -744,7 +812,7 @@ var playground = function playground() {
       var fSpring = new _vector2.default(dx, dy).multiplyScalar(-1 / (Math.min(sandpit.width(), sandpit.height()) * (sandpit.defaults.gravity.max - sandpit.settings.gravity + 0.1)));
       acceleration.add(fSpring);
 
-      if (sandpit.settings.follow && _this.count % 1 === 0) {
+      if (sandpit.settings.follow) {
         if (sandpit.input.x && sandpit.input.y) {
           var mx = sandpit.input.x - position.x;
           var my = sandpit.input.y - position.y;
@@ -784,10 +852,9 @@ var playground = function playground() {
 
   var particles = [];
 
-  var i = 0;
   sandpit.change = function () {
     particles = Array(Math.round(sandpit.settings.count)).fill().map(function () {
-      return new Particle(i++);
+      return new Particle();
     });
   };
 
@@ -883,6 +950,22 @@ Object.keys(demos).forEach(function (demo) {
 playground = new demos[Object.keys(demos)[0]]();
 
 document.querySelector('.overlay').appendChild(div);
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _color = require('color');
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _color2.default; /**
+                                    * A utility for editing colors
+                                    * https://github.com/Qix-/color
+                                    */
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

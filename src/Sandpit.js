@@ -69,7 +69,7 @@ class Sandpit {
    */
   _setupSettings () {
     // Sort the original settings in defaults
-    this.settings = {}
+    this.setting = {}
     this._gui = new dat.GUI()
 
     // If queryable is true, set up the query string management
