@@ -9,7 +9,7 @@ const playground = () => {
 
   sandpit.setup = () => {
     sandpit.get(dataAPI).then((response) => {
-      sandpit.context().font = "48px serif"
+      sandpit.context().font = '48px serif'
       sandpit.context().fillText(response, sandpit.width() / 2, sandpit.height() / 2)
     })
   }

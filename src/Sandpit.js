@@ -6,6 +6,7 @@ import seedrandom from 'seedrandom'
 import logger from './utils/logger'
 import is from './utils/is'
 import 'whatwg-fetch'
+/* global fetch */
 
 /**
  * A playground for creative coding
@@ -211,7 +212,7 @@ class Sandpit {
     // Loop through and add event listeners
     Object.keys(this._events).forEach(event => {
       // TODO: Use context instead of document
-      document.addEventListener(event, this._events[event].bind(this), false)
+      this._events[event].context.addEventListener(event, this._events[event].event.bind(this), false)
     })
   }
 
@@ -221,7 +222,6 @@ class Sandpit {
    */
   _setupResize () {
     // TODO: Fix onResize
-    // TODO: Fix context here: this_events['trigger'] = {event: event, context: context}?
     if (this.resize) {
       this._resizeEvent = this.resize
     } else {
@@ -230,7 +230,7 @@ class Sandpit {
         this._canvas.height = window.innerHeight
       }
     }
-    this._events['resize'] = this._resizeEvent
+    this._events['resize'] = {event: this._resizeEvent, context: window}
   }
 
   /**
@@ -238,11 +238,11 @@ class Sandpit {
    * @private
    */
   _setupMouse () {
-    this._events['mousemove'] = this._handleMouseMove
-    this._events['mousedown'] = this._handleMouseDown
-    this._events['mouseenter'] = this._handleMouseEnter
-    this._events['mouseleave'] = this._handleMouseLeave
-    this._events['mouseup'] = this._handleMouseUp
+    this._events['mousemove'] = {event: this._handleMouseMove, context: document}
+    this._events['mousedown'] = {event: this._handleMouseDown, context: document}
+    this._events['mouseenter'] = {event: this._handleMouseEnter, context: document}
+    this._events['mouseleave'] = {event: this._handleMouseLeave, context: document}
+    this._events['mouseup'] = {event: this._handleMouseUp, context: document}
   }
 
   /**
@@ -250,9 +250,9 @@ class Sandpit {
    * @private
    */
   _setupTouches () {
-    this._events['touchmove'] = this._handleTouchMove
-    this._events['touchstart'] = this._handleTouchStart
-    this._events['touchend'] = this._handleTouchEnd
+    this._events['touchmove'] = {event: this._handleTouchMove, context: document}
+    this._events['touchstart'] = {event: this._handleTouchStart, context: document}
+    this._events['touchend'] = {event: this._handleTouchEnd, context: document}
   }
 
   /**
@@ -262,7 +262,7 @@ class Sandpit {
   _setupAccelerometer () {
     if (this.accelerometer) {
       if (window.DeviceOrientationEvent) {
-        this._events['deviceorientation'] = this._handleAccelerometer
+        this._events['deviceorientation'] = {event: this._handleAccelerometer, context: document}
       } else {
         logger.warn('Accelerometer is not supported by this device')
       }
@@ -476,7 +476,6 @@ class Sandpit {
    * @param {string} url - The url to fetch
    */
   get (url) {
-    /* global fetch */
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((response) => {
@@ -527,7 +526,7 @@ class Sandpit {
     window.cancelAnimationFrame(this._animationFrame)
     // Remove all event listeners
     Object.keys(this._events).forEach(event => {
-      document.removeEventListener(event, this._events[event])
+      document.removeEventListener(event, this._events[event].event)
     })
   }
 }
