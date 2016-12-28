@@ -166,6 +166,8 @@ class Sandpit {
     }
   }
 
+  // TODO: Add a hook into reset
+
   /**
    * Handles a changed setting
    * @param {string} name - Setting name

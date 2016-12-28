@@ -1,7 +1,6 @@
 import 'whatwg-fetch'
 import Sandpit from '../Sandpit'
-// Credit: http://www.setgetgo.com/randomword/
-const dataAPI = 'http://www.setgetgo.com/randomword/get.php'
+const dataAPI = 'https://randomuser.me/api/'
 
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
@@ -14,14 +13,16 @@ const playground = () => {
   let loading = true
   sandpit.setup = () => {
     sandpit.get(dataAPI).then((response) => {
+      response = JSON.parse(response).results[0]
+      let name = [response.name.first, response.name.last].map(name => { return name.charAt(0).toUpperCase() + name.slice(1) }).join(' ')
       loading = false
       sandpit.clear()
       ctx.fillStyle = '#000'
       ctx.textAlign = 'center'
       ctx.font = '48px sans-serif'
-      ctx.fillText(response, sandpit.width() / 2, sandpit.height() / 2)
+      ctx.fillText(name, sandpit.width() / 2, sandpit.height() / 2)
       ctx.font = '16px sans-serif'
-      ctx.fillText('WORD OF THE DAY'.split('').join(String.fromCharCode(8202)), sandpit.width() / 2, sandpit.height() / 2 - 50)
+      ctx.fillText('RANDOM NAME GENERATOR'.split('').join(String.fromCharCode(8202)), sandpit.width() / 2, sandpit.height() / 2 - 50)
     })
   }
 
