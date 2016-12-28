@@ -139,13 +139,21 @@ var Sandpit = function () {
                 var param = params[key];
                 // Convert string to boolean if 'true' or 'false'
                 if (param === 'true') param = true;
-                if (param === 'false') param = false;
-                if (_typeof(_this.defaults[key].value) !== 'object') {
-                  _this.defaults[key].value = param;
+                if (param === 'false') param = false;else if (_typeof(_this.defaults[key].value) !== 'object') {
+                  // If sticky is true, stick with the default setting
+                  // otherwise set the default to the param
+                  if (!_this.defaults[key].sticky) {
+                    _this.defaults[key].value = param;
+                  }
                 } else {
                   // If the param is an object, store the
                   // name in a selected property
-                  _this.defaults[key].selected = param;
+                  if (!_this.defaults[key].sticky) {
+                    _this.defaults[key].selected = param;
+                  } else {
+                    // If sticky is true, force the default setting
+                    _this.defaults[key].selected = _this.defaults[key].value[Object.keys(_this.defaults[key].value)[0]];
+                  }
                 }
               }
             });
@@ -183,6 +191,10 @@ var Sandpit = function () {
         if (_this.defaults[name].min !== undefined) guiField = guiField.min(_this.defaults[name].min);
         if (_this.defaults[name].max !== undefined) guiField = guiField.max(_this.defaults[name].max);
         if (_this.defaults[name].step !== undefined) guiField = guiField.step(_this.defaults[name].step);
+        if (_this.defaults[name].editable === false) {
+          guiField.domElement.style.pointerEvents = 'none';
+          guiField.domElement.style.opacity = 0.5;
+        }
 
         // Handle the change event
         guiField.onChange((0, _debounce2.default)(function (value) {
@@ -499,7 +511,9 @@ var Sandpit = function () {
 
   }, {
     key: 'settings',
-    value: function settings(_settings, queryable) {
+    value: function settings(_settings) {
+      var queryable = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
       this.defaults = _settings;
       this._queryable = queryable;
     }
@@ -712,13 +726,35 @@ var dataAPI = 'http://www.setgetgo.com/randomword/get.php';
 
 var playground = function playground() {
   var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.CANVAS);
-  sandpit.settings({}, true);
+  sandpit.autoClear(false);
+  sandpit.settings({
+    demo: { value: 'data', editable: false, sticky: true }
+  });
+  var ctx = sandpit.context();
 
+  var loading = true;
   sandpit.setup = function () {
     sandpit.get(dataAPI).then(function (response) {
-      sandpit.context().font = '48px serif';
-      sandpit.context().fillText(response, sandpit.width() / 2, sandpit.height() / 2);
+      loading = false;
+      sandpit.clear();
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+      ctx.font = '48px sans-serif';
+      ctx.fillText(response, sandpit.width() / 2, sandpit.height() / 2);
+      ctx.font = '16px sans-serif';
+      ctx.fillText('WORD OF THE DAY'.split('').join(String.fromCharCode(8202)), sandpit.width() / 2, sandpit.height() / 2 - 50);
     });
+  };
+
+  sandpit.loop = function () {
+    if (loading) {
+      ctx.beginPath();
+      ctx.arc(sandpit.width() / 2 + Math.sin(sandpit.time() / Math.PI) * 15 - 1, sandpit.height() / 2 + Math.cos(sandpit.time() / Math.PI) * 15 - 1, 2, 0, 2 * Math.PI);
+      ctx.fillStyle = '#000';
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.fillRect(0, 0, sandpit.width(), sandpit.height());
+    }
   };
 
   sandpit.start();
@@ -777,6 +813,7 @@ var sandpit = void 0;
 var playground = function playground() {
   sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.CANVAS);
   sandpit.settings({
+    demo: { value: 'particles', editable: false, sticky: true },
     follow: { value: false },
     gravity: { value: 2, step: 0.1, min: 0.1, max: 5 },
     count: { value: 50, step: 1, min: 1, max: 500 },
@@ -895,6 +932,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var playground = function playground() {
   var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.WEBGL);
   sandpit.settings({
+    demo: { value: 'threedee', editable: false, sticky: true },
     scale: { value: 1, step: 1, min: 1, max: 10 }
   }, true);
 
@@ -938,7 +976,13 @@ var playground = function playground() {
 exports.default = playground;
 'use strict';
 
+var _queryfetch = require('queryfetch');
+
+var _queryfetch2 = _interopRequireDefault(_queryfetch);
+
 require('./index.css');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var demos = require('./demos/index').default;
 
@@ -956,7 +1000,8 @@ Object.keys(demos).forEach(function (demo) {
   div.appendChild(link);
 });
 
-playground = new demos[Object.keys(demos)[0]]();
+var params = _queryfetch2.default.parse(window.location.search);
+playground = params.demo ? new demos[params.demo]() : new demos[Object.keys(demos)[0]]();
 
 document.querySelector('.overlay').appendChild(div);
 'use strict';
