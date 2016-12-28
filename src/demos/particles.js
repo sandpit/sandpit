@@ -6,6 +6,7 @@ let sandpit
 const playground = () => {
   sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
   sandpit.settings({
+    demo: {value: 'particles', editable: false, sticky: true},
     follow: {value: false},
     gravity: {value: 2, step: 0.1, min: 0.1, max: 5},
     count: {value: 50, step: 1, min: 1, max: 500},

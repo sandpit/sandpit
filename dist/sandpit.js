@@ -38,6 +38,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/* global fetch */
+
 /**
  * A playground for creative coding
  */
@@ -276,7 +278,7 @@ var Sandpit = function () {
       // Loop through and add event listeners
       Object.keys(this._events).forEach(function (event) {
         // TODO: Use context instead of document
-        document.addEventListener(event, _this2._events[event].bind(_this2), false);
+        _this2._events[event].context.addEventListener(event, _this2._events[event].event.bind(_this2), false);
       });
     }
 
@@ -291,7 +293,6 @@ var Sandpit = function () {
       var _this3 = this;
 
       // TODO: Fix onResize
-      // TODO: Fix context here: this_events['trigger'] = {event: event, context: context}?
       if (this.resize) {
         this._resizeEvent = this.resize;
       } else {
@@ -300,7 +301,7 @@ var Sandpit = function () {
           _this3._canvas.height = window.innerHeight;
         };
       }
-      this._events['resize'] = this._resizeEvent;
+      this._events['resize'] = { event: this._resizeEvent, context: window };
     }
 
     /**
@@ -311,11 +312,11 @@ var Sandpit = function () {
   }, {
     key: '_setupMouse',
     value: function _setupMouse() {
-      this._events['mousemove'] = this._handleMouseMove;
-      this._events['mousedown'] = this._handleMouseDown;
-      this._events['mouseenter'] = this._handleMouseEnter;
-      this._events['mouseleave'] = this._handleMouseLeave;
-      this._events['mouseup'] = this._handleMouseUp;
+      this._events['mousemove'] = { event: this._handleMouseMove, context: document };
+      this._events['mousedown'] = { event: this._handleMouseDown, context: document };
+      this._events['mouseenter'] = { event: this._handleMouseEnter, context: document };
+      this._events['mouseleave'] = { event: this._handleMouseLeave, context: document };
+      this._events['mouseup'] = { event: this._handleMouseUp, context: document };
     }
 
     /**
@@ -326,9 +327,9 @@ var Sandpit = function () {
   }, {
     key: '_setupTouches',
     value: function _setupTouches() {
-      this._events['touchmove'] = this._handleTouchMove;
-      this._events['touchstart'] = this._handleTouchStart;
-      this._events['touchend'] = this._handleTouchEnd;
+      this._events['touchmove'] = { event: this._handleTouchMove, context: document };
+      this._events['touchstart'] = { event: this._handleTouchStart, context: document };
+      this._events['touchend'] = { event: this._handleTouchEnd, context: document };
     }
 
     /**
@@ -341,7 +342,7 @@ var Sandpit = function () {
     value: function _setupAccelerometer() {
       if (this.accelerometer) {
         if (window.DeviceOrientationEvent) {
-          this._events['deviceorientation'] = this._handleAccelerometer;
+          this._events['deviceorientation'] = { event: this._handleAccelerometer, context: document };
         } else {
           _logger2.default.warn('Accelerometer is not supported by this device');
         }
@@ -616,7 +617,6 @@ var Sandpit = function () {
   }, {
     key: 'get',
     value: function get(url) {
-      /* global fetch */
       return new Promise(function (resolve, reject) {
         fetch(url).then(function (response) {
           resolve(response.text());
@@ -677,7 +677,7 @@ var Sandpit = function () {
       window.cancelAnimationFrame(this._animationFrame);
       // Remove all event listeners
       Object.keys(this._events).forEach(function (event) {
-        document.removeEventListener(event, _this4._events[event]);
+        document.removeEventListener(event, _this4._events[event].event);
       });
     }
   }]);
@@ -716,7 +716,7 @@ var playground = function playground() {
 
   sandpit.setup = function () {
     sandpit.get(dataAPI).then(function (response) {
-      sandpit.context().font = "48px serif";
+      sandpit.context().font = '48px serif';
       sandpit.context().fillText(response, sandpit.width() / 2, sandpit.height() / 2);
     });
   };
@@ -895,7 +895,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var playground = function playground() {
   var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.WEBGL);
   sandpit.settings({
-    size: { value: 10, step: 1, min: 1, max: 50 }
+    scale: { value: 1, step: 1, min: 1, max: 10 }
   }, true);
 
   var renderer = new _three.WebGLRenderer({ canvas: sandpit.canvas(), antialias: true });
@@ -910,10 +910,12 @@ var playground = function playground() {
 
   var controls = new _threeTrackballcontrols2.default(camera, renderer.domElement);
 
-  var cube = new _three.Mesh(new _three.BoxGeometry(sandpit.settings.size, sandpit.settings.size, sandpit.settings.size), new _three.MeshBasicMaterial({ wireframe: true, color: 0x000000 }));
+  var cube = new _three.Mesh(new _three.BoxGeometry(10, 10, 10), new _three.MeshBasicMaterial({ wireframe: true, color: 0x000000 }));
   scene.add(cube);
 
-  sandpit.change = function () {};
+  sandpit.change = function () {
+    cube.scale.set(sandpit.settings.scale, sandpit.settings.scale, sandpit.settings.scale);
+  };
 
   sandpit.loop = function () {
     if (cube) {

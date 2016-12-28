@@ -1,4 +1,6 @@
+import queryfetch from 'queryfetch'
 import './index.css'
+
 let demos = require('./demos/index').default
 
 let playground
@@ -15,6 +17,9 @@ Object.keys(demos).forEach(demo => {
   div.appendChild(link)
 })
 
-playground = new demos[Object.keys(demos)[0]]()
+let params = queryfetch.parse(window.location.search)
+playground = params.demo
+  ? new demos[params.demo]()
+  : new demos[Object.keys(demos)[0]]()
 
 document.querySelector('.overlay').appendChild(div)

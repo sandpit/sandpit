@@ -85,12 +85,21 @@ class Sandpit {
             // Convert string to boolean if 'true' or 'false'
             if (param === 'true') param = true
             if (param === 'false') param = false
-            if (typeof this.defaults[key].value !== 'object') {
-              this.defaults[key].value = param
+            else if (typeof this.defaults[key].value !== 'object') {
+              // If sticky is true, stick with the default setting
+              // otherwise set the default to the param
+              if(!this.defaults[key].sticky) {
+                this.defaults[key].value = param
+              }
             } else {
               // If the param is an object, store the
               // name in a selected property
-              this.defaults[key].selected = param
+              if(!this.defaults[key].sticky) {
+                this.defaults[key].selected = param
+              } else {
+                // If sticky is true, force the default setting
+                this.defaults[key].selected = this.defaults[key].value[Object.keys(this.defaults[key].value)[0]]
+              }
             }
           }
         })
@@ -131,6 +140,10 @@ class Sandpit {
       if (this.defaults[name].min !== undefined) guiField = guiField.min(this.defaults[name].min)
       if (this.defaults[name].max !== undefined) guiField = guiField.max(this.defaults[name].max)
       if (this.defaults[name].step !== undefined) guiField = guiField.step(this.defaults[name].step)
+      if (this.defaults[name].editable === false) {
+        guiField.domElement.style.pointerEvents = 'none'
+        guiField.domElement.style.opacity = 0.5
+      }
 
       // Handle the change event
       guiField.onChange(debounce((value) => {
@@ -386,7 +399,7 @@ class Sandpit {
    * @param {boolean} queryable - Enables query string storage of settings
    * @return {object} Context
    */
-  settings (settings, queryable) {
+  settings (settings, queryable = true) {
     this.defaults = settings
     this._queryable = queryable
   }

@@ -6,6 +6,7 @@ import TrackballControls from 'three-trackballcontrols'
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.WEBGL)
   sandpit.settings({
+    demo: {value: 'threedee', editable: false, sticky: true},
     scale: {value: 1, step: 1, min: 1, max: 10}
   }, true)
 
