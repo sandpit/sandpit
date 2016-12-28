@@ -217,6 +217,8 @@ var Sandpit = function () {
       }
     }
 
+    // TODO: Add a hook into reset
+
     /**
      * Handles a changed setting
      * @param {string} name - Setting name
@@ -721,8 +723,7 @@ var _Sandpit2 = _interopRequireDefault(_Sandpit);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Credit: http://www.setgetgo.com/randomword/
-var dataAPI = 'http://www.setgetgo.com/randomword/get.php';
+var dataAPI = 'https://randomuser.me/api/';
 
 var playground = function playground() {
   var sandpit = new _Sandpit2.default(document.querySelector('#root'), _Sandpit2.default.CANVAS);
@@ -735,14 +736,18 @@ var playground = function playground() {
   var loading = true;
   sandpit.setup = function () {
     sandpit.get(dataAPI).then(function (response) {
+      response = JSON.parse(response).results[0];
+      var name = [response.name.first, response.name.last].map(function (name) {
+        return name.charAt(0).toUpperCase() + name.slice(1);
+      }).join(' ');
       loading = false;
       sandpit.clear();
       ctx.fillStyle = '#000';
       ctx.textAlign = 'center';
       ctx.font = '48px sans-serif';
-      ctx.fillText(response, sandpit.width() / 2, sandpit.height() / 2);
+      ctx.fillText(name, sandpit.width() / 2, sandpit.height() / 2);
       ctx.font = '16px sans-serif';
-      ctx.fillText('WORD OF THE DAY'.split('').join(String.fromCharCode(8202)), sandpit.width() / 2, sandpit.height() / 2 - 50);
+      ctx.fillText('RANDOM NAME GENERATOR'.split('').join(String.fromCharCode(8202)), sandpit.width() / 2, sandpit.height() / 2 - 50);
     });
   };
 
