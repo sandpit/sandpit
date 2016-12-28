@@ -42,6 +42,14 @@ const playground = () => {
 
   sandpit.start()
 
+  // Keep the demo in the query string when resetting
+  sandpit.reset = () => {
+    // Keep the demo
+    window.history.pushState({}, null, `/?demo=${sandpit.settings.demo}`)
+    // Reload the page
+    window.location.reload()
+  }
+
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit
 }

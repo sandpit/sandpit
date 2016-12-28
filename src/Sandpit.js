@@ -159,14 +159,28 @@ class Sandpit {
       const query = queryfetch.serialize(this.settings)
       window.history.pushState({}, null, '/?' + query)
       // Adds a reset button to the gui interface
-      this._gui.add({reset: () => {
-        window.history.pushState({}, null, '/')
-        window.location.reload()
-      }}, 'reset')
+      this._gui.add({reset: () => { this._reset() } }, 'reset')
     }
   }
 
-  // TODO: Add a hook into reset
+  /**
+   * Resets the settings in the query string, and offers a hook
+   * to do something more fancy with sandpit.reset
+   * @private
+   */
+  _reset() {
+    if(this._queryable) {
+      if(this.reset) {
+        // If there's a reset method available, run that
+        this.reset()
+      } else {
+        // If queryable, clear the query string
+        window.history.pushState({}, null, '/')
+        // Reload the video
+        window.location.reload()
+      }
+    }
+  }
 
   /**
    * Handles a changed setting
@@ -226,7 +240,6 @@ class Sandpit {
 
     // Loop through and add event listeners
     Object.keys(this._events).forEach(event => {
-      // TODO: Use context instead of document
       this._events[event].context.addEventListener(event, this._events[event].event.bind(this), false)
     })
   }
@@ -236,7 +249,6 @@ class Sandpit {
    * @private
    */
   _setupResize () {
-    // TODO: Fix onResize
     if (this.resize) {
       this._resizeEvent = this.resize
     } else {
@@ -277,6 +289,7 @@ class Sandpit {
   _setupAccelerometer () {
     if (this.accelerometer) {
       if (window.DeviceOrientationEvent) {
+        this.input.accelerometer = {}
         this._events['deviceorientation'] = {event: this._handleAccelerometer, context: document}
       } else {
         logger.warn('Accelerometer is not supported by this device')
@@ -315,6 +328,7 @@ class Sandpit {
   _handleMouseDown (event) {
     this.input.x = event.pageX
     this.input.y = event.pageY
+    this.input.touch = true
     if (this.touch) this.touch(event)
   }
 
@@ -326,6 +340,7 @@ class Sandpit {
   _handleMouseUp (event) {
     delete this.input.x
     delete this.input.y
+    this.input.touch = false
     if (this.release) this.release(event)
   }
 
@@ -337,6 +352,7 @@ class Sandpit {
   _handleMouseEnter (event) {
     this.input.x = event.pageX
     this.input.y = event.pageY
+    this.input.inFrame = true
     if (this.release) this.release(event)
   }
 
@@ -348,6 +364,7 @@ class Sandpit {
   _handleMouseLeave (event) {
     delete this.input.x
     delete this.input.y
+    this.input.inFrame = false
     if (this.release) this.release(event)
   }
 
@@ -371,6 +388,7 @@ class Sandpit {
     // TODO: Handle multiple touches
     this.input.x = event.pageX
     this.input.y = event.pageY
+    this.input.touch = true
     if (this.touch) this.touch(event)
   }
 
@@ -382,6 +400,7 @@ class Sandpit {
   _handleTouchEnd (event) {
     delete this.input.x
     delete this.input.y
+    this.input.touch = false
     if (this.release) this.release(event)
   }
 
@@ -391,7 +410,9 @@ class Sandpit {
    * @private
    */
   _handleAccelerometer (event) {
-    // TODO: Manage the accelerometer event
+    this.input.accelerometer.x = event.beta
+    this.input.accelerometer.y = event.alpha
+    this.input.accelerometer.z = event.gamma
     if (this.accelerometer) this.accelerometer(event)
   }
 

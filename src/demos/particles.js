@@ -19,6 +19,7 @@ const playground = () => {
 
   let ctx = sandpit.context()
   let random = sandpit.random('Hello!')
+  let pull = 1
 
   function Particle () {
     const shadowBlur = Math.ceil(random() * 3)
@@ -47,7 +48,7 @@ const playground = () => {
           var mx = sandpit.input.x - position.x
           var my = sandpit.input.y - position.y
           var distance = Math.sqrt(mx * mx + my * my)
-          attraction.add(new Vector(mx / distance, my / distance).multiplyScalar(1))
+          attraction.add(new Vector(mx / distance, my / distance).multiplyScalar(pull))
         }
       }
 
@@ -87,9 +88,24 @@ const playground = () => {
     particles.forEach(particle => particle.update())
   }
 
-  // TODO: Add click event for sucking particles in
+  sandpit.touch = () => {
+    pull = 3
+  }
+
+  sandpit.release = () => {
+    pull = 1
+  }
+
   sandpit.start()
   sandpit.change()
+
+  // Keep the demo in the query string when resetting
+  sandpit.reset = () => {
+    // Keep the demo
+    window.history.pushState({}, null, `/?demo=${sandpit.settings.demo}`)
+    // Reload the page
+    window.location.reload()
+  }
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit
