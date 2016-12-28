@@ -88,13 +88,13 @@ class Sandpit {
             else if (typeof this.defaults[key].value !== 'object') {
               // If sticky is true, stick with the default setting
               // otherwise set the default to the param
-              if(!this.defaults[key].sticky) {
+              if (!this.defaults[key].sticky) {
                 this.defaults[key].value = param
               }
             } else {
               // If the param is an object, store the
               // name in a selected property
-              if(!this.defaults[key].sticky) {
+              if (!this.defaults[key].sticky) {
                 this.defaults[key].selected = param
               } else {
                 // If sticky is true, force the default setting
@@ -159,7 +159,7 @@ class Sandpit {
       const query = queryfetch.serialize(this.settings)
       window.history.pushState({}, null, '/?' + query)
       // Adds a reset button to the gui interface
-      this._gui.add({reset: () => { this._reset() } }, 'reset')
+      this._gui.add({reset: () => { this._reset() }}, 'reset')
     }
   }
 
@@ -168,9 +168,9 @@ class Sandpit {
    * to do something more fancy with sandpit.reset
    * @private
    */
-  _reset() {
-    if(this._queryable) {
-      if(this.reset) {
+  _reset () {
+    if (this._queryable) {
+      if (this.reset) {
         // If there's a reset method available, run that
         this.reset()
       } else {
