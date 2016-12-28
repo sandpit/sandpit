@@ -211,13 +211,32 @@ var Sandpit = function () {
         window.history.pushState({}, null, '/?' + query);
         // Adds a reset button to the gui interface
         this._gui.add({ reset: function reset() {
-            window.history.pushState({}, null, '/');
-            window.location.reload();
+            _this._reset();
           } }, 'reset');
       }
     }
 
-    // TODO: Add a hook into reset
+    /**
+     * Resets the settings in the query string, and offers a hook
+     * to do something more fancy with sandpit.reset
+     * @private
+     */
+
+  }, {
+    key: '_reset',
+    value: function _reset() {
+      if (this._queryable) {
+        if (this.reset) {
+          // If there's a reset method available, run that
+          this.reset();
+        } else {
+          // If queryable, clear the query string
+          window.history.pushState({}, null, '/');
+          // Reload the video
+          window.location.reload();
+        }
+      }
+    }
 
     /**
      * Handles a changed setting
@@ -291,7 +310,6 @@ var Sandpit = function () {
 
       // Loop through and add event listeners
       Object.keys(this._events).forEach(function (event) {
-        // TODO: Use context instead of document
         _this2._events[event].context.addEventListener(event, _this2._events[event].event.bind(_this2), false);
       });
     }
@@ -306,7 +324,6 @@ var Sandpit = function () {
     value: function _setupResize() {
       var _this3 = this;
 
-      // TODO: Fix onResize
       if (this.resize) {
         this._resizeEvent = this.resize;
       } else {
@@ -356,6 +373,7 @@ var Sandpit = function () {
     value: function _setupAccelerometer() {
       if (this.accelerometer) {
         if (window.DeviceOrientationEvent) {
+          this.input.accelerometer = {};
           this._events['deviceorientation'] = { event: this._handleAccelerometer, context: document };
         } else {
           _logger2.default.warn('Accelerometer is not supported by this device');
@@ -403,6 +421,7 @@ var Sandpit = function () {
     value: function _handleMouseDown(event) {
       this.input.x = event.pageX;
       this.input.y = event.pageY;
+      this.input.touch = true;
       if (this.touch) this.touch(event);
     }
 
@@ -417,6 +436,7 @@ var Sandpit = function () {
     value: function _handleMouseUp(event) {
       delete this.input.x;
       delete this.input.y;
+      this.input.touch = false;
       if (this.release) this.release(event);
     }
 
@@ -431,6 +451,7 @@ var Sandpit = function () {
     value: function _handleMouseEnter(event) {
       this.input.x = event.pageX;
       this.input.y = event.pageY;
+      this.input.inFrame = true;
       if (this.release) this.release(event);
     }
 
@@ -445,6 +466,7 @@ var Sandpit = function () {
     value: function _handleMouseLeave(event) {
       delete this.input.x;
       delete this.input.y;
+      this.input.inFrame = false;
       if (this.release) this.release(event);
     }
 
@@ -474,6 +496,7 @@ var Sandpit = function () {
       // TODO: Handle multiple touches
       this.input.x = event.pageX;
       this.input.y = event.pageY;
+      this.input.touch = true;
       if (this.touch) this.touch(event);
     }
 
@@ -488,6 +511,7 @@ var Sandpit = function () {
     value: function _handleTouchEnd(event) {
       delete this.input.x;
       delete this.input.y;
+      this.input.touch = false;
       if (this.release) this.release(event);
     }
 
@@ -500,7 +524,9 @@ var Sandpit = function () {
   }, {
     key: '_handleAccelerometer',
     value: function _handleAccelerometer(event) {
-      // TODO: Manage the accelerometer event
+      this.input.accelerometer.x = event.beta;
+      this.input.accelerometer.y = event.alpha;
+      this.input.accelerometer.z = event.gamma;
       if (this.accelerometer) this.accelerometer(event);
     }
 
@@ -704,10 +730,21 @@ var Sandpit = function () {
 exports.default = Sandpit;
 'use strict';
 
-/* global it, expect */
+var _Sandpit = require('./Sandpit');
+
+var _Sandpit2 = _interopRequireDefault(_Sandpit);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 it('thinks Charlie is great', function () {
   expect(true);
+}); /* global it, expect, describe */
+
+
+describe('Sandpit', function () {
+  it('should exist', function () {
+    expect(_Sandpit2.default).toBe(_Sandpit2.default);
+  });
 });
 'use strict';
 
@@ -763,6 +800,14 @@ var playground = function playground() {
   };
 
   sandpit.start();
+
+  // Keep the demo in the query string when resetting
+  sandpit.reset = function () {
+    // Keep the demo
+    window.history.pushState({}, null, '/?demo=' + sandpit.settings.demo);
+    // Reload the page
+    window.location.reload();
+  };
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit;
@@ -831,6 +876,7 @@ var playground = function playground() {
 
   var ctx = sandpit.context();
   var random = sandpit.random('Hello!');
+  var pull = 1;
 
   function Particle() {
     var shadowBlur = Math.ceil(random() * 3);
@@ -859,7 +905,7 @@ var playground = function playground() {
           var mx = sandpit.input.x - position.x;
           var my = sandpit.input.y - position.y;
           var distance = Math.sqrt(mx * mx + my * my);
-          attraction.add(new _vector2.default(mx / distance, my / distance).multiplyScalar(1));
+          attraction.add(new _vector2.default(mx / distance, my / distance).multiplyScalar(pull));
         }
       }
 
@@ -907,9 +953,24 @@ var playground = function playground() {
     });
   };
 
-  // TODO: Add click event for sucking particles in
+  sandpit.touch = function () {
+    pull = 3;
+  };
+
+  sandpit.release = function () {
+    pull = 1;
+  };
+
   sandpit.start();
   sandpit.change();
+
+  // Keep the demo in the query string when resetting
+  sandpit.reset = function () {
+    // Keep the demo
+    window.history.pushState({}, null, '/?demo=' + sandpit.settings.demo);
+    // Reload the page
+    window.location.reload();
+  };
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit;
@@ -973,6 +1034,14 @@ var playground = function playground() {
 
   sandpit.start();
   sandpit.change();
+
+  // Keep the demo in the query string when resetting
+  sandpit.reset = function () {
+    // Keep the demo
+    window.history.pushState({}, null, '/?demo=' + sandpit.settings.demo);
+    // Reload the page
+    window.location.reload();
+  };
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit;
