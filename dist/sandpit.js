@@ -142,7 +142,7 @@ var Sandpit = function () {
       // Sort the original settings in defaults
       this.setting = {};
       this._gui = new _dat2.default.GUI();
-      this._gui.domElement.addEventListener('touchMove', this._preventDefault, false);
+      this._gui.domElement.addEventListener('touchmove', this._preventDefault, false);
 
       // If queryable is true, set up the query string management
       // for storing settings
@@ -156,7 +156,8 @@ var Sandpit = function () {
                 var param = params[key];
                 // Convert string to boolean if 'true' or 'false'
                 if (param === 'true') param = true;
-                if (param === 'false') param = false;else if (_typeof(_this.defaults[key].value) !== 'object') {
+                if (param === 'false') param = false;
+                if (_typeof(_this.defaults[key].value) !== 'object') {
                   // If sticky is true, stick with the default setting
                   // otherwise set the default to the param
                   if (!_this.defaults[key].sticky) {
@@ -226,7 +227,10 @@ var Sandpit = function () {
       if (this._queryable) {
         var query = _queryfetch2.default.serialize(this.settings);
         window.history.pushState({}, null, '/?' + query);
-        // Adds a reset button to the gui interface
+        // Adds a clear and reset button to the gui interface
+        this._gui.add({ clear: function clear() {
+            _this.clear();
+          } }, 'clear');
         this._gui.add({ reset: function reset() {
             _this._reset();
           } }, 'reset');
@@ -328,7 +332,7 @@ var Sandpit = function () {
       // Loop through and add event listeners
       Object.keys(this._events).forEach(function (event) {
         if (_this2._events[event].disable) {
-          _this2._events[event].disable.addEventListener(event, _this2._stopPropagation);
+          _this2._events[event].disable.addEventListener(event, _this2._preventDefault, false);
         }
         _this2._events[event].context.addEventListener(event, _this2._events[event].event.bind(_this2), false);
       });
@@ -342,11 +346,7 @@ var Sandpit = function () {
   }, {
     key: '_setupResize',
     value: function _setupResize() {
-      if (this.resize) {
-        this._resizeEvent = this.resize;
-      } else {
-        this._resizeEvent = this.resizeCanvas;
-      }
+      this._resizeEvent = this.resize ? this.resize : this.resizeCanvas;
       this._events['resize'] = { event: this._resizeEvent, context: window };
     }
 
@@ -373,9 +373,10 @@ var Sandpit = function () {
   }, {
     key: '_setupTouches',
     value: function _setupTouches() {
-      this._events['touchmove'] = { event: this._handleTouchMove, disable: document, context: document.querySelector('body') };
-      this._events['touchstart'] = { event: this._handleTouchStart, disable: document, context: document.querySelector('body') };
-      this._events['touchend'] = { event: this._handleTouchEnd, disable: document, context: document.querySelector('body') };
+      var body = document.querySelector('body');
+      this._events['touchmove'] = { event: this._handleTouchMove, disable: document, context: body };
+      this._events['touchstart'] = { event: this._handleTouchStart, disable: document, context: body };
+      this._events['touchend'] = { event: this._handleTouchEnd, disable: document, context: body };
     }
 
     /**
@@ -395,9 +396,9 @@ var Sandpit = function () {
      */
 
   }, {
-    key: '_stopDefault',
-    value: function _stopDefault(event) {
-      event.stopPropagation();
+    key: '_preventDefault',
+    value: function _preventDefault(event) {
+      event.preventDefault();
     }
 
     /**
@@ -505,6 +506,12 @@ var Sandpit = function () {
   }, {
     key: '_handleTouchMove',
     value: function _handleTouchMove(event) {
+      // TODO: event.preventDefault() seems required to prevent pinching,
+      // but sometimes pinches still happen (3 - 5 fingers), so
+      // is there a way to avoid this? Currently added a
+      // focusTouchesOnCanvas() method to blow away all other
+      // touch events, for use outside the demo environment,
+      // but this isn't really a viable solution?
       event.preventDefault();
       this._handlePointer(event.touches[0]);
       this._handleTouches(event);
@@ -520,7 +527,7 @@ var Sandpit = function () {
   }, {
     key: '_handleTouchStart',
     value: function _handleTouchStart(event) {
-      event.stopPropagation();
+      this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation();
       this._handlePointer(event.touches[0]);
       this._handleTouches(event);
       if (this.touch) this.touch(event);
@@ -535,7 +542,7 @@ var Sandpit = function () {
   }, {
     key: '_handleTouchEnd',
     value: function _handleTouchEnd(event) {
-      event.stopPropagation();
+      this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation();
       this._handleTouches(event);
       if (this.release) this.release(event);
     }
@@ -650,6 +657,19 @@ var Sandpit = function () {
       } else if (this._type === Sandpit.WEGBL) {
         _logger2.default.warn('clear() is currently only supported in 2D');
       }
+    }
+
+    /**
+     * Sets whether to or not to ignore the touch events for
+     * multitouch, bypassing pinch to zoom, but meaning no
+     * other touch events will work
+     * @param {boolean} boolean
+     */
+
+  }, {
+    key: 'focusTouchesOnCanvas',
+    value: function focusTouchesOnCanvas() {
+      this._focusTouchesOnCanvas = true;
     }
 
     /**
@@ -810,7 +830,7 @@ var Sandpit = function () {
       // Remove all event listeners
       Object.keys(this._events).forEach(function (event) {
         if (_this3._events[event].disable) {
-          _this3._events[event].disable.removeEventListener(event, _this3._stopPropagation);
+          _this3._events[event].disable.removeEventListener(event, _this3._preventDefault);
         }
         _this3._events[event].context.removeEventListener(event, _this3._events[event].event.bind(_this3));
       });
@@ -916,6 +936,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _multitouch = require('./multitouch');
+
+var _multitouch2 = _interopRequireDefault(_multitouch);
+
 var _particles = require('./particles');
 
 var _particles2 = _interopRequireDefault(_particles);
@@ -928,17 +952,13 @@ var _data = require('./data');
 
 var _data2 = _interopRequireDefault(_data);
 
-var _multitouch = require('./multitouch');
-
-var _multitouch2 = _interopRequireDefault(_multitouch);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+  multitouch: _multitouch2.default,
   particles: _particles2.default,
   threedee: _threedee2.default,
-  data: _data2.default,
-  multitouch: _multitouch2.default
+  data: _data2.default
 };
 'use strict';
 
@@ -960,13 +980,14 @@ var playground = function playground() {
   var sandpit = new _Sandpit2.default(existingCanvas, _Sandpit2.default.CANVAS);
   sandpit.settings({
     demo: { value: 'multitouch', editable: false, sticky: true },
-    maxSize: { value: 40, min: 5, max: 50, step: 1 },
+    autoClear: { value: false },
+    maxSize: { value: 5, min: 5, max: 50, step: 1 },
     energy: { value: 0.9, min: 0.0, max: 0.9, step: 0.1 },
-    force: { value: 5, min: 2, max: 30, step: 1 },
-    decay: { value: 0.96, min: 0.90, max: 0.99, step: 0.01 },
+    force: { value: 2, min: 2, max: 30, step: 1 },
+    decay: { value: 0.90, min: 0.85, max: 0.99, step: 0.01 },
     blend: { value: ['multiply', 'lighter', 'overlay'] }
   });
-  sandpit.autoClear(true);
+  sandpit.autoClear(sandpit.settings.autoClear);
   var random = sandpit.random();
   var ctx = sandpit.context();
 
@@ -1040,15 +1061,22 @@ var playground = function playground() {
   };
 
   sandpit.setup = function () {
-    for (var i = 0; i < 20; i++) {
-      var x = sandpit.width() / 2 + _Sandpit.math.randomBetween(-100, 100);
-      var y = sandpit.height() / 2 + _Sandpit.math.randomBetween(-100, 100);
-      spawn(x, y);
+    var _loop = function _loop(i) {
+      var x = sandpit.width() / 2 + Math.sin(i / Math.PI / 5) * 100;
+      var y = sandpit.height() / 2 + Math.cos(i / Math.PI / 5) * 100;
+      window.setTimeout(function () {
+        spawn(x, y);
+      }, i * 10);
+    };
+
+    for (var i = 0; i < 100; i++) {
+      _loop(i);
     }
   };
 
   sandpit.loop = function () {
     ctx.globalCompositeOperation = sandpit.settings.blend;
+    sandpit.autoClear(sandpit.settings.autoClear);
     for (var i = particles.length - 1; i >= 0; i--) {
       var particle = particles[i];
       if (particle.alive) {
@@ -1317,14 +1345,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var demos = require('./demos/index').default;
 
-var body = document.querySelector('body');
-body.addEventListener('ontouchstart', function (e) {
-  e.preventDefault();
-}, false);
-body.addEventListener('ontouchmove', function (e) {
-  e.preventDefault();
-}, false);
-
 var playground = void 0;
 var div = document.createElement('div');
 div.classList.add('demos');
@@ -1342,7 +1362,11 @@ Object.keys(demos).forEach(function (demo) {
 var params = _queryfetch2.default.parse(window.location.search);
 playground = params.demo ? new demos[params.demo]() : new demos[Object.keys(demos)[0]]();
 
-document.querySelector('.content').appendChild(div);
+var content = document.querySelector('.content');
+content.appendChild(div);
+if (window.innerHeight < content.offsetHeight) {
+  content.style.height = content.offsetHeight + 'px';
+}
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

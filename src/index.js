@@ -3,10 +3,6 @@ import './index.css'
 
 let demos = require('./demos/index').default
 
-let body = document.querySelector('body')
-body.addEventListener('ontouchstart', function (e) { e.preventDefault() }, false)
-body.addEventListener('ontouchmove', function (e) { e.preventDefault() }, false)
-
 let playground
 let div = document.createElement('div')
 div.classList.add('demos')
@@ -26,4 +22,8 @@ playground = params.demo
   ? new demos[params.demo]()
   : new demos[Object.keys(demos)[0]]()
 
-document.querySelector('.content').appendChild(div)
+const content = document.querySelector('.content')
+content.appendChild(div)
+if (window.innerHeight < content.offsetHeight) {
+  content.style.height = `${content.offsetHeight}px`
+}

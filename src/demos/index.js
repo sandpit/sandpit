@@ -1,11 +1,11 @@
+import multitouch from './multitouch'
 import particles from './particles'
 import threedee from './threedee'
 import data from './data'
-import multitouch from './multitouch'
 
 export default {
+  multitouch,
   particles,
   threedee,
-  data,
-  multitouch
+  data
 }

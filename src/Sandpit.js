@@ -81,7 +81,7 @@ class Sandpit {
     // Sort the original settings in defaults
     this.setting = {}
     this._gui = new dat.GUI()
-    this._gui.domElement.addEventListener('touchMove', this._preventDefault, false)
+    this._gui.domElement.addEventListener('touchmove', this._preventDefault, false)
 
     // If queryable is true, set up the query string management
     // for storing settings
@@ -95,7 +95,7 @@ class Sandpit {
             // Convert string to boolean if 'true' or 'false'
             if (param === 'true') param = true
             if (param === 'false') param = false
-            else if (typeof this.defaults[key].value !== 'object') {
+            if (typeof this.defaults[key].value !== 'object') {
               // If sticky is true, stick with the default setting
               // otherwise set the default to the param
               if (!this.defaults[key].sticky) {
@@ -168,7 +168,8 @@ class Sandpit {
     if (this._queryable) {
       const query = queryfetch.serialize(this.settings)
       window.history.pushState({}, null, '/?' + query)
-      // Adds a reset button to the gui interface
+      // Adds a clear and reset button to the gui interface
+      this._gui.add({clear: () => { this.clear() }}, 'clear')
       this._gui.add({reset: () => { this._reset() }}, 'reset')
     }
   }
@@ -251,7 +252,7 @@ class Sandpit {
     // Loop through and add event listeners
     Object.keys(this._events).forEach(event => {
       if (this._events[event].disable) {
-        this._events[event].disable.addEventListener(event, this._stopPropagation)
+        this._events[event].disable.addEventListener(event, this._preventDefault, false)
       }
       this._events[event].context.addEventListener(event, this._events[event].event.bind(this), false)
     })
@@ -262,11 +263,7 @@ class Sandpit {
    * @private
    */
   _setupResize () {
-    if (this.resize) {
-      this._resizeEvent = this.resize
-    } else {
-      this._resizeEvent = this.resizeCanvas
-    }
+    this._resizeEvent = this.resize ? this.resize : this.resizeCanvas
     this._events['resize'] = {event: this._resizeEvent, context: window}
   }
 
@@ -287,9 +284,10 @@ class Sandpit {
    * @private
    */
   _setupTouches () {
-    this._events['touchmove'] = {event: this._handleTouchMove, disable: document, context: document.querySelector('body')}
-    this._events['touchstart'] = {event: this._handleTouchStart, disable: document, context: document.querySelector('body')}
-    this._events['touchend'] = {event: this._handleTouchEnd, disable: document, context: document.querySelector('body')}
+    const body = document.querySelector('body')
+    this._events['touchmove'] = {event: this._handleTouchMove, disable: document, context: body}
+    this._events['touchstart'] = {event: this._handleTouchStart, disable: document, context: body}
+    this._events['touchend'] = {event: this._handleTouchEnd, disable: document, context: body}
   }
 
   /**
@@ -304,8 +302,8 @@ class Sandpit {
    * Stops an event firing its default behaviour
    * @private
    */
-  _stopDefault (event) {
-    event.stopPropagation()
+  _preventDefault (event) {
+    event.preventDefault()
   }
 
   /**
@@ -389,6 +387,12 @@ class Sandpit {
    * @private
    */
   _handleTouchMove (event) {
+    // TODO: event.preventDefault() seems required to prevent pinching,
+    // but sometimes pinches still happen (3 - 5 fingers), so
+    // is there a way to avoid this? Currently added a
+    // focusTouchesOnCanvas() method to blow away all other
+    // touch events, for use outside the demo environment,
+    // but this isn't really a viable solution?
     event.preventDefault()
     this._handlePointer(event.touches[0])
     this._handleTouches(event)
@@ -401,7 +405,7 @@ class Sandpit {
    * @private
    */
   _handleTouchStart (event) {
-    event.stopPropagation()
+    this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
     this._handlePointer(event.touches[0])
     this._handleTouches(event)
     if (this.touch) this.touch(event)
@@ -413,7 +417,7 @@ class Sandpit {
    * @private
    */
   _handleTouchEnd (event) {
-    event.stopPropagation()
+    this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
     this._handleTouches(event)
     if (this.release) this.release(event)
   }
@@ -504,6 +508,16 @@ class Sandpit {
     } else if (this._type === Sandpit.WEGBL) {
       logger.warn('clear() is currently only supported in 2D')
     }
+  }
+
+  /**
+   * Sets whether to or not to ignore the touch events for
+   * multitouch, bypassing pinch to zoom, but meaning no
+   * other touch events will work
+   * @param {boolean} boolean
+   */
+  focusTouchesOnCanvas () {
+    this._focusTouchesOnCanvas = true
   }
 
   /**
@@ -628,7 +642,7 @@ class Sandpit {
     // Remove all event listeners
     Object.keys(this._events).forEach(event => {
       if (this._events[event].disable) {
-        this._events[event].disable.removeEventListener(event, this._stopPropagation)
+        this._events[event].disable.removeEventListener(event, this._preventDefault)
       }
       this._events[event].context.removeEventListener(event, this._events[event].event.bind(this))
     })
