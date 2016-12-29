@@ -30,6 +30,24 @@ class is {
   static array (object) {
     return Object.prototype.toString.call(object) === '[object Array]'
   }
+
+  /**
+   * Tests if the object is an object
+   * @param {object} object - The object to test
+   * @returns {boolean} If set to true, the object is an object
+   */
+  static object (object) {
+    return typeof object === 'object'
+  }
+
+  /**
+   * Tests if the object is a canvas
+   * @param {object} object - The object to test
+   * @returns {boolean} If set to true, the object is a canvas
+   */
+  static canvas (object) {
+    return !!object.getContext
+  }
 }
 
 export default is

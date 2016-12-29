@@ -1,4 +1,3 @@
-import 'whatwg-fetch'
 import Sandpit from '../Sandpit'
 const dataAPI = 'https://randomuser.me/api/'
 

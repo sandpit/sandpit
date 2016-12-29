@@ -5,6 +5,8 @@ import seedrandom from 'seedrandom'
 
 import logger from './utils/logger'
 import is from './utils/is'
+import color from './utils/color'
+import math from './utils/math'
 import 'whatwg-fetch'
 /* global fetch */
 
@@ -31,7 +33,7 @@ class Sandpit {
   _setupContext (container, type) {
     // Check that the correct container type has been passed
     if (typeof container !== 'string' && typeof container !== 'object') {
-      throw new Error('Please provide a string or object reference to the container, like ".container", or ')
+      throw new Error('Please provide a string or object reference to the container, like ".container", or document.querySelector(".container")')
     }
     // Check that the type is set
     if (typeof type !== 'string' || (type !== Sandpit.CANVAS && type !== Sandpit.WEBGL)) {
@@ -48,10 +50,17 @@ class Sandpit {
 
     // Check the container is a dom element
     if (is.element(_container)) {
-      this._canvas = document.createElement('canvas')
+      // Check the container is a canvas element
+      // and if so, use it instead of making a new one
+      if (is.canvas(_container)) {
+        this._canvas = _container
+      } else {
+        this._canvas = document.createElement('canvas')
+        _container.appendChild(this._canvas)
+      }
+      // Set the width and height
       this._canvas.width = window.innerWidth
       this._canvas.height = window.innerHeight
-      _container.appendChild(this._canvas)
       // Grab the context
       this._context = this._canvas.getContext(type)
       this._type = type
@@ -72,6 +81,7 @@ class Sandpit {
     // Sort the original settings in defaults
     this.setting = {}
     this._gui = new dat.GUI()
+    this._gui.domElement.addEventListener('touchMove', this._preventDefault, false)
 
     // If queryable is true, set up the query string management
     // for storing settings
@@ -219,7 +229,7 @@ class Sandpit {
       if (this._type === Sandpit.CANVAS) {
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height)
       } else if (this._type === Sandpit.WEGBL) {
-        // TODO: Implement auto clear for WebGL instances
+        logger.warn('autoClear() is currently only supported in 2D')
       }
     }
     // Loop!
@@ -240,6 +250,9 @@ class Sandpit {
 
     // Loop through and add event listeners
     Object.keys(this._events).forEach(event => {
+      if (this._events[event].disable) {
+        this._events[event].disable.addEventListener(event, this._stopPropagation)
+      }
       this._events[event].context.addEventListener(event, this._events[event].event.bind(this), false)
     })
   }
@@ -252,10 +265,7 @@ class Sandpit {
     if (this.resize) {
       this._resizeEvent = this.resize
     } else {
-      this._resizeEvent = () => {
-        this._canvas.width = window.innerWidth
-        this._canvas.height = window.innerHeight
-      }
+      this._resizeEvent = this.resizeCanvas
     }
     this._events['resize'] = {event: this._resizeEvent, context: window}
   }
@@ -277,9 +287,25 @@ class Sandpit {
    * @private
    */
   _setupTouches () {
-    this._events['touchmove'] = {event: this._handleTouchMove, context: document}
-    this._events['touchstart'] = {event: this._handleTouchStart, context: document}
-    this._events['touchend'] = {event: this._handleTouchEnd, context: document}
+    this._events['touchmove'] = {event: this._handleTouchMove, disable: document, context: document.querySelector('body')}
+    this._events['touchstart'] = {event: this._handleTouchStart, disable: document, context: document.querySelector('body')}
+    this._events['touchend'] = {event: this._handleTouchEnd, disable: document, context: document.querySelector('body')}
+  }
+
+  /**
+   * Stops an event bubbling up
+   * @private
+   */
+  _stopPropagation (event) {
+    event.stopPropagation()
+  }
+
+  /**
+   * Stops an event firing its default behaviour
+   * @private
+   */
+  _stopDefault (event) {
+    event.stopPropagation()
   }
 
   /**
@@ -315,8 +341,7 @@ class Sandpit {
    * @private
    */
   _handleMouseMove (event) {
-    this.input.x = event.pageX
-    this.input.y = event.pageY
+    this._handlePointer(event)
     if (this.move) this.move(event)
   }
 
@@ -326,9 +351,7 @@ class Sandpit {
    * @private
    */
   _handleMouseDown (event) {
-    this.input.x = event.pageX
-    this.input.y = event.pageY
-    this.input.touch = true
+    this._handlePointer(event)
     if (this.touch) this.touch(event)
   }
 
@@ -338,9 +361,7 @@ class Sandpit {
    * @private
    */
   _handleMouseUp (event) {
-    delete this.input.x
-    delete this.input.y
-    this.input.touch = false
+    this._handleRelease()
     if (this.release) this.release(event)
   }
 
@@ -350,10 +371,7 @@ class Sandpit {
    * @private
    */
   _handleMouseEnter (event) {
-    this.input.x = event.pageX
-    this.input.y = event.pageY
     this.input.inFrame = true
-    if (this.release) this.release(event)
   }
 
   /**
@@ -362,10 +380,7 @@ class Sandpit {
    * @private
    */
   _handleMouseLeave (event) {
-    delete this.input.x
-    delete this.input.y
     this.input.inFrame = false
-    if (this.release) this.release(event)
   }
 
   /**
@@ -374,8 +389,9 @@ class Sandpit {
    * @private
    */
   _handleTouchMove (event) {
-    this.input.x = event.pageX
-    this.input.y = event.pageY
+    event.preventDefault()
+    this._handlePointer(event.touches[0])
+    this._handleTouches(event)
     if (this.move) this.move(event)
   }
 
@@ -385,10 +401,9 @@ class Sandpit {
    * @private
    */
   _handleTouchStart (event) {
-    // TODO: Handle multiple touches
-    this.input.x = event.pageX
-    this.input.y = event.pageY
-    this.input.touch = true
+    event.stopPropagation()
+    this._handlePointer(event.touches[0])
+    this._handleTouches(event)
     if (this.touch) this.touch(event)
   }
 
@@ -398,9 +413,8 @@ class Sandpit {
    * @private
    */
   _handleTouchEnd (event) {
-    delete this.input.x
-    delete this.input.y
-    this.input.touch = false
+    event.stopPropagation()
+    this._handleTouches(event)
     if (this.release) this.release(event)
   }
 
@@ -414,6 +428,46 @@ class Sandpit {
     this.input.accelerometer.y = event.alpha
     this.input.accelerometer.z = event.gamma
     if (this.accelerometer) this.accelerometer(event)
+  }
+
+  /**
+   * Handles a set of touches
+   * @param {object} touches - An object containing touch information, in
+   * the format {0: TouchItem, 1: TouchItem}
+   */
+  _handleTouches (event) {
+    // Delete the length parameter from touches,
+    // so we can loop through it
+    delete event.touches.length
+    if (Object.keys(event.touches).length) {
+      this.input.touches = Object.keys(event.touches).map((key) => {
+        return {x: event.touches[key].pageX, y: event.touches[key].pageY}
+      })
+    } else {
+      this._handleRelease()
+    }
+  }
+
+  /**
+   * Handles a pointer, for example, a mouse or single touch
+   * @param {object} pointer - An object containing pointer information,
+   * in the format of {pageX: x, pageY: y}
+   */
+  _handlePointer (event) {
+    this.input.x = event.pageX
+    this.input.y = event.pageY
+    this.input.touches = [{x: this.input.x, y: this.input.y}]
+  }
+
+  /**
+   * Deletes the appropriate data from inputs on release
+   * @param {object} pointer - An object containing pointer information,
+   * in the format of {pageX: x, pageY: y}
+   */
+  _handleRelease () {
+    delete this.input.x
+    delete this.input.y
+    delete this.input.touches
   }
 
   /**
@@ -448,7 +502,7 @@ class Sandpit {
     if (this._type === Sandpit.CANVAS) {
       this._context.clearRect(0, 0, this.width(), this.height())
     } else if (this._type === Sandpit.WEGBL) {
-      // TODO: Implement clear for WebGL instances
+      logger.warn('clear() is currently only supported in 2D')
     }
   }
 
@@ -502,7 +556,7 @@ class Sandpit {
       this._context.fillStyle = color
       this._context.fillRect(0, 0, this.width(), this.height())
     } else if (this._type === Sandpit.WEGBL) {
-      // TODO: Implement fill background for WebGL instances
+      logger.warn('fill() is currently only supported in 2D')
     }
   }
 
@@ -528,8 +582,16 @@ class Sandpit {
    * @param {string} seed - The seed with which to create the random number
    * @returns {function} A function that returns a random number
    */
-  random (seed) {
+  random (seed = '123456') {
     return seedrandom(seed)
+  }
+
+  /**
+   * Resizes the canvas to the window width and height
+   */
+  resizeCanvas () {
+    this._canvas.width = window.innerWidth
+    this._canvas.height = window.innerHeight
   }
 
   /**
@@ -557,14 +619,23 @@ class Sandpit {
       delete this.canvas()
     }
     // Remove Gui, if initiated
-    if (this._gui) this._gui.destroy()
+    if (this._gui) {
+      this._gui.domElement.removeEventListener('touchmove', this._preventDefault)
+      this._gui.destroy()
+    }
     // Stop the animation frame loop
     window.cancelAnimationFrame(this._animationFrame)
     // Remove all event listeners
     Object.keys(this._events).forEach(event => {
-      document.removeEventListener(event, this._events[event].event)
+      if (this._events[event].disable) {
+        this._events[event].disable.removeEventListener(event, this._stopPropagation)
+      }
+      this._events[event].context.removeEventListener(event, this._events[event].event.bind(this))
     })
   }
 }
 
+// TODO: Look at handling retina displays
+
+export { is, math, color }
 export default Sandpit

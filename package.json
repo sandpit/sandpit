@@ -29,9 +29,9 @@
     "build": "npm run build-library && npm run build-site && npm run build-docs",
     "minify": "node_modules/.bin/uglifyjs dist/sandpit.js -o dist/sandpit.min.js",
     "build-library": "mkdir -p dist && babel src --presets babel-preset-es2015 --out-file dist/sandpit.js && npm run minify",
-    "build-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "build-site": "react-scripts build && cp -r dist build/dist",
-    "serve": "node_modules/.bin/pushstate-server build",
+    "build-docs": "rm -rf ./docs && node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "build-site": "react-scripts build && cp -r dist build/dist && cp -r docs build/docs",
+    "serve": "npm run build && node_modules/.bin/pushstate-server build",
     "deploy": "npm run build && node_modules/.bin/surge -p build -d sandpitjs.com"
   },
   "repository": {
@@ -45,5 +45,6 @@
     "processing",
     "animation"
   ],
-  "author": "Charlie Gleason (http://charliegleason.com/)"
+  "author": "Charlie Gleason (http://charliegleason.com/)",
+  "dependencies": {}
 }

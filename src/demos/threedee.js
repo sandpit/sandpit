@@ -14,7 +14,7 @@ const playground = () => {
   renderer.setClearColor(0xffffff, 1)
   renderer.setSize(sandpit.width(), sandpit.height())
 
-  let camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
+  let camera = new PerspectiveCamera(35, sandpit.width() / sandpit.height(), 1, 10000)
   camera.position.z = 50
 
   let scene = new Scene()
@@ -38,6 +38,13 @@ const playground = () => {
 
     controls.update()
     renderer.render(scene, camera)
+  }
+
+  sandpit.resize = () => {
+    sandpit.resizeCanvas()
+    camera.aspect = sandpit.width() / sandpit.height()
+    camera.updateProjectionMatrix()
+    renderer.setSize(sandpit.width(), sandpit.height())
   }
 
   sandpit.start()

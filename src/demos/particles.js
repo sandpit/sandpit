@@ -7,7 +7,7 @@ const playground = () => {
   sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
   sandpit.settings({
     demo: {value: 'particles', editable: false, sticky: true},
-    follow: {value: false},
+    follow: {value: true},
     gravity: {value: 2, step: 0.1, min: 0.1, max: 5},
     count: {value: 50, step: 1, min: 1, max: 500},
     size: {value: 20, step: 1, min: 1, max: 50},
@@ -24,7 +24,7 @@ const playground = () => {
   function Particle () {
     const shadowBlur = Math.ceil(random() * 3)
     const strokeWidth = sandpit.settings.strokeWidth
-    const strokeStyle = Color(sandpit.settings.color).alpha(random() * 0.5)
+    const strokeStyle = Color(sandpit.settings.color).alpha(random() * 0.5).toString()
 
     const initX = random() * sandpit.width()
     const initY = random() * sandpit.height()
