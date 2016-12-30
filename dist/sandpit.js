@@ -332,6 +332,7 @@ var Sandpit = function () {
       // Loop through and add event listeners
       Object.keys(this._events).forEach(function (event) {
         if (_this2._events[event].disable) {
+          // If the disable property exists, add prevent default to it
           _this2._events[event].disable.addEventListener(event, _this2._preventDefault, false);
         }
         _this2._events[event].context.addEventListener(event, _this2._events[event].event.bind(_this2), false);
@@ -512,6 +513,7 @@ var Sandpit = function () {
       // focusTouchesOnCanvas() method to blow away all other
       // touch events, for use outside the demo environment,
       // but this isn't really a viable solution?
+      // this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
       event.preventDefault();
       this._handlePointer(event.touches[0]);
       this._handleTouches(event);
