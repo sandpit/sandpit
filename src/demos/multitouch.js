@@ -66,7 +66,7 @@ const playground = () => {
   }
 
   const MAX_PARTICLES = 280
-  const COLOURS = ['#69D2E7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900', '#FF4E50', '#F9D423']
+  const COLOURS = ['hsl(0, 100%, 100%)', 'hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
 
   let particles = []
   let pool = []
