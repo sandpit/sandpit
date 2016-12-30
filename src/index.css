@@ -64,12 +64,14 @@ canvas {
   content: "Demos";
   opacity: 0.4;
   margin-right: 10px;
+  display: inline-block;
 }
 
 .demos > * {
   text-decoration: underline;
   cursor: pointer;
   margin: 0 10px;
+  display: inline-block;
 }
 
 .demos > * + * {

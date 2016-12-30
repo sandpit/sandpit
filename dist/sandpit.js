@@ -222,6 +222,12 @@ var Sandpit = function () {
       // Open the settings drawer
       group.open();
 
+      // Hide controls for mobile
+      // TODO: Make this a settings
+      if (this.width() <= 767) {
+        this._gui.close();
+      }
+
       // If queryable is enabled, serialize the final settings
       // and push them to the query string
       if (this._queryable) {
@@ -510,12 +516,13 @@ var Sandpit = function () {
   }, {
     key: '_handleTouchMove',
     value: function _handleTouchMove(event) {
-      // TODO: event.preventDefault() seems required to prevent pinching,
-      // but sometimes pinches still happen (3 - 5 fingers), so
+      // So, event.preventDefault() seems required to prevent pinching,
+      // but sometimes pinches still rarely happen (3 - 5 fingers), so
       // is there a way to avoid this? Currently added a
       // focusTouchesOnCanvas() method to blow away all other
       // touch events, for use outside the demo environment,
-      // but this isn't really a viable solution?
+      // but this isn't really a viable solution. If possible,
+      // I'd use the bit below, but I've commented it out for now:
       // this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
       event.preventDefault();
       this._handlePointer(event.touches[0]);
