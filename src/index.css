@@ -63,12 +63,13 @@ canvas {
 .demos::before {
   content: "Demos";
   opacity: 0.4;
+  margin-right: 10px;
 }
 
 .demos > * {
   text-decoration: underline;
   cursor: pointer;
-  display: block;
+  margin: 0 10px;
 }
 
 .demos > * + * {

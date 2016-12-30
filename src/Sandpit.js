@@ -351,6 +351,9 @@ class Sandpit {
    */
   _handleMouseDown (event) {
     this._handlePointer(event)
+    event.touches = {}
+    event.touches[0] = event
+    this._handleTouches(event)
     if (this.touch) this.touch(event)
   }
 
@@ -447,7 +450,9 @@ class Sandpit {
     delete event.touches.length
     if (Object.keys(event.touches).length) {
       this.input.touches = Object.keys(event.touches).map((key) => {
-        return {x: event.touches[key].pageX, y: event.touches[key].pageY}
+        let touch = {x: event.touches[key].pageX, y: event.touches[key].pageY}
+        if (event.touches[key].force) touch.force = event.touches[key].force
+        return touch
       })
     } else {
       this._handleRelease()

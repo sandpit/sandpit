@@ -458,6 +458,9 @@ var Sandpit = function () {
     key: '_handleMouseDown',
     value: function _handleMouseDown(event) {
       this._handlePointer(event);
+      event.touches = {};
+      event.touches[0] = event;
+      this._handleTouches(event);
       if (this.touch) this.touch(event);
     }
 
@@ -578,7 +581,9 @@ var Sandpit = function () {
       delete event.touches.length;
       if (Object.keys(event.touches).length) {
         this.input.touches = Object.keys(event.touches).map(function (key) {
-          return { x: event.touches[key].pageX, y: event.touches[key].pageY };
+          var touch = { x: event.touches[key].pageX, y: event.touches[key].pageY };
+          if (event.touches[key].force) touch.force = event.touches[key].force;
+          return touch;
         });
       } else {
         this._handleRelease();
@@ -1042,12 +1047,16 @@ var playground = function playground() {
   var pool = [];
 
   var spawn = function spawn(x, y) {
+    var pressure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
     if (particles.length >= MAX_PARTICLES) {
       pool.push(particles.shift());
     }
 
     var particle = pool.length ? pool.pop() : new Particle();
-    particle.init(x, y, _Sandpit.math.randomBetween(2, sandpit.settings.maxSize));
+    var size = _Sandpit.math.randomBetween(2, sandpit.settings.maxSize);
+    size *= pressure * 2 + 1;
+    particle.init(x, y, size);
 
     particle.wander = _Sandpit.math.randomBetween(0.5, 2.0);
     particle.color = _Sandpit.math.randomFrom(COLOURS);
@@ -1095,7 +1104,7 @@ var playground = function playground() {
       var touch = sandpit.input.touches[i];
       var max = _Sandpit.math.randomBetween(1, 4);
       for (var j = 0; j < max; j++) {
-        spawn(touch.x, touch.y);
+        spawn(touch.x, touch.y, touch.force);
       }
     }
   };

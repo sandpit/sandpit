@@ -71,13 +71,15 @@ const playground = () => {
   let particles = []
   let pool = []
 
-  const spawn = (x, y) => {
+  const spawn = (x, y, pressure = 0) => {
     if (particles.length >= MAX_PARTICLES) {
       pool.push(particles.shift())
     }
 
     let particle = pool.length ? pool.pop() : new Particle()
-    particle.init(x, y, math.randomBetween(2, sandpit.settings.maxSize))
+    let size = math.randomBetween(2, sandpit.settings.maxSize)
+    size *= pressure * 2 + 1
+    particle.init(x, y, size)
 
     particle.wander = math.randomBetween(0.5, 2.0)
     particle.color = math.randomFrom(COLOURS)
@@ -121,7 +123,7 @@ const playground = () => {
       let touch = sandpit.input.touches[i]
       let max = math.randomBetween(1, 4)
       for (let j = 0; j < max; j++) {
-        spawn(touch.x, touch.y)
+        spawn(touch.x, touch.y, touch.force)
       }
     }
   }
