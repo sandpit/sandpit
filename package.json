@@ -28,7 +28,7 @@
     "test": "react-scripts test --env=jsdom",
     "build": "npm run build-library && npm run build-site && npm run build-docs",
     "minify": "node_modules/.bin/uglifyjs dist/sandpit.js -o dist/sandpit.min.js",
-    "build-library": "mkdir -p dist && babel src --presets babel-preset-es2015 --out-file dist/sandpit.js && npm run minify",
+    "build-library": "mkdir -p dist && babel src/Sandpit.js --presets babel-preset-es2015 --out-file dist/sandpit.js && npm run minify",
     "build-docs": "rm -rf ./docs && node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "build-site": "react-scripts build && cp -r dist build/dist && cp -r docs build/docs",
     "serve": "npm run build && node_modules/.bin/pushstate-server build",

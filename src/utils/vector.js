@@ -1,3 +1,8 @@
+/**
+ * A utility for handling vectors, with a couple
+ * of additional helpers
+ * http://victorjs.org/
+ */
 import Victor from 'victor'
 
 Victor.prototype.setLength = function (scalar) {

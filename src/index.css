@@ -39,9 +39,12 @@ canvas {
   bottom: 0;
   left: 0;
   z-index: 1;
+  pointer-events: none;
 }
 
-.content {
+.content,
+.footer {
+  pointer-events: all;
   -webkit-overflow-scrolling: touch;
   padding: 40px;
   max-width: 400px;
@@ -53,8 +56,20 @@ canvas {
   margin-top: 1rem;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.footer > * + * {
+  margin: 0 10px;
+}
+
+
 .demos {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
   padding-top: 20px;
   padding-bottom: 0;
   margin-top: 20px;
@@ -62,9 +77,20 @@ canvas {
 
 .demos::before {
   content: "Demos";
-  opacity: 0.4;
+  opacity: 0.6;
   margin-right: 10px;
   display: inline-block;
+}
+
+.demos::after {
+  content: "";
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
 }
 
 .demos > * {

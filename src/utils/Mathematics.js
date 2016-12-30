@@ -1,10 +1,9 @@
-import is from './is'
+import Is from './Is'
 
 /**
  * A utility for math stuff
- * @noconstructor
  */
-class math {
+class Mathematics {
   /** Returns PI * 2 */
   static get TWO_PI () { return Math.PI * 2 }
   /** Returns PI / 2 */
@@ -29,12 +28,12 @@ class math {
    * @returns {*} The array item or object value
    */
   static randomFrom (object, random = Math.random) {
-    if (is.array(object)) {
+    if (Is.array(object)) {
       return object[Math.floor(random() * object.length)]
-    } else if (is.object(object)) {
+    } else if (Is.object(object)) {
       return object[Math.floor(random() * Object.keys(object).length)]
     }
   }
 }
 
-export default math
+export default Mathematics

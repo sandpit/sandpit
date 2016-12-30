@@ -1,7 +1,7 @@
 /**
  * A utility for testing the type of a reference
  */
-class is {
+class Is {
   /**
    * Tests if the object is a HTMLElement
    * @param {object} object - The object to test
@@ -50,4 +50,4 @@ class is {
   }
 }
 
-export default is
+export default Is

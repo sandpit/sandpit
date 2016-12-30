@@ -4,9 +4,10 @@ import debounce from 'debounce'
 import seedrandom from 'seedrandom'
 
 import logger from './utils/logger'
-import is from './utils/is'
-import color from './utils/color'
-import math from './utils/math'
+import Is from './utils/Is'
+import Color from './utils/Color'
+import Mathematics from './utils/Mathematics'
+import Vector from './utils/Vector'
 import 'whatwg-fetch'
 /* global fetch */
 
@@ -49,10 +50,10 @@ class Sandpit {
     }
 
     // Check the container is a dom element
-    if (is.element(_container)) {
+    if (Is.element(_container)) {
       // Check the container is a canvas element
       // and if so, use it instead of making a new one
-      if (is.canvas(_container)) {
+      if (Is.canvas(_container)) {
         this._canvas = _container
       } else {
         this._canvas = document.createElement('canvas')
@@ -78,8 +79,7 @@ class Sandpit {
    * @private
    */
   _setupSettings () {
-    // Sort the original settings in defaults
-    this.setting = {}
+    this.settings = {}
     this._gui = new dat.GUI()
     this._gui.domElement.addEventListener('touchmove', this._preventDefault, false)
 
@@ -132,7 +132,7 @@ class Sandpit {
           this.settings[name] = this.defaults[name].selected
         } else {
           // If not, grab the first item in the object or array
-          this.settings[name] = is.array(value)
+          this.settings[name] = Is.array(value)
             ? value[0]
             : value[Object.keys(value)[0]]
         }
@@ -173,7 +173,7 @@ class Sandpit {
     // and push them to the query string
     if (this._queryable) {
       const query = queryfetch.serialize(this.settings)
-      window.history.pushState({}, null, '/?' + query)
+      window.history.replaceState({}, null, '/?' + query)
       // Adds a clear and reset button to the gui interface
       this._gui.add({clear: () => { this.clear() }}, 'clear')
       this._gui.add({reset: () => { this._reset() }}, 'reset')
@@ -192,7 +192,7 @@ class Sandpit {
         this.reset()
       } else {
         // If queryable, clear the query string
-        window.history.pushState({}, null, '/')
+        window.history.replaceState({}, null, '/')
         // Reload the video
         window.location.reload()
       }
@@ -318,13 +318,10 @@ class Sandpit {
    * @private
    */
   _setupAccelerometer () {
-    if (this.accelerometer) {
-      if (window.DeviceOrientationEvent) {
-        this.input.accelerometer = {}
-        this._events['deviceorientation'] = {event: this._handleAccelerometer, context: document}
-      } else {
-        logger.warn('Accelerometer is not supported by this device')
-      }
+    if (window.DeviceOrientationEvent) {
+      this._events['deviceorientation'] = {event: this._handleAccelerometer, context: window}
+    } else {
+      logger.warn('Accelerometer is not supported by this device')
     }
   }
 
@@ -440,9 +437,16 @@ class Sandpit {
    * @private
    */
   _handleAccelerometer (event) {
-    this.input.accelerometer.x = event.beta
-    this.input.accelerometer.y = event.alpha
-    this.input.accelerometer.z = event.gamma
+    if (event.beta && event.alpha && event.gamma) {
+      this.input.accelerometer = {
+        xAxis: event.beta,
+        yAxis: event.gamma,
+        rotation: event.alpha,
+        gamma: event.gamma,
+        beta: event.beta,
+        alpha: event.alpha
+      }
+    }
     if (this.accelerometer) this.accelerometer(event)
   }
 
@@ -516,12 +520,23 @@ class Sandpit {
     this._autoClear = boolean
   }
 
+  /**
+   * Clears the canvas
+   * @param {boolean} boolean
+   */
   clear () {
     if (this._type === Sandpit.CANVAS) {
       this._context.clearRect(0, 0, this.width(), this.height())
     } else if (this._type === Sandpit.WEGBL) {
       logger.warn('clear() is currently only supported in 2D')
     }
+  }
+
+  /**
+   * Clear the query string
+   */
+  clearQueryString () {
+    window.history.replaceState({}, null, '/')
   }
 
   /**
@@ -665,5 +680,5 @@ class Sandpit {
 
 // TODO: Look at handling retina displays
 
-export { is, math, color }
+export { Is, Mathematics, Color, Vector }
 export default Sandpit

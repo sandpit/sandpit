@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>utils/Mathematics.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,36 +28,58 @@
 
 <div id="main">
     
+    <h1 class="page-title">utils/Mathematics.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Is from './Is'
 
+/**
+ * A utility for math stuff
+ */
+class Mathematics {
+  /** Returns PI * 2 */
+  static get TWO_PI () { return Math.PI * 2 }
+  /** Returns PI / 2 */
+  static get HALF_PI () { return Math.PI / 2 }
+  /** Returns PI / 4 */
+  static get QUARTER_PI () { return Math.PI / 4 }
 
+  /**
+   * Returns a number between min and max
+   * @param {int} min - The minimum range
+   * @param {int} max - The maximum range
+   * @returns {int|float} A random number between min and max
+   */
+  static randomBetween (min, max, random = Math.random) {
+    // Credit: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    return min + random() * (max - min)
+  }
 
+  /**
+   * Returns a random element in an array or object
+   * @param {array|object} - The array or object
+   * @returns {*} The array item or object value
+   */
+  static randomFrom (object, random = Math.random) {
+    if (Is.array(object)) {
+      return object[Math.floor(random() * object.length)]
+    } else if (Is.object(object)) {
+      return object[Math.floor(random() * Object.keys(object).length)]
+    }
+  }
+}
 
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>⛱ Sandpit</h1><p>A playground for creative coding using JavaScript and the canvas element.</p>
-<p><img src="https://sandpitjs.com/assets/images/animation.gif" alt="An example animation of Sandpit"></p>
-<p>Built in ES6, <strong>Sandpit</strong> uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.</p>
-<h2>So, how?</h2><ul>
-<li><a href="https://github.com/superhighfives/sandpit/wiki">Getting started</a> - Find out more about getting started</li>
-<li><a href="https://sandpitjs.com/docs/Sandpit/0.1.0">View the docs</a> - Go straight for the heavy stuff via the docs</li>
-</ul>
-<h2>Download</h2><p>Download for <a href="https://sandpitjs.com/dist/sandpit.js">development (23kb / 6kb gzipped)</a> or <a href="https://sandpitjs.com/dist/sandpit.min.js">minfied (14kb / 4kb gzipped)</a>.</p></article>
+export default Mathematics
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

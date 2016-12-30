@@ -4,7 +4,7 @@
  * https://github.com/soulwire/sketch.js
  */
 
-import Sandpit, { math } from '../Sandpit'
+import Sandpit, { Mathematics } from '../Sandpit'
 
 const playground = () => {
   const existingCanvas = document.createElement('canvas')
@@ -19,11 +19,14 @@ const playground = () => {
     energy: {value: 0.9, min: 0.0, max: 0.9, step: 0.1},
     force: {value: 2, min: 2, max: 30, step: 1},
     decay: {value: 0.90, min: 0.85, max: 0.99, step: 0.01},
-    blend: {value: ['multiply', 'lighter', 'overlay']}
+    blend: {value: ['darken', 'multiply', 'overlay']}
   })
   sandpit.autoClear(sandpit.settings.autoClear)
   const random = sandpit.random()
   const ctx = sandpit.context()
+
+  const colors = ['hsl(0, 100%, 100%)', 'hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
+  let enabled = false
 
   function Particle () {
     this.init = (x, y, radius) => {
@@ -31,7 +34,7 @@ const playground = () => {
 
       this.radius = radius || 10
       this.wander = 0.15
-      this.theta = random() * math.TWO_PI
+      this.theta = random() * Mathematics.TWO_PI
       this.drag = 0.92
       this.color = '#fff'
 
@@ -49,7 +52,7 @@ const playground = () => {
       this.vx *= this.drag
       this.vy *= this.drag
 
-      this.theta += math.randomBetween(-0.5, 0.5) * this.wander
+      this.theta += Mathematics.randomBetween(-0.5, 0.5) * this.wander
       this.vx += Math.sin(this.theta) * 0.1
       this.vy += Math.cos(this.theta) * 0.1
 
@@ -59,34 +62,31 @@ const playground = () => {
 
     this.draw = () => {
       ctx.beginPath()
-      ctx.arc(this.x, this.y, this.radius, 0, math.TWO_PI)
+      ctx.arc(this.x, this.y, this.radius, 0, Mathematics.TWO_PI)
       ctx.fillStyle = this.color
       ctx.fill()
     }
   }
 
-  const MAX_PARTICLES = 280
-  const COLOURS = ['hsl(0, 100%, 100%)', 'hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
-
   let particles = []
   let pool = []
 
   const spawn = (x, y, pressure = 0) => {
-    if (particles.length >= MAX_PARTICLES) {
+    if (particles.length >= 280) {
       pool.push(particles.shift())
     }
 
     let particle = pool.length ? pool.pop() : new Particle()
-    let size = math.randomBetween(2, sandpit.settings.maxSize)
+    let size = Mathematics.randomBetween(2, sandpit.settings.maxSize)
     size *= pressure * 2 + 1
     particle.init(x, y, size)
 
-    particle.wander = math.randomBetween(0.5, 2.0)
-    particle.color = math.randomFrom(COLOURS)
-    particle.drag = math.randomBetween(sandpit.settings.energy, 0.99)
+    particle.wander = Mathematics.randomBetween(0.5, 2.0)
+    particle.color = Mathematics.randomFrom(colors)
+    particle.drag = Mathematics.randomBetween(sandpit.settings.energy, 0.99)
 
-    let theta = random() * math.TWO_PI
-    let force = math.randomBetween(2, sandpit.settings.force)
+    let theta = random() * Mathematics.TWO_PI
+    let force = Mathematics.randomBetween(2, sandpit.settings.force)
 
     particle.vx = Math.sin(theta) * force
     particle.vy = Math.cos(theta) * force
@@ -102,6 +102,9 @@ const playground = () => {
         spawn(x, y)
       }, i * 10)
     }
+    window.setTimeout(() => {
+      enabled = true
+    }, 500)
   }
 
   sandpit.loop = () => {
@@ -118,12 +121,18 @@ const playground = () => {
     }
   }
 
+  sandpit.change = (setting) => {
+    if (setting === 'blend') sandpit.clear()
+  }
+
   sandpit.move = () => {
-    for (let i = 0; i < sandpit.input.touches.length; i++) {
-      let touch = sandpit.input.touches[i]
-      let max = math.randomBetween(1, 4)
-      for (let j = 0; j < max; j++) {
-        spawn(touch.x, touch.y, touch.force)
+    if (enabled) {
+      for (let i = 0; i < sandpit.input.touches.length; i++) {
+        let touch = sandpit.input.touches[i]
+        let max = Mathematics.randomBetween(1, 4)
+        for (let j = 0; j < max; j++) {
+          spawn(touch.x, touch.y, touch.force)
+        }
       }
     }
   }
@@ -140,6 +149,9 @@ const playground = () => {
 
   // Give a hook back to the sandpit
   playground.prototype.sandpit = sandpit
+
+  // Update the text color of the overlay to be visible
+  document.querySelector('.overlay').style.color = '#000'
 }
 
 export default playground
