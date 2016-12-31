@@ -79,7 +79,7 @@ class Sandpit {
         // Scale the canvas to the new ratio
         // TODO: Add canvas support to jsdom to avoid having
         // to if-statement this bit
-        if(this._context) this.context_.scale(ratio, ratio)
+        if(this._context) this._context.scale(ratio, ratio)
       }
     } else {
       throw new Error('The container is not a HTMLElement')
