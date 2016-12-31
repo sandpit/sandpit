@@ -74,12 +74,12 @@ class Sandpit {
         this._canvas.width = window.innerWidth * ratio
         this._canvas.height = window.innerHeight * ratio
         // Set the canvas to the actual size
-        this._canvas.style.width = window.innerWidth + 'px';
-        this._canvas.style.height = window.innerHeight + 'px';
+        this._canvas.style.width = window.innerWidth + 'px'
+        this._canvas.style.height = window.innerHeight + 'px'
         // Scale the canvas to the new ratio
         // TODO: Add canvas support to jsdom to avoid having
         // to if-statement this bit
-        if(this._context) this._context.scale(ratio, ratio)
+        if (this._context) this._context.scale(ratio, ratio)
       }
     } else {
       throw new Error('The container is not a HTMLElement')
@@ -105,7 +105,7 @@ class Sandpit {
       if (window.location.search) {
         let params = queryfetch.parse(window.location.search)
         Object.keys(params).forEach((key) => {
-          // If a setting matches the param, use the param
+          // If a setting matchesHAHAH the param, use the param
           if (this.defaults[key]) {
             let param = params[key]
             // Convert string to boolean if 'true' or 'false'
