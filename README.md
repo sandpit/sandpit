@@ -10,8 +10,9 @@ Built in ES6, **Sandpit** uses dat.GUI to manage settings and encourages copy an
 ## So, how?
 
 - [Getting started](https://github.com/superhighfives/sandpit/wiki) - Find out more about getting started
-- [View the docs](https://sandpitjs.com/docs/Sandpit/0.1.0) - Go straight for the heavy stuff via the docs
+- [View the docs](https://github.com/superhighfives/sandpit/wiki/Documentation) - View the docs
+- [Read the API](https://sandpitjs.com/docs/Sandpit/0.1.0) - Jump into the heavy stuff with the API
 
 ## Download
 
-Download for [development (23kb / 6kb gzipped)](https://sandpitjs.com/dist/sandpit.js) or [minfied (14kb / 4kb gzipped)](https://sandpitjs.com/dist/sandpit.min.js).
+Download for [development](https://sandpitjs.com/dist/sandpit.js) or [minfied](https://sandpitjs.com/dist/sandpit.min.js).
