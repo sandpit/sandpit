@@ -23,7 +23,7 @@ class Sandpit {
    * @param {string} type - Defines whether the context is 2d or 3d
    */
   constructor (container, type) {
-    console.log('⛱ Welcome to Sandpit')
+    logger.info('⛱ Welcome to Sandpit')
     this._setupContext(container, type)
   }
 
@@ -164,7 +164,7 @@ class Sandpit {
     group.open()
 
     // Hide controls for mobile
-    // TODO: Make this a settings
+    // TODO: Make this a setting
     if (this.width() <= 767) {
       this._gui.close()
     }

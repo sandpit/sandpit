@@ -32,12 +32,12 @@ class Is {
   }
 
   /**
-   * Tests if the object is an object
+   * Tests if the object is an object, not an array
    * @param {object} object - The object to test
    * @returns {boolean} If set to true, the object is an object
    */
   static object (object) {
-    return typeof object === 'object'
+    return typeof object === 'object' && !this.array(object)
   }
 
   /**

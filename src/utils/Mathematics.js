@@ -31,7 +31,11 @@ class Mathematics {
     if (Is.array(object)) {
       return object[Math.floor(random() * object.length)]
     } else if (Is.object(object)) {
-      return object[Math.floor(random() * Object.keys(object).length)]
+      let result = {}
+      let key = Object.keys(object)[Math.floor(random() * Object.keys(object).length)]
+      let value = object[key]
+      result[key] = value
+      return result
     }
   }
 }
