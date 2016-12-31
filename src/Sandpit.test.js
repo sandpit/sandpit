@@ -7,11 +7,11 @@ import { requestAnimationFrame } from './helpers/requestAnimationFrame'
 // Shim requestAnimationFrame for jsdom
 window.requestAnimationFrame = requestAnimationFrame
 
-it("thinks you're doing a great job", () => {
-  expect(true)
-})
-
 describe('Sandpit', () => {
+  it("thinks you're doing a great job", () => {
+    expect(true)
+  })
+
   describe('instanciation', () => {
     it('should be an instance of the Sandpit class', () => {
       let div = document.createElement('div')
