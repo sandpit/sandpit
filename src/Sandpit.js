@@ -21,17 +21,18 @@ class Sandpit {
   /**
    * @param {(string|object)} container - The container for the canvas to be added to
    * @param {string} type - Defines whether the context is 2d or 3d
+   * @param {boolean} retina - Optionally decide to ignore rescaling for retina displays
    */
-  constructor (container, type) {
+  constructor (container, type, retina = true) {
     logger.info('⛱ Welcome to Sandpit')
-    this._setupContext(container, type)
+    this._setupContext(container, type, retina)
   }
 
   /**
    * Set up the canvas
    * @private
    */
-  _setupContext (container, type) {
+  _setupContext (container, type, retina) {
     // Check that the correct container type has been passed
     if (typeof container !== 'string' && typeof container !== 'object') {
       throw new Error('Please provide a string or object reference to the container, like ".container", or document.querySelector(".container")')
@@ -67,6 +68,19 @@ class Sandpit {
       this._type = type
     } else {
       throw new Error('The container is not a HTMLElement')
+    }
+
+    // Deal with retina displays
+    if (type == Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
+      const ratio =  window.devicePixelRatio
+      // Increaser the canvas by the ratio
+      this.canvas().width = window.innerWidth * ratio
+      this.canvas().height = window.innerHeight * ratio
+      // Set the canvas to the actual size
+      this.canvas().style.width = window.innerWidth + 'px';
+      this.canvas().style.height = window.innerHeight + 'px';
+      // Scale the canvas to the new ratio
+      this.context().scale(ratio, ratio)
     }
   }
 
@@ -343,7 +357,9 @@ class Sandpit {
    * @private
    */
   _handleMouseMove (event) {
-    this._handlePointer(event)
+    event.touches = {}
+    event.touches[0] = event
+    this._handleTouches(event)
     if (this.move) this.move(event)
   }
 
@@ -353,7 +369,6 @@ class Sandpit {
    * @private
    */
   _handleMouseDown (event) {
-    this._handlePointer(event)
     event.touches = {}
     event.touches[0] = event
     this._handleTouches(event)
@@ -403,7 +418,6 @@ class Sandpit {
     // I'd use the bit below, but I've commented it out for now:
     // this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
     event.preventDefault()
-    this._handlePointer(event.touches[0])
     this._handleTouches(event)
     if (this.move) this.move(event)
   }
@@ -415,7 +429,6 @@ class Sandpit {
    */
   _handleTouchStart (event) {
     this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
-    this._handlePointer(event.touches[0])
     this._handleTouches(event)
     if (this.touch) this.touch(event)
   }
@@ -460,25 +473,31 @@ class Sandpit {
     // so we can loop through it
     delete event.touches.length
     if (Object.keys(event.touches).length) {
-      this.input.touches = Object.keys(event.touches).map((key) => {
-        let touch = {x: event.touches[key].pageX, y: event.touches[key].pageY}
+      let touches = Object.keys(event.touches).map((key, i) => {
+        // Set the X & Y for input from the first touch
+        if (i === 0) {
+          this.input.x = event.touches[key].pageX
+          this.input.y = event.touches[key].pageY
+        }
+
+        let touch = {}
+        // If there is previous touch, store it as a helper
+        if (this.input.touches && this.input.touches[key]) {
+          touch.previousX = this.input.touches[key].x
+          touch.previousY = this.input.touches[key].y
+        }
+        // Store the x and y
+        touch.x = event.touches[key].pageX
+        touch.y = event.touches[key].pageY
+        // If force is available, add it
         if (event.touches[key].force) touch.force = event.touches[key].force
         return touch
       })
+      // Update the touches
+      this.input.touches = touches
     } else {
       this._handleRelease()
     }
-  }
-
-  /**
-   * Handles a pointer, for example, a mouse or single touch
-   * @param {object} pointer - An object containing pointer information,
-   * in the format of {pageX: x, pageY: y}
-   */
-  _handlePointer (event) {
-    this.input.x = event.pageX
-    this.input.y = event.pageY
-    this.input.touches = [{x: this.input.x, y: this.input.y}]
   }
 
   /**
@@ -578,7 +597,7 @@ class Sandpit {
    * @returns {number} Canvas width
    */
   width () {
-    return this._canvas.width
+    return window.innerWidth
   }
 
   /**
@@ -586,7 +605,7 @@ class Sandpit {
    * @returns {number} Canvas height
    */
   height () {
-    return this._canvas.height
+    return window.innerHeight
   }
 
   /**
