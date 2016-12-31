@@ -66,21 +66,23 @@ class Sandpit {
       // Grab the context
       this._context = this._canvas.getContext(type)
       this._type = type
+
+      // Deal with retina displays
+      if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
+        const ratio = window.devicePixelRatio
+        // Increaser the canvas by the ratio
+        this._canvas.width = window.innerWidth * ratio
+        this._canvas.height = window.innerHeight * ratio
+        // Set the canvas to the actual size
+        this._canvas.style.width = window.innerWidth + 'px';
+        this._canvas.style.height = window.innerHeight + 'px';
+        // Scale the canvas to the new ratio
+        // TODO: Add canvas support to jsdom to avoid having
+        // to if-statement this bit
+        if(this._context) this.context_.scale(ratio, ratio)
+      }
     } else {
       throw new Error('The container is not a HTMLElement')
-    }
-
-    // Deal with retina displays
-    if (type == Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
-      const ratio =  window.devicePixelRatio
-      // Increaser the canvas by the ratio
-      this.canvas().width = window.innerWidth * ratio
-      this.canvas().height = window.innerHeight * ratio
-      // Set the canvas to the actual size
-      this.canvas().style.width = window.innerWidth + 'px';
-      this.canvas().style.height = window.innerHeight + 'px';
-      // Scale the canvas to the new ratio
-      this.context().scale(ratio, ratio)
     }
   }
 
