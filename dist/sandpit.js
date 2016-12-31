@@ -71,15 +71,18 @@ var Sandpit = function () {
     /**
      * @param {(string|object)} container - The container for the canvas to be added to
      * @param {string} type - Defines whether the context is 2d or 3d
+     * @param {boolean} retina - Optionally decide to ignore rescaling for retina displays
      */
 
   }]);
 
   function Sandpit(container, type) {
+    var retina = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
     _classCallCheck(this, Sandpit);
 
-    console.log('⛱ Welcome to Sandpit');
-    this._setupContext(container, type);
+    _logger2.default.info('⛱ Welcome to Sandpit');
+    this._setupContext(container, type, retina);
   }
 
   /**
@@ -90,7 +93,7 @@ var Sandpit = function () {
 
   _createClass(Sandpit, [{
     key: '_setupContext',
-    value: function _setupContext(container, type) {
+    value: function _setupContext(container, type, retina) {
       // Check that the correct container type has been passed
       if (typeof container !== 'string' && (typeof container === 'undefined' ? 'undefined' : _typeof(container)) !== 'object') {
         throw new Error('Please provide a string or object reference to the container, like ".container", or document.querySelector(".container")');
@@ -124,6 +127,21 @@ var Sandpit = function () {
         // Grab the context
         this._context = this._canvas.getContext(type);
         this._type = type;
+
+        // Deal with retina displays
+        if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
+          var ratio = window.devicePixelRatio;
+          // Increaser the canvas by the ratio
+          this._canvas.width = window.innerWidth * ratio;
+          this._canvas.height = window.innerHeight * ratio;
+          // Set the canvas to the actual size
+          this._canvas.style.width = window.innerWidth + 'px';
+          this._canvas.style.height = window.innerHeight + 'px';
+          // Scale the canvas to the new ratio
+          // TODO: Add canvas support to jsdom to avoid having
+          // to if-statement this bit
+          if (this._context) this._context.scale(ratio, ratio);
+        }
       } else {
         throw new Error('The container is not a HTMLElement');
       }
@@ -226,7 +244,7 @@ var Sandpit = function () {
       group.open();
 
       // Hide controls for mobile
-      // TODO: Make this a settings
+      // TODO: Make this a setting
       if (this.width() <= 767) {
         this._gui.close();
       }
@@ -450,7 +468,9 @@ var Sandpit = function () {
   }, {
     key: '_handleMouseMove',
     value: function _handleMouseMove(event) {
-      this._handlePointer(event);
+      event.touches = {};
+      event.touches[0] = event;
+      this._handleTouches(event);
       if (this.move) this.move(event);
     }
 
@@ -463,7 +483,6 @@ var Sandpit = function () {
   }, {
     key: '_handleMouseDown',
     value: function _handleMouseDown(event) {
-      this._handlePointer(event);
       event.touches = {};
       event.touches[0] = event;
       this._handleTouches(event);
@@ -525,7 +544,6 @@ var Sandpit = function () {
       // I'd use the bit below, but I've commented it out for now:
       // this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation()
       event.preventDefault();
-      this._handlePointer(event.touches[0]);
       this._handleTouches(event);
       if (this.move) this.move(event);
     }
@@ -540,7 +558,6 @@ var Sandpit = function () {
     key: '_handleTouchStart',
     value: function _handleTouchStart(event) {
       this._focusTouchesOnCanvas ? event.preventDefault() : event.stopPropagation();
-      this._handlePointer(event.touches[0]);
       this._handleTouches(event);
       if (this.touch) this.touch(event);
     }
@@ -590,32 +607,37 @@ var Sandpit = function () {
   }, {
     key: '_handleTouches',
     value: function _handleTouches(event) {
+      var _this3 = this;
+
       // Delete the length parameter from touches,
       // so we can loop through it
       delete event.touches.length;
       if (Object.keys(event.touches).length) {
-        this.input.touches = Object.keys(event.touches).map(function (key) {
-          var touch = { x: event.touches[key].pageX, y: event.touches[key].pageY };
+        var touches = Object.keys(event.touches).map(function (key, i) {
+          // Set the X & Y for input from the first touch
+          if (i === 0) {
+            _this3.input.x = event.touches[key].pageX;
+            _this3.input.y = event.touches[key].pageY;
+          }
+
+          var touch = {};
+          // If there is previous touch, store it as a helper
+          if (_this3.input.touches && _this3.input.touches[key]) {
+            touch.previousX = _this3.input.touches[key].x;
+            touch.previousY = _this3.input.touches[key].y;
+          }
+          // Store the x and y
+          touch.x = event.touches[key].pageX;
+          touch.y = event.touches[key].pageY;
+          // If force is available, add it
           if (event.touches[key].force) touch.force = event.touches[key].force;
           return touch;
         });
+        // Update the touches
+        this.input.touches = touches;
       } else {
         this._handleRelease();
       }
-    }
-
-    /**
-     * Handles a pointer, for example, a mouse or single touch
-     * @param {object} pointer - An object containing pointer information,
-     * in the format of {pageX: x, pageY: y}
-     */
-
-  }, {
-    key: '_handlePointer',
-    value: function _handlePointer(event) {
-      this.input.x = event.pageX;
-      this.input.y = event.pageY;
-      this.input.touches = [{ x: this.input.x, y: this.input.y }];
     }
 
     /**
@@ -750,7 +772,7 @@ var Sandpit = function () {
   }, {
     key: 'width',
     value: function width() {
-      return this._canvas.width;
+      return window.innerWidth;
     }
 
     /**
@@ -761,7 +783,7 @@ var Sandpit = function () {
   }, {
     key: 'height',
     value: function height() {
-      return this._canvas.height;
+      return window.innerHeight;
     }
 
     /**
@@ -850,7 +872,7 @@ var Sandpit = function () {
   }, {
     key: 'stop',
     value: function stop() {
-      var _this3 = this;
+      var _this4 = this;
 
       // Delete element, if initiated
       if (this.canvas()) {
@@ -866,10 +888,10 @@ var Sandpit = function () {
       window.cancelAnimationFrame(this._animationFrame);
       // Remove all event listeners
       Object.keys(this._events).forEach(function (event) {
-        if (_this3._events[event].disable) {
-          _this3._events[event].disable.removeEventListener(event, _this3._preventDefault);
+        if (_this4._events[event].disable) {
+          _this4._events[event].disable.removeEventListener(event, _this4._preventDefault);
         }
-        _this3._events[event].context.removeEventListener(event, _this3._events[event].event.bind(_this3));
+        _this4._events[event].context.removeEventListener(event, _this4._events[event].event.bind(_this4));
       });
     }
   }]);

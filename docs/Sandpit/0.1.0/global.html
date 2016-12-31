@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>utils/Is.js - Documentation</title>
+    <title>Global - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,72 +28,161 @@
 
 <div id="main">
     
-    <h1 class="page-title">utils/Is.js</h1>
+    <h1 class="page-title">Global</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * A utility for testing the type of a reference
- */
-class Is {
-  /**
-   * Tests if the object is a HTMLElement
-   * @param {object} object - The object to test
-   * @returns {boolean} If set to true, the object is a HTMLElement
-   */
-  static element (object) {
-    // Credit: http://stackoverflow.com/a/384380
-    try {
-      // Using W3 DOM2 (works for FF, Opera and Chrom)
-      return object instanceof window.HTMLElement
-    } catch (e) {
-      // Browsers not supporting W3 DOM2 don't have HTMLElement and
-      // an exception is thrown and we end up here. Testing some
-      // properties that all elements have. (works on IE7)
-      return (typeof object === 'object') &amp;&amp;
-        (object.nodeType === 1) &amp;&amp; (typeof object.style === 'object') &amp;&amp;
-        (typeof object.ownerDocument === 'object')
-    }
-  }
+        <h2>
+        
+        </h2>
+        
+    
+</header>
 
-  /**
-   * Tests if the object is an array
-   * @param {object} object - The object to test
-   * @returns {boolean} If set to true, the object is an array
-   */
-  static array (object) {
-    return Object.prototype.toString.call(object) === '[object Array]'
-  }
+<article>
+    <div class="container-overview">
+    
+        
 
-  /**
-   * Tests if the object is an object, not an array
-   * @param {object} object - The object to test
-   * @returns {boolean} If set to true, the object is an object
-   */
-  static object (object) {
-    return typeof object === 'object' &amp;&amp; !this.array(object)
-  }
+        
 
-  /**
-   * Tests if the object is a canvas
-   * @param {object} object - The object to test
-   * @returns {boolean} If set to true, the object is a canvas
-   */
-  static canvas (object) {
-    return !!object.getContext
-  }
-}
 
-export default Is
-</code></pre>
-        </article>
-    </section>
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="requestAnimationFrame"><span class="type-signature"></span>requestAnimationFrame<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>RequestAnimationFrame shim, as jsdom doesn't
+ship with it - primarily for use in the test suites
+Credit: https://gist.github.com/paulirish/1579671</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="helpers_requestAnimationFrame.js.html">helpers/requestAnimationFrame.js</a>, <a href="helpers_requestAnimationFrame.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
