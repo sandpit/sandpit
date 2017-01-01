@@ -172,7 +172,7 @@ var Sandpit = function () {
           (function () {
             var params = _queryfetch2.default.parse(window.location.search);
             Object.keys(params).forEach(function (key) {
-              // If a setting matches the param, use the param
+              // If a setting matchesHAHAH the param, use the param
               if (_this.defaults[key]) {
                 var param = params[key];
                 // Convert string to boolean if 'true' or 'false'
