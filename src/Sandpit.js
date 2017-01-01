@@ -16,7 +16,8 @@ import 'whatwg-fetch'
  */
 class Sandpit {
   static get CANVAS () { return '2d' }
-  static get WEBGL () { return '3d' }
+  static get WEBGL () { return 'webgl' }
+  static get EXPERIMENTAL_WEBGL () { return 'experimental-webgl' }
 
   /**
    * @param {(string|object)} container - The container for the canvas to be added to
@@ -64,7 +65,11 @@ class Sandpit {
       this._canvas.width = window.innerWidth
       this._canvas.height = window.innerHeight
       // Grab the context
-      this._context = this._canvas.getContext(type)
+      if (type === Sandpit.CANVAS) {
+        this._context = this._canvas.getContext(type)
+      } else if (type === Sandpit.WEBGL || type === Sandpit.EXPERIMENTAL_WEBGL) {
+        this._context = this._canvas.getContext(Sandpit.WEBGL) || this._canvas.getContext(Sandpit.EXPERIMENTAL_WEBGL)
+      }
       this._type = type
 
       // Deal with retina displays
@@ -78,7 +83,7 @@ class Sandpit {
         this._canvas.style.height = window.innerHeight + 'px'
         // Scale the canvas to the new ratio
         // TODO: Add canvas support to jsdom to avoid having
-        // to if-statement this bit
+        // to if-statement this bit to pass tests
         if (this._context) this._context.scale(ratio, ratio)
       }
     } else {
