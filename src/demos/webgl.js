@@ -3,7 +3,7 @@
  * which is wild and you should totally check it out:
  * https://github.com/soulwire/sketch.js
  */
-import Sandpit from '../Sandpit'
+import Sandpit, { Color, Mathematics } from '../Sandpit'
 
 const playground = () => {
   const backgrounds = ['hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
@@ -11,12 +11,13 @@ const playground = () => {
   const ctx = sandpit.context()
   sandpit.autoClear(false)
   sandpit.settings({
-    demo: {value: 'paint', editable: false, sticky: true}
+    demo: {value: 'webgl', editable: false, sticky: true}
   })
 
   sandpit.setup = () => {
+    let background = Color(Mathematics.randomFrom(backgrounds)).rgb().object()
     // Set clear color to black, fully opaque
-    ctx.clearColor(0.0, 0.0, 0.0, 1.0)
+    ctx.clearColor(background.r / 255, background.g / 255, background.b / 255, 1.0)
     // Enable depth testing
     ctx.enable(ctx.DEPTH_TEST)
     // Near things obscure far things

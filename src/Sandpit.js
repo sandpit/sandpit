@@ -661,6 +661,9 @@ class Sandpit {
   resizeCanvas () {
     this._canvas.width = window.innerWidth
     this._canvas.height = window.innerHeight
+    if(this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+      this._context.viewport(0, 0, this._canvas.width, this._canvas.height)
+    }
   }
 
   /**
