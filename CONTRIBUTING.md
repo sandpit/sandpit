@@ -4,8 +4,6 @@ Inspired by: https://github.com/thoughtbot/factory_girl_rails/blob/master/CONTRI
 
 Pull requests are 100% welcome. By participating in this project, you agree to abide by the thoughtbot [code of conduct](https://thoughtbot.com/open-source-code-of-conduct), except you should email <hi@charliegleason.com>.
 
-[code of conduct]: https://thoughtbot.com/open-source-code-of-conduct
-
 Fork, then clone the repo:
 
     git clone git@github.com:your-username/sandpit.git
@@ -13,6 +11,10 @@ Fork, then clone the repo:
 Install stuff:
 
     npm install
+
+Get the development environment running:
+
+    npm start
 
 Make sure the tests pass:
 
