@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#_handleRelease">_handleRelease</a></li><li data-type='method'><a href="Sandpit.html#_handleTouches">_handleTouches</a></li><li data-type='method'><a href="Sandpit.html#autoClear">autoClear</a></li><li data-type='method'><a href="Sandpit.html#canvas">canvas</a></li><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#context">context</a></li><li data-type='method'><a href="Sandpit.html#debug">debug</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#focusTouchesOnCanvas">focusTouchesOnCanvas</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#height">height</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#settings">settings</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li><li data-type='method'><a href="Sandpit.html#time">time</a></li><li data-type='method'><a href="Sandpit.html#width">width</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#requestAnimationFrame">requestAnimationFrame</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#autoClear">autoClear</a></li><li data-type='method'><a href="Sandpit.html#canvas">canvas</a></li><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#context">context</a></li><li data-type='method'><a href="Sandpit.html#debug">debug</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#focusTouchesOnCanvas">focusTouchesOnCanvas</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#height">height</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#settings">settings</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li><li data-type='method'><a href="Sandpit.html#time">time</a></li><li data-type='method'><a href="Sandpit.html#width">width</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#requestAnimationFrame">requestAnimationFrame</a></li></ul>
 </nav>
 
 <div id="main">
@@ -247,7 +247,7 @@ class Sandpit {
    * @private
    */
   _reset () {
-    if (this._queryable) {
+    if (this._queryable || this.reset) {
       if (this.reset) {
         // If there's a reset method available, run that
         this.reset()
@@ -508,6 +508,7 @@ class Sandpit {
    * Handles a set of touches
    * @param {object} touches - An object containing touch information, in
    * the format {0: TouchItem, 1: TouchItem}
+   * @private
    */
   _handleTouches (event) {
     // Delete the length parameter from touches,
@@ -545,6 +546,7 @@ class Sandpit {
    * Deletes the appropriate data from inputs on release
    * @param {object} pointer - An object containing pointer information,
    * in the format of {pageX: x, pageY: y}
+   * @private
    */
   _handleRelease () {
     delete this.input.x
@@ -757,7 +759,7 @@ export default Sandpit
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jan 03 2017 19:47:32 GMT+0000 (GMT) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jan 03 2017 23:35:29 GMT+0000 (GMT) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

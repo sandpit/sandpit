@@ -282,7 +282,7 @@ var Sandpit = function () {
   }, {
     key: '_reset',
     value: function _reset() {
-      if (this._queryable) {
+      if (this._queryable || this.reset) {
         if (this.reset) {
           // If there's a reset method available, run that
           this.reset();
@@ -605,6 +605,7 @@ var Sandpit = function () {
      * Handles a set of touches
      * @param {object} touches - An object containing touch information, in
      * the format {0: TouchItem, 1: TouchItem}
+     * @private
      */
 
   }, {
@@ -647,6 +648,7 @@ var Sandpit = function () {
      * Deletes the appropriate data from inputs on release
      * @param {object} pointer - An object containing pointer information,
      * in the format of {pageX: x, pageY: y}
+     * @private
      */
 
   }, {

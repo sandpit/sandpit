@@ -468,6 +468,7 @@ class Sandpit {
    * Handles a set of touches
    * @param {object} touches - An object containing touch information, in
    * the format {0: TouchItem, 1: TouchItem}
+   * @private
    */
   _handleTouches (event) {
     // Delete the length parameter from touches,
@@ -505,6 +506,7 @@ class Sandpit {
    * Deletes the appropriate data from inputs on release
    * @param {object} pointer - An object containing pointer information,
    * in the format of {pageX: x, pageY: y}
+   * @private
    */
   _handleRelease () {
     delete this.input.x
