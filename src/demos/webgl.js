@@ -6,7 +6,6 @@
 import Sandpit, { Color, Mathematics } from '../Sandpit'
 
 const playground = () => {
-  const backgrounds = ['hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.WEBGL)
   const ctx = sandpit.context()
   sandpit.autoClear(false)
@@ -15,6 +14,7 @@ const playground = () => {
   })
 
   sandpit.setup = () => {
+    const backgrounds = ['hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
     let background = Color(Mathematics.randomFrom(backgrounds)).rgb().object()
     // Set clear color to black, fully opaque
     ctx.clearColor(background.r / 255, background.g / 255, background.b / 255, 1.0)

@@ -62,8 +62,8 @@ class Sandpit {
         _container.appendChild(this._canvas)
       }
       // Set the width and height
-      this._canvas.width = window.innerWidth
-      this._canvas.height = window.innerHeight
+      this._canvas.width = this._canvas.clientWidth
+      this._canvas.height = this._canvas.clientHeight
       // Grab the context
       if (type === Sandpit.CANVAS) {
         this._context = this._canvas.getContext(type)
@@ -76,11 +76,11 @@ class Sandpit {
       if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
         const ratio = window.devicePixelRatio
         // Increaser the canvas by the ratio
-        this._canvas.width = window.innerWidth * ratio
-        this._canvas.height = window.innerHeight * ratio
+        this._canvas.width = this._canvas.width * ratio
+        this._canvas.height = this._canvas.height * ratio
         // Set the canvas to the actual size
-        this._canvas.style.width = window.innerWidth + 'px'
-        this._canvas.style.height = window.innerHeight + 'px'
+        this._canvas.style.width = this._canvas.clientWidth + 'px'
+        this._canvas.style.height = this._canvas.clientHeight + 'px'
         // Scale the canvas to the new ratio
         // TODO: Add canvas support to jsdom to avoid having
         // to if-statement this bit to pass tests
@@ -553,7 +553,8 @@ class Sandpit {
   clear () {
     if (this._type === Sandpit.CANVAS) {
       this._context.clearRect(0, 0, this.width(), this.height())
-    } else if (this._type === Sandpit.WEGBL) {
+    } else if (this._type === Sandpit.WEGBL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+      // TODO: Fix clear for webgl
       logger.warn('clear() is currently only supported in 2D')
     }
   }
@@ -604,7 +605,7 @@ class Sandpit {
    * @returns {number} Canvas width
    */
   width () {
-    return window.innerWidth
+    return this._canvas.clientWidth
   }
 
   /**
@@ -612,7 +613,7 @@ class Sandpit {
    * @returns {number} Canvas height
    */
   height () {
-    return window.innerHeight
+    return this._canvas.clientHeight
   }
 
   /**
@@ -659,10 +660,10 @@ class Sandpit {
    * Resizes the canvas to the window width and height
    */
   resizeCanvas () {
-    this._canvas.width = window.innerWidth
-    this._canvas.height = window.innerHeight
-    if(this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
-      this._context.viewport(0, 0, this._canvas.width, this._canvas.height)
+    this._canvas.width = this._canvas.clientWidth
+    this._canvas.height = this._canvas.clientHeight
+    if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+      this._context.viewport(0, 0, this._context.drawingBufferWidth, this._context.drawingBufferHeight)
     }
   }
 

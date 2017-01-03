@@ -23,9 +23,6 @@ canvas {
   top: 0;
   left: 0;
   display: block;
-}
-
-#root {
   width: 100%;
   height: 100%;
 }
