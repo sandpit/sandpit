@@ -65,7 +65,12 @@ var Sandpit = function () {
   }, {
     key: 'WEBGL',
     get: function get() {
-      return '3d';
+      return 'webgl';
+    }
+  }, {
+    key: 'EXPERIMENTAL_WEBGL',
+    get: function get() {
+      return 'experimental-webgl';
     }
 
     /**
@@ -122,24 +127,28 @@ var Sandpit = function () {
           _container.appendChild(this._canvas);
         }
         // Set the width and height
-        this._canvas.width = window.innerWidth;
-        this._canvas.height = window.innerHeight;
+        this._canvas.width = this._canvas.clientWidth;
+        this._canvas.height = this._canvas.clientHeight;
         // Grab the context
-        this._context = this._canvas.getContext(type);
+        if (type === Sandpit.CANVAS) {
+          this._context = this._canvas.getContext(type);
+        } else if (type === Sandpit.WEBGL || type === Sandpit.EXPERIMENTAL_WEBGL) {
+          this._context = this._canvas.getContext(Sandpit.WEBGL) || this._canvas.getContext(Sandpit.EXPERIMENTAL_WEBGL);
+        }
         this._type = type;
 
         // Deal with retina displays
         if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
           var ratio = window.devicePixelRatio;
           // Increaser the canvas by the ratio
-          this._canvas.width = window.innerWidth * ratio;
-          this._canvas.height = window.innerHeight * ratio;
+          this._canvas.width = this._canvas.width * ratio;
+          this._canvas.height = this._canvas.height * ratio;
           // Set the canvas to the actual size
-          this._canvas.style.width = window.innerWidth + 'px';
-          this._canvas.style.height = window.innerHeight + 'px';
+          this._canvas.style.width = this._canvas.clientWidth + 'px';
+          this._canvas.style.height = this._canvas.clientHeight + 'px';
           // Scale the canvas to the new ratio
           // TODO: Add canvas support to jsdom to avoid having
-          // to if-statement this bit
+          // to if-statement this bit to pass tests
           if (this._context) this._context.scale(ratio, ratio);
         }
       } else {
@@ -328,13 +337,7 @@ var Sandpit = function () {
     key: '_loop',
     value: function _loop() {
       // Clear the canvas if autoclear is set
-      if (this._autoClear) {
-        if (this._type === Sandpit.CANVAS) {
-          this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-        } else if (this._type === Sandpit.WEGBL) {
-          _logger2.default.warn('autoClear() is currently only supported in 2D');
-        }
-      }
+      if (this._autoClear) this.clear();
       // Loop!
       if (this.loop) this.loop();
       // Increment time
@@ -703,8 +706,9 @@ var Sandpit = function () {
     value: function clear() {
       if (this._type === Sandpit.CANVAS) {
         this._context.clearRect(0, 0, this.width(), this.height());
-      } else if (this._type === Sandpit.WEGBL) {
-        _logger2.default.warn('clear() is currently only supported in 2D');
+      } else if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+        this._context.clearColor(0, 0, 0, 0);
+        this._context.clear(this._context.COLOR_BUFFER_BIT | this._context.DEPTH_BUFFER_BIT);
       }
     }
 
@@ -727,8 +731,8 @@ var Sandpit = function () {
 
   }, {
     key: 'focusTouchesOnCanvas',
-    value: function focusTouchesOnCanvas() {
-      this._focusTouchesOnCanvas = true;
+    value: function focusTouchesOnCanvas(boolean) {
+      this._focusTouchesOnCanvas = boolean;
     }
 
     /**
@@ -772,7 +776,7 @@ var Sandpit = function () {
   }, {
     key: 'width',
     value: function width() {
-      return window.innerWidth;
+      return this._canvas.clientWidth;
     }
 
     /**
@@ -783,7 +787,7 @@ var Sandpit = function () {
   }, {
     key: 'height',
     value: function height() {
-      return window.innerHeight;
+      return this._canvas.clientHeight;
     }
 
     /**
@@ -798,7 +802,8 @@ var Sandpit = function () {
       if (this._type === Sandpit.CANVAS) {
         this._context.fillStyle = color;
         this._context.fillRect(0, 0, this.width(), this.height());
-      } else if (this._type === Sandpit.WEGBL) {
+      } else if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+        // TODO: Use fill to update the clearColor of a 3D canvas
         _logger2.default.warn('fill() is currently only supported in 2D');
       }
     }
@@ -843,8 +848,11 @@ var Sandpit = function () {
   }, {
     key: 'resizeCanvas',
     value: function resizeCanvas() {
-      this._canvas.width = window.innerWidth;
-      this._canvas.height = window.innerHeight;
+      this._canvas.width = this._canvas.clientWidth;
+      this._canvas.height = this._canvas.clientHeight;
+      if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+        this._context.viewport(0, 0, this._context.drawingBufferWidth, this._context.drawingBufferHeight);
+      }
     }
 
     /**
@@ -874,6 +882,8 @@ var Sandpit = function () {
     value: function stop() {
       var _this4 = this;
 
+      // Stop the animation frame loop
+      window.cancelAnimationFrame(this._animationFrame);
       // Delete element, if initiated
       if (this.canvas()) {
         this.canvas().outerHTML = '';
@@ -884,8 +894,6 @@ var Sandpit = function () {
         this._gui.domElement.removeEventListener('touchmove', this._preventDefault);
         this._gui.destroy();
       }
-      // Stop the animation frame loop
-      window.cancelAnimationFrame(this._animationFrame);
       // Remove all event listeners
       Object.keys(this._events).forEach(function (event) {
         if (_this4._events[event].disable) {
@@ -898,8 +906,6 @@ var Sandpit = function () {
 
   return Sandpit;
 }();
-
-// TODO: Look at handling retina displays
 
 exports.Is = _Is2.default;
 exports.Mathematics = _Mathematics2.default;
