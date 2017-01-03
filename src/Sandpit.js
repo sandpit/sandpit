@@ -207,7 +207,7 @@ class Sandpit {
    * @private
    */
   _reset () {
-    if (this._queryable) {
+    if (this._queryable || this.reset) {
       if (this.reset) {
         // If there's a reset method available, run that
         this.reset()
