@@ -253,13 +253,7 @@ class Sandpit {
    */
   _loop () {
     // Clear the canvas if autoclear is set
-    if (this._autoClear) {
-      if (this._type === Sandpit.CANVAS) {
-        this._context.clearRect(0, 0, this._canvas.width, this._canvas.height)
-      } else if (this._type === Sandpit.WEGBL) {
-        logger.warn('autoClear() is currently only supported in 2D')
-      }
-    }
+    if (this._autoClear) this.clear()
     // Loop!
     if (this.loop) this.loop()
     // Increment time
@@ -553,9 +547,9 @@ class Sandpit {
   clear () {
     if (this._type === Sandpit.CANVAS) {
       this._context.clearRect(0, 0, this.width(), this.height())
-    } else if (this._type === Sandpit.WEGBL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
-      // TODO: Fix clear for webgl
-      logger.warn('clear() is currently only supported in 2D')
+    } else if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+      this._context.clearColor(0, 0, 0, 0)
+      this._context.clear(this._context.COLOR_BUFFER_BIT | this._context.DEPTH_BUFFER_BIT)
     }
   }
 
@@ -572,8 +566,8 @@ class Sandpit {
    * other touch events will work
    * @param {boolean} boolean
    */
-  focusTouchesOnCanvas () {
-    this._focusTouchesOnCanvas = true
+  focusTouchesOnCanvas (boolean) {
+    this._focusTouchesOnCanvas = boolean
   }
 
   /**
@@ -625,7 +619,8 @@ class Sandpit {
     if (this._type === Sandpit.CANVAS) {
       this._context.fillStyle = color
       this._context.fillRect(0, 0, this.width(), this.height())
-    } else if (this._type === Sandpit.WEGBL) {
+    } else if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
+      // TODO: Use fill to update the clearColor of a 3D canvas
       logger.warn('fill() is currently only supported in 2D')
     }
   }
@@ -686,6 +681,8 @@ class Sandpit {
    * Stops the loop and removes event listeners
    */
   stop () {
+    // Stop the animation frame loop
+    window.cancelAnimationFrame(this._animationFrame)
     // Delete element, if initiated
     if (this.canvas()) {
       this.canvas().outerHTML = ''
@@ -696,8 +693,6 @@ class Sandpit {
       this._gui.domElement.removeEventListener('touchmove', this._preventDefault)
       this._gui.destroy()
     }
-    // Stop the animation frame loop
-    window.cancelAnimationFrame(this._animationFrame)
     // Remove all event listeners
     Object.keys(this._events).forEach(event => {
       if (this._events[event].disable) {
@@ -707,8 +702,6 @@ class Sandpit {
     })
   }
 }
-
-// TODO: Look at handling retina displays
 
 export { Is, Mathematics, Color, Vector }
 export default Sandpit

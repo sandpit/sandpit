@@ -13,7 +13,6 @@ const playground = () => {
 
   const renderer = new WebGLRenderer({canvas: sandpit.canvas(), antialias: true})
   renderer.setClearColor(0x000000, 1)
-  renderer.setSize(sandpit.width(), sandpit.height())
   renderer.shadowMap.type = PCFSoftShadowMap
   renderer.shadowMap.enabled = true
 
@@ -65,10 +64,8 @@ const playground = () => {
   }
 
   sandpit.resize = () => {
-    sandpit.resizeCanvas()
     camera.aspect = sandpit.width() / sandpit.height()
     camera.updateProjectionMatrix()
-    renderer.setSize(sandpit.width(), sandpit.height())
   }
 
   sandpit.start()
