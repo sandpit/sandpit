@@ -4,6 +4,7 @@ import accelerometer from './accelerometer'
 import paint from './paint'
 import webgl from './webgl'
 import data from './data'
+import generative from './generative'
 
 export default {
   particles,
@@ -11,5 +12,6 @@ export default {
   accelerometer,
   paint,
   webgl,
-  data
+  data,
+  generative
 }
