@@ -1,6 +1,6 @@
 
-var package = require('../package.json')
-var version = package.version
+var data = require('../package.json')
+var version = data.version
 
 var fs = require('fs')
 

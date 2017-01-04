@@ -149,7 +149,10 @@ var Sandpit = function () {
       }
     }
 
-    /** Resizes the canvas for retina */
+    /**
+     *  Resizes the canvas for retina
+     *  @private
+     */
 
   }, {
     key: '_handleRetina',

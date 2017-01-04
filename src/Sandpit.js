@@ -84,7 +84,10 @@ class Sandpit {
     }
   }
 
-  /** Resizes the canvas for retina */
+  /**
+   *  Resizes the canvas for retina
+   *  @private
+   */
   _handleRetina () {
     const ratio = window.devicePixelRatio
     // Increaser the canvas by the ratio
