@@ -76,18 +76,20 @@ var Sandpit = function () {
     /**
      * @param {(string|object)} container - The container for the canvas to be added to
      * @param {string} type - Defines whether the context is 2d or 3d
-     * @param {boolean} retina - Optionally decide to ignore rescaling for retina displays
+     * @param {object} options - Optionally decide to ignore rescaling for retina displays,
+     * or to disable putting settings into the query string
      */
 
   }]);
 
   function Sandpit(container, type) {
-    var retina = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { retina: true, queryable: true };
 
     _classCallCheck(this, Sandpit);
 
     _logger2.default.info('⛱ Welcome to Sandpit');
-    this._setupContext(container, type, retina);
+    this._setupContext(container, type, options.retina);
+    this._queryable = options.queryable;
   }
 
   /**
@@ -170,7 +172,12 @@ var Sandpit = function () {
     value: function _setupSettings() {
       var _this = this;
 
-      this.settings = {};
+      this._settings = {};
+      // Destroy the gui if new settings are being passed in
+      if (this._gui) {
+        this._gui.domElement.removeEventListener('touchmove', this._preventDefault);
+        this._gui.destroy();
+      }
       this._gui = new _dat2.default.GUI();
       this._gui.domElement.addEventListener('touchmove', this._preventDefault, false);
 
@@ -222,18 +229,18 @@ var Sandpit = function () {
           // If a selected option is available via the query
           // string, use that
           if (_this.defaults[name].selected) {
-            _this.settings[name] = _this.defaults[name].selected;
+            _this._settings[name] = _this.defaults[name].selected;
           } else {
             // If not, grab the first item in the object or array
-            _this.settings[name] = _Is2.default.array(value) ? value[0] : value[Object.keys(value)[0]];
+            _this._settings[name] = _Is2.default.array(value) ? value[0] : value[Object.keys(value)[0]];
           }
         } else {
           // If it's not an object, pass the setting on
-          _this.settings[name] = _this.defaults[name].value;
+          _this._settings[name] = _this.defaults[name].value;
         }
 
         // If it's a colour, use a different method
-        var guiField = _this.defaults[name].color ? group.addColor(_this.settings, name) : group.add(_this.settings, name, options);
+        var guiField = _this.defaults[name].color ? group.addColor(_this._settings, name) : group.add(_this._settings, name, options);
 
         // Check for min, max and step, and add to the gui field
         if (_this.defaults[name].min !== undefined) guiField = guiField.min(_this.defaults[name].min);
@@ -254,14 +261,14 @@ var Sandpit = function () {
 
       // Hide controls for mobile
       // TODO: Make this a setting
-      if (this.width() <= 767) {
+      if (this.width <= 767) {
         this._gui.close();
       }
 
       // If queryable is enabled, serialize the final settings
       // and push them to the query string
       if (this._queryable) {
-        var query = _queryfetch2.default.serialize(this.settings);
+        var query = _queryfetch2.default.serialize(this._settings);
         window.history.replaceState({}, null, '/?' + query);
         // Adds a clear and reset button to the gui interface
         this._gui.add({ clear: function clear() {
@@ -307,7 +314,7 @@ var Sandpit = function () {
     value: function _change(name, value) {
       _logger2.default.info('Update fired on ' + name + ': ' + value);
       if (this._queryable) {
-        var query = _queryfetch2.default.serialize(this.settings);
+        var query = _queryfetch2.default.serialize(this._settings);
         window.history.pushState({}, null, '/?' + query);
       }
       // If there is a change hook, use it
@@ -667,51 +674,22 @@ var Sandpit = function () {
      */
 
   }, {
-    key: 'settings',
-    value: function settings(_settings) {
-      var queryable = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      this.defaults = _settings;
-      this._queryable = queryable;
-    }
-
-    /**
-     * Defines whether or not to return debugger messages from Sandpit
-     * @param {boolean} boolean
-     * @return {object} Context
-     */
-
-  }, {
-    key: 'debug',
-    value: function debug(boolean) {
-      _logger2.default.active = boolean;
-    }
-
-    /**
-     * Sets whether the canvas autoclears after each render
-     * @param {boolean} boolean
-     */
-
-  }, {
-    key: 'autoClear',
-    value: function autoClear(boolean) {
-      this._autoClear = boolean;
-    }
-
-    /**
-     * Clears the canvas
-     * @param {boolean} boolean
-     */
-
-  }, {
     key: 'clear',
+
+
+    /**
+     * Clears the canvas, and if change is set,
+     * fires change
+     * @param {boolean} boolean
+     */
     value: function clear() {
       if (this._type === Sandpit.CANVAS) {
-        this._context.clearRect(0, 0, this.width(), this.height());
+        this._context.clearRect(0, 0, this.width, this.height);
       } else if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
         this._context.clearColor(0, 0, 0, 0);
         this._context.clear(this._context.COLOR_BUFFER_BIT | this._context.DEPTH_BUFFER_BIT);
       }
+      if (this.change) this.change();
     }
 
     /**
@@ -732,78 +710,19 @@ var Sandpit = function () {
      */
 
   }, {
-    key: 'focusTouchesOnCanvas',
-    value: function focusTouchesOnCanvas(boolean) {
-      this._focusTouchesOnCanvas = boolean;
-    }
+    key: 'fill',
 
-    /**
-     * Returns the canvas context
-     * @return {object} Context
-     */
-
-  }, {
-    key: 'context',
-    value: function context() {
-      return this._context;
-    }
-
-    /**
-     * Returns the canvas object
-     * @return {canvas} Canvas
-     */
-
-  }, {
-    key: 'canvas',
-    value: function canvas() {
-      return this._canvas;
-    }
-
-    /**
-     * Returns the frame increment
-     * @returns {number} Canvas width
-     */
-
-  }, {
-    key: 'time',
-    value: function time() {
-      return this._time;
-    }
-
-    /**
-     * Returns the canvas width
-     * @returns {number} Canvas width
-     */
-
-  }, {
-    key: 'width',
-    value: function width() {
-      return this._canvas.clientWidth;
-    }
-
-    /**
-     * Returns the canvas height
-     * @returns {number} Canvas height
-     */
-
-  }, {
-    key: 'height',
-    value: function height() {
-      return this._canvas.clientHeight;
-    }
 
     /**
      * Fills the canvas with the provided colour
      * @param {string} color - The color to fill with, in string format
      * (for example, '#000', 'rgba(0, 0, 0, 0.5)')
      */
-
-  }, {
-    key: 'fill',
     value: function fill(color) {
+      this._fill = color;
       if (this._type === Sandpit.CANVAS) {
-        this._context.fillStyle = color;
-        this._context.fillRect(0, 0, this.width(), this.height());
+        this._context.fillStyle = this._fill;
+        this._context.fillRect(0, 0, this.width, this.height);
       } else if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
         // TODO: Use fill to update the clearColor of a 3D canvas
         _logger2.default.warn('fill() is currently only supported in 2D');
@@ -864,8 +783,6 @@ var Sandpit = function () {
   }, {
     key: 'start',
     value: function start() {
-      // Sets up settings
-      if (this.defaults && Object.keys(this.defaults).length) this._setupSettings();
       // Sets up the events
       this._setupEvents();
       // Sets up setup
@@ -887,9 +804,9 @@ var Sandpit = function () {
       // Stop the animation frame loop
       window.cancelAnimationFrame(this._animationFrame);
       // Delete element, if initiated
-      if (this.canvas()) {
-        this.canvas().outerHTML = '';
-        delete this.canvas();
+      if (this.canvas) {
+        this.canvas.outerHTML = '';
+        delete this.canvas;
       }
       // Remove Gui, if initiated
       if (this._gui) {
@@ -903,6 +820,134 @@ var Sandpit = function () {
         }
         _this4._events[event].context.removeEventListener(event, _this4._events[event].event.bind(_this4));
       });
+    }
+  }, {
+    key: 'settings',
+    set: function set(settings) {
+      // Sets up settings
+      if (settings && Object.keys(settings).length) {
+        this.defaults = settings;
+        this._setupSettings();
+      }
+    }
+
+    /**
+     * Returns the settings object
+     * @return {object} settings
+     */
+    ,
+    get: function get() {
+      return this._settings;
+    }
+
+    /**
+     * Defines whether or not to return debugger messages from Sandpit
+     * @param {boolean} boolean
+     * @return {object} Context
+     */
+
+  }, {
+    key: 'debug',
+    set: function set(boolean) {
+      _logger2.default.active = boolean;
+    }
+
+    /**
+     * Checks if debugger is active
+     * @return {boolean} active
+     */
+    ,
+    get: function get() {
+      return _logger2.default.active;
+    }
+
+    /**
+     * Sets whether the canvas autoclears after each render
+     * @param {boolean} boolean
+     */
+
+  }, {
+    key: 'autoClear',
+    set: function set(boolean) {
+      this._autoClear = boolean;
+    }
+
+    /**
+     * Checks if autoclear is on
+     * @return {boolean} active
+     */
+    ,
+    get: function get() {
+      return this._autoClear;
+    }
+  }, {
+    key: 'focusTouchesOnCanvas',
+    set: function set(boolean) {
+      this._focusTouchesOnCanvas = boolean;
+    }
+
+    /**
+     * Checks if touches are focused on the canvas
+     * @return {boolean} active
+     */
+    ,
+    get: function get() {
+      return this._focusTouchesOnCanvas;
+    }
+
+    /**
+     * Returns the canvas context
+     * @return {object} Context
+     */
+
+  }, {
+    key: 'context',
+    get: function get() {
+      return this._context;
+    }
+
+    /**
+     * Returns the canvas object
+     * @return {canvas} Canvas
+     */
+
+  }, {
+    key: 'canvas',
+    get: function get() {
+      return this._canvas;
+    }
+
+    /**
+     * Returns the frame increment
+     * @returns {number} Canvas width
+     */
+
+  }, {
+    key: 'time',
+    get: function get() {
+      return this._time;
+    }
+
+    /**
+     * Returns the canvas width
+     * @returns {number} Canvas width
+     */
+
+  }, {
+    key: 'width',
+    get: function get() {
+      return this._canvas.clientWidth;
+    }
+
+    /**
+     * Returns the canvas height
+     * @returns {number} Canvas height
+     */
+
+  }, {
+    key: 'height',
+    get: function get() {
+      return this._canvas.clientHeight;
     }
   }]);
 

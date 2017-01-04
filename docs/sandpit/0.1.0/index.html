@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#autoClear">autoClear</a></li><li data-type='method'><a href="Sandpit.html#canvas">canvas</a></li><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#context">context</a></li><li data-type='method'><a href="Sandpit.html#debug">debug</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#focusTouchesOnCanvas">focusTouchesOnCanvas</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#height">height</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#settings">settings</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li><li data-type='method'><a href="Sandpit.html#time">time</a></li><li data-type='method'><a href="Sandpit.html#width">width</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#requestAnimationFrame">requestAnimationFrame</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#requestAnimationFrame">requestAnimationFrame</a></li></ul>
 </nav>
 
 <div id="main">
@@ -50,12 +50,38 @@
         <article><h1>⛱ Sandpit</h1><p>A playground for creative coding using JavaScript and the canvas element.</p>
 <p><img src="https://sandpitjs.com/assets/images/animation.gif" alt="An example animation of Sandpit"></p>
 <p>Built in ES6, <strong>Sandpit</strong> uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.</p>
-<h2>So, how?</h2><ul>
-<li><a href="https://github.com/superhighfives/sandpit/wiki">Getting started</a> - Find out more about getting started</li>
-<li><a href="https://github.com/superhighfives/sandpit/wiki/Documentation">View the docs</a> - View the docs</li>
-<li><a href="https://sandpitjs.com/docs/Sandpit/0.1.0">Read the API</a> - Jump into the heavy stuff with the API</li>
+<ul>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#why-use-sandpit">Why use Sandpit?</a></li>
+<li><a href="#demos-and-examples">Demos and examples</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#want-to-contribute">Want to contribute?</a></li>
+<li><a href="#whos-behind-it">Who's behind it?</a></li>
 </ul>
-<h2>Download</h2><p>Download for <a href="https://sandpitjs.com/dist/sandpit.js">development</a> or <a href="https://sandpitjs.com/dist/sandpit.min.js">minfied</a>.</p></article>
+<hr>
+<h2>Getting Started</h2><p>If you're super up to date, just add Sandpit to your project and start using it:</p>
+<pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
+<pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
+var Sandpit = require('sandpit') // for es5</code></pre><p>Alternatively, download it for <a href="https://sandpitjs.com/dist/sandpit.js">development</a> or <a href="https://sandpitjs.com/dist/sandpit.min.js">minfied for production</a> and include it in a script tag.</p>
+<p>Either way, celebrate. You are a success.</p>
+<h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
+<p><strong>Sandpit</strong> supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:</p>
+<ul>
+<li>Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom</li>
+<li>Makes it easy to drop in settings, with a simple API for specifying ranges, types and defaults (with <a href="https://github.com/dataarts/dat.gui">dat.GUI</a> behind the scenes)</li>
+<li>Stores settings in the query string, so you can copy and paste them without needing to touch a line of code</li>
+<li>Offers a bunch of helpers, covering maths, color and vector manipulation (kudos to <a href="https://github.com/Qix-/color">color</a> and <a href="http://victorjs.org/">Victor</a>)</li>
+<li>Supports bringing your own canvas—for example, to simplify using <a href="http://threejs.org/">Three</a></li>
+</ul>
+<h2>Demos and examples</h2><p>There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/superhighfives/sandpit/tree/master/src/demos>.</p>
+<h2>Documentation</h2><p><a href="https://github.com/superhighfives/sandpit/wiki/Documentation">Look no further—here's documentation of the full API</a>.</p>
+<p>You can also read the annotated source at <https://sandpitjs.com>.</p>
+<h2>Want to contribute?</h2><p>You 100% should. You can find out more about <a href="https://github.com/superhighfives/sandpit/blob/master/CONTRIBUTING.md">contributing here</a>.</p>
+<h2>Who's behind it?</h2><ul>
+<li>Charlie Gleason <a href="https://twitter.com/superhighfives/">@superhighfives</a></li>
+<li>Glen Maddern <a href="https://twitter.com/glenmaddern/">@glenmaddern</a></li>
+</ul></article>
     </section>
 
 
@@ -68,7 +94,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jan 03 2017 23:35:29 GMT+0000 (GMT) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jan 04 2017 14:02:07 GMT+0000 (GMT) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
