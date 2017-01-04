@@ -64,8 +64,6 @@ There are a bunch of examples at <https://sandpitjs.com>, the source for which c
 ## Documentation
 [Look no further—here's documentation of the full API](https://github.com/superhighfives/sandpit/wiki/Documentation).
 
-You can also read the annotated source at <https://sandpitjs.com>.
-
 
 
 ## Want to contribute?

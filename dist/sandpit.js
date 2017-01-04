@@ -90,6 +90,7 @@ var Sandpit = function () {
     _logger2.default.info('⛱ Welcome to Sandpit');
     this._setupContext(container, type, options.retina);
     this._queryable = options.queryable;
+    this._retina = options.retina;
   }
 
   /**
@@ -141,21 +142,26 @@ var Sandpit = function () {
 
         // Deal with retina displays
         if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
-          var ratio = window.devicePixelRatio;
-          // Increaser the canvas by the ratio
-          this._canvas.width = this._canvas.width * ratio;
-          this._canvas.height = this._canvas.height * ratio;
-          // Set the canvas to the actual size
-          this._canvas.style.width = this._canvas.clientWidth + 'px';
-          this._canvas.style.height = this._canvas.clientHeight + 'px';
-          // Scale the canvas to the new ratio
-          // TODO: Add canvas support to jsdom to avoid having
-          // to if-statement this bit to pass tests
-          if (this._context) this._context.scale(ratio, ratio);
+          this._handleRetina();
         }
       } else {
         throw new Error('The container is not a HTMLElement');
       }
+    }
+
+    /** Resizes the canvas for retina */
+
+  }, {
+    key: '_handleRetina',
+    value: function _handleRetina() {
+      var ratio = window.devicePixelRatio;
+      // Increaser the canvas by the ratio
+      this._canvas.width = this._canvas.clientWidth * ratio;
+      this._canvas.height = this._canvas.clientHeight * ratio;
+      // Scale the canvas to the new ratio
+      // TODO: Add canvas support to jsdom to avoid having
+      // to if-statement this bit to pass tests
+      if (this._context) this._context.scale(ratio, ratio);
     }
 
     /**
@@ -769,11 +775,16 @@ var Sandpit = function () {
   }, {
     key: 'resizeCanvas',
     value: function resizeCanvas() {
-      this._canvas.width = this._canvas.clientWidth;
-      this._canvas.height = this._canvas.clientHeight;
+      if (this._type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && this._retina) {
+        this._handleRetina();
+      } else {
+        this._canvas.width = this._canvas.clientWidth;
+        this._canvas.height = this._canvas.clientHeight;
+      }
       if (this._type === Sandpit.WEBGL || this._type === Sandpit.EXPERIMENTAL_WEBGL) {
         this._context.viewport(0, 0, this._context.drawingBufferWidth, this._context.drawingBufferHeight);
       }
+      if (this.change) this.change();
     }
 
     /**
