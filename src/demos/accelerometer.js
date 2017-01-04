@@ -4,19 +4,19 @@ import { WebGLRenderer, PerspectiveCamera, PCFSoftShadowMap,
 
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.WEBGL)
-  sandpit.settings({
+  sandpit.settings = {
     demo: {value: 'accelerometer', editable: false, sticky: true},
     scale: {value: 1, step: 0.25, min: 0.25, max: 1.5},
     cube: {value: {white: 'hsl(0, 100%, 100%)', aqua: 'hsl(175, 100%, 45%)', blue: 'hsl(185, 69%, 63%)', orange: 'hsl(39, 100%, 54%)', pink: 'hsl(333, 100%, 68%)', green: 'hsl(84, 100%, 68%)', violet: 'hsl(270, 100%, 80%)'}},
     surface: {value: '#333', color: true}
-  }, true)
+  }
 
-  const renderer = new WebGLRenderer({canvas: sandpit.canvas(), antialias: true})
+  const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})
   renderer.setClearColor(0x000000, 1)
   renderer.shadowMap.type = PCFSoftShadowMap
   renderer.shadowMap.enabled = true
 
-  let camera = new PerspectiveCamera(35, sandpit.width() / sandpit.height(), 1, 10000)
+  let camera = new PerspectiveCamera(35, sandpit.width / sandpit.height, 1, 10000)
   camera.position.set(0, 0, 500)
 
   let scene = new Scene()
@@ -64,7 +64,7 @@ const playground = () => {
   }
 
   sandpit.resize = () => {
-    camera.aspect = sandpit.width() / sandpit.height()
+    camera.aspect = sandpit.width / sandpit.height
     camera.updateProjectionMatrix()
   }
 

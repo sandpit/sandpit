@@ -12,18 +12,18 @@ const playground = () => {
   root.appendChild(existingCanvas)
 
   const sandpit = new Sandpit(existingCanvas, Sandpit.CANVAS)
-  sandpit.settings({
+  sandpit.settings = {
     demo: {value: 'multitouch', editable: false, sticky: true},
-    autoClear: {value: false},
-    maxSize: {value: 5, min: 5, max: 50, step: 1},
+    autoClear: {value: true},
+    maxSize: {value: 40, min: 5, max: 50, step: 1},
     energy: {value: 0.9, min: 0.0, max: 0.9, step: 0.1},
     force: {value: 2, min: 2, max: 30, step: 1},
-    decay: {value: 0.90, min: 0.85, max: 0.99, step: 0.01},
+    decay: {value: 0.99, min: 0.85, max: 0.99, step: 0.01},
     blend: {value: ['darken', 'multiply', 'overlay']}
-  })
-  sandpit.autoClear(sandpit.settings.autoClear)
+  }
+  sandpit.autoClear = sandpit.settings.autoClear
   const random = sandpit.random()
-  const ctx = sandpit.context()
+  const ctx = sandpit.context
 
   const colors = ['hsl(0, 100%, 100%)', 'hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
   let enabled = false
@@ -96,8 +96,8 @@ const playground = () => {
 
   sandpit.setup = () => {
     for (let i = 0; i < 100; i++) {
-      let x = (sandpit.width() / 2) + Math.sin(i / Math.PI / 5) * 100
-      let y = (sandpit.height() / 2) + Math.cos(i / Math.PI / 5) * 100
+      let x = (sandpit.width / 2) + Math.sin(i / Math.PI / 5) * 100
+      let y = (sandpit.height / 2) + Math.cos(i / Math.PI / 5) * 100
       window.setTimeout(() => {
         spawn(x, y)
       }, i * 10)
@@ -109,7 +109,7 @@ const playground = () => {
 
   sandpit.loop = () => {
     ctx.globalCompositeOperation = sandpit.settings.blend
-    sandpit.autoClear(sandpit.settings.autoClear)
+    sandpit.autoClear = sandpit.settings.autoClear
     for (let i = particles.length - 1; i >= 0; i--) {
       let particle = particles[i]
       if (particle.alive) {

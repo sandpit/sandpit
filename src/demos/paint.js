@@ -9,15 +9,13 @@ const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
   const backgrounds = ['hsl(175, 100%, 45%)', 'hsl(185, 69%, 63%)', 'hsl(39, 100%, 54%)', 'hsl(333, 100%, 68%)', 'hsl(84, 100%, 68%)', 'hsl(270, 100%, 80%)']
 
-  sandpit.autoClear(false)
-  sandpit.settings({
-    demo: {value: 'paint', editable: false, sticky: true}
-  })
-  const ctx = sandpit.context()
+  sandpit.autoClear = false
+  sandpit.settings = {demo: {value: 'paint', editable: false, sticky: true}}
+  const ctx = sandpit.context
   let radius = 0
 
   sandpit.loop = () => {
-    radius = 2 + Math.abs(Math.sin(sandpit.time() * 0.05) * 20)
+    radius = 2 + Math.abs(Math.sin(sandpit.time * 0.05) * 20)
   }
 
   sandpit.move = () => {

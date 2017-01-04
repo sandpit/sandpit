@@ -7,11 +7,11 @@ const playground = () => {
   const randomBackground = Math.floor(Math.random() * Object.keys(backgrounds).length)
   const background = backgrounds[Object.keys(backgrounds)[randomBackground]]
 
-  sandpit.autoClear(false)
-  sandpit.settings({
+  sandpit.autoClear = false
+  sandpit.settings = {
     demo: {value: 'data', editable: false, sticky: true}
-  })
-  const ctx = sandpit.context()
+  }
+  const ctx = sandpit.context
 
   let loading = true
   sandpit.setup = () => {
@@ -23,9 +23,9 @@ const playground = () => {
       ctx.fillStyle = '#000'
       ctx.textAlign = 'center'
       ctx.font = '48px sans-serif'
-      ctx.fillText(name, sandpit.width() / 2, sandpit.height() / 2 + 50)
+      ctx.fillText(name, sandpit.width / 2, sandpit.height / 2 + 50)
       ctx.font = '16px sans-serif'
-      ctx.fillText('RANDOM NAME GENERATOR'.split('').join(String.fromCharCode(8202)), sandpit.width() / 2, sandpit.height() / 2)
+      ctx.fillText('RANDOM NAME GENERATOR'.split('').join(String.fromCharCode(8202)), sandpit.width / 2, sandpit.height / 2)
     })
   }
 
@@ -33,13 +33,13 @@ const playground = () => {
     if (loading) {
       ctx.beginPath()
       ctx.arc(
-        (sandpit.width() / 2 + Math.sin(sandpit.time() / Math.PI) * 15) - 1,
-        (sandpit.height() / 2 + 25 + Math.cos(sandpit.time() / Math.PI) * 15) - 1,
+        (sandpit.width / 2 + Math.sin(sandpit.time / Math.PI) * 15) - 1,
+        (sandpit.height / 2 + 25 + Math.cos(sandpit.time / Math.PI) * 15) - 1,
         2, 0, 2 * Math.PI)
       ctx.fillStyle = '#000'
       ctx.fill()
       ctx.fillStyle = Color(background).alpha(0.25).toString()
-      ctx.fillRect(0, 0, sandpit.width(), sandpit.height())
+      ctx.fillRect(0, 0, sandpit.width, sandpit.height)
     }
   }
 

@@ -1,15 +1,15 @@
-import multitouch from './multitouch'
 import particles from './particles'
+import multitouch from './multitouch'
 import accelerometer from './accelerometer'
-import data from './data'
 import paint from './paint'
 import webgl from './webgl'
+import data from './data'
 
 export default {
-  multitouch,
   particles,
+  multitouch,
   accelerometer,
-  data,
   paint,
-  webgl
+  webgl,
+  data
 }

@@ -7,12 +7,10 @@ import Sandpit, { Color, Mathematics } from '../Sandpit'
 
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.WEBGL)
-  const canvas = sandpit.canvas()
-  const ctx = sandpit.context()
-  sandpit.autoClear(false)
-  sandpit.settings({
-    demo: {value: 'webgl', editable: false, sticky: true}
-  })
+  const canvas = sandpit.canvas
+  const ctx = sandpit.context
+  sandpit.autoClear = false
+  sandpit.settings = {demo: {value: 'webgl', editable: false, sticky: true}}
 
   const vertex = `
     attribute vec2 aVertexPosition;

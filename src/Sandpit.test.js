@@ -27,14 +27,14 @@ describe('Sandpit', () => {
     it('should use the canvas, if that is provided as a dom element', () => {
       let canvas = document.createElement('canvas')
       let sandpit = new Sandpit(canvas, Sandpit.CANVAS)
-      expect(sandpit.canvas()).toBe(canvas)
+      expect(sandpit.canvas).toBe(canvas)
     })
   })
 
   describe('settings', () => {
     let sandpit = new Sandpit('body', Sandpit.CANVAS)
     let settings = {beingGreat: {value: true}}
-    sandpit.settings(settings)
+    sandpit.settings = settings
     sandpit.start()
 
     it('should store settings when they are passed in', () => {
