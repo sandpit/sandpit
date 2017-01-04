@@ -9,6 +9,7 @@ Built in ES6, **Sandpit** uses dat.GUI to manage settings and encourages copy an
 
 - [Getting started](#getting-started)
 - [Why use Sandpit?](#why-use-sandpit)
+- [Demos and examples](#demos-and-examples)
 - [Documentation](#documentation)
 - [Want to contribute?](#want-to-contribute)
 - [Who's behind it?](#whos-behind-it)
@@ -55,7 +56,12 @@ The goal of **Sandpit** is to normalise and simplify the process of creating cod
 
 
 
-## Documentation / API
+## Demos and examples
+There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/superhighfives/sandpit/tree/master/src/demos>.
+
+
+
+## Documentation
 [Look no further—here's documentation of the full API](https://github.com/superhighfives/sandpit/wiki/Documentation).
 
 You can also read the annotated source at <https://sandpitjs.com>.
