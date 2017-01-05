@@ -1,5 +1,5 @@
 import queryfetch from 'queryfetch'
-import './index.css'
+import './styles/index.css'
 
 let demos = require('./demos/index').default
 
