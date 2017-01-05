@@ -557,8 +557,3 @@ Includes some additional functions, `vector.setLength(scalar)` and `vector.addLe
 ### Color
 A hook for the [Color](https://github.com/Qix-/color) library, which gives a ton of helpers for manipulating color. [You can read the full API here](https://github.com/Qix-/color)
 > Credit to [Qix-](https://github.com/Qix-) for Color. ❤️
-
----
-
-## Annotated source
-If you're looking for the annotated source, you can find it at <https://sandpitjs.com/docs/>
