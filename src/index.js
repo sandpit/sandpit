@@ -1,3 +1,5 @@
+// To be moved to its own directory
+
 import queryfetch from 'queryfetch'
 import './index.css'
 
