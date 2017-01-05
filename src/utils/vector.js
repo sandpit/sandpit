@@ -1,7 +1,7 @@
 /**
  * A utility for handling vectors, with a couple
- * of additional helpers
- * http://victorjs.org/
+ * of additional helpers: {@link http://victorjs.org/}
+ * @class Vector
  */
 import Victor from 'victor'
 

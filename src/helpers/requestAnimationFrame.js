@@ -2,6 +2,7 @@
  * RequestAnimationFrame shim, as jsdom doesn't
  * ship with it - primarily for use in the test suites
  * Credit: https://gist.github.com/paulirish/1579671
+ * @private
  */
 let requestAnimationFrame
 let cancelAnimationFrame

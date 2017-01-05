@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>utils/Mathematics.js - Documentation</title>
+    <title>utils/Color.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">utils/Mathematics.js</h1>
+    <h1 class="page-title">utils/Color.js</h1>
     
 
     
@@ -39,49 +39,13 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Is from './Is'
-
-/**
- * A utility for math stuff
+            <pre class="prettyprint source linenums"><code>/**
+ * A utility for editing colors:
+ * {@link https://github.com/Qix-/color}
+ * @class Color
  */
-class Mathematics {
-  /** Returns PI * 2 */
-  static get TWO_PI () { return Math.PI * 2 }
-  /** Returns PI / 2 */
-  static get HALF_PI () { return Math.PI / 2 }
-  /** Returns PI / 4 */
-  static get QUARTER_PI () { return Math.PI / 4 }
-
-  /**
-   * Returns a number between min and max
-   * @param {int} min - The minimum range
-   * @param {int} max - The maximum range
-   * @returns {int|float} A random number between min and max
-   */
-  static randomBetween (min, max, random = Math.random) {
-    // Credit: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    return min + random() * (max - min)
-  }
-
-  /**
-   * Returns a random element in an array or object
-   * @param {array|object} - The array or object
-   * @returns {*} The array item or object value
-   */
-  static randomFrom (object, random = Math.random) {
-    if (Is.array(object)) {
-      return object[Math.floor(random() * object.length)]
-    } else if (Is.object(object)) {
-      let result = {}
-      let key = Object.keys(object)[Math.floor(random() * Object.keys(object).length)]
-      let value = object[key]
-      result[key] = value
-      return result
-    }
-  }
-}
-
-export default Mathematics
+import Color from 'color'
+export default Color
 </code></pre>
         </article>
     </section>

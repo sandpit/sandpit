@@ -5,14 +5,14 @@
   },
   "source": {
     "include": ["src", "package.json", "README.md"],
-    "includePattern": ".js$",
+    "includePattern": ".(js$)",
     "excludePattern": "(node_modules/|docs)"
   },
   "plugins": [
     "plugins/markdown"
   ],
   "templates": {
-    "cleverLinks": false,
+    "cleverLinks": false, 
     "monospaceLinks": true,
     "useLongnameInNav": false
   },
@@ -20,6 +20,7 @@
     "destination": "./docs/",
     "encoding": "utf8",
     "recurse": true,
-    "template": "./node_modules/minami"
+    "template": "./node_modules/minami",
+    "tutorials": "src/documentation"
   }
 }

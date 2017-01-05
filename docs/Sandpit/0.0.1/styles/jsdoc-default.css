@@ -91,6 +91,10 @@ tt, code, kbd, samp {
   border-radius: 5px;
 }
 
+img {
+  max-width: 100%;
+}
+
 .class-description {
   font-size: 130%;
   line-height: 140%;
