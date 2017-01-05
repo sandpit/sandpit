@@ -1,28 +1,32 @@
-import Sandpit from '../Sandpit'
+import Sandpit, { Mathematics } from '../Sandpit'
 
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
   sandpit.settings = {
     demo: {value: 'generative', editable: false, sticky: true}
   }
-  sandpit.autoClear = true
+  // sandpit.autoClear = true
   const ctx = sandpit.context
 
-  sandpit.change = () => {
-    ctx.strokeStyle = 'rgba(255, 0, 0, 1)'
-    const grid = 50
+  const x = Math.random() * sandpit.width
+  const y = Math.random() * sandpit.height
+  const corner = Mathematics.randomFrom([[0, 0], [sandpit.width, 0], [sandpit.width, sandpit.height], [0, sandpit.height]])
+
+  sandpit.loop = () => {
+    const grid = sandpit.height / 500
     Array.from({length: grid}).forEach((v, i) => {
       ctx.beginPath()
-      const y = i * grid + ((sandpit.height / 2) - (grid * grid / 2))
-      let p = [0, sandpit.height / 2]
-      ctx.moveTo(sandpit.width, y)
-      ctx.quadraticCurveTo(sandpit.width / 2, sandpit.height / 2, p[0], p[1])
+      ctx.moveTo(corner[0], corner[1])
+      ctx.shadowBlur = 5
+      ctx.shadowColor = `rgba(255, 0, 0, 0.5)`
+      ctx.strokeStyle = `rgba(255, 0, 0, 0.1)`
+      ctx.quadraticCurveTo(x, y - sandpit.time, sandpit.width - sandpit.time, sandpit.height / grid * i + (Math.sin((sandpit.time + (i * 5)) / 1000) * 5000))
+      ctx.bezierCurveTo(0, 0, sandpit.width - sandpit.time, sandpit.height / 2, corner[0], corner[1] - sandpit.time)
       ctx.stroke()
     })
   }
 
   sandpit.start()
-  sandpit.change()
 
   // Keep the demo in the query string when resetting
   sandpit.reset = () => {
