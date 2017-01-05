@@ -6,7 +6,6 @@ There are a bunch of example available in the [demos folder](https://github.com/
 - [Hooks](#hooks)
 - [Properties](#properties)
 - [Helpers](#helpers)
-- [Annotated source](#annotated-source)
 
 ---
 
