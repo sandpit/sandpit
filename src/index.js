@@ -1,7 +1,7 @@
 /*
- * The main hook for building https://sandpitjs.com,
- * this file does not relate to the actual library and
- * is a limitation of create-react-app
+ * This is the main hook for building https://sandpitjs.com,
+ * and does not relate to the actual library - it is a requirement
+ * of create-react-app
  */
 import queryfetch from 'queryfetch'
 import './styles/index.css'
