@@ -34,7 +34,7 @@
     "build-site": "react-scripts build && cp -r dist build/dist && cp -r docs build/docs",
     "serve": "npm run build && node_modules/.bin/pushstate-server build",
     "deploy": "npm run build && node_modules/.bin/surge -p build -d sandpitjs.com",
-    "deploy-push": "npm run deploy && gca -m 'Deployed' && gp"
+    "deploy-push": "npm run deploy && git commit -vam 'Deployed' && git push"
   },
   "repository": {
     "type": "git",
