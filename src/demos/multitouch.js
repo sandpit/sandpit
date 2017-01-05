@@ -15,10 +15,10 @@ const playground = () => {
   sandpit.settings = {
     demo: {value: 'multitouch', editable: false, sticky: true},
     autoClear: {value: true},
-    maxSize: {value: 40, min: 5, max: 50, step: 1},
+    maxSize: {value: 50, min: 5, max: 50, step: 1},
     energy: {value: 0.9, min: 0.0, max: 0.9, step: 0.1},
     force: {value: 2, min: 2, max: 30, step: 1},
-    decay: {value: 0.99, min: 0.85, max: 0.99, step: 0.01},
+    decay: {value: 0.92, min: 0.85, max: 0.99, step: 0.01},
     blend: {value: ['darken', 'multiply', 'overlay']}
   }
   sandpit.autoClear = sandpit.settings.autoClear
