@@ -363,7 +363,9 @@ If you'd prefer to manage the resizing of the canvas object yourself, you can do
 sandpit.resize = () => {}
 ```
 
-> Note: If you don't use the resize hook, resize will fire `change()` when the canvas element changes size.
+> Note: If you don't override the resize hook, resize will fire `change()` when the canvas element changes size.
+
+> Note: The resize event is tied to the `window` object.
 
 ### touch()
 The `touch()` hook fires when a mouse is clicked (`mousedown`) or a tap occurs (`touchstart`). The hook has access to the event, or you can take advantage of the normalised input from `sandpit.input`.
