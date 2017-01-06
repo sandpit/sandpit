@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> Documentation - Documentation</title>
+    <title>Tutorial: 01-documentation - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -24,18 +23,20 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>⛱&nbsp;&nbsp;Sandpit</h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-01-documentation.html">01-documentation</a></li><li><a href="tutorial-02-inspiration.html">02-inspiration</a></li></ul>
 </nav>
 
 <div id="main">
     
-    <h1 class="page-title"> Documentation</h1>
+    <h1 class="page-title">Tutorial: 01-documentation</h1>
     
 
     <section>
 
 <header>
     
+
+    <h2>01-documentation</h2>
 </header>
 
 <article>
@@ -58,8 +59,8 @@ var Sandpit = require('sandpit') // for es5</code></pre><p>Alternatively, downlo
 <hr>
 <h2>Constructor</h2><p>There are a number of ways to initialise a new <strong>Sandpit</strong>.</p>
 <pre class="prettyprint source lang-js"><code>// 2D, using a container that Sandpit will add a canvas to
-const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// You can also pass options, including 'retina' and 'queryable'. They both default to true.
-const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {retina: true, queryable: true})</code></pre><pre class="prettyprint source lang-js"><code>// 2D, using an existing canvas
+const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// You can also pass options, including 'retina', 'queryable' and 'stats'. 'retina' and `queryable` default to `true`.
+const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {retina: true, queryable: true, stats: false})</code></pre><pre class="prettyprint source lang-js"><code>// 2D, using an existing canvas
 const sandpit = new Sandpit(document.querySelector('#id_of_your_canvas'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// 3D, using a string reference to a DOM element that Sandpit will try and find
 const sandpit = new Sandpit('.some-container', Sandpit.WEBGL)
 const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</code></pre><pre class="prettyprint source lang-js"><code>// 3D, passing the canvas to Three.js
@@ -107,6 +108,8 @@ const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</c
 <h4>Clear and reset</h4><p><strong>Sandpit</strong> will also automatically add a clear and reset button.</p>
 <p><strong>Reset</strong> will destroy the query string, and refresh the page with default values.</p>
 <p><strong>Clear</strong> will, if on a 2D canvas, clear a rectangle the size of the <strong>Sandpit</strong>. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the <code>COLOR_BUFFER_BIT</code> and <code>DEPTH_BUFFER_BIT</code>.</p>
+<h3>stats</h3><p>If you'd like to check the performance of your sandpit, you can do so by adding <code>{stats: true}</code> to your options when initialising.</p>
+<pre class="prettyprint source lang-js"><code>const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {stats: true})</code></pre><p>This will add <a href="https://github.com/mrdoob/stats.js/">stats.js</a> to the top-left corner of the <code>body</code>, and will measure the <code>loop()</code>. If you'd like to manipulate its styles to move it around, you can access the dom element with <code>sandpit.stats.domElement</code> or <code>sandpit.stats.dom</code>.</p>
 <h3>debug</h3><p>If you want to see debug messages from <strong>Sandpit</strong> itself, you can.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.debug = true
 sandpit.debug // returns true</code></pre><p>And you can turn them back off, too:</p>
@@ -265,7 +268,7 @@ Is.canvas(document.createElement('div'))
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jan 06 2017 12:50:33 GMT+0000 (GMT) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jan 06 2017 18:00:08 GMT+0000 (GMT) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

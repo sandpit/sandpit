@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Vector = exports.Color = exports.Mathematics = exports.Is = undefined;
+exports.Stats = exports.Vector = exports.Color = exports.Mathematics = exports.Is = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -29,17 +29,21 @@ var _logger = require('./utils/logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _Is = require('./utils/Is');
-
-var _Is2 = _interopRequireDefault(_Is);
-
 var _Color = require('./utils/Color');
 
 var _Color2 = _interopRequireDefault(_Color);
 
+var _Is = require('./utils/Is');
+
+var _Is2 = _interopRequireDefault(_Is);
+
 var _Mathematics = require('./utils/Mathematics');
 
 var _Mathematics2 = _interopRequireDefault(_Mathematics);
+
+var _Stats = require('./utils/Stats');
+
+var _Stats2 = _interopRequireDefault(_Stats);
 
 var _Vector = require('./utils/Vector');
 
@@ -77,20 +81,21 @@ var Sandpit = function () {
      * @param {(string|object)} container - The container for the canvas to be added to
      * @param {string} type - Defines whether the context is 2d or 3d
      * @param {object} options - Optionally decide to ignore rescaling for retina displays,
-     * or to disable putting settings into the query string
+     * disable putting settings into the query string, or add stats to the dom
      */
 
   }]);
 
   function Sandpit(container, type) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { retina: true, queryable: true };
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { queryable: true, retina: true, stats: false };
 
     _classCallCheck(this, Sandpit);
 
     _logger2.default.info('⛱ Welcome to Sandpit');
+    this._queryable = options.queryable || true;
+    this._retina = options.retina || true;
+    this._stats = options.stats || false;
     this._setupContext(container, type, options.retina);
-    this._queryable = options.queryable;
-    this._retina = options.retina;
   }
 
   /**
@@ -141,9 +146,12 @@ var Sandpit = function () {
         this._type = type;
 
         // Deal with retina displays
-        if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
+        if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && this._retina) {
           this._handleRetina();
         }
+
+        // Sets up stats, if they are enabled
+        if (this._stats) this.setupStats();
       } else {
         throw new Error('The container is not a HTMLElement');
       }
@@ -162,9 +170,7 @@ var Sandpit = function () {
       this._canvas.width = this._canvas.clientWidth * ratio;
       this._canvas.height = this._canvas.clientHeight * ratio;
       // Scale the canvas to the new ratio
-      // TODO: Add canvas support to jsdom to avoid having
-      // to if-statement this bit to pass tests
-      if (this._context) this._context.scale(ratio, ratio);
+      this._context.scale(ratio, ratio);
     }
 
     /**
@@ -352,12 +358,16 @@ var Sandpit = function () {
   }, {
     key: '_loop',
     value: function _loop() {
+      // Start stat recording for this frame
+      if (this.stats) this.stats.begin();
       // Clear the canvas if autoclear is set
       if (this._autoClear) this.clear();
       // Loop!
       if (this.loop) this.loop();
       // Increment time
       this._time++;
+      // End stat recording for this frame
+      if (this.stats) this.stats.end();
       this._animationFrame = window.requestAnimationFrame(this._loop.bind(this));
     }
 
@@ -791,6 +801,21 @@ var Sandpit = function () {
     }
 
     /**
+     * Handle the stats object
+     * @param {object} stats - a Stats.js object, which can be imported
+     * from Sandpit with `import { Stats } from 'sandpit'`
+     */
+
+  }, {
+    key: 'setupStats',
+    value: function setupStats() {
+      if (!this.stats) {
+        this.stats = new _Stats2.default();
+        document.querySelector('body').appendChild(this.stats.dom);
+      }
+    }
+
+    /**
      * Sets up resizing and input events and starts the loop
      */
 
@@ -821,6 +846,10 @@ var Sandpit = function () {
       if (this.canvas) {
         this.canvas.outerHTML = '';
         delete this.canvas;
+      }
+      if (this.stats) {
+        document.querySelector('body').removeChild(this.stats.dom);
+        delete this.stats;
       }
       // Remove Gui, if initiated
       if (this._gui) {
@@ -972,4 +1001,5 @@ exports.Is = _Is2.default;
 exports.Mathematics = _Mathematics2.default;
 exports.Color = _Color2.default;
 exports.Vector = _Vector2.default;
+exports.Stats = _Stats2.default;
 exports.default = Sandpit;

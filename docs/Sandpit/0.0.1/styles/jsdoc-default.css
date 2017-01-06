@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 * {
   box-sizing: border-box
@@ -89,10 +89,6 @@ tt, code, kbd, samp {
   background: #f4f4f4;
   padding: 1px 5px;
   border-radius: 5px;
-}
-
-img {
-  max-width: 100%;
 }
 
 .class-description {
@@ -318,10 +314,6 @@ footer {
   margin: 0 30px;
   background-color: #fff;
   color: #4D4E53;
-}
-
-.prettyprint code:empty:before {
-  content: '';
 }
 
 .prettyprint > code {
@@ -594,16 +586,5 @@ dl.param-type {
 
   footer {
     margin-left: 0;
-  }
-}
-
-@media only print {
-  nav {
-    display: none;
-  }
-
-  #main {
-    float: none;
-    width: 100%;
   }
 }

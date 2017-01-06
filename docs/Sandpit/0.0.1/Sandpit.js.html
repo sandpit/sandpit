@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Sandpit.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
@@ -24,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>⛱&nbsp;&nbsp;Sandpit</h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-01-documentation.html">01-documentation</a></li><li><a href="tutorial-02-inspiration.html">02-inspiration</a></li></ul>
 </nav>
 
 <div id="main">
@@ -45,12 +44,12 @@ import debounce from 'debounce'
 import seedrandom from 'seedrandom'
 
 import logger from './utils/logger'
-import Is from './utils/Is'
 import Color from './utils/Color'
+import Is from './utils/Is'
 import Mathematics from './utils/Mathematics'
+import Stats from './utils/Stats'
 import Vector from './utils/Vector'
-import 'whatwg-fetch'
-/* global fetch */
+import 'whatwg-fetch' /* global fetch */
 
 /**
  * A playground for creative coding
@@ -64,13 +63,14 @@ class Sandpit {
    * @param {(string|object)} container - The container for the canvas to be added to
    * @param {string} type - Defines whether the context is 2d or 3d
    * @param {object} options - Optionally decide to ignore rescaling for retina displays,
-   * or to disable putting settings into the query string
+   * disable putting settings into the query string, or add stats to the dom
    */
-  constructor (container, type, options = {retina: true, queryable: true}) {
+  constructor (container, type, options = {queryable: true, retina: true, stats: false}) {
     logger.info('⛱ Welcome to Sandpit')
+    this._queryable = options.queryable || true
+    this._retina = options.retina || true
+    this._stats = options.stats || false
     this._setupContext(container, type, options.retina)
-    this._queryable = options.queryable
-    this._retina = options.retina
   }
 
   /**
@@ -117,9 +117,12 @@ class Sandpit {
       this._type = type
 
       // Deal with retina displays
-      if (type === Sandpit.CANVAS &amp;&amp; window.devicePixelRatio !== 1 &amp;&amp; retina) {
+      if (type === Sandpit.CANVAS &amp;&amp; window.devicePixelRatio !== 1 &amp;&amp; this._retina) {
         this._handleRetina()
       }
+
+      // Sets up stats, if they are enabled
+      if (this._stats) this.setupStats()
     } else {
       throw new Error('The container is not a HTMLElement')
     }
@@ -135,9 +138,7 @@ class Sandpit {
     this._canvas.width = this._canvas.clientWidth * ratio
     this._canvas.height = this._canvas.clientHeight * ratio
     // Scale the canvas to the new ratio
-    // TODO: Add canvas support to jsdom to avoid having
-    // to if-statement this bit to pass tests
-    if (this._context) this._context.scale(ratio, ratio)
+    this._context.scale(ratio, ratio)
   }
 
   /**
@@ -306,12 +307,16 @@ class Sandpit {
    * @private
    */
   _loop () {
+    // Start stat recording for this frame
+    if (this.stats) this.stats.begin()
     // Clear the canvas if autoclear is set
     if (this._autoClear) this.clear()
     // Loop!
     if (this.loop) this.loop()
     // Increment time
     this._time++
+    // End stat recording for this frame
+    if (this.stats) this.stats.end()
     this._animationFrame = window.requestAnimationFrame(this._loop.bind(this))
   }
 
@@ -762,6 +767,18 @@ class Sandpit {
   }
 
   /**
+   * Handle the stats object
+   * @param {object} stats - a Stats.js object, which can be imported
+   * from Sandpit with `import { Stats } from 'sandpit'`
+   */
+  setupStats () {
+    if (!this.stats) {
+      this.stats = new Stats()
+      document.querySelector('body').appendChild(this.stats.dom)
+    }
+  }
+
+  /**
    * Sets up resizing and input events and starts the loop
    */
   start () {
@@ -785,6 +802,10 @@ class Sandpit {
       this.canvas.outerHTML = ''
       delete this.canvas
     }
+    if (this.stats) {
+      document.querySelector('body').removeChild(this.stats.dom)
+      delete this.stats
+    }
     // Remove Gui, if initiated
     if (this._gui) {
       this._gui.domElement.removeEventListener('touchmove', this._preventDefault)
@@ -800,7 +821,7 @@ class Sandpit {
   }
 }
 
-export { Is, Mathematics, Color, Vector }
+export { Is, Mathematics, Color, Vector, Stats }
 export default Sandpit
 </code></pre>
         </article>
@@ -814,7 +835,7 @@ export default Sandpit
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jan 06 2017 12:50:33 GMT+0000 (GMT) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Jan 06 2017 18:00:07 GMT+0000 (GMT) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
