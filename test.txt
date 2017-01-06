@@ -1,0 +1,67 @@
+
+> Sandpit@0.0.1 test /Users/superhighfives/Development/super-high-fives/sandpit
+> react-scripts test --env=jsdom
+
+[2J[3J[H
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+Watch Usage
+ › Press a to run all tests.
+ › Press o to only run tests related to changed files.
+ › Press p to filter by a filename regex pattern.
+ › Press q to quit watch mode.
+ › Press Enter to trigger a test run.
+
+> Sandpit@0.0.1 test /Users/superhighfives/Development/super-high-fives/sandpit
+> react-scripts test --env=jsdom
+
+[2J[3J[H
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+Watch Usage
+ › Press a to run all tests.
+ › Press o to only run tests related to changed files.
+ › Press p to filter by a filename regex pattern.
+ › Press q to quit watch mode.
+ › Press Enter to trigger a test run.
+
+> Sandpit@0.0.1 test /Users/superhighfives/Development/super-high-fives/sandpit
+> react-scripts test --env=jsdom
+
+[2J[3J[H
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+ RUNS  ...Stats.test.js
+[K[1A[K[1A
+Watch Usage
+ › Press a to run all tests.
+ › Press o to only run tests related to changed files.
+ › Press p to filter by a filename regex pattern.
+ › Press q to quit watch mode.
+ › Press Enter to trigger a test run.

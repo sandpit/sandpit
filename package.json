@@ -7,6 +7,7 @@
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "canvas": "^1.6.2",
     "color": "^1.0.3",
     "dat.gui": "^0.6.1",
     "debounce": "^1.0.0",
@@ -16,6 +17,7 @@
     "queryfetch": "^1.2.1",
     "react-scripts": "0.8.4",
     "seedrandom": "^2.4.2",
+    "stats.js": "^0.17.0",
     "surge": "^0.18.0",
     "three": "^0.83.0",
     "three-trackballcontrols": "^0.0.5",
@@ -46,6 +48,5 @@
     "processing",
     "animation"
   ],
-  "author": "Charlie Gleason (http://charliegleason.com/)",
-  "dependencies": {}
+  "author": "Charlie Gleason (http://charliegleason.com/)"
 }

@@ -14,7 +14,8 @@ const playground = () => {
   root.appendChild(existingCanvas)
 
   // Initialise the sandpit and set the settings
-  const sandpit = new Sandpit(existingCanvas, Sandpit.CANVAS)
+  const sandpit = new Sandpit(existingCanvas, Sandpit.CANVAS, {stats: true})
+  console.log(sandpit.stats)
   sandpit.settings = {
     demo: {value: 'multitouch', editable: false, sticky: true},
     autoClear: {value: true},

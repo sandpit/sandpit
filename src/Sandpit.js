@@ -4,12 +4,12 @@ import debounce from 'debounce'
 import seedrandom from 'seedrandom'
 
 import logger from './utils/logger'
-import Is from './utils/Is'
 import Color from './utils/Color'
+import Is from './utils/Is'
 import Mathematics from './utils/Mathematics'
+import Stats from './utils/Stats'
 import Vector from './utils/Vector'
-import 'whatwg-fetch'
-/* global fetch */
+import 'whatwg-fetch' /* global fetch */
 
 /**
  * A playground for creative coding
@@ -23,13 +23,14 @@ class Sandpit {
    * @param {(string|object)} container - The container for the canvas to be added to
    * @param {string} type - Defines whether the context is 2d or 3d
    * @param {object} options - Optionally decide to ignore rescaling for retina displays,
-   * or to disable putting settings into the query string
+   * disable putting settings into the query string, or add stats to the dom
    */
-  constructor (container, type, options = {retina: true, queryable: true}) {
+  constructor (container, type, options = {queryable: true, retina: true, stats: false}) {
     logger.info('⛱ Welcome to Sandpit')
+    this._queryable = options.queryable || true
+    this._retina = options.retina || true
+    this._stats = options.stats || false
     this._setupContext(container, type, options.retina)
-    this._queryable = options.queryable
-    this._retina = options.retina
   }
 
   /**
@@ -76,9 +77,12 @@ class Sandpit {
       this._type = type
 
       // Deal with retina displays
-      if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && retina) {
+      if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && this._retina) {
         this._handleRetina()
       }
+
+      // Sets up stats, if they are enabled
+      if (this._stats) this.setupStats()
     } else {
       throw new Error('The container is not a HTMLElement')
     }
@@ -94,9 +98,7 @@ class Sandpit {
     this._canvas.width = this._canvas.clientWidth * ratio
     this._canvas.height = this._canvas.clientHeight * ratio
     // Scale the canvas to the new ratio
-    // TODO: Add canvas support to jsdom to avoid having
-    // to if-statement this bit to pass tests
-    if (this._context) this._context.scale(ratio, ratio)
+    this._context.scale(ratio, ratio)
   }
 
   /**
@@ -265,12 +267,16 @@ class Sandpit {
    * @private
    */
   _loop () {
+    // Start stat recording for this frame
+    if (this.stats) this.stats.begin()
     // Clear the canvas if autoclear is set
     if (this._autoClear) this.clear()
     // Loop!
     if (this.loop) this.loop()
     // Increment time
     this._time++
+    // End stat recording for this frame
+    if (this.stats) this.stats.end()
     this._animationFrame = window.requestAnimationFrame(this._loop.bind(this))
   }
 
@@ -721,6 +727,18 @@ class Sandpit {
   }
 
   /**
+   * Handle the stats object
+   * @param {object} stats - a Stats.js object, which can be imported
+   * from Sandpit with `import { Stats } from 'sandpit'`
+   */
+  setupStats () {
+    if (!this.stats) {
+      this.stats = new Stats()
+      document.querySelector('body').appendChild(this.stats.dom)
+    }
+  }
+
+  /**
    * Sets up resizing and input events and starts the loop
    */
   start () {
@@ -744,6 +762,10 @@ class Sandpit {
       this.canvas.outerHTML = ''
       delete this.canvas
     }
+    if (this.stats) {
+      document.querySelector('body').removeChild(this.stats.dom)
+      delete this.stats
+    }
     // Remove Gui, if initiated
     if (this._gui) {
       this._gui.domElement.removeEventListener('touchmove', this._preventDefault)
@@ -759,5 +781,5 @@ class Sandpit {
   }
 }
 
-export { Is, Mathematics, Color, Vector }
+export { Is, Mathematics, Color, Vector, Stats }
 export default Sandpit

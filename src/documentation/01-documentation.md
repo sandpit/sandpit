@@ -44,8 +44,8 @@ There are a number of ways to initialise a new **Sandpit**.
 const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS)
 ```
 ``` js
-// You can also pass options, including 'retina' and 'queryable'. They both default to true.
-const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {retina: true, queryable: true})
+// You can also pass options, including 'retina', 'queryable' and 'stats'. 'retina' and `queryable` default to `true`.
+const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {retina: true, queryable: true, stats: false})
 ```
 ``` js
 // 2D, using an existing canvas
@@ -180,6 +180,15 @@ Which can be good if you want to use Sandpit in a production environment, or if 
 **Reset** will destroy the query string, and refresh the page with default values.
 
 **Clear** will, if on a 2D canvas, clear a rectangle the size of the **Sandpit**. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the `COLOR_BUFFER_BIT` and `DEPTH_BUFFER_BIT`.
+
+### stats
+If you'd like to check the performance of your sandpit, you can do so by adding `{stats: true}` to your options when initialising.
+
+``` js
+const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {stats: true})
+```
+
+This will add [stats.js](https://github.com/mrdoob/stats.js/) to the top-left corner of the `body`, and will measure the `loop()`. If you'd like to manipulate its styles to move it around, you can access the dom element with `sandpit.stats.domElement` or `sandpit.stats.dom`.
 
 ### debug
 If you want to see debug messages from **Sandpit** itself, you can.

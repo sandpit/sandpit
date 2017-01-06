@@ -43,7 +43,7 @@ canvas {
 .footer {
   pointer-events: all;
   -webkit-overflow-scrolling: touch;
-  padding: 40px;
+  padding: 80px 40px;
   max-width: 400px;
   font-size: 0.75rem;
   line-height: 1.25rem;
