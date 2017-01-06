@@ -567,3 +567,10 @@ Includes some additional functions, `vector.setLength(scalar)` and `vector.addLe
 ### Color
 A hook for the [Color](https://github.com/Qix-/color) library, which gives a ton of helpers for manipulating color. [You can read the full API here](https://github.com/Qix-/color)
 > Credit to [Qix-](https://github.com/Qix-) for Color. ❤️
+
+
+### Stats
+A hook for the [Stats](https://github.com/mrdoob/stats.js) library, which visualises performance. [You can read about it here](https://github.com/mrdoob/stats.js/)
+
+It is currently built into **Sandpit**, but if you were keen to record stats outside of the `loop()`, you could implement it manually with: ```import { Stats} from 'sandpit'```
+> Credit to [mrdoob](https://github.com/mrdoob) for stats.js. ❤️
