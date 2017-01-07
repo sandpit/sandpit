@@ -1,0 +1,8 @@
+{
+  "ignore": [
+    "src/index.js",
+    "src/helpers",
+    "src/demos",
+    "**/*.test.js"
+  ]
+}
