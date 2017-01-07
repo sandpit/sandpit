@@ -62,6 +62,9 @@ The goal of **Sandpit** is to normalise and simplify the process of creating cod
 
 
 ## Demos and examples
+
+![Some examples of Sandpit in action](https://sandpitjs.com/assets/images/examples.jpg)
+
 There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/superhighfives/sandpit/tree/master/src/demos>.
 
 
