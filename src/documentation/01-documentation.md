@@ -70,6 +70,8 @@ That will skip the retina bits, in case you wanna handle them yourself, or if yo
 
 Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.
 
+> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. 
+
 ---
 
 ## Methods
