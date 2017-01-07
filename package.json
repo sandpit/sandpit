@@ -33,8 +33,7 @@
     "build-docs": "rm -rf docs/ && jsdoc --configure .jsdoc.json --verbose",
     "build-site": "react-scripts build && cp -r dist build/dist && cp -r docs build/docs",
     "build": "npm run build-library && npm run build-docs && npm run build-site",
-    "deploy": "npm run build && surge -p build -d sandpitjs.com",
-    "deploy-push": "npm run deploy && git commit -vam 'Deployed' && git push"
+    "deploy": "npm run build && surge -p build -d sandpitjs.com"
   },
   "repository": {
     "type": "git",
