@@ -3,6 +3,11 @@
 
 A playground for creative coding using JavaScript and the canvas element.
 
+``` shell
+npm install sandpit --save
+```
+[![npm](https://img.shields.io/npm/v/sandpit.svg)](https://www.npmjs.com/package/sandpit) [![Build Status](https://travis-ci.org/superhighfives/sandpit.svg?branch=master)](https://travis-ci.org/superhighfives/sandpit)
+
 ![An example animation of Sandpit](https://sandpitjs.com/assets/images/animation.gif)
 
 Built in ES6, **Sandpit** uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.
