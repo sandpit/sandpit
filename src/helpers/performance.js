@@ -4,19 +4,10 @@
  * Credit: https://gist.github.com/paulirish/5438650
  * @private
  */
-let performance
 
-if ('performance' in window === undefined) {
-  performance = {}
-} else {
-  performance = window.performance
-}
+let performance = window.performance === undefined ? {} : window.performance
 
-Date.now = (Date.now || function () { // thanks IE8
-  return new Date().getTime()
-})
-
-if (window.performance && 'now' in window.performance === undefined) {
+if (performance && performance.now === undefined) {
   var nowOffset = Date.now()
 
   if (performance.timing && performance.timing.navigationStart) {

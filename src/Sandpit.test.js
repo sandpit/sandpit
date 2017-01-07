@@ -1,18 +1,22 @@
 /* global it, expect, describe */
-import Sandpit from './Sandpit'
+import Sandpit, { Is } from './Sandpit'
 import dat from 'dat.gui/build/dat.gui'
 import queryfetch from 'queryfetch'
 import { requestAnimationFrame } from './helpers/requestAnimationFrame'
+import { performance } from './helpers/performance'
 
 // Shim requestAnimationFrame for jsdom
 window.requestAnimationFrame = requestAnimationFrame
+
+// Shim performance for jsdom
+window.performance = performance
 
 describe('Sandpit', () => {
   it("thinks you're doing a great job", () => {
     expect(true)
   })
 
-  describe('instanciation', () => {
+  describe('instantiation', () => {
     it('should be an instance of the Sandpit class', () => {
       let div = document.createElement('div')
       let sandpit = new Sandpit(div, Sandpit.CANVAS)
@@ -49,6 +53,15 @@ describe('Sandpit', () => {
     it('should add the settings to the query string', () => {
       let params = queryfetch.parse(window.location.search)
       expect(params).toEqual({beingGreat: 'true'})
+    })
+  })
+
+  describe('stats', () => {
+    let sandpit = new Sandpit('body', Sandpit.CANVAS, {stats: true})
+    sandpit.start()
+
+    it('should display stats for the `loop()` when enabled', () => {
+      expect(Is.element(sandpit.stats.dom)).toBe(true)
     })
   })
 })
