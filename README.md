@@ -44,9 +44,7 @@ import Sandpit from 'sandpit' // for es6
 var Sandpit = require('sandpit') // for es5
 ```
 
-Alternatively, download it for [development](https://sandpitjs.com/dist/sandpit.js) or [minfied for production](https://sandpitjs.com/dist/sandpit.min.js) and include it in a script tag.
-
-Either way, celebrate. You are a success.
+Celebrate. You are a success.
 
 
 
