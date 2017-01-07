@@ -1,8 +1,8 @@
 {
   "name": "sandpit",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "description": "A playground for creative coding using JavaScript and the canvas element",
-  "main": "dist/index.js",
+  "main": "dist/Sandpit.js",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -29,7 +29,7 @@
     "test": "react-scripts test --env=jsdom",
     "serve": "npm run build && pushstate-server build",
     "minify": "uglifyjs dist/sandpit.js -o dist/sandpit.min.js",
-    "build-library": "mkdir -p dist && babel src/Sandpit.js --presets babel-preset-es2015 --out-file dist/sandpit.js && npm run minify",
+    "build-library": "rm -rf dist/ && mkdir -p dist && babel src --presets babel-preset-es2015 --out-dir dist",
     "build-docs": "rm -rf docs/ && jsdoc --configure .jsdoc.json --verbose",
     "build-site": "react-scripts build && cp -r dist build/dist && cp -r docs build/docs",
     "build": "npm run build-library && npm run build-docs && npm run build-site",
