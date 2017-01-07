@@ -4,24 +4,26 @@
   "description": "A playground for creative coding using JavaScript and the canvas element",
   "main": "dist/Sandpit.js",
   "license": "MIT",
-  "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "canvas": "^1.6.2",
+  "dependencies": {
     "color": "^1.0.3",
     "dat.gui": "^0.6.1",
     "debounce": "^1.0.0",
+    "queryfetch": "^1.2.1",
+    "seedrandom": "^2.4.2",
+    "stats.js": "^0.17.0",
+    "victor": "^1.1.0",
+    "whatwg-fetch": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "canvas": "^1.6.2",
     "jsdoc": "^3.4.3",
     "minami": "superhighfives/minami",
     "pushstate-server": "^2.1.0",
-    "queryfetch": "^1.2.1",
     "react-scripts": "0.8.4",
-    "seedrandom": "^2.4.2",
-    "stats.js": "^0.17.0",
     "surge": "^0.18.0",
     "three": "^0.83.0",
-    "three-trackballcontrols": "^0.0.5",
-    "victor": "^1.1.0",
-    "whatwg-fetch": "^2.0.1"
+    "three-trackballcontrols": "^0.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
