@@ -57,11 +57,15 @@ describe('Sandpit', () => {
   })
 
   describe('stats', () => {
-    let sandpit = new Sandpit('body', Sandpit.CANVAS, {stats: true})
-    sandpit.start()
-
     it('should display stats for the `loop()` when enabled', () => {
+      let sandpit = new Sandpit('body', Sandpit.CANVAS, {stats: true})
+      sandpit.start()
       expect(Is.element(sandpit.stats.dom)).toBe(true)
+    })
+    it('should not display stats for the `loop()` when not enabled', () => {
+      let sandpit = new Sandpit('body', Sandpit.CANVAS)
+      sandpit.start()
+      expect(sandpit.stats).toBeFalsy()
     })
   })
 })

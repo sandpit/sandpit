@@ -2,7 +2,6 @@
 import Stats from './Stats'
 import Is from './Is'
 import { performance } from '../helpers/performance'
-import 'canvas'
 
 // Shim performance for jsdom
 window.performance = performance
