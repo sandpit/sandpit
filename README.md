@@ -93,7 +93,7 @@ There are a bunch of examples at <https://sandpitjs.com>, the source for which c
 
 
 ## Documentation
-[Look no further—here's documentation of the full API](https://sandpitjs.com/docs).
+[Look no further—here's documentation of the full API](https://sandpitjs.com/docs/tutorial-01-documentation.html).
 
 
 
