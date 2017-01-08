@@ -69,6 +69,8 @@ sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()
 ```
 
+You can see an example at <https://github.com/superhighfives/sandpit-demo>.
+
 
 
 ## Why use Sandpit?
