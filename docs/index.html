@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>⛱&nbsp;&nbsp;Sandpit</h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul>
+    <h3><a href="index.html">⛱&nbsp;&nbsp;Sandpit</a></h3><h3></h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h2 class="version">v0.0.8</h2>
 </nav>
 
 <div id="main">
@@ -64,12 +64,23 @@
 <li><a href="#whos-behind-it">Who's behind it?</a></li>
 </ul>
 <hr>
-<h2>Getting Started</h2><p>If you're super up to date, just add Sandpit to your project and start using it:</p>
+<h2>Getting Started</h2><p>Add Sandpit to your project:</p>
 <pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
 <pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
 <pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
 var Sandpit = require('sandpit') // for es5</code></pre><p>Celebrate. You are a success.</p>
-<h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
+<h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
+<pre class="prettyprint source lang-shell"><code>npm install create-react-app -g
+create-react-app party
+cd party
+npm install sandpit --save
+npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit'
+
+var sandpit = new Sandpit('body', Sandpit.CANVAS)
+sandpit.settings = {youAreGreat: {value: true}}
+sandpit.loop = () => { console.log(sandpit.time) }
+sandpit.start()</code></pre><h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
 <p><strong>Sandpit</strong> supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:</p>
 <ul>
 <li>Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom</li>

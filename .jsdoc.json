@@ -12,7 +12,7 @@
     "plugins/markdown"
   ],
   "templates": {
-    "cleverLinks": false, 
+    "cleverLinks": false,
     "monospaceLinks": true,
     "useLongnameInNav": false
   },
