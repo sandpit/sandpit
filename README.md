@@ -25,7 +25,7 @@ Built in ES6, **Sandpit** uses dat.GUI to manage settings and encourages copy an
 
 ## Getting Started
 
-If you're super up to date, just add Sandpit to your project and start using it:
+Add Sandpit to your project:
 
 ``` shell
 npm install sandpit --save
@@ -45,6 +45,29 @@ var Sandpit = require('sandpit') // for es5
 ```
 
 Celebrate. You are a success.
+
+### Setting up a new project
+
+If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use [create-react-app](https://github.com/facebookincubator/create-react-app):
+
+``` shell
+npm install create-react-app -g
+create-react-app party
+cd party
+npm install sandpit --save
+npm start
+```
+
+Then replace `src/index.js` with:
+
+``` js
+import Sandpit from 'sandpit'
+
+var sandpit = new Sandpit('body', Sandpit.CANVAS)
+sandpit.settings = {youAreGreat: {value: true}}
+sandpit.loop = () => { console.log(sandpit.time) }
+sandpit.start()
+```
 
 
 
