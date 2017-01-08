@@ -49,13 +49,23 @@
 <li><a href="#helpers">Helpers</a></li>
 </ul>
 <hr>
-<h2>Getting Started</h2><p>If you're super up to date, just add <strong>Sandpit</strong> to your project and start using it:</p>
+<h2>Getting Started</h2><p>Add Sandpit to your project:</p>
 <pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
 <pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
 <pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
-var Sandpit = require('sandpit') // for es5</code></pre><p>Alternatively, download it for <a href="https://sandpitjs.com/dist/sandpit.js">development</a> or <a href="https://sandpitjs.com/dist/sandpit.min.js">minfied for production</a> and include it in a script tag.</p>
-<p>Either way, celebrate. You are a success.</p>
-<hr>
+var Sandpit = require('sandpit') // for es5</code></pre><p>Celebrate. You are a success.</p>
+<h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
+<pre class="prettyprint source lang-shell"><code>npm install create-react-app -g
+create-react-app party
+cd party
+npm install sandpit --save
+npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit'
+
+var sandpit = new Sandpit('body', Sandpit.CANVAS)
+sandpit.settings = {youAreGreat: {value: true}}
+sandpit.loop = () => { console.log(sandpit.time) }
+sandpit.start()</code></pre><hr>
 <h2>Constructor</h2><p>There are a number of ways to initialise a new <strong>Sandpit</strong>.</p>
 <pre class="prettyprint source lang-js"><code>// 2D, using a container that Sandpit will add a canvas to
 const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// You can also pass options, including 'retina', 'queryable' and 'stats'. 'retina' and `queryable` default to `true`.
@@ -69,7 +79,7 @@ const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</c
 <p>That will skip the retina bits, in case you wanna handle them yourself, or if you're worried about performance.</p>
 <p>Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.</p>
 <blockquote>
-<p>NOTE: <em>Sandpit</em> will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. </p>
+<p>NOTE: <em>Sandpit</em> will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications.</p>
 </blockquote>
 <hr>
 <h2>Methods</h2><h3>settings</h3><p>To ensure you can mess with your <strong>Sandpit</strong> in real time, without having to change a line of code, you'll want to pass it some settings.</p>
