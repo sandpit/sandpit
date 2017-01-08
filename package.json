@@ -1,6 +1,6 @@
 {
   "name": "sandpit",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A playground for creative coding using JavaScript and the canvas element",
   "main": "dist/Sandpit.js",
   "license": "MIT",
