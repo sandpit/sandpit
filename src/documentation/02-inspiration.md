@@ -4,7 +4,8 @@ Looking for some inspiration?
 - [Sketch.js](https://github.com/soulwire/sketch.js), the original inspiration for Sandpit, by [soulwire](https://soulwire.co.uk/)
 
 ## Generative art
-Basically everything at [Inconvergent](http://inconvergent.net/) is incredible, but specifically Anders' essays on [Generative Algorithms](http://inconvergent.net/generative/) and [Shepherding Random Numbers](http://inconvergent.net/shepherding-random-numbers/) are must read. His twitter, [@inconvergent](https://twitter.com/inconvergent), is also full of great examples and musings.
+- Basically everything at [Inconvergent](http://inconvergent.net/) is incredible, but specifically Anders' essays on [Generative Algorithms](http://inconvergent.net/generative/) and [Shepherding Random Numbers](http://inconvergent.net/shepherding-random-numbers/) are must read—his twitter, [@inconvergent](https://twitter.com/inconvergent), is also full of great examples and musings
+- Martijn Brekelmans [deconstructing a flow technique](https://martijnbrekelmans.com/generative-art/heart-deconstruction/techniques.html)
 
 ## 3D
 - [Samsy.ninja](http://samsy.ninja/), 3d designer
