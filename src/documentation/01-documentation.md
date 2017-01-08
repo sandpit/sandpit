@@ -11,7 +11,7 @@ There are a bunch of example available in the [demos folder](https://github.com/
 
 ## Getting Started
 
-If you're super up to date, just add **Sandpit** to your project and start using it:
+Add Sandpit to your project:
 
 ``` shell
 npm install sandpit --save
@@ -30,9 +30,30 @@ import Sandpit from 'sandpit' // for es6
 var Sandpit = require('sandpit') // for es5
 ```
 
-Alternatively, download it for [development](https://sandpitjs.com/dist/sandpit.js) or [minfied for production](https://sandpitjs.com/dist/sandpit.min.js) and include it in a script tag.
+Celebrate. You are a success.
 
-Either way, celebrate. You are a success.
+### Setting up a new project
+
+If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use [create-react-app](https://github.com/facebookincubator/create-react-app):
+
+``` shell
+npm install create-react-app -g
+create-react-app party
+cd party
+npm install sandpit --save
+npm start
+```
+
+Then replace `src/index.js` with:
+
+``` js
+import Sandpit from 'sandpit'
+
+var sandpit = new Sandpit('body', Sandpit.CANVAS)
+sandpit.settings = {youAreGreat: {value: true}}
+sandpit.loop = () => { console.log(sandpit.time) }
+sandpit.start()
+```
 
 ---
 
@@ -70,7 +91,7 @@ That will skip the retina bits, in case you wanna handle them yourself, or if yo
 
 Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.
 
-> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. 
+> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications.
 
 ---
 
