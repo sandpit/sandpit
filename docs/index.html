@@ -80,7 +80,8 @@ npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
 var sandpit = new Sandpit('body', Sandpit.CANVAS)
 sandpit.settings = {youAreGreat: {value: true}}
 sandpit.loop = () => { console.log(sandpit.time) }
-sandpit.start()</code></pre><h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
+sandpit.start()</code></pre><p>You can see an example at <https://github.com/superhighfives/sandpit-demo>.</p>
+<h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
 <p><strong>Sandpit</strong> supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:</p>
 <ul>
 <li>Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom</li>

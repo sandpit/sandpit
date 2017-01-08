@@ -65,7 +65,8 @@ npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
 var sandpit = new Sandpit('body', Sandpit.CANVAS)
 sandpit.settings = {youAreGreat: {value: true}}
 sandpit.loop = () => { console.log(sandpit.time) }
-sandpit.start()</code></pre><hr>
+sandpit.start()</code></pre><p>You can see an example at <https://github.com/superhighfives/sandpit-demo>.</p>
+<hr>
 <h2>Constructor</h2><p>There are a number of ways to initialise a new <strong>Sandpit</strong>.</p>
 <pre class="prettyprint source lang-js"><code>// 2D, using a container that Sandpit will add a canvas to
 const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// You can also pass options, including 'retina', 'queryable' and 'stats'. 'retina' and `queryable` default to `true`.
