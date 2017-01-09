@@ -2,7 +2,7 @@
   "name": "sandpit",
   "version": "0.0.10",
   "description": "A playground for creative coding using JavaScript and the canvas element",
-  "main": "lib/Sandpit.js",
+  "main": "src/Sandpit.js",
   "license": "MIT",
   "dependencies": {
     "color": "^1.0.3",
@@ -15,7 +15,10 @@
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
+    "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
     "canvas": "^1.6.2",
     "jsdoc": "^3.4.3",
     "minami": "superhighfives/minami",
@@ -31,11 +34,11 @@
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "serve": "npm run build && pushstate-server build",
-    "build-library": "rm -rf lib/ && mkdir -p lib && babel src --presets babel-preset-es2015 --out-dir lib",
-    "build-dist": "rm -rf dist/ && mkdir -p dist && webpack && echo '\nObject.assign(Sandpit.default, Sandpit)\nSandpit = Sandpit.default' >> dist/sandpit.js && uglifyjs dist/sandpit.js --compress --mangle --source-map dist/sandpit.min.js.map --output dist/sandpit.min.js",
+    "uglify": "uglifyjs lib/sandpit.js --compress --mangle --source-map lib/sandpit.min.js.map --output lib/sandpit.min.js",
+    "build-library": "rm -rf lib/ && mkdir -p lib && webpack && cat src/helpers/assign.js >> lib/sandpit.js && npm run uglify",
     "build-docs": "rm -rf docs/ && jsdoc --configure .jsdoc.json --verbose",
-    "build-site": "react-scripts build && cp -r dist build/dist && cp -r docs build/docs",
-    "build": "npm run build-library && npm run build-dist && npm run build-docs && npm run build-site",
+    "build-site": "react-scripts build && cp -r lib build/lib && cp -r docs build/docs",
+    "build": "npm run build-library && npm run build-docs && npm run build-site",
     "deploy": "npm run build && surge -p build -d sandpitjs.com"
   },
   "repository": {

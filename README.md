@@ -71,6 +71,10 @@ sandpit.start()
 
 You can see an example at <https://github.com/superhighfives/sandpit-demo>.
 
+### Sticking with the script tag
+
+Alternatively, you can use the latest **Sandpit** version from
+
 
 
 ## Why use Sandpit?

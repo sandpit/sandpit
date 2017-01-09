@@ -1,10 +1,13 @@
 var path = require('path')
 
 var config = {
-  entry: './lib/Sandpit.js',
+  entry: [
+    'babel-polyfill',
+    './src/Sandpit.js'
+  ],
   devtool: 'source-map',
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'lib'),
     filename: 'sandpit.js',
     library: 'Sandpit',
     libraryTarget: 'umd',
@@ -13,14 +16,17 @@ var config = {
   module: {
     loaders: [
       {
-        test: /(\.jsx|\.js)$/,
-        loader: 'babel',
-        exclude: /(node_modules|bower_components)/
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules)/,
+        query: {
+          presets: ['es2015']
+        }
       }
     ]
   },
   resolve: {
-    root: path.resolve('./lib'),
+    root: path.resolve('./src'),
     extensions: ['', '.js']
   }
 }
