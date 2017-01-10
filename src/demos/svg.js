@@ -132,7 +132,7 @@ const playground = () => {
 
   // Update the text color of the overlay to be visible
   document.querySelector('.overlay').style.color = '#fff'
-  document.querySelector('body').style.background = "#000"
+  document.querySelector('body').style.background = '#000'
 }
 
 export default playground
