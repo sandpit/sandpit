@@ -10,7 +10,7 @@ const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)
   sandpit.settings = {
     demo: {value: 'svg', editable: false, sticky: true},
-    goo: {value: true}
+    goo: {value: false}
   }
 
   let circleContainers = []
