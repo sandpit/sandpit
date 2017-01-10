@@ -6,7 +6,9 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Fira Code', monospace;
+  font-family: "Operator Mono SSm A", "Operator Mono SSm B", "Fira Code", monospace;
+  font-style: normal;
+  font-weight: 400;
 }
 
 a {
