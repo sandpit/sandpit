@@ -57,6 +57,15 @@ sandpit.start()
 
 You can see an example at <https://github.com/superhighfives/sandpit-demo>.
 
+### Sticking with the script tag
+
+Alternatively, you can use the latest **Sandpit** version from <https://sandpitjs.com/lib/sandpit.min.js>, which is useful for [Codepen](https://codepen.io/) and the like.
+
+``` js
+<script src="https://sandpitjs.com/lib/sandpit.min.js"></script>
+<script>var sandpit = new Sandpit('body', Sandpit.CANVAS)</script>
+```
+
 ---
 
 ## Constructor
