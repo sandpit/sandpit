@@ -1,4 +1,4 @@
-/**
+/*
  * Inspired by and forked from Stefan Weck's incredible Sea Waves:
  * https://codepen.io/stefanweck/details/YNPdRR
  */
