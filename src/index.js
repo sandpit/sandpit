@@ -3,6 +3,7 @@
  * and does not relate to the actual library - it is a requirement
  * of create-react-app
  */
+import 'babel-polyfill'
 import queryfetch from 'queryfetch'
 import './styles/index.css'
 

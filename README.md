@@ -15,6 +15,7 @@ npm install sandpit --save
 Built in ES6, **Sandpit** uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.
 
 - [Getting started](#getting-started)
+- [Browser support](#browser-support)
 - [Why use Sandpit?](#why-use-sandpit)
 - [Demos and examples](#demos-and-examples)
 - [Documentation](#documentation)
@@ -79,6 +80,12 @@ Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.co
 <script src="https://sandpitjs.com/lib/sandpit.min.js"></script>
 <script>var sandpit = new Sandpit('body', Sandpit.CANVAS)</script>
 ```
+
+
+
+## Browser support
+
+Currently **Sandpit** targets modern browsers, including IE11 and Edge, and uses `babel-polyfill` when compiled for ES5.
 
 
 
