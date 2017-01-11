@@ -58,6 +58,7 @@
 <p>Built in ES6, <strong>Sandpit</strong> uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.</p>
 <ul>
 <li><a href="#getting-started">Getting started</a></li>
+<li><a href="#browser-support">Browser support</a></li>
 <li><a href="#why-use-sandpit">Why use Sandpit?</a></li>
 <li><a href="#demos-and-examples">Demos and examples</a></li>
 <li><a href="#documentation">Documentation</a></li>
@@ -84,7 +85,8 @@ sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()</code></pre><p>You can see an example at <https://github.com/superhighfives/sandpit-demo>.</p>
 <h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/lib/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
 <pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/lib/sandpit.min.js&quot;>&lt;/script>
-&lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
+&lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><h2>Browser support</h2><p>Currently <strong>Sandpit</strong> targets modern browsers, including IE11 and Edge, and uses <code>babel-polyfill</code> when compiled for ES5.</p>
+<h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
 <p><strong>Sandpit</strong> supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:</p>
 <ul>
 <li>Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom</li>
