@@ -122,9 +122,16 @@ const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</c
 <p>If you <em>don't</em> want settings to be stored in the query string, you can pass that option to the Sandpit constructor:</p>
 <pre class="prettyprint source lang-js"><code>const sandpit = new Sandpit('body', Sandpit.CANVAS, {queryable: false})</code></pre><p>Which can be good if you want to use Sandpit in a production environment, or if you're using pushState and it's breaking things.</p>
 <h4>Clear and reset</h4><p><strong>Sandpit</strong> will also automatically add a clear and reset button.</p>
-<p><strong>Reset</strong> will destroy the query string, and refresh the page with default values.</p>
-<p><strong>Clear</strong> will, if on a 2D canvas, clear a rectangle the size of the <strong>Sandpit</strong>. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the <code>COLOR_BUFFER_BIT</code> and <code>DEPTH_BUFFER_BIT</code>.</p>
-<h3>stats</h3><p>If you'd like to check the performance of your sandpit, you can do so by adding <code>{stats: true}</code> to your options when initialising.</p>
+<ul>
+<li><strong>Reset</strong> will destroy the query string, and refresh the page with default values.</li>
+<li><strong>Clear</strong> will, if on a 2D canvas, clear a rectangle the size of the <strong>Sandpit</strong>. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the <code>COLOR_BUFFER_BIT</code> and <code>DEPTH_BUFFER_BIT</code>.</li>
+</ul>
+<p>It is possible to remove <code>clear</code> and <code>reset</code> if you'd prefer not to have displayed. To do this, pass a <code>boolean</code> with the key <code>clear</code>, or <code>reset</code>, instead of the setting object:</p>
+<pre class="prettyprint source"><code>sandpit.settings = {
+  youAreGreat: {value: true},
+  reset: false,
+  clear: false
+}</code></pre><h3>stats</h3><p>If you'd like to check the performance of your sandpit, you can do so by adding <code>{stats: true}</code> to your options when initialising.</p>
 <pre class="prettyprint source lang-js"><code>const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {stats: true})</code></pre><p>This will add <a href="https://github.com/mrdoob/stats.js/">stats.js</a> to the top-left corner of the <code>body</code>, and will measure the <code>loop()</code>. If you'd like to manipulate its styles to move it around, you can access the dom element with <code>sandpit.stats.domElement</code> or <code>sandpit.stats.dom</code>.</p>
 <h3>debug</h3><p>If you want to see debug messages from <strong>Sandpit</strong> itself, you can.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.debug = true

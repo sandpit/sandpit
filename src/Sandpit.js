@@ -217,7 +217,6 @@ class Sandpit {
     group.open()
 
     // Hide controls for mobile
-    // TODO: Make this a setting
     if (this.width <= 767) {
       this._gui.close()
     }

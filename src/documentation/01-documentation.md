@@ -211,9 +211,18 @@ Which can be good if you want to use Sandpit in a production environment, or if 
 #### Clear and reset
 **Sandpit** will also automatically add a clear and reset button.
 
-**Reset** will destroy the query string, and refresh the page with default values.
+- **Reset** will destroy the query string, and refresh the page with default values.
+- **Clear** will, if on a 2D canvas, clear a rectangle the size of the **Sandpit**. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the `COLOR_BUFFER_BIT` and `DEPTH_BUFFER_BIT`.
 
-**Clear** will, if on a 2D canvas, clear a rectangle the size of the **Sandpit**. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the `COLOR_BUFFER_BIT` and `DEPTH_BUFFER_BIT`.
+It is possible to remove `clear` and `reset` if you'd prefer not to have displayed. To do this, pass a `boolean` with the key `clear`, or `reset`, instead of the setting object:
+
+```
+sandpit.settings = {
+  youAreGreat: {value: true},
+  reset: false,
+  clear: false
+}
+```
 
 ### stats
 If you'd like to check the performance of your sandpit, you can do so by adding `{stats: true}` to your options when initialising.

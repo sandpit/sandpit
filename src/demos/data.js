@@ -13,7 +13,11 @@ const playground = () => {
   // the data is currently loading
   let loading = true
   sandpit.autoClear = false
-  sandpit.settings = {demo: {value: 'data', editable: false, sticky: true}}
+  sandpit.settings = {
+    demo: {value: 'data', editable: false, sticky: true},
+    clear: false,
+    reset: false
+  }
   const ctx = sandpit.context
 
   sandpit.setup = () => {
