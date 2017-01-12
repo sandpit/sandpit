@@ -14,7 +14,9 @@ const playground = () => {
     size: {value: 10, step: 1, min: 1, max: 50},
     strokeWidth: {value: 1, min: 1, max: 10, step: 1},
     background: {value: backgrounds},
-    keepDrawing: {value: false}
+    keepDrawing: {value: false},
+    clear: false,
+    reset: false
   }
 
   let ctx = sandpit.context
