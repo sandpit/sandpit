@@ -56,6 +56,25 @@ describe('Sandpit', () => {
     })
   })
 
+  describe('setting options', () => {
+    let sandpit = new Sandpit('body', Sandpit.CANVAS, {queryable: false})
+    let settings = {clear: false, reset: false}
+    sandpit.settings = settings
+    let guiNodes = Array.from(sandpit._gui.__ul.children)
+
+    it('should not have a clear button if clear is false', () => {
+      expect(sandpit._gui).toBeInstanceOf(dat.GUI)
+      expect(sandpit._clearGui).toBe(false)
+      expect(guiNodes.map(node => node.textContent)).not.toContain('clear')
+    })
+
+    it('should not have a reset button if reset is false', () => {
+      expect(sandpit._gui).toBeInstanceOf(dat.GUI)
+      expect(sandpit._resetGui).toBe(false)
+      expect(guiNodes.map(node => node.textContent)).not.toContain('reset')
+    })
+  })
+
   describe('stats', () => {
     it('should display stats for the `loop()` when enabled', () => {
       let sandpit = new Sandpit('body', Sandpit.CANVAS, {stats: true})

@@ -25,12 +25,12 @@ class Sandpit {
    * @param {object} options - Optionally decide to ignore rescaling for retina displays,
    * disable putting settings into the query string, or add stats to the dom
    */
-  constructor (container, type, options = {queryable: true, retina: true, stats: false}) {
+  constructor (container, type, options) {
     logger.info('⛱ Welcome to Sandpit')
-    this._queryable = options.queryable || true
-    this._retina = options.retina || true
-    this._stats = options.stats || false
-    this._setupContext(container, type, options.retina)
+    this._queryable = options && options.hasOwnProperty('queryable') ? options.queryable : true
+    this._retina = options && options.hasOwnProperty('retina') ? options.retina : true
+    this._stats = options && options.hasOwnProperty('stats') ? options.stats : false
+    this._setupContext(container, type, this._retina)
   }
 
   /**

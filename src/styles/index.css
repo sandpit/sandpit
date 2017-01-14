@@ -111,3 +111,8 @@ canvas {
 .dg .c .slider {
   width: 60%;
 }
+
+.dg .dg.main .close-button {
+  height: 40px;
+  line-height: 39px;
+}
