@@ -225,7 +225,7 @@ class Sandpit {
     // and push them to the query string
     if (this._queryable) {
       const query = queryfetch.serialize(this._settings)
-      window.history.replaceState({}, null, '/?' + query)
+      window.history.replaceState({}, null, `${this._getPathFromUrl()}?${query}`)
       // Adds a clear and reset button to the gui interface,
       // if they aren't disabled in the settings
       if (this._clearGui) this._gui.add({clear: () => { this.clear() }}, 'clear')
@@ -245,7 +245,7 @@ class Sandpit {
         this.reset()
       } else {
         // If queryable, clear the query string
-        window.history.replaceState({}, null, '/')
+        window.history.replaceState({}, null, this._getPathFromUrl())
         // Reload the video
         window.location.reload()
       }
@@ -262,7 +262,7 @@ class Sandpit {
     logger.info(`Update fired on ${name}: ${value}`)
     if (this._queryable) {
       const query = queryfetch.serialize(this._settings)
-      window.history.pushState({}, null, '/?' + query)
+      window.history.pushState({}, null, `${this._getPathFromUrl()}?${query}`)
     }
     // If there is a change hook, use it
     if (this.change) {
@@ -621,10 +621,18 @@ class Sandpit {
   }
 
   /**
+   * Grab the current path from the url
+   * @private
+   */
+  _getPathFromUrl () {
+    return window.location.toString().split(/[?#]/)[0]
+  }
+
+  /**
    * Clear the query string
    */
   clearQueryString () {
-    window.history.replaceState({}, null, '/')
+    window.history.replaceState({}, null, this._getPathFromUrl())
   }
 
   /**

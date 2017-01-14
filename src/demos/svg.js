@@ -122,7 +122,7 @@ const playground = () => {
   // Keep the demo in the query string when resetting
   sandpit.reset = () => {
     // Keep the demo
-    window.history.pushState({}, null, `/?demo=${sandpit.settings.demo}`)
+    window.history.replaceState({}, null, `${sandpit._getPathFromUrl()}?demo=${sandpit.settings.demo}`)
     // Reload the page
     window.location.reload()
   }

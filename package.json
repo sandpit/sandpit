@@ -3,6 +3,7 @@
   "version": "0.0.13",
   "description": "A playground for creative coding using JavaScript and the canvas element",
   "main": "src/Sandpit.js",
+  "homepage": "http://localhost:7777/build",
   "license": "MIT",
   "dependencies": {
     "color": "^1.0.3",
