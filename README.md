@@ -74,12 +74,14 @@ You can grab an example from [https://github.com/superhighfives/sandpit-demo](ht
 
 ### Sticking with the script tag
 
-Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.com/lib/sandpit.min.js) in the browser, which is useful for [Codepen](https://codepen.io/superhighfives/pen/BpoPeJ) and the like. There's an [ES5](https://codepen.io/superhighfives/pen/RKroWB) version too.
+Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.com/lib/sandpit.min.js) in the browser, which is useful for [Codepen](https://codepen.io/) and the like.
 
 ``` js
 <script src="https://sandpitjs.com/lib/sandpit.min.js"></script>
 <script>var sandpit = new Sandpit('body', Sandpit.CANVAS)</script>
 ```
+
+You can see it in action using [ES6](https://codepen.io/superhighfives/pen/BpoPeJ), and [ES5](https://codepen.io/superhighfives/pen/RKroWB).
 
 
 

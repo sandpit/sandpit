@@ -55,7 +55,7 @@ sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()
 ```
 
-You can see an example at <https://github.com/superhighfives/sandpit-demo>.
+You can grab an example from [https://github.com/superhighfives/sandpit-demo](https://github.com/superhighfives/sandpit-demo).
 
 ### Sticking with the script tag
 
@@ -65,6 +65,8 @@ Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.co
 <script src="https://sandpitjs.com/lib/sandpit.min.js"></script>
 <script>var sandpit = new Sandpit('body', Sandpit.CANVAS)</script>
 ```
+
+You can see it in action using [ES6](https://codepen.io/superhighfives/pen/BpoPeJ), and [ES5](https://codepen.io/superhighfives/pen/RKroWB).
 
 ---
 
