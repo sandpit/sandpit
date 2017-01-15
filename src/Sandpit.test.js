@@ -33,6 +33,13 @@ describe('Sandpit', () => {
       let sandpit = new Sandpit(canvas, Sandpit.CANVAS)
       expect(sandpit.canvas).toBe(canvas)
     })
+
+    it('should be a WebGL canvas if that option is set', () => {
+      let sandpit = new Sandpit('body', Sandpit.WEBGL)
+      // Looks like node-canvas doesn't support webgl, so checking
+      // that the context returns undefined is a hack for the time being
+      expect(sandpit.context).toBeFalsy()
+    })
   })
 
   describe('settings', () => {
