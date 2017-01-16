@@ -3,6 +3,9 @@ Looking for some inspiration?
 ## Tools
 - [Sketch.js](https://github.com/soulwire/sketch.js), the original inspiration for Sandpit, by [soulwire](https://soulwire.co.uk/)
 
+## Art and music
+- [Enough](http://cabbi.bo/enough/), by [Cabbibo](https://twitter.com/Cabbibo), is a mix of art, music, storytelling, and gaming. Stunning.
+
 ## Generative art
 - Basically everything at [Inconvergent](http://inconvergent.net/) is incredible, but specifically Anders' essays on [Generative Algorithms](http://inconvergent.net/generative/) and [Shepherding Random Numbers](http://inconvergent.net/shepherding-random-numbers/) are must read—his twitter, [@inconvergent](https://twitter.com/inconvergent), is also full of great examples and musings
 - Martijn Brekelmans [deconstructing a flow technique](https://martijnbrekelmans.com/generative-art/heart-deconstruction/techniques.html)
