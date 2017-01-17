@@ -13,14 +13,15 @@ const playground = () => {
     goo: {value: false}
   }
 
+  // Create a container for circles
   let circleContainers = []
   let context = sandpit.context
 
   const initializeCircleContainers = () => {
-    for (let x = 0; x < sandpit.width + 100; x += 100) {
-      for (let y = 0; y < sandpit.height + 100; y += 80) {
+    for (let x = 0; x < sandpit.width; x += 100) {
+      for (let y = 0; y < sandpit.height / 4; y += 100) {
         // Initialize a new instance of the CircleContainer class
-        let circleContainer = new CircleContainer(x, y)
+        let circleContainer = new CircleContainer(x, y + ((sandpit.height / 8) * 3))
 
         // Let the CircleContainer initialize it's children
         circleContainer.initializeCircles()
@@ -32,12 +33,14 @@ const playground = () => {
   }
 
   const update = () => {
+    // Update circle containers
     for (let i = 0; i < circleContainers.length; i++) {
       circleContainers[i].update()
     }
   }
 
   const render = () => {
+    // Render circle containers
     sandpit.clear()
     for (let i = 0; i < circleContainers.length; i++) {
       circleContainers[i].render()
@@ -45,12 +48,14 @@ const playground = () => {
   }
 
   sandpit.resize = () => {
+    // Reinitialise circle containers on resize
     sandpit.resizeCanvas()
     circleContainers = []
     initializeCircleContainers()
   }
 
   sandpit.loop = () => {
+    // When we the loop, update and render the circles
     update()
     render()
   }
@@ -108,10 +113,12 @@ const playground = () => {
     }
   }
 
+  // When a change occurs, check the filter setting is updated
   sandpit.change = () => {
     sandpit.canvas.style.filter = sandpit.settings.goo ? 'url("#shadowed-goo")' : ''
   }
 
+  // Initialize the circle containers
   initializeCircleContainers()
 
   // Get this party started!

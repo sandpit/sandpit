@@ -9,6 +9,9 @@ import Is from './utils/Is'
 import Mathematics from './utils/Mathematics'
 import Stats from './utils/Stats'
 import Vector from './utils/Vector'
+
+import FULLTILT from '@hughsk/fulltilt/dist/fulltilt.min.js' // eslint-disable-line
+import GyroNorm from 'gyronorm'
 import 'whatwg-fetch' /* global fetch */
 
 /**
@@ -369,11 +372,12 @@ class Sandpit {
    * @private
    */
   _setupAccelerometer () {
-    if (window.DeviceOrientationEvent) {
-      this._events['deviceorientation'] = {event: this._handleAccelerometer, context: window}
-    } else {
+    this._gyroscope = new GyroNorm()
+    this._gyroscope.init().then(() => {
+      this._gyroscope.start(this._handleAccelerometer.bind(this))
+    }).catch((e) => {
       logger.warn('Accelerometer is not supported by this device')
-    }
+    })
   }
 
   /**
@@ -482,22 +486,23 @@ class Sandpit {
   }
 
   /**
-   * Handles the accelerometer event
+   * Handles the accelerometer event, using the
+   * GyroNorm.js library
    * @param {event} event
    * @private
    */
-  _handleAccelerometer (event) {
-    if (event.beta && event.alpha && event.gamma) {
-      this.input.accelerometer = {
-        xAxis: event.beta,
-        yAxis: event.gamma,
-        rotation: event.alpha,
-        gamma: event.gamma,
-        beta: event.beta,
-        alpha: event.alpha
-      }
-    }
-    if (this.accelerometer) this.accelerometer(event)
+  _handleAccelerometer (data) {
+    this.input.accelerometer = data
+    // Apply some helpers to more easily
+    // access x, y and rotation
+    this.input.accelerometer.xAxis = data.do.beta
+    this.input.accelerometer.yAxis = data.do.gamma
+    this.input.accelerometer.rotation = data.do.alpha
+    this.input.accelerometer.gamma = data.do.gamma
+    this.input.accelerometer.beta = data.do.beta
+    this.input.accelerometer.alpha = data.do.alpha
+    // Fire the accelerometer event, if available
+    if (this.accelerometer) this.accelerometer()
   }
 
   /**

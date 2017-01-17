@@ -196,9 +196,12 @@ sandpit.get(url).then((response) => {
 <pre class="prettyprint source lang-js"><code>sandpit.touch = (event) => {}</code></pre><h3>release()</h3><p>The <code>release()</code> hook fires when a mouse is released (<code>mouseup</code>) or a tap finishes (<code>touchend</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.release = (event) => {}</code></pre><h3>move()</h3><p>The <code>move()</code> hook fires when a mouse is moved (<code>mousemove</code>) or a tap is dragged (<code>touchmove</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.move = (event) => {}</code></pre><p>The mouse entering the canvas will also cause <code>sandpit.input.inFrame</code> to return <code>true</code>. Leaving the canvas will switch it back to <code>false</code>.</p>
-<h3>accelerometer()</h3><p>If the browser supports <code>window.DeviceOrientationEvent</code> the <code>accelerometer()</code> hook will fire as the device is moved (<code>deviceorientation</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
-<pre class="prettyprint source lang-js"><code>sandpit.accelerometer = (event) => {}</code></pre><p><code>sandpit.input.accelerometer</code> has access to a the <code>xAxis</code> (tipping the device back and forth), the <code>yAxis</code> (tilting the device left and right) and <code>rotation</code> (the direction the device is facing). They are also available as <code>gamma</code>, <code>beta</code> and <code>alpha</code>, if you prefer to stick to the browser naming, or if you're using example code that follows that convention.</p>
-<hr>
+<h3>accelerometer()</h3><p>If the browser supports accelerometer events, the <code>accelerometer()</code> hook will fire as the device is moved. You can take advantage of the normalised input from <code>sandpit.input</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.accelerometer = () => {}</code></pre><p>The accelerometer uses the <a href="https://github.com/dorukeker/gyronorm.js/">GyroNorm.js</a> library, and so has access to its range of normalised device orientation and device motion information.</p>
+<p><code>sandpit.input.accelerometer</code> has helpers to the <code>xAxis</code> (tipping the device back and forth), the <code>yAxis</code> (tilting the device left and right) and <code>rotation</code> (the direction the device is facing). They are also available as <code>gamma</code>, <code>beta</code> and <code>alpha</code>, if you prefer to stick to standard naming, or if you're using example code that follows that convention.</p>
+<p>The <code>deviceorientation</code> data is available on the <code>do</code> property:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.input.accelerometer.do</code></pre><p>The <code>devicemotion</code> data is available on the <code>dm</code> property:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.input.accelerometer.dm</code></pre><hr>
 <h2>Properties</h2><pre class="prettyprint source lang-js"><code>sandpit.input = {
   x: 50,
   y: 50,
@@ -219,12 +222,32 @@ sandpit.get(url).then((response) => {
     }
   ],
   accelerometer: {
-    xAxis: 32,
-    yAxis: -45,
-    rotation: 96,
-    gamma: -45,
-    beta: 32,
-    alpha: 96
+    // duplicated deviceorientation helpers
+    xAxis:      // beta value
+    yAxis:      // gamma value
+    rotation:   // alpha value
+    gamma:      // gamma value
+    beta:       // beta value
+    alpha:      // alpha value
+    // deviceorientation events
+    do: {
+      alpha:    // alpha value
+      beta:     // beta value
+      gamma:    // gamma value
+      absolute: // absolute value
+    },
+    // devicemotion events
+    dm: {
+      x:        // acceleration x value
+      y:        // acceleration y value
+      z:        // acceleration z value
+      gx:       // accelerationIncludingGravity x value
+      gy:       // accelerationIncludingGravity y value
+      gz:       // accelerationIncludingGravity z value
+      alpha:    // rotationRate alpha value
+      beta:     // rotationRate beta value
+      gamma:    // rotationRate gamma value
+    }
   }
 }</code></pre><h3>input</h3><p>The input property gives you normalised input data, allowing you to skip some of the heavy lifting of dealing with inputs.</p>
 <h4>input.x</h4><p>The x position of the mouse or first touch.</p>

@@ -445,13 +445,25 @@ sandpit.move = (event) => {}
 The mouse entering the canvas will also cause `sandpit.input.inFrame` to return `true`. Leaving the canvas will switch it back to `false`.
 
 ### accelerometer()
-If the browser supports `window.DeviceOrientationEvent` the `accelerometer()` hook will fire as the device is moved (`deviceorientation`). The hook has access to the event, or you can take advantage of the normalised input from `sandpit.input`.
+If the browser supports accelerometer events, the `accelerometer()` hook will fire as the device is moved. You can take advantage of the normalised input from `sandpit.input`.
 
 ``` js
-sandpit.accelerometer = (event) => {}
+sandpit.accelerometer = () => {}
 ```
 
-`sandpit.input.accelerometer` has access to a the `xAxis` (tipping the device back and forth), the `yAxis` (tilting the device left and right) and `rotation` (the direction the device is facing). They are also available as `gamma`, `beta` and `alpha`, if you prefer to stick to the browser naming, or if you're using example code that follows that convention.
+The accelerometer uses the [GyroNorm.js](https://github.com/dorukeker/gyronorm.js/) library, and so has access to its range of normalised device orientation and device motion information.
+
+`sandpit.input.accelerometer` has helpers to the `xAxis` (tipping the device back and forth), the `yAxis` (tilting the device left and right) and `rotation` (the direction the device is facing). They are also available as `gamma`, `beta` and `alpha`, if you prefer to stick to standard naming, or if you're using example code that follows that convention.
+
+The `deviceorientation` data is available on the `do` property:
+``` js
+sandpit.input.accelerometer.do
+```
+
+The `devicemotion` data is available on the `dm` property:
+``` js
+sandpit.input.accelerometer.dm
+```
 
 ---
 
@@ -478,12 +490,32 @@ sandpit.input = {
     }
   ],
   accelerometer: {
-    xAxis: 32,
-    yAxis: -45,
-    rotation: 96,
-    gamma: -45,
-    beta: 32,
-    alpha: 96
+    // duplicated deviceorientation helpers
+    xAxis:      // beta value
+    yAxis:      // gamma value
+    rotation:   // alpha value
+    gamma:      // gamma value
+    beta:       // beta value
+    alpha:      // alpha value
+    // deviceorientation events
+    do: {
+      alpha:    // alpha value
+      beta:     // beta value
+      gamma:    // gamma value
+      absolute: // absolute value
+    },
+    // devicemotion events
+    dm: {
+      x:        // acceleration x value
+      y:        // acceleration y value
+      z:        // acceleration z value
+      gx:       // accelerationIncludingGravity x value
+      gy:       // accelerationIncludingGravity y value
+      gz:       // accelerationIncludingGravity z value
+      alpha:    // rotationRate alpha value
+      beta:     // rotationRate beta value
+      gamma:    // rotationRate gamma value
+    }
   }
 }
 ```
