@@ -3733,9 +3733,9 @@ mime@~1.2.11, mime@1.2.x:
   version "1.2.11"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.11.tgz#58203eed86e3a5ef17aed2b7d9ebd47f0a60dd10"
 
-"minami@git+ssh://git@github.com/superhighfives/minami.git":
+"minami@git://github.com/superhighfives/minami.git":
   version "1.1.1"
-  resolved "git+ssh://git@github.com/superhighfives/minami.git#84d3d22e810bb466a92b7f3b12400c80437ee3c2"
+  resolved "git://github.com/superhighfives/minami.git#84d3d22e810bb466a92b7f3b12400c80437ee3c2"
 
 minimatch@^2.0.1:
   version "2.0.10"
