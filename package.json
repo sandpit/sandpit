@@ -2,7 +2,7 @@
   "name": "sandpit",
   "version": "0.0.17",
   "description": "A playground for creative coding using JavaScript and the canvas element",
-  "main": "src/Sandpit.js",
+  "main": "lib/sandpit.js",
   "license": "MIT",
   "dependencies": {
     "@hughsk/fulltilt": "^0.7.1",
@@ -29,18 +29,17 @@
     "surge": "^0.18.0",
     "three": "^0.83.0",
     "three-trackballcontrols": "^0.0.5",
-    "uglify-js": "^2.7.5",
     "webpack": "^1.14.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "serve": "npm run build && pushstate-server build",
-    "uglify": "uglifyjs lib/sandpit.js --compress --mangle --source-map lib/sandpit.min.js.map --output lib/sandpit.min.js",
-    "build-library": "rm -rf lib/ && mkdir -p lib && webpack && cat src/helpers/assign.js >> lib/sandpit.js && npm run uglify",
+    "build:lib": "babel --out-dir lib src",
+    "build:watch": "npm run build:lib -- --watch",
     "build-docs": "rm -rf docs/ && jsdoc --configure .jsdoc.json --verbose",
     "build-site": "react-scripts build && cp -r lib build/lib && cp -r docs build/docs",
-    "build": "npm run build-library && npm run build-docs && npm run build-site",
+    "build": "npm run build:lib && npm run build-docs && npm run build-site",
     "deploy": "npm run build && surge -p build -d sandpitjs.com"
   },
   "repository": {
