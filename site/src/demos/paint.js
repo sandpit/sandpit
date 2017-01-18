@@ -3,7 +3,7 @@
  * which is wild and you should totally check it out:
  * https://github.com/soulwire/sketch.js
  */
-import Sandpit from '../Sandpit'
+import Sandpit from '../../../lib/Sandpit'
 
 const playground = () => {
   // Make a new sandpit

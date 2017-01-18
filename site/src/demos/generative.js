@@ -1,4 +1,4 @@
-import Sandpit, { Mathematics } from '../Sandpit'
+import Sandpit, { Mathematics } from '../../../lib/Sandpit'
 
 const playground = () => {
   const sandpit = new Sandpit(document.querySelector('#root'), Sandpit.CANVAS)

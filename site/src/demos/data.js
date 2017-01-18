@@ -1,4 +1,4 @@
-import Sandpit, { Color } from '../Sandpit'
+import Sandpit, { Color } from '../../../lib/Sandpit'
 const dataAPI = 'https://randomuser.me/api/'
 
 const playground = () => {

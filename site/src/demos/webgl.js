@@ -3,7 +3,7 @@
  * of vanilla WebGL being used on a sandpit - vanilla WebGL
  * is pretty verbose, so don't panic if this makes no sense
  */
-import Sandpit, { Color, Mathematics } from '../Sandpit'
+import Sandpit, { Color, Mathematics } from '../../../lib/Sandpit'
 
 const playground = () => {
   // Make a sandpit

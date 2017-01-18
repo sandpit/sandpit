@@ -1,4 +1,4 @@
-import Sandpit, { Vector, Color } from '../Sandpit'
+import Sandpit, { Vector, Color } from '../../../lib/Sandpit'
 
 let sandpit
 const playground = () => {
