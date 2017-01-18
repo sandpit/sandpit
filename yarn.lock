@@ -1404,7 +1404,7 @@ graceful-fs@~3.0.2:
 
 "gyronorm@git://github.com/superhighfives/gyronorm.js.git":
   version "2.0.4"
-  resolved "git://github.com/superhighfives/gyronorm.js.git#e97a45a094dbfd401c2c7db438a86e31247e9eef"
+  resolved "git://github.com/superhighfives/gyronorm.js.git#34f6f131bbdd0427d2bd6d88ac4941740b33979b"
 
 har-validator@~2.0.6:
   version "2.0.6"
