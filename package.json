@@ -30,22 +30,22 @@
     "jsdoc": "^3.4.3",
     "minami": "git://github.com/superhighfives/minami.git",
     "pushstate-server": "^2.1.0",
-    "react-scripts": "0.8.4",
+    "stringstream": "^0.0.5",
     "surge": "^0.18.0",
     "three": "^0.83.0",
     "three-trackballcontrols": "^0.0.5",
     "webpack": "^1.14.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "test": "react-scripts test --env=jsdom",
-    "serve": "npm run build && pushstate-server build",
+    "test": "node site/node_modules/react-scripts/scripts/test --env=jsdom",
+    "start": "cd site && npm run start && cd -",
+    "serve": "npm run build && pushstate-server site/build",
     "build:lib": "rm -rf lib/* && babel --out-dir lib src",
     "build:watch": "npm run build:lib -- --watch",
-    "build-docs": "rm -rf docs/ && jsdoc --configure .jsdoc.json --verbose",
-    "build-site": "react-scripts build && cp -r lib build/lib && cp -r docs build/docs",
-    "build": "npm run build:lib && npm run build-docs && npm run build-site",
-    "deploy": "npm run build && surge -p build -d sandpitjs.com"
+    "build:docs": "jsdoc -d site/public/docs --configure .jsdoc.json --verbose",
+    "build:site": "cd site && npm run build && cd -",
+    "build": "npm run build:lib && npm run build:docs && npm run build:site",
+    "deploy": "npm run build && surge -p site/build -d sandpitjs.com"
   },
   "repository": {
     "type": "git",
