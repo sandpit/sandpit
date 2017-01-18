@@ -15,8 +15,9 @@
     "build:watch": "npm run build:lib -- --watch",
     "build:docs": "jsdoc -d site/public/docs --configure .jsdoc.json --verbose",
     "build:site": "cd site && npm run build && cd -",
-    "build": "npm run build:lib && npm run build:docs && npm run build:site",
-    "deploy": "npm run build && surge -p site/build -d sandpitjs.com"
+    "build": "npm run build:lib && npm run build:dist && npm run build:docs && npm run build:site",
+    "deploy": "npm run build && surge -p site/build -d sandpitjs.com",
+    "postinstall": "cd site && npm install && cd -"
   },
   "repository": {
     "type": "git",

@@ -15,48 +15,48 @@ const mode = prod ? 'production' : 'development'
 
 console.log(`Creating ${mode} bundle...`)
 
-const targets = prod ?
-[
-  { dest: 'dist/sandpit.min.js', format: 'umd' },
-] :
-[
-  { dest: 'dist/sandpit.js', format: 'umd' },
-  { dest: 'dist/sandpit.es.js', format: 'es' },
-]
+const targets = prod
+  ? [
+    { dest: 'dist/sandpit.min.js', format: 'umd' }
+  ]
+  : [
+    { dest: 'dist/sandpit.js', format: 'umd' },
+    { dest: 'dist/sandpit.es.js', format: 'es' }
+  ]
 
 const plugins = [
   // Unlike Webpack and Browserify, Rollup doesn't automatically shim Node
   // builtins like `process`. This ad-hoc plugin creates a 'virtual module'
   // which includes a shim containing just the parts the bundle needs.
   {
-    resolveId(importee) {
+    resolveId (importee) {
       if (importee === processShim) return importee
       return null
     },
-    load(id) {
+    load (id) {
       if (id === processShim) return 'export default { argv: [], env: {} }'
       return null
-    },
+    }
   },
   nodeResolve(),
   commonjs(),
   replace({
-    'process.env.NODE_ENV': JSON.stringify(prod ? 'production' : 'development'),
+    'process.env.NODE_ENV': JSON.stringify(prod ? 'production' : 'development')
   }),
   inject({
-    process: processShim,
+    process: processShim
   }),
   babel({
     babelrc: false,
     presets: [
-      ['latest', { es2015: { modules: false } }],
+      ['latest', { es2015: { modules: false } }]
     ],
     plugins: [
       'transform-object-rest-spread',
-      'transform-class-properties',
-    ],
+      'transform-class-properties'
+    ]
   }),
-  json(),
+  json()
 ]
 
 if (prod) plugins.push(uglify(), visualizer({ filename: './bundle-stats.html' }))
@@ -66,5 +66,5 @@ export default {
   moduleName: 'Sandpit',
   exports: 'named',
   targets,
-  plugins,
+  plugins
 }
