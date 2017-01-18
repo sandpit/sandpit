@@ -6,3 +6,5 @@ node_modules
 npm-debug.log
 docs
 lib
+dist
+bundle-stats.html

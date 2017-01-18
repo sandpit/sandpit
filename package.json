@@ -4,6 +4,32 @@
   "description": "A playground for creative coding using JavaScript and the canvas element",
   "main": "lib/Sandpit.js",
   "license": "MIT",
+  "scripts": {
+    "test": "node site/node_modules/react-scripts/scripts/test --env=jsdom",
+    "start": "cd site && npm run start && cd -",
+    "serve": "npm run build && pushstate-server site/build",
+    "prebuild:dist": "rm -rf dist/*",
+    "build:dist": "rollup -c && rollup -c --environment PRODUCTION",
+    "prebuild:lib": "rm -rf lib/*",
+    "build:lib": "babel --out-dir lib src",
+    "build:watch": "npm run build:lib -- --watch",
+    "build:docs": "jsdoc -d site/public/docs --configure .jsdoc.json --verbose",
+    "build:site": "cd site && npm run build && cd -",
+    "build": "npm run build:lib && npm run build:docs && npm run build:site",
+    "deploy": "npm run build && surge -p site/build -d sandpitjs.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/superhighfives/sandpit.git"
+  },
+  "keywords": [
+    "sketch",
+    "creative",
+    "canvas",
+    "processing",
+    "animation"
+  ],
+  "author": "Charlie Gleason (http://charliegleason.com/)",
   "dependencies": {
     "@hughsk/fulltilt": "^0.7.1",
     "color": "^1.0.3",
@@ -30,33 +56,20 @@
     "jsdoc": "^3.4.3",
     "minami": "git://github.com/superhighfives/minami.git",
     "pushstate-server": "^2.1.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-flow": "^1.1.1",
+    "rollup-plugin-inject": "^2.0.0",
+    "rollup-plugin-json": "^2.1.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-plugin-visualizer": "^0.2.0",
     "stringstream": "^0.0.5",
     "surge": "^0.18.0",
     "three": "^0.83.0",
     "three-trackballcontrols": "^0.0.5",
     "webpack": "^1.14.0"
-  },
-  "scripts": {
-    "test": "node site/node_modules/react-scripts/scripts/test --env=jsdom",
-    "start": "cd site && npm run start && cd -",
-    "serve": "npm run build && pushstate-server site/build",
-    "build:lib": "rm -rf lib/* && babel --out-dir lib src",
-    "build:watch": "npm run build:lib -- --watch",
-    "build:docs": "jsdoc -d site/public/docs --configure .jsdoc.json --verbose",
-    "build:site": "cd site && npm run build && cd -",
-    "build": "npm run build:lib && npm run build:docs && npm run build:site",
-    "deploy": "npm run build && surge -p site/build -d sandpitjs.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/superhighfives/sandpit.git"
-  },
-  "keywords": [
-    "sketch",
-    "creative",
-    "canvas",
-    "processing",
-    "animation"
-  ],
-  "author": "Charlie Gleason (http://charliegleason.com/)"
+  }
 }
