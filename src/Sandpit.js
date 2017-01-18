@@ -10,7 +10,6 @@ import Mathematics from './utils/Mathematics'
 import Stats from './utils/Stats'
 import Vector from './utils/Vector'
 
-import FULLTILT from '@hughsk/fulltilt/dist/fulltilt.min.js' // eslint-disable-line
 import GyroNorm from 'gyronorm'
 import 'whatwg-fetch' /* global fetch */
 

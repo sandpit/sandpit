@@ -32,11 +32,10 @@
   ],
   "author": "Charlie Gleason (http://charliegleason.com/)",
   "dependencies": {
-    "@hughsk/fulltilt": "^0.7.1",
     "color": "^1.0.3",
     "dat.gui": "^0.6.1",
     "debounce": "^1.0.0",
-    "gyronorm": "^2.0.4",
+    "gyronorm": "git://github.com/superhighfives/gyronorm.js.git",
     "queryfetch": "^1.2.1",
     "seedrandom": "^2.4.2",
     "stats.js": "^0.17.0",
