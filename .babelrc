@@ -1,8 +1,10 @@
 {
-  "ignore": [
-    "src/index.js",
-    "src/helpers",
-    "src/demos",
-    "**/*.test.js"
+  "presets": [
+    "latest"
+  ],
+  "plugins": [
+    "add-module-exports",
+    "transform-object-rest-spread",
+    "transform-class-properties"
   ]
 }
