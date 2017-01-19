@@ -13,7 +13,7 @@
     "prebuild:lib": "rm -rf lib/*",
     "build:lib": "babel --out-dir lib src",
     "build:watch": "npm run build:lib -- --watch",
-    "build:docs": "jsdoc -d site/public/docs --configure .jsdoc.json --verbose",
+    "build:docs": "jsdoc --configure .jsdoc.json --verbose",
     "build:site": "cd site && npm run build && cd -",
     "build": "npm run build:lib && npm run build:dist && npm run build:docs && npm run build:site",
     "deploy": "npm run build && surge -p site/build -d sandpitjs.com",
