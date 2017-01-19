@@ -1404,7 +1404,7 @@ graceful-fs@~3.0.2:
 
 "gyronorm@git://github.com/superhighfives/gyronorm.js.git":
   version "2.0.4"
-  resolved "git://github.com/superhighfives/gyronorm.js.git#34f6f131bbdd0427d2bd6d88ac4941740b33979b"
+  resolved "git://github.com/superhighfives/gyronorm.js.git#b9e31ce77356378ba7936f89d2cbd139c491dba8"
 
 har-validator@~2.0.6:
   version "2.0.6"
@@ -2591,8 +2591,8 @@ stream-browserify@^2.0.1:
     readable-stream "^2.0.2"
 
 stream-http@^2.3.1:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/stream-http/-/stream-http-2.6.2.tgz#bdfe40d2ee9262eb6bf2255bb3ad0ec0cdd6526d"
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/stream-http/-/stream-http-2.6.3.tgz#4c3ddbf9635968ea2cfd4e48d43de5def2625ac3"
   dependencies:
     builtin-status-codes "^3.0.0"
     inherits "^2.0.1"
@@ -2916,8 +2916,8 @@ webpack@^1.14.0:
     webpack-core "~0.6.9"
 
 whatwg-fetch@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.1.tgz#078b9461bbe91cea73cbce8bb122a05f9e92b772"
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.2.tgz#fe294d1d89e36c5be8b3195057f2e4bc74fc980e"
 
 wide-align@^1.1.0:
   version "1.1.0"
