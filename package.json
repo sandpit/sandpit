@@ -11,7 +11,7 @@
     "prebuild:dist": "rm -rf dist/*",
     "build:dist": "rollup -c && rollup -c --environment PRODUCTION",
     "prebuild:lib": "rm -rf lib/*",
-    "build:lib": "babel --out-dir lib src",
+    "build:lib": "babel --out-dir lib --ignore src/index.js src",
     "build:watch": "npm run build:lib -- --watch",
     "build:docs": "jsdoc --configure .jsdoc.json --verbose",
     "build:site": "cd site && npm run build && cd -",
@@ -67,9 +67,6 @@
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-visualizer": "^0.2.0",
     "stringstream": "^0.0.5",
-    "surge": "^0.18.0",
-    "three": "^0.83.0",
-    "three-trackballcontrols": "^0.0.5",
-    "webpack": "^1.14.0"
+    "surge": "^0.18.0"
   }
 }

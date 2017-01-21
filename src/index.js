@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import Sandpit, { Color, Is, Mathematics, Stats, Vector } from './Sandpit'
 
 Sandpit.Color = Color
