@@ -62,9 +62,9 @@ const plugins = [
 if (prod) plugins.push(uglify(), visualizer({ filename: './bundle-stats.html' }))
 
 export default {
-  entry: 'src/Sandpit.js',
+  entry: 'src/index.js',
   moduleName: 'Sandpit',
-  exports: 'named',
+  exports: 'default',
   targets,
   plugins
 }
