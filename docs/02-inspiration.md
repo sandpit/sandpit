@@ -2,6 +2,7 @@ Looking for some inspiration?
 
 ## Tools
 - [Sketch.js](https://github.com/soulwire/sketch.js), the original inspiration for Sandpit, by [soulwire](https://soulwire.co.uk/)
+- [Codepen](https://codepen.io/), an awesome resource, both for learning and for sharing demos
 
 ## Art and music
 - [Enough](http://cabbi.bo/enough/), by [Cabbibo](https://twitter.com/Cabbibo), is a mix of art, music, storytelling, and gaming. Stunning.
