@@ -2,6 +2,8 @@ Looking for some inspiration?
 
 ## Tools
 - [Sketch.js](https://github.com/soulwire/sketch.js), the original inspiration for Sandpit, by [soulwire](https://soulwire.co.uk/)
+- [Paper.js](http://paperjs.org/), an open source vector graphics scripting framework using canvas
+- [Three.js](https://threejs.org/), a JavaScript library that massively simplifies WebGL
 - [Codepen](https://codepen.io/), an awesome resource, both for learning and for sharing demos
 
 ## Art and music
