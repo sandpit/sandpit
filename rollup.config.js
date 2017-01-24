@@ -12,6 +12,7 @@ const processShim = '\0process-shim'
 
 const prod = process.env.PRODUCTION
 const mode = prod ? 'production' : 'development'
+const named = process.env.NAMED
 
 console.log(`Creating ${mode} bundle...`)
 
@@ -20,8 +21,10 @@ const targets = prod
     { dest: 'dist/sandpit.min.js', format: 'umd' }
   ]
   : [
-    { dest: 'dist/sandpit.js', format: 'umd' },
-    { dest: 'dist/sandpit.es.js', format: 'es' }
+    {
+      dest: named ? 'dist/sandpit.es.js' : 'dist/sandpit.js',
+      format: named ? 'es' : 'umd'
+    }
   ]
 
 const plugins = [
@@ -64,7 +67,7 @@ if (prod) plugins.push(uglify(), visualizer({ filename: './bundle-stats.html' })
 export default {
   entry: 'src/index.js',
   moduleName: 'Sandpit',
-  exports: 'default',
+  exports: named ? 'named' : 'default',
   targets,
   plugins
 }
