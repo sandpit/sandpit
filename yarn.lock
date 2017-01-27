@@ -1293,8 +1293,8 @@ graceful-fs@~3.0.2:
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
 "gyronorm@git://github.com/superhighfives/gyronorm.js.git":
-  version "2.0.4"
-  resolved "git://github.com/superhighfives/gyronorm.js.git#709f0a96415590eca7a89bec6a755e1f51e474dc"
+  version "2.0.5"
+  resolved "git://github.com/superhighfives/gyronorm.js.git#c4dbe6d10ce26448f966a2df95e86840625eb671"
 
 har-validator@~2.0.6:
   version "2.0.6"
