@@ -28,6 +28,7 @@ In your app, add:
 ``` js
 import Sandpit from 'sandpit' // for es6
 var Sandpit = require('sandpit') // for es5
+var Sandpit = require('sandpit').default // for es5
 ```
 
 Celebrate. You are a success.
@@ -59,10 +60,10 @@ You can grab an example from [https://github.com/superhighfives/sandpit-demo](ht
 
 ### Sticking with the script tag
 
-Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.com/lib/sandpit.min.js) in the browser, which is useful for [Codepen](https://codepen.io/) and the like.
+Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.com/dist/sandpit.min.js) in the browser, which is useful for [Codepen](https://codepen.io/) and the like.
 
 ``` js
-<script src="https://sandpitjs.com/lib/sandpit.min.js"></script>
+<script src="https://sandpitjs.com/dist/sandpit.min.js"></script>
 <script>var sandpit = new Sandpit('body', Sandpit.CANVAS)</script>
 ```
 
@@ -96,15 +97,26 @@ const sandpit = new Sandpit(document.querySelector('#id_of_your_canvas'), Sandpi
 const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})
 ```
 
+> NOTE: It's worth noting that Sandpit works a little differently if you're using it outside of ES6. If you're requiring it in ES5, you'll need to append `default` after the require: `var Sandpit = require('sandpit').default`. Utilities are available at `var Mathematics = require('sandpit').Mathematics`, etc.
+> If you're using it from /dist directly in the browser, you can use `var sandpit = new Sandpit('body', Sandpit.CANVAS)`, and the named utilities are available at Sandpit.Mathematics, Sandpit.Color, etc.
+> This is due to the different ways in which ES5 and ES6 manage named exports. If you can think of a better way to handle this, you should 100% get in touch.
+
 If **Sandpit** finds a DOM element that isn't a canvas, it'll add a canvas to it. If it finds a canvas element, it'll use that instead. Everyone wins!
 
 **Sandpit** will automatically manage retina displays, or more specifically, displays with a pixel ratio greater than 1. If you'd like it to _not_ do that, you can pass a third property to the options: `new Sandpit('.container', Sandpit.CANVAS, {retina: false})`.
 
-That will skip the retina bits, in case you wanna handle them yourself, or if you're worried about performance.
+That will skip the retina bits in case you wanna handle them yourself, or if you're worried about performance.
 
 Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.
 
-> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications.
+> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. You can also use `sandpit.resize = () => {}` if you'd like to use `window.innerWidth` and `window.innerHeight`, but it's probably easier to just set `canvas {width: 100vw; height: 100vh;}` in your CSS. Up to you!
+
+```
+sandpit.resize = () => {
+  sandpit.width = window.innerWidth
+  sandpit.height = window.innerHeight
+}
+```
 
 ---
 
@@ -308,7 +320,7 @@ sandpit.focusTouchesOnCanvas = true
 sandpit.focusTouchesOnCanvas // returns true
 ```
 
-> Note: You'll need to enable it before you run `start()`, as it will change the way the events are initialised.
+> NOTE: You'll need to enable it before you run `start()`, as it will change the way the events are initialised.
 
 It will mean your settings aren't interactive though, so it's primarily for presentations on mobile where you don't want pesky pinch-to-zoom stuff happening. You _should_ be okay with the standard touch events, which support multitouch, but hey, who knows?
 
@@ -417,9 +429,9 @@ If you'd prefer to manage the resizing of the canvas object yourself, you can do
 sandpit.resize = () => {}
 ```
 
-> Note: If you don't override the resize hook, resize will fire `change()` when the canvas element changes size.
+> NOTE: If you don't override the resize hook, resize will fire `change()` when the canvas element changes size.
 
-> Note: The resize event is tied to the `window` object.
+> NOTE: The resize event is tied to the `window` object.
 
 ### touch()
 The `touch()` hook fires when a mouse is clicked (`mousedown`) or a tap occurs (`touchstart`). The hook has access to the event, or you can take advantage of the normalised input from `sandpit.input`.
