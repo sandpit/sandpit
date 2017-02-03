@@ -70,8 +70,9 @@
 <pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
 <pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
 <pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
-var Sandpit = require('sandpit') // for es5</code></pre><p>Celebrate. You are a success.</p>
-<h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
+var Sandpit = require('sandpit') // for es5
+var Sandpit = require('sandpit').default // for es5</code></pre><p>Celebrate. You are a success.</p>
+<h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly environment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
 <pre class="prettyprint source lang-shell"><code>npm install create-react-app -g
 create-react-app party
 cd party
@@ -83,8 +84,8 @@ var sandpit = new Sandpit('body', Sandpit.CANVAS)
 sandpit.settings = {youAreGreat: {value: true}}
 sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()</code></pre><p>You can grab an example from <a href="https://github.com/superhighfives/sandpit-demo">https://github.com/superhighfives/sandpit-demo</a>.</p>
-<h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/lib/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
-<pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/lib/sandpit.min.js&quot;>&lt;/script>
+<h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/dist/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
+<pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/dist/sandpit.min.js&quot;>&lt;/script>
 &lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><p>You can see it in action using <a href="https://codepen.io/superhighfives/pen/BpoPeJ">ES6</a>, and <a href="https://codepen.io/superhighfives/pen/RKroWB">ES5</a>.</p>
 <h2>Browser support</h2><p>Currently <strong>Sandpit</strong> targets modern browsers, including IE11 and Edge, and uses <code>babel-polyfill</code> when compiled for ES5.</p>
 <h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
