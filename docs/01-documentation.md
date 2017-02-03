@@ -27,7 +27,6 @@ In your app, add:
 
 ``` js
 import Sandpit from 'sandpit' // for es6
-var Sandpit = require('sandpit') // for es5
 var Sandpit = require('sandpit').default // for es5
 ```
 
