@@ -35,7 +35,7 @@ Celebrate. You are a success.
 
 ### Setting up a new project
 
-If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use [create-react-app](https://github.com/facebookincubator/create-react-app):
+If you're looking for a quick way to set up a sandpit with an ES6 friendly environment, you can use [create-react-app](https://github.com/facebookincubator/create-react-app):
 
 ``` shell
 npm install create-react-app -g
