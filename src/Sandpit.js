@@ -694,7 +694,7 @@ class Sandpit {
    * @param {number} width - The width to make the canvas
    */
   set width (width) {
-    this._canvas.clientWidth = width
+    this._canvas.width = width
   }
 
   /**
@@ -710,7 +710,7 @@ class Sandpit {
    * @param {number} height - The height to make the canvas
    */
   set height (height) {
-    this._canvas.clientHeight = height
+    this._canvas.height = height
   }
 
   /**
