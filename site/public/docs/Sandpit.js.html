@@ -1,4 +1,46 @@
-import dat from 'dat.gui/build/dat.gui'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sandpit.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7039052/7561372/css/fonts.css" />
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h3><a href="index.html">⛱&nbsp;&nbsp;Sandpit</a></h3><h3></h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h2 class="version">v0.0.17</h2>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Sandpit.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import dat from 'dat.gui/build/dat.gui'
 import queryfetch from 'queryfetch'
 import debounce from 'debounce'
 import seedrandom from 'seedrandom'
@@ -29,9 +71,9 @@ class Sandpit {
    */
   constructor (container, type, options) {
     logger.info('⛱ Welcome to Sandpit')
-    this._queryable = options && options.hasOwnProperty('queryable') ? options.queryable : true
-    this._retina = options && options.hasOwnProperty('retina') ? options.retina : true
-    this._stats = options && options.hasOwnProperty('stats') ? options.stats : false
+    this._queryable = options &amp;&amp; options.hasOwnProperty('queryable') ? options.queryable : true
+    this._retina = options &amp;&amp; options.hasOwnProperty('retina') ? options.retina : true
+    this._stats = options &amp;&amp; options.hasOwnProperty('stats') ? options.stats : false
     this._setupContext(container, type, this._retina)
   }
 
@@ -41,11 +83,11 @@ class Sandpit {
    */
   _setupContext (container, type, retina) {
     // Check that the correct container type has been passed
-    if (typeof container !== 'string' && typeof container !== 'object') {
+    if (typeof container !== 'string' &amp;&amp; typeof container !== 'object') {
       throw new Error('Please provide a string or object reference to the container, like ".container", or document.querySelector(".container")')
     }
     // Check that the type is set
-    if (typeof type !== 'string' || (type !== Sandpit.CANVAS && type !== Sandpit.WEBGL)) {
+    if (typeof type !== 'string' || (type !== Sandpit.CANVAS &amp;&amp; type !== Sandpit.WEBGL)) {
       throw new Error('Please provide a context type - either `Sandpit.CANVAS` or `Sandpit.WEBGL`')
     }
 
@@ -79,7 +121,7 @@ class Sandpit {
       this._type = type
 
       // Deal with retina displays
-      if (type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && this._retina) {
+      if (type === Sandpit.CANVAS &amp;&amp; window.devicePixelRatio !== 1 &amp;&amp; this._retina) {
         this._handleRetina()
       }
 
@@ -219,7 +261,7 @@ class Sandpit {
     group.open()
 
     // Hide controls for mobile
-    if (this.width <= 767) {
+    if (this.width &lt;= 767) {
       this._gui.close()
     }
 
@@ -516,7 +558,7 @@ class Sandpit {
     delete event.touches.length
     if (Object.keys(event.touches).length) {
       let touches = Object.keys(event.touches).map((key, i) => {
-        // Set the X & Y for input from the first touch
+        // Set the X &amp; Y for input from the first touch
         if (i === 0) {
           this.input.x = event.touches[key].pageX
           this.input.y = event.touches[key].pageY
@@ -524,7 +566,7 @@ class Sandpit {
 
         let touch = {}
         // If there is previous touch, store it as a helper
-        if (this.input.touches && this.input.touches[key]) {
+        if (this.input.touches &amp;&amp; this.input.touches[key]) {
           touch.previousX = this.input.touches[key].x
           touch.previousY = this.input.touches[key].y
         }
@@ -562,7 +604,7 @@ class Sandpit {
    */
   set settings (settings) {
     // Sets up settings
-    if (settings && Object.keys(settings).length) {
+    if (settings &amp;&amp; Object.keys(settings).length) {
       this.defaults = settings
       this._setupSettings()
     }
@@ -690,27 +732,11 @@ class Sandpit {
   }
 
   /**
-   * Sets the canvas width
-   * @param {number} width - The width to make the canvas
-   */
-  set width (width) {
-    this._canvas.width = width
-  }
-
-  /**
    * Returns the canvas height
    * @returns {number} Canvas height
    */
   get height () {
     return this._canvas.clientHeight
-  }
-
-  /**
-   * Sets the canvas height
-   * @param {number} height - The height to make the canvas
-   */
-  set height (height) {
-    this._canvas.height = height
   }
 
   /**
@@ -759,7 +785,7 @@ class Sandpit {
    * Resizes the canvas to the window width and height
    */
   resizeCanvas () {
-    if (this._type === Sandpit.CANVAS && window.devicePixelRatio !== 1 && this._retina) {
+    if (this._type === Sandpit.CANVAS &amp;&amp; window.devicePixelRatio !== 1 &amp;&amp; this._retina) {
       this._handleRetina()
     } else {
       this._canvas.width = this._canvas.clientWidth
@@ -828,3 +854,22 @@ class Sandpit {
 
 export { Is, Mathematics, Color, Vector, Stats }
 export default Sandpit
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> using a modified <a href="https://github.com/nijikokun/minami">Minami</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
