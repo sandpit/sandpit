@@ -43,6 +43,7 @@ In your app, add:
 ``` js
 import Sandpit from 'sandpit' // for es6
 var Sandpit = require('sandpit') // for es5
+var Sandpit = require('sandpit').default // for es5
 ```
 
 Celebrate. You are a success.
@@ -74,10 +75,10 @@ You can grab an example from [https://github.com/superhighfives/sandpit-demo](ht
 
 ### Sticking with the script tag
 
-Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.com/lib/sandpit.min.js) in the browser, which is useful for [Codepen](https://codepen.io/) and the like.
+Alternatively, you can [use the latest **Sandpit** version](https://sandpitjs.com/dist/sandpit.min.js) in the browser, which is useful for [Codepen](https://codepen.io/) and the like.
 
 ``` js
-<script src="https://sandpitjs.com/lib/sandpit.min.js"></script>
+<script src="https://sandpitjs.com/dist/sandpit.min.js"></script>
 <script>var sandpit = new Sandpit('body', Sandpit.CANVAS)</script>
 ```
 

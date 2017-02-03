@@ -54,7 +54,8 @@
 <pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
 <pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
 <pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
-var Sandpit = require('sandpit') // for es5</code></pre><p>Celebrate. You are a success.</p>
+var Sandpit = require('sandpit') // for es5
+var Sandpit = require('sandpit').default // for es5</code></pre><p>Celebrate. You are a success.</p>
 <h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly enviornment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
 <pre class="prettyprint source lang-shell"><code>npm install create-react-app -g
 create-react-app party
@@ -67,8 +68,8 @@ var sandpit = new Sandpit('body', Sandpit.CANVAS)
 sandpit.settings = {youAreGreat: {value: true}}
 sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()</code></pre><p>You can grab an example from <a href="https://github.com/superhighfives/sandpit-demo">https://github.com/superhighfives/sandpit-demo</a>.</p>
-<h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/lib/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
-<pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/lib/sandpit.min.js&quot;>&lt;/script>
+<h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/dist/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
+<pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/dist/sandpit.min.js&quot;>&lt;/script>
 &lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><p>You can see it in action using <a href="https://codepen.io/superhighfives/pen/BpoPeJ">ES6</a>, and <a href="https://codepen.io/superhighfives/pen/RKroWB">ES5</a>.</p>
 <hr>
 <h2>Constructor</h2><p>There are a number of ways to initialise a new <strong>Sandpit</strong>.</p>
@@ -79,14 +80,22 @@ const sandpit = new Sandpit(document.querySelector('#id_of_your_canvas'), Sandpi
 const sandpit = new Sandpit('.some-container', Sandpit.WEBGL)
 const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</code></pre><pre class="prettyprint source lang-js"><code>// 3D, passing the canvas to Three.js
 const sandpit = new Sandpit(document.querySelector('#id_of_your_canvas'), Sandpit.CANVAS)
-const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</code></pre><p>If <strong>Sandpit</strong> finds a DOM element that isn't a canvas, it'll add a canvas to it. If it finds a canvas element, it'll use that instead. Everyone wins!</p>
+const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</code></pre><blockquote>
+<p>NOTE: It's worth noting that Sandpit works a little differently if you're using it outside of ES6. If you're requiring it in ES5, you'll need to append <code>default</code> after the require: <code>var Sandpit = require('sandpit').default</code>. Utilities are available at <code>var Mathematics = require('sandpit').Mathematics</code>, etc.
+If you're using it from /dist directly in the browser, you can use <code>var sandpit = new Sandpit('body', Sandpit.CANVAS)</code>, and the named utilities are available at Sandpit.Mathematics, Sandpit.Color, etc.
+This is due to the different ways in which ES5 and ES6 manage named exports. If you can think of a better way to handle this, you should 100% get in touch.</p>
+</blockquote>
+<p>If <strong>Sandpit</strong> finds a DOM element that isn't a canvas, it'll add a canvas to it. If it finds a canvas element, it'll use that instead. Everyone wins!</p>
 <p><strong>Sandpit</strong> will automatically manage retina displays, or more specifically, displays with a pixel ratio greater than 1. If you'd like it to <em>not</em> do that, you can pass a third property to the options: <code>new Sandpit('.container', Sandpit.CANVAS, {retina: false})</code>.</p>
-<p>That will skip the retina bits, in case you wanna handle them yourself, or if you're worried about performance.</p>
+<p>That will skip the retina bits in case you wanna handle them yourself, or if you're worried about performance.</p>
 <p>Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.</p>
 <blockquote>
-<p>NOTE: <em>Sandpit</em> will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications.</p>
+<p>NOTE: <em>Sandpit</em> will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. You can also use <code>sandpit.resize = () =&gt; {}</code> if you'd like to use <code>window.innerWidth</code> and <code>window.innerHeight</code>, but it's probably easier to just set <code>canvas {width: 100vw; height: 100vh;}</code> in your CSS. Up to you!</p>
 </blockquote>
-<hr>
+<pre class="prettyprint source"><code>sandpit.resize = () => {
+  sandpit.width = window.innerWidth
+  sandpit.height = window.innerHeight
+}</code></pre><hr>
 <h2>Methods</h2><h3>settings</h3><p>To ensure you can mess with your <strong>Sandpit</strong> in real time, without having to change a line of code, you'll want to pass it some settings.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.settings = {}</code></pre><p>Settings take the following format:</p>
 <pre class="prettyprint source lang-js"><code>sandpit.settings = {
@@ -149,7 +158,7 @@ sandpit.autoClear // returns true</code></pre><p>And you can also turn it off ag
 <pre class="prettyprint source lang-js"><code>sandpit.height // returns canvas.clientWidth</code></pre><h3>focusTouchesOnCanvas</h3><p>Let's say you have a multitouch demo, and you want nothing else to be clickable. That's cool, you can do that. Just enable it:</p>
 <pre class="prettyprint source lang-js"><code>sandpit.focusTouchesOnCanvas = true
 sandpit.focusTouchesOnCanvas // returns true</code></pre><blockquote>
-<p>Note: You'll need to enable it before you run <code>start()</code>, as it will change the way the events are initialised.</p>
+<p>NOTE: You'll need to enable it before you run <code>start()</code>, as it will change the way the events are initialised.</p>
 </blockquote>
 <p>It will mean your settings aren't interactive though, so it's primarily for presentations on mobile where you don't want pesky pinch-to-zoom stuff happening. You <em>should</em> be okay with the standard touch events, which support multitouch, but hey, who knows?</p>
 <h3>time</h3><p>Once the loop starts, <strong>Sandpit</strong> will keep a timer running that you can use for time based stuff. It increments by 1 each frame.</p>
@@ -189,8 +198,8 @@ sandpit.get(url).then((response) => {
 <p>Normally reset will clear the query string and refresh the page, but you can override it if you'd prefer.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.reset = () => {}</code></pre><h3>resize()</h3><p>If you'd prefer to manage the resizing of the canvas object yourself, you can do that. You'll lose the fancy retina management though, but I believe in you.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.resize = () => {}</code></pre><blockquote>
-<p>Note: If you don't override the resize hook, resize will fire <code>change()</code> when the canvas element changes size.</p>
-<p>Note: The resize event is tied to the <code>window</code> object.</p>
+<p>NOTE: If you don't override the resize hook, resize will fire <code>change()</code> when the canvas element changes size.</p>
+<p>NOTE: The resize event is tied to the <code>window</code> object.</p>
 </blockquote>
 <h3>touch()</h3><p>The <code>touch()</code> hook fires when a mouse is clicked (<code>mousedown</code>) or a tap occurs (<code>touchstart</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.touch = (event) => {}</code></pre><h3>release()</h3><p>The <code>release()</code> hook fires when a mouse is released (<code>mouseup</code>) or a tap finishes (<code>touchend</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
