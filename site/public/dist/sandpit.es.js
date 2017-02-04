@@ -4512,10 +4512,10 @@ var queryfetch_umd = createCommonjsModule(function (module, exports) {
             t = n[0],
             o = n[1];if (!t) return 0;if (o = o ? isNaN(o) ? o : new Number(o).valueOf() : null, !t.includes("[")) return r[t] = r.hasOwnProperty(t) ? Array.isArray(r[t]) ? r[t].push(o) : [r[t], o] : o;var a = t.split("["),
             i = a[0],
-            f = a[1],
-            s = f ? f.replace("]", "") : 0,
-            u = !isNaN(s),
-            c = s ? u ? parseInt(s) : s : 0;return r[i] = r.hasOwnProperty(i) ? r[i] : u ? [] : {}, c ? r[i][c] = o : r[i].push(o);
+            u = a[1],
+            f = u ? u.replace("]", "") : 0,
+            s = !isNaN(f),
+            c = f ? s ? parseInt(f) : f : 0;return r[i] = r.hasOwnProperty(i) ? r[i] : s ? [] : {}, c ? r[i][c] = o : r[i].push(o);
       }), r;
     }, e.form = function (e) {
       if ("undefined" == typeof FormData) return console.error("FormData not supported");if (e instanceof FormData) return e;if ("undefined" != typeof HTMLFormElement && e instanceof HTMLFormElement) return new FormData(e);if (e instanceof Object) {
@@ -4526,7 +4526,7 @@ var queryfetch_umd = createCommonjsModule(function (module, exports) {
         } catch (e) {
           console.error(e.message);
         }return r;
-      }
+      }return "string" == typeof e ? e : null;
     }, e;
   });
 });
@@ -9091,110 +9091,243 @@ index$15.prototype.addLength = function (scalar) {
   return this.setLength(this.length() + scalar);
 };
 
+var _typeof$9 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var gyronorm_complete = createCommonjsModule(function (module) {
-	(function () {
+	(function (root) {
 
-		'use strict';
+		// Store setTimeout reference so promise-polyfill will be unaffected by
+		// other code modifying setTimeout (like sinon.useFakeTimers())
+		var setTimeoutFunc = setTimeout;
 
-		var Promise = function Promise() {
-			this.thenTargets = [];
-			this.pending = true;
-		};
+		function noop() {}
 
-		var isPromise = function isPromise(promise) {
-			return promise && promise instanceof Promise;
-		};
+		// Polyfill for Function.prototype.bind
+		function bind(fn, thisArg) {
+			return function () {
+				fn.apply(thisArg, arguments);
+			};
+		}
 
-		var isPseudoPromise = function isPseudoPromise(promise) {
-			return promise && typeof promise.then == 'function';
-		};
+		function Promise(fn) {
+			if (_typeof$9(this) !== 'object') throw new TypeError('Promises must be constructed via new');
+			if (typeof fn !== 'function') throw new TypeError('not a function');
+			this._state = 0;
+			this._handled = false;
+			this._value = undefined;
+			this._deferreds = [];
 
-		Promise.prototype.resolve = function (promise, value) {
-			if (promise === value) {
-				throw new TypeError('resolve: arguments cannot be the same object');
+			doResolve(fn, this);
+		}
+
+		function handle(self, deferred) {
+			while (self._state === 3) {
+				self = self._value;
 			}
-			if (promise === value) {
-				throw new TypeError('resolve: arguments cannot be the same object');
+			if (self._state === 0) {
+				self._deferreds.push(deferred);
+				return;
 			}
-			if (isPromise(value) || isPseudoPromise(value)) {
-				value.then(promise.fulfil.bind(promise), promise.reject.bind(promise));
-			} else {
-				promise.fulfil(value);
-			}
-		};
-
-		Promise.prototype.handleThenTargets = function () {
-			var callbackResult;
-			var callback;
-			var value;
-			var i;
-
-			for (i = 0; i < this.thenTargets.length; ++i) {
-				if (this.fulfilled) {
-					callback = this.thenTargets[i].onFulfilled;
-					value = this.value;
+			self._handled = true;
+			Promise._immediateFn(function () {
+				var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+				if (cb === null) {
+					(self._state === 1 ? resolve : reject)(deferred.promise, self._value);
+					return;
 				}
-				if (this.rejected) {
-					callback = this.thenTargets[i].onRejected;
-					value = this.reason;
-				}
+				var ret;
 				try {
-					if (callback && typeof callback === 'function') {
-						callbackResult = callback.apply(undefined, value);
-					} else {
-						callbackResult = this;
-					}
-					this.resolve(this.thenTargets[i], callbackResult);
-				} catch (err) {
-					this.thenTargets[i].reject(err);
+					ret = cb(self._value);
+				} catch (e) {
+					reject(deferred.promise, e);
+					return;
 				}
-			}
-			this.thenTargets = [];
-		};
+				resolve(deferred.promise, ret);
+			});
+		}
 
-		Promise.prototype.handleThen = function () {
-			if (!this.pending) {
-				this.handleThenTargets();
+		function resolve(self, newValue) {
+			try {
+				// Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
+				if (newValue === self) throw new TypeError('A promise cannot be resolved with itself.');
+				if (newValue && ((typeof newValue === 'undefined' ? 'undefined' : _typeof$9(newValue)) === 'object' || typeof newValue === 'function')) {
+					var then = newValue.then;
+					if (newValue instanceof Promise) {
+						self._state = 3;
+						self._value = newValue;
+						finale(self);
+						return;
+					} else if (typeof then === 'function') {
+						doResolve(bind(then, newValue), self);
+						return;
+					}
+				}
+				self._state = 1;
+				self._value = newValue;
+				finale(self);
+			} catch (e) {
+				reject(self, e);
 			}
+		}
+
+		function reject(self, newValue) {
+			self._state = 2;
+			self._value = newValue;
+			finale(self);
+		}
+
+		function finale(self) {
+			if (self._state === 2 && self._deferreds.length === 0) {
+				Promise._immediateFn(function () {
+					if (!self._handled) {
+						Promise._unhandledRejectionFn(self._value);
+					}
+				});
+			}
+
+			for (var i = 0, len = self._deferreds.length; i < len; i++) {
+				handle(self, self._deferreds[i]);
+			}
+			self._deferreds = null;
+		}
+
+		function Handler(onFulfilled, onRejected, promise) {
+			this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+			this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+			this.promise = promise;
+		}
+
+		/**
+   * Take a potentially misbehaving resolver function and make sure
+   * onFulfilled and onRejected are only called once.
+   *
+   * Makes no guarantees about asynchrony.
+   */
+		function doResolve(fn, self) {
+			var done = false;
+			try {
+				fn(function (value) {
+					if (done) return;
+					done = true;
+					resolve(self, value);
+				}, function (reason) {
+					if (done) return;
+					done = true;
+					reject(self, reason);
+				});
+			} catch (ex) {
+				if (done) return;
+				done = true;
+				reject(self, ex);
+			}
+		}
+
+		Promise.prototype['catch'] = function (onRejected) {
+			return this.then(null, onRejected);
 		};
 
 		Promise.prototype.then = function (onFulfilled, onRejected) {
-			var thenResult = new Promise();
-			// The execution of then is asynchronous so we need to have this info available later.
-			thenResult.onFulfilled = onFulfilled;
-			thenResult.onRejected = onRejected;
-			this.thenTargets.push(thenResult);
-			setTimeout(this.handleThen.bind(this), 0);
-			return thenResult;
+			var prom = new this.constructor(noop);
+
+			handle(this, new Handler(onFulfilled, onRejected, prom));
+			return prom;
 		};
 
-		Promise.prototype.fulfil = function () {
-			var i;
-			var linkedPromise;
-			if (this.rejected) {
-				return;
+		Promise.all = function (arr) {
+			var args = Array.prototype.slice.call(arr);
+
+			return new Promise(function (resolve, reject) {
+				if (args.length === 0) return resolve([]);
+				var remaining = args.length;
+
+				function res(i, val) {
+					try {
+						if (val && ((typeof val === 'undefined' ? 'undefined' : _typeof$9(val)) === 'object' || typeof val === 'function')) {
+							var then = val.then;
+							if (typeof then === 'function') {
+								then.call(val, function (val) {
+									res(i, val);
+								}, reject);
+								return;
+							}
+						}
+						args[i] = val;
+						if (--remaining === 0) {
+							resolve(args);
+						}
+					} catch (ex) {
+						reject(ex);
+					}
+				}
+
+				for (var i = 0; i < args.length; i++) {
+					res(i, args[i]);
+				}
+			});
+		};
+
+		Promise.resolve = function (value) {
+			if (value && (typeof value === 'undefined' ? 'undefined' : _typeof$9(value)) === 'object' && value.constructor === Promise) {
+				return value;
 			}
-			this.fulfilled = true;
-			this.pending = false;
-			this.value = arguments;
 
-			this.handleThenTargets();
+			return new Promise(function (resolve) {
+				resolve(value);
+			});
 		};
 
-		Promise.prototype.reject = function () {
-			var i;
-			var linkedPromise;
-			if (this.fulfilled) {
-				return;
+		Promise.reject = function (value) {
+			return new Promise(function (resolve, reject) {
+				reject(value);
+			});
+		};
+
+		Promise.race = function (values) {
+			return new Promise(function (resolve, reject) {
+				for (var i = 0, len = values.length; i < len; i++) {
+					values[i].then(resolve, reject);
+				}
+			});
+		};
+
+		// Use polyfill for setImmediate for performance gains
+		Promise._immediateFn = typeof setImmediate === 'function' && function (fn) {
+			setImmediate(fn);
+		} || function (fn) {
+			setTimeoutFunc(fn, 0);
+		};
+
+		Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
+			if (typeof console !== 'undefined' && console) {
+				console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
 			}
-			this.reason = arguments;
-			this.rejected = true;
-			this.pending = false;
-			this.handleThenTargets();
 		};
 
-		this.Promise = Promise;
-	}).call(commonjsGlobal);
+		/**
+   * Set the immediate function to execute callbacks
+   * @param fn {function} Function to execute
+   * @deprecated
+   */
+		Promise._setImmediateFn = function _setImmediateFn(fn) {
+			Promise._immediateFn = fn;
+		};
+
+		/**
+   * Change the function to execute on unhandled rejection
+   * @param {function} fn Function to execute on unhandled rejection
+   * @deprecated
+   */
+		Promise._setUnhandledRejectionFn = function _setUnhandledRejectionFn(fn) {
+			Promise._unhandledRejectionFn = fn;
+		};
+
+		if ('object' !== 'undefined' && module.exports) {
+			module.exports = Promise;
+		} else if (!root.Promise) {
+			root.Promise = Promise;
+		}
+	})(commonjsGlobal);
+
 	/**
   *
   * FULL TILT
