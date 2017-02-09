@@ -5,7 +5,7 @@ import paint from './paint'
 import webgl from './webgl'
 import data from './data'
 import generative from './generative'
-import svg from './svg'
+import dots from './dots'
 
 export default {
   particles,
@@ -15,5 +15,5 @@ export default {
   webgl,
   data,
   generative,
-  svg
+  dots
 }
