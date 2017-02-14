@@ -5,7 +5,8 @@
   "devDependencies": {
     "react-scripts": "0.8.5",
     "three": "^0.83.0",
-    "three-trackballcontrols": "^0.0.5"
+    "three-trackballcontrols": "^0.0.5",
+    "canvas": "^1.6.2"
   },
   "dependencies": {
     "react": "^15.4.2",

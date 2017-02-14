@@ -6,7 +6,7 @@
   "module": "dist/sandpit.es.js",
   "license": "MIT",
   "scripts": {
-    "test": "node node_modules/react-scripts/scripts/test --env=jsdom",
+    "test": "react-scripts test --env=jsdom",
     "start": "cd site && npm install && npm run start && cd -",
     "serve": "npm run build && pushstate-server site/build",
     "prebuild:dist": "rm -rf dist/*",
