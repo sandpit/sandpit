@@ -6,7 +6,7 @@
   "module": "dist/sandpit.es.js",
   "license": "MIT",
   "scripts": {
-    "test": "node site/node_modules/react-scripts/scripts/test --env=jsdom",
+    "test": "node node_modules/react-scripts/scripts/test --env=jsdom",
     "start": "cd site && npm install && npm run start && cd -",
     "serve": "npm run build && pushstate-server site/build",
     "prebuild:dist": "rm -rf dist/*",
@@ -56,6 +56,7 @@
     "jsdoc": "^3.4.3",
     "minami": "git://github.com/superhighfives/minami.git",
     "pushstate-server": "^2.1.0",
+    "react-scripts": "0.8.5",
     "rollup": "^0.41.4",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^7.0.0",
