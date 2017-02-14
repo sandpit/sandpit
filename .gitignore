@@ -7,3 +7,5 @@ npm-debug.log
 lib
 /dist
 bundle-stats.html
+/site/public
+/site/dist
