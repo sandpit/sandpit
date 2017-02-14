@@ -18406,7 +18406,8 @@ var Sandpit$1 = function () {
       }
     }
 
-    /**
+    /**vst
+    
      * Handles a changed setting
      * @param {string} name - Setting name
      * @param {*} value - The new setting value

@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "node site/node_modules/react-scripts/scripts/test --env=jsdom",
-    "start": "cd site && npm run start && cd -",
+    "start": "cd site && npm install && npm run start && cd -",
     "serve": "npm run build && pushstate-server site/build",
     "prebuild:dist": "rm -rf dist/*",
     "build:dist": "rollup -c && rollup -c --environment PRODUCTION && NAMED=true rollup -c -i src/Sandpit.js",
@@ -17,8 +17,7 @@
     "build:docs": "jsdoc --configure .jsdoc.json --verbose",
     "build:site": "cp -r dist site/public && cd site && npm run build && cd -",
     "build": "npm run build:lib && npm run build:dist && npm run build:docs && npm run build:site",
-    "deploy": "npm run build && surge -p site/build -d sandpitjs.com",
-    "postinstall": "cd site && npm install && cd -"
+    "deploy": "npm run build && surge -p site/build -d sandpitjs.com"
   },
   "repository": {
     "type": "git",
