@@ -17,10 +17,10 @@
     "useLongnameInNav": false
   },
   "opts": {
-    "destination": "./site/public/docs/",
+    "destination": "./docs/",
     "encoding": "utf8",
     "recurse": true,
     "template": "./node_modules/minami",
-    "tutorials": "./docs"
+    "tutorials": "./src/docs"
   }
 }

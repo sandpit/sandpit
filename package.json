@@ -6,19 +6,17 @@
   "module": "dist/sandpit.es.js",
   "license": "MIT",
   "scripts": {
+    "start": "npm run watch",
     "test": "react-scripts test --env=jsdom",
-    "start": "cd site && npm run start && cd -",
-    "serve": "npm run build && pushstate-server site/build",
+    "serve:docs": "npm run build:docs && pushstate-server docs",
     "prebuild:dist": "rm -rf dist/*",
     "build:dist": "rollup -c && rollup -c --environment PRODUCTION && NAMED=true rollup -c -i src/Sandpit.js",
     "prebuild:lib": "rm -rf lib/*",
     "build:lib": "babel --out-dir lib --ignore src/index.js src",
     "build:watch": "npm run build:lib -- --watch",
     "build:docs": "jsdoc --configure .jsdoc.json --verbose",
-    "build:site": "cp -r dist site/public && cd site && npm run build && cd -",
-    "build": "npm run build:lib && npm run build:dist && npm run build:docs && npm run build:site",
-    "deploy": "npm run build && surge -p site/build -d sandpitjs.com",
-    "postinstall": "node scripts/postinstall"
+    "build": "npm run build:lib && npm run build:dist && npm run build:docs",
+    "version": "npm run build:docs"
   },
   "repository": {
     "type": "git",
@@ -69,7 +67,6 @@
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-visualizer": "^0.2.0",
     "standard": "^8.6.0",
-    "stringstream": "^0.0.5",
-    "surge": "^0.18.0"
+    "stringstream": "^0.0.5"
   }
 }
