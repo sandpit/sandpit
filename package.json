@@ -16,8 +16,8 @@
     "build:watch": "npm run build:lib -- --watch",
     "build:docs": "jsdoc --configure .jsdoc.json --verbose",
     "build": "npm run build:lib && npm run build:dist && npm run build:docs",
-    "preversion": "npm run build",
-    "version": "npm run build:docs"
+    "preversion": "npm run test && npm run build",
+    "version": "npm run build:docs && git add docs"
   },
   "repository": {
     "type": "git",
