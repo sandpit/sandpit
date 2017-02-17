@@ -1,2 +1,4 @@
 .travis.yml
 rollup.config.js
+src
+coverage

@@ -3,6 +3,8 @@
 
 A playground for creative coding using JavaScript and the canvas element.
 
+> NOTE / TODO: This repo has recently been split into [sandpit](https://github.com/sandpit/sandpit) and [sandpit-site](https://github.com/sandpit/sandpit-site), so documentation relating to the demos will likely be incorrect.
+
 ``` shell
 npm install sandpit --save
 ```
