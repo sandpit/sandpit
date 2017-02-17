@@ -11,7 +11,7 @@
     "serve:docs": "npm run build:docs && pushstate-server docs",
     "prebuild:dist": "rm -rf dist/*",
     "build:dist": "npm run build:dist:umd && npm run build:dist:es && npm run build:dist:script",
-    "build:dist:umd": "rollup -c -i src/Sandpit.js",
+    "build:dist:umd": "rollup -c -i src/index.js",
     "build:dist:es": "ES=true rollup -c -i src/Sandpit.js",
     "build:dist:script": "rollup -c -i src/index.js --environment PRODUCTION",
     "prebuild:lib": "rm -rf lib/*",
