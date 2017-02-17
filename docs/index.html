@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7039052/7561372/css/fonts.css" />
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h3><a href="index.html">⛱&nbsp;&nbsp;Sandpit</a></h3><h3></h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h2 class="version">v0.1.5</h2>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>⛱ Sandpit</h1><p>A playground for creative coding using JavaScript and the canvas element.</p>
+<pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p><a href="https://www.npmjs.com/package/sandpit"><img src="https://img.shields.io/npm/v/sandpit.svg" alt="npm"></a> <a href="https://travis-ci.org/superhighfives/sandpit"><img src="https://travis-ci.org/superhighfives/sandpit.svg?branch=master" alt="Build Status"></a></p>
+<blockquote>
+<p>NOTE: <code>Sandpit</code> is really new, and so the API is likely to change between now and 1.0. Help shape it by leaving <a href="https://github.com/superhighfives/sandpit/issues">issues and suggestions here</a>. You are the best.</p>
+</blockquote>
+<p><img src="https://sandpitjs.com/assets/images/animation.gif" alt="An example animation of Sandpit"></p>
+<p>Built in ES6, <strong>Sandpit</strong> uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.</p>
+<ul>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#browser-support">Browser support</a></li>
+<li><a href="#why-use-sandpit">Why use Sandpit?</a></li>
+<li><a href="#demos-and-examples">Demos and examples</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#want-to-contribute">Want to contribute?</a></li>
+<li><a href="#whos-behind-it">Who's behind it?</a></li>
+</ul>
+<hr>
+<h2>Getting Started</h2><p>Add Sandpit to your project:</p>
+<pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
+<pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
+var Sandpit = require('sandpit').default // for es5</code></pre><p>Celebrate. You are a success.</p>
+<h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly environment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
+<pre class="prettyprint source lang-shell"><code>npm install create-react-app -g
+create-react-app party
+cd party
+npm install sandpit --save
+npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit'
+
+var sandpit = new Sandpit('body', Sandpit.CANVAS)
+sandpit.settings = {youAreGreat: {value: true}}
+sandpit.loop = () => { console.log(sandpit.time) }
+sandpit.start()</code></pre><p>You can grab an example from <a href="https://github.com/superhighfives/sandpit-demo">https://github.com/superhighfives/sandpit-demo</a>.</p>
+<h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/dist/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
+<pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/dist/sandpit.min.js&quot;>&lt;/script>
+&lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><p>You can see it in action using <a href="https://codepen.io/superhighfives/pen/BpoPeJ">ES6</a>, and <a href="https://codepen.io/superhighfives/pen/RKroWB">ES5</a>.</p>
+<h2>Browser support</h2><p>Currently <strong>Sandpit</strong> targets modern browsers, including IE11 and Edge, and uses <code>babel-polyfill</code> when compiled for ES5.</p>
+<h2>Why use Sandpit?</h2><p>The goal of <strong>Sandpit</strong> is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from <a href="http://processingjs.org/">Processing.js</a> to <a href="http://threejs.org/">Three.js</a>, and an incredible community of people who have pushed the bar of <a href="https://github.com/superhighfives/sandpit/wiki/Inspiration">what can be done on the web</a>.</p>
+<p><strong>Sandpit</strong> supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:</p>
+<ul>
+<li>Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom</li>
+<li>Makes it easy to drop in settings, with a simple API for specifying ranges, types and defaults (with <a href="https://github.com/dataarts/dat.gui">dat.GUI</a> behind the scenes)</li>
+<li>Stores settings in the query string, so you can copy and paste them without needing to touch a line of code</li>
+<li>Offers a bunch of helpers, covering maths, color and vector manipulation (kudos to <a href="https://github.com/Qix-/color">color</a> and <a href="http://victorjs.org/">Victor</a>)</li>
+<li>Supports bringing your own canvas—for example, to simplify using <a href="http://threejs.org/">Three</a></li>
+</ul>
+<h2>Demos and examples</h2><p><img src="https://sandpitjs.com/assets/images/examples.jpg" alt="Some examples of Sandpit in action"></p>
+<p>There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/superhighfives/sandpit/tree/master/src/demos>.</p>
+<h2>Documentation</h2><p><a href="https://sandpitjs.com/docs/tutorial-01-documentation.html">Look no further—here's documentation of the full API</a>.</p>
+<h2>Want to contribute?</h2><p>You 100% should. You can find out more about <a href="https://github.com/superhighfives/sandpit/blob/master/CONTRIBUTING.md">contributing here</a>.</p>
+<h2>Who's behind it?</h2><ul>
+<li>Charlie Gleason <a href="https://twitter.com/superhighfives/">@superhighfives</a></li>
+<li>Glen Maddern <a href="https://twitter.com/glenmaddern/">@glenmaddern</a></li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> using a modified <a href="https://github.com/nijikokun/minami">Minami</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

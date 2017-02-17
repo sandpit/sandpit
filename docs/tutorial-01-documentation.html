@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title> Documentation - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7039052/7561372/css/fonts.css" />
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h3><a href="index.html">⛱&nbsp;&nbsp;Sandpit</a></h3><h3></h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h2 class="version">v0.1.5</h2>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title"> Documentation</h1>
+    
+
+    <section>
+
+<header>
+    
+</header>
+
+<article>
+    <p>There are a bunch of example available in the <a href="https://github.com/superhighfives/sandpit/tree/master/src/demos">demos folder</a> of the library, and you can view them at <https://sandpitjs.com/>. They use many of the feature of <strong>Sandpit</strong>, and are designed to show the various ways you can interact with the library.</p>
+<ul>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#methods">Methods</a></li>
+<li><a href="#hooks">Hooks</a></li>
+<li><a href="#properties">Properties</a></li>
+<li><a href="#helpers">Helpers</a></li>
+</ul>
+<hr>
+<h2>Getting Started</h2><p>Add Sandpit to your project:</p>
+<pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p>Or if you're into <a href="https://github.com/yarnpkg/yarn">Yarn</a>, that works too:</p>
+<pre class="prettyprint source lang-shell"><code>yarn add sandpit</code></pre><p>In your app, add:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit' // for es6
+var Sandpit = require('sandpit').default // for es5</code></pre><p>Celebrate. You are a success.</p>
+<h3>Setting up a new project</h3><p>If you're looking for a quick way to set up a sandpit with an ES6 friendly environment, you can use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a>:</p>
+<pre class="prettyprint source lang-shell"><code>npm install create-react-app -g
+create-react-app party
+cd party
+npm install sandpit --save
+npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
+<pre class="prettyprint source lang-js"><code>import Sandpit from 'sandpit'
+
+var sandpit = new Sandpit('body', Sandpit.CANVAS)
+sandpit.settings = {youAreGreat: {value: true}}
+sandpit.loop = () => { console.log(sandpit.time) }
+sandpit.start()</code></pre><p>You can grab an example from <a href="https://github.com/superhighfives/sandpit-demo">https://github.com/superhighfives/sandpit-demo</a>.</p>
+<h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/dist/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
+<pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/dist/sandpit.min.js&quot;>&lt;/script>
+&lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><p>You can see it in action using <a href="https://codepen.io/superhighfives/pen/BpoPeJ">ES6</a>, and <a href="https://codepen.io/superhighfives/pen/RKroWB">ES5</a>.</p>
+<hr>
+<h2>Constructor</h2><p>There are a number of ways to initialise a new <strong>Sandpit</strong>.</p>
+<pre class="prettyprint source lang-js"><code>// 2D, using a container that Sandpit will add a canvas to
+const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// You can also pass options, including 'retina', 'queryable' and 'stats'. 'retina' and `queryable` default to `true`.
+const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {retina: true, queryable: true, stats: false})</code></pre><pre class="prettyprint source lang-js"><code>// 2D, using an existing canvas
+const sandpit = new Sandpit(document.querySelector('#id_of_your_canvas'), Sandpit.CANVAS)</code></pre><pre class="prettyprint source lang-js"><code>// 3D, using a string reference to a DOM element that Sandpit will try and find
+const sandpit = new Sandpit('.some-container', Sandpit.WEBGL)
+const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</code></pre><pre class="prettyprint source lang-js"><code>// 3D, passing the canvas to Three.js
+const sandpit = new Sandpit(document.querySelector('#id_of_your_canvas'), Sandpit.CANVAS)
+const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})</code></pre><blockquote>
+<p>NOTE: It's worth noting that Sandpit works a little differently if you're using it outside of ES6. If you're requiring it in ES5, you'll need to append <code>default</code> after the require: <code>var Sandpit = require('sandpit').default</code>. Utilities are available at <code>var Mathematics = require('sandpit').Mathematics</code>, etc.
+If you're using it from /dist directly in the browser, you can use <code>var sandpit = new Sandpit('body', Sandpit.CANVAS)</code>, and the named utilities are available at Sandpit.Mathematics, Sandpit.Color, etc.
+This is due to the different ways in which ES5 and ES6 manage named exports. If you can think of a better way to handle this, you should 100% get in touch.</p>
+</blockquote>
+<p>If <strong>Sandpit</strong> finds a DOM element that isn't a canvas, it'll add a canvas to it. If it finds a canvas element, it'll use that instead. Everyone wins!</p>
+<p><strong>Sandpit</strong> will automatically manage retina displays, or more specifically, displays with a pixel ratio greater than 1. If you'd like it to <em>not</em> do that, you can pass a third property to the options: <code>new Sandpit('.container', Sandpit.CANVAS, {retina: false})</code>.</p>
+<p>That will skip the retina bits in case you wanna handle them yourself, or if you're worried about performance.</p>
+<p>Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.</p>
+<blockquote>
+<p>NOTE: <em>Sandpit</em> will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. You can also use <code>sandpit.resize = () =&gt; {}</code> if you'd like to use <code>window.innerWidth</code> and <code>window.innerHeight</code>, but it's probably easier to just set <code>canvas {width: 100vw; height: 100vh;}</code> in your CSS. Up to you!</p>
+</blockquote>
+<pre class="prettyprint source"><code>sandpit.resize = () => {
+  sandpit.width = window.innerWidth
+  sandpit.height = window.innerHeight
+}</code></pre><hr>
+<h2>Methods</h2><h3>settings</h3><p>To ensure you can mess with your <strong>Sandpit</strong> in real time, without having to change a line of code, you'll want to pass it some settings.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {}</code></pre><p>Settings take the following format:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  name: {value: 'default'}
+}</code></pre><p>Simple as that. Once you've set the settings property <strong>Sandpit</strong> will start handling them for you, and you'll get a GUI (powered by dat.gui). There are a bunch of different setting types, and generally they will be chosen automatically.</p>
+<h4>Checkbox</h4><p>If the value of a setting is a <strong>boolean</strong>, it will be a checkbox:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  beGreat: {value: true}
+}</code></pre><h4>String</h4><p>If the value of a setting is a <strong>string</strong>, it will be a string:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  beGreat: {value: &quot;Yep no worries&quot;}
+}</code></pre><h4>Number</h4><p>If the value of a setting is a <strong>number</strong>, it will be a number:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  beGreat: {value: 10}
+}</code></pre><p>From here you can add minimum, maximum, and step:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  beGreat: {value: 10, min: 5, max: 15, step: 1}
+}</code></pre><p>Which will work with floats and negatives, too:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  beGreatAndReallySmall: {value: 0.009, min: -0.009, max: 0.019, step: 0.001}
+}</code></pre><h4>Color</h4><p>If a setting has a <strong>color</strong> property set to true, it'll be a color:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  strokeColor: {value: 'red', color: true}
+}</code></pre><blockquote>
+<p>Tip! Don't forget the color parameter, or you'll just a string. Which would still work as a string, but you lose the fancy color picker. And no one wants that.</p>
+</blockquote>
+<h4>Editable</h4><p>If you'd prefer a setting not be editable, just add the <code>editable: false</code> property to it. You can see this being used in the demos.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  demo: {value: 'generative', editable: false}
+}</code></pre><h4>Sticky</h4><p>If you'd prefer a setting to always revert to the default, regardless of what's in the query string, just add the <code>sticky: true</code> property to it. You can see this being used in the demos.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.settings = {
+  demo: {value: 'generative', sticky: true}
+}</code></pre><h4>Queryable</h4><p>Out of the box, <strong>Sandpit</strong> will store and manage your settings as a query string. This means if you and some other great humans are working on something, and one of you finds a series of settings that looks great, you can copy and paste it to someone else (so long as they're running the same demo as you are).</p>
+<p>If you <em>don't</em> want settings to be stored in the query string, you can pass that option to the Sandpit constructor:</p>
+<pre class="prettyprint source lang-js"><code>const sandpit = new Sandpit('body', Sandpit.CANVAS, {queryable: false})</code></pre><p>Which can be good if you want to use Sandpit in a production environment, or if you're using pushState and it's breaking things.</p>
+<h4>Clear and reset</h4><p><strong>Sandpit</strong> will also automatically add a clear and reset button.</p>
+<ul>
+<li><strong>Reset</strong> will destroy the query string, and refresh the page with default values.</li>
+<li><strong>Clear</strong> will, if on a 2D canvas, clear a rectangle the size of the <strong>Sandpit</strong>. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the <code>COLOR_BUFFER_BIT</code> and <code>DEPTH_BUFFER_BIT</code>.</li>
+</ul>
+<p>It is possible to remove <code>clear</code> and <code>reset</code> if you'd prefer not to have displayed. To do this, pass a <code>boolean</code> with the key <code>clear</code>, or <code>reset</code>, instead of the setting object:</p>
+<pre class="prettyprint source"><code>sandpit.settings = {
+  youAreGreat: {value: true},
+  reset: false,
+  clear: false
+}</code></pre><h3>stats</h3><p>If you'd like to check the performance of your sandpit, you can do so by adding <code>{stats: true}</code> to your options when initialising.</p>
+<pre class="prettyprint source lang-js"><code>const sandpit = new Sandpit(document.querySelector('body'), Sandpit.CANVAS, {stats: true})</code></pre><p>This will add <a href="https://github.com/mrdoob/stats.js/">stats.js</a> to the top-left corner of the <code>body</code>, and will measure the <code>loop()</code>. If you'd like to manipulate its styles to move it around, you can access the dom element with <code>sandpit.stats.domElement</code> or <code>sandpit.stats.dom</code>.</p>
+<h3>debug</h3><p>If you want to see debug messages from <strong>Sandpit</strong> itself, you can.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.debug = true
+sandpit.debug // returns true</code></pre><p>And you can turn them back off, too:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.debug = false</code></pre><h3>autoClear</h3><p><strong>Sandpit</strong> won't automatically clear the canvas on each loop, so if you want that to happen, you can set <code>autoClear</code> to true:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.autoClear = true
+sandpit.autoClear // returns true</code></pre><p>And you can also turn it off again.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.autoClear = true</code></pre><h3>clear()</h3><p>That said, if you need more control, you can manually clear in the loop (or anywhere, really).</p>
+<pre class="prettyprint source lang-js"><code>sandpit.clear()</code></pre><p><strong>Clear</strong> will, if on a 2D canvas, clear a rectangle the size of the <strong>Sandpit</strong>. If it's a 3D canvas, it will reset the clearColor to transparent, and clear the <code>COLOR_BUFFER_BIT</code> and <code>DEPTH_BUFFER_BIT</code>.</p>
+<h3>context</h3><p>If you're looking for the context, so you can draw stuff on it, you can grab it with <code>context</code></p>
+<pre class="prettyprint source lang-js"><code>sandpit.context // returns context</code></pre><h3>canvas</h3><p>If you're looking for the canvas element you can grab it with <code>canvas</code></p>
+<pre class="prettyprint source lang-js"><code>sandpit.canvas // returns canvas element</code></pre><h3>width</h3><p>Returns the canvas width, from <code>canvas.clientWidth</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.width // returns canvas.clientWidth</code></pre><h3>height</h3><p>Returns the canvas height, from <code>canvas.clientHeight</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.height // returns canvas.clientWidth</code></pre><h3>focusTouchesOnCanvas</h3><p>Let's say you have a multitouch demo, and you want nothing else to be clickable. That's cool, you can do that. Just enable it:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.focusTouchesOnCanvas = true
+sandpit.focusTouchesOnCanvas // returns true</code></pre><blockquote>
+<p>NOTE: You'll need to enable it before you run <code>start()</code>, as it will change the way the events are initialised.</p>
+</blockquote>
+<p>It will mean your settings aren't interactive though, so it's primarily for presentations on mobile where you don't want pesky pinch-to-zoom stuff happening. You <em>should</em> be okay with the standard touch events, which support multitouch, but hey, who knows?</p>
+<h3>time</h3><p>Once the loop starts, <strong>Sandpit</strong> will keep a timer running that you can use for time based stuff. It increments by 1 each frame.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.time // returns number</code></pre><h3>fill(color)</h3><p>On a 2D canvas, fill sets the fillStyle to the string passed, and fills the canvas.</p>
+<blockquote>
+<p>NOTE: Fill isn't currently supported for WEBGL instances</p>
+</blockquote>
+<pre class="prettyprint source lang-js"><code>sandpit.fill('rgba(0, 0, 0, 0.5)')</code></pre><h3>resizeCanvas()</h3><p>Resizes the canvas to match the canvas element width, meaning if you can set and forget your canvas in CSS (for example, 100% width) without having to use <code>window.innerWidth</code> or similar. Portability!</p>
+<p>If your canvas is 3D, it will also set the viewport using the <code>drawingBufferWidth</code> and <code>drawingBufferHeight</code>.</p>
+<h3>start()</h3><p>Once fired, <strong>Sandpit</strong> will:</p>
+<ul>
+<li>Set up all events</li>
+<li>Run the <code>setup()</code> hook, if defined</li>
+<li>Set up and start the loop</li>
+</ul>
+<p>It is, essentially, the big red button that gets the party started.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.start()</code></pre><h3>stop()</h3><p><code>stop()</code> does the opposite it of <code>start()</code>. When fired <strong>Sandpit</strong> will:</p>
+<ul>
+<li>Cancel the loop</li>
+<li>If the canvas exists, remove it and delete the element</li>
+<li>Remove the GUI</li>
+<li>Remove all events</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>sandpit.stop()</code></pre><h3>random(seed)</h3><p>Looking for seed-able randomness? Look no further. Pass a seed to random and it will return a function you can use to get a seeded random value. It uses <a href="https://github.com/davidbau/seedrandom">seedrandom</a> under the hood.</p>
+<pre class="prettyprint source lang-js"><code>const random = sandpit.random('hello.')
+console.log(random()) // Always 0.9282578795792454
+console.log(random()) // Always 0.3752569768646784</code></pre><h3>get(url)</h3><p>Looking to use data inside your sandpit? <strong>Sandpit</strong> offers a handy hook to <a href="https://github.com/github/fetch">fetch</a>, which will return a promise with the response.</p>
+<pre class="prettyprint source lang-js"><code>const url = 'http://somegreatapi.com/api/v1/lolcopter.json'
+sandpit.get(url).then((response) => {
+  response = JSON.parse(response)
+})</code></pre><h3>clearQueryString</h3><p>Clears the query string, in case you want to manually do that. Your call, you maverick.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.clearQueryString()</code></pre><hr>
+<h2>Hooks</h2><p>There are a ton of hooks you can use to make fancy things happen inside your sandpit. Some have existing behaviours that you can overwrite, and some are optional. You can use them as you need.</p>
+<h3>loop()</h3><p>The heart of animating your sandpit, <code>loop()</code> starts running when you fire <code>start()</code>. It uses <code>requestAnimationFrame</code> behind the scenes, too.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.loop = () => {}</code></pre><h3>setup()</h3><p>Setup is a hook you can use to get anything ready just before the <code>loop()</code> starts. All the events, settings and other calls will have been made, so you can access everything that the <code>loop()</code> can.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.setup = () => {}</code></pre><h3>reset()</h3><p>If you've got settings, <strong>Sandpit</strong> will automatically add a <code>clear</code> and <code>reset</code> option. If you don't have any settings, this will be ignored.</p>
+<p>Normally reset will clear the query string and refresh the page, but you can override it if you'd prefer.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.reset = () => {}</code></pre><h3>resize()</h3><p>If you'd prefer to manage the resizing of the canvas object yourself, you can do that. You'll lose the fancy retina management though, but I believe in you.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.resize = () => {}</code></pre><blockquote>
+<p>NOTE: If you don't override the resize hook, resize will fire <code>change()</code> when the canvas element changes size.</p>
+<p>NOTE: The resize event is tied to the <code>window</code> object.</p>
+</blockquote>
+<h3>touch()</h3><p>The <code>touch()</code> hook fires when a mouse is clicked (<code>mousedown</code>) or a tap occurs (<code>touchstart</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.touch = (event) => {}</code></pre><h3>release()</h3><p>The <code>release()</code> hook fires when a mouse is released (<code>mouseup</code>) or a tap finishes (<code>touchend</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.release = (event) => {}</code></pre><h3>move()</h3><p>The <code>move()</code> hook fires when a mouse is moved (<code>mousemove</code>) or a tap is dragged (<code>touchmove</code>). The hook has access to the event, or you can take advantage of the normalised input from <code>sandpit.input</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.move = (event) => {}</code></pre><p>The mouse entering the canvas will also cause <code>sandpit.input.inFrame</code> to return <code>true</code>. Leaving the canvas will switch it back to <code>false</code>.</p>
+<h3>accelerometer()</h3><p>If the browser supports accelerometer events, the <code>accelerometer()</code> hook will fire as the device is moved. You can take advantage of the normalised input from <code>sandpit.input</code>.</p>
+<pre class="prettyprint source lang-js"><code>sandpit.accelerometer = () => {}</code></pre><p>The accelerometer uses the <a href="https://github.com/dorukeker/gyronorm.js/">GyroNorm.js</a> library, and so has access to its range of normalised device orientation and device motion information.</p>
+<p><code>sandpit.input.accelerometer</code> has helpers to the <code>xAxis</code> (tipping the device back and forth), the <code>yAxis</code> (tilting the device left and right) and <code>rotation</code> (the direction the device is facing). They are also available as <code>gamma</code>, <code>beta</code> and <code>alpha</code>, if you prefer to stick to standard naming, or if you're using example code that follows that convention.</p>
+<p>The <code>deviceorientation</code> data is available on the <code>do</code> property:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.input.accelerometer.do</code></pre><p>The <code>devicemotion</code> data is available on the <code>dm</code> property:</p>
+<pre class="prettyprint source lang-js"><code>sandpit.input.accelerometer.dm</code></pre><hr>
+<h2>Properties</h2><pre class="prettyprint source lang-js"><code>sandpit.input = {
+  x: 50,
+  y: 50,
+  touches: [
+    {
+      x: 50,
+      y: 50,
+      previousX: 45,
+      previousY: 55,
+      force: 0.75
+    },
+    {
+      x: 214,
+      y: 87,
+      previousX: 200,
+      previousY: 85,
+      force: 0.6
+    }
+  ],
+  accelerometer: {
+    // duplicated deviceorientation helpers
+    xAxis:      // beta value
+    yAxis:      // gamma value
+    rotation:   // alpha value
+    gamma:      // gamma value
+    beta:       // beta value
+    alpha:      // alpha value
+    // deviceorientation events
+    do: {
+      alpha:    // alpha value
+      beta:     // beta value
+      gamma:    // gamma value
+      absolute: // absolute value
+    },
+    // devicemotion events
+    dm: {
+      x:        // acceleration x value
+      y:        // acceleration y value
+      z:        // acceleration z value
+      gx:       // accelerationIncludingGravity x value
+      gy:       // accelerationIncludingGravity y value
+      gz:       // accelerationIncludingGravity z value
+      alpha:    // rotationRate alpha value
+      beta:     // rotationRate beta value
+      gamma:    // rotationRate gamma value
+    }
+  }
+}</code></pre><h3>input</h3><p>The input property gives you normalised input data, allowing you to skip some of the heavy lifting of dealing with inputs.</p>
+<h4>input.x</h4><p>The x position of the mouse or first touch.</p>
+<h4>input.y</h4><p>The y position of the mouse or first touch.</p>
+<h4>input.accelerometer.xAxis</h4><p>Tipping the device backwards and forwards.</p>
+<blockquote>
+<p>Also available as input.accelerometer.beta</p>
+</blockquote>
+<h4>input.accelerometer.yAxis</h4><p>Tilting the device left and right.</p>
+<blockquote>
+<p>Also available as input.accelerometer.gamma</p>
+</blockquote>
+<h4>input.accelerometer.rotation</h4><p>The direction the device is facing.</p>
+<blockquote>
+<p>Also available as input.accelerometer.alpha</p>
+</blockquote>
+<h4>input.touches</h4><p>An array of touch objects, each with their current x and y position, and their previous x and y position (if the touch has moved).</p>
+<p>If the interaction is from a mouse, the touches array will contain a single object - the x and y and previous x and y position of the mouse. This allows you to use the touches array as your primary source of input data without needing to differentiate between whether the interaction is touch or mouse based. Basically, you get multitouch for free.</p>
+<blockquote>
+<p>Full credit for this genuinely great idea goes to  <a href="https://github.com/soulwire/sketch.js">Sketch.js</a> and <a href="https://soulwire.co.uk/">soulwire</a>. You really should go and check out <strong>Sketch.js</strong>—it was a big inspiration for <strong>Sandpit</strong>, it's super tiny, and there are a ton of great examples.</p>
+</blockquote>
+<p>If you don't want to worry about that, though, you can just stick with <code>sandpit.input.x</code> and <code>sandpit.input.y</code>.</p>
+<p>Finally, if force is available on the touch event (for example, if the interaction is on a force touch enabled iOS device) it will be available as the <code>force</code> property on each touch.</p>
+<h4>input.inFrame</h4><p>Returns true when the mouse is inside the canvas.</p>
+<hr>
+<h2>Helpers</h2><p>There are a number of small helper libraries, both within Sandpit and external, that you can import to help make things easier. Many of the demos show examples of these in action.</p>
+<h3>Is</h3><p>A small utility to check if a reference is something.</p>
+<h4>Is.element(reference)</h4><p>Returns true if the reference is a DOM element.</p>
+<pre class="prettyprint source lang-js"><code>Is.element(document.createElement('div'))
+// true
+Is.element({})
+// false</code></pre><h4>Is.array(reference)</h4><p>Returns true if the reference is an array.</p>
+<pre class="prettyprint source lang-js"><code>Is.array([])
+// true
+Is.array({})
+// false</code></pre><h4>Is.object(reference)</h4><p>Returns true if the reference is an object, <em>not</em> an array.</p>
+<pre class="prettyprint source lang-js"><code>Is.object({})
+// true
+Is.object([])
+// false</code></pre><h4>Is.canvas(reference)</h4><p>Returns true if the reference is a canvas element.</p>
+<pre class="prettyprint source lang-js"><code>Is.canvas(document.createElement('canvas'))
+// true
+Is.canvas(document.createElement('div'))
+// false</code></pre><h3>Mathematics</h3><p>A small utility to help with some simple maths stuff.</p>
+<h4>Mathematics.TWO_PI</h4><p>Returns π * 2</p>
+<pre class="prettyprint source lang-js"><code>Mathematics.TWO_PI</code></pre><h4>Mathematics.HALF_PI</h4><p>Returns π / 2</p>
+<pre class="prettyprint source lang-js"><code>Mathematics.HALF_PI</code></pre><h4>Mathematics.QUARTER_PI</h4><p>Returns π / 4</p>
+<pre class="prettyprint source lang-js"><code>Mathematics.QUARTER_PI</code></pre><h4>Mathematics.randomBetween(min, max, random = Math.random)</h4><p>Returns a random float between two numbers, including negatives. You can also supply your own random function, if you'd prefer seeded results.</p>
+<pre class="prettyprint source lang-js"><code>Mathematics.randomBetween(-50.5, -25.5)</code></pre><h4>Mathematics.randomFrom(array, random = Math.random)</h4><p>Not <em>techically</em> a mathematic function, but <code>randomFrom</code> will return a random item in an array, or a random key value pair from an object. You can also supply your own random function, if you'd prefer seeded results.</p>
+<pre class="prettyprint source lang-js"><code>Mathematics.randomFrom(['you', 'are', 'so', 'great'])</code></pre><h3>Vector</h3><p>A hook for the <a href="http://victorjs.org/">Victor.js</a> library, which gives a ton of helpers for manipulating vectors. <a href="http://victorjs.org/">You can read the full API here</a>.</p>
+<p>Includes some additional functions, <code>vector.setLength(scalar)</code> and <code>vector.addLength(scalar)</code>.</p>
+<blockquote>
+<p>Credit to <a href="https://github.com/maxkueng/">Max Kueng</a> and contributors for Victor. ❤️</p>
+</blockquote>
+<h3>Color</h3><p>A hook for the <a href="https://github.com/Qix-/color">Color</a> library, which gives a ton of helpers for manipulating color. <a href="https://github.com/Qix-/color">You can read the full API here</a></p>
+<blockquote>
+<p>Credit to <a href="https://github.com/Qix-">Qix-</a> for Color. ❤️</p>
+</blockquote>
+<h3>Stats</h3><p>A hook for the <a href="https://github.com/mrdoob/stats.js">Stats</a> library, which visualises performance. <a href="https://github.com/mrdoob/stats.js/">You can read about it here</a></p>
+<p>It is currently built into <strong>Sandpit</strong>, but if you were keen to record stats outside of the <code>loop()</code>, you could implement it manually with: <code>import { Stats} from 'sandpit'</code></p>
+<blockquote>
+<p>Credit to <a href="https://github.com/mrdoob">mrdoob</a> for stats.js. ❤️</p>
+</blockquote>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> using a modified <a href="https://github.com/nijikokun/minami">Minami</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
