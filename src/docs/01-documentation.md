@@ -1,4 +1,4 @@
-There are a bunch of example available in the [demos folder](https://github.com/superhighfives/sandpit/tree/master/src/demos) of the library, and you can view them at <https://sandpitjs.com/>. They use many of the feature of **Sandpit**, and are designed to show the various ways you can interact with the library.
+There are a bunch of example available in the [demos folder](https://github.com/sandpit/sandpit-site/tree/master/src/demos) of the library, and you can view them at <https://sandpitjs.com/>. They use many of the feature of **Sandpit**, and are designed to show the various ways you can interact with the library.
 
 - [Getting Started](#getting-started)
 - [Constructor](#constructor)
@@ -55,7 +55,7 @@ sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()
 ```
 
-You can grab an example from [https://github.com/superhighfives/sandpit-demo](https://github.com/superhighfives/sandpit-demo).
+You can grab an example from [https://github.com/sandpit/sandpit-create-react-app-demo](https://github.com/superhighfives/sandpit-create-react-app-demo), too.
 
 ### Sticking with the script tag
 
@@ -97,18 +97,18 @@ const renderer = new WebGLRenderer({canvas: sandpit.canvas, antialias: true})
 ```
 
 > NOTE: It's worth noting that Sandpit works a little differently if you're using it outside of ES6. If you're requiring it in ES5, you'll need to append `default` after the require: `var Sandpit = require('sandpit').default`. Utilities are available at `var Mathematics = require('sandpit').Mathematics`, etc.
-> If you're using it from /dist directly in the browser, you can use `var sandpit = new Sandpit('body', Sandpit.CANVAS)`, and the named utilities are available at Sandpit.Mathematics, Sandpit.Color, etc.
+> If you're using it via a `<script>` tag directly in the browser, you can use `var sandpit = new Sandpit('body', Sandpit.CANVAS)`, and the named utilities are available at Sandpit.Mathematics, Sandpit.Color, etc.
 > This is due to the different ways in which ES5 and ES6 manage named exports. If you can think of a better way to handle this, you should 100% get in touch.
 
 If **Sandpit** finds a DOM element that isn't a canvas, it'll add a canvas to it. If it finds a canvas element, it'll use that instead. Everyone wins!
 
 **Sandpit** will automatically manage retina displays, or more specifically, displays with a pixel ratio greater than 1. If you'd like it to _not_ do that, you can pass a third property to the options: `new Sandpit('.container', Sandpit.CANVAS, {retina: false})`.
 
-That will skip the retina bits in case you wanna handle them yourself, or if you're worried about performance.
+That will skip the retina bits in case you wanna handle them yourself, or if performance is a concern.
 
 Once you've made a sandpit, you'll have access to a bunch of helpers and properties to get started.
 
-> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. You can also use `sandpit.resize = () => {}` if you'd like to use `window.innerWidth` and `window.innerHeight`, but it's probably easier to just set `canvas {width: 100vw; height: 100vh;}` in your CSS. Up to you!
+> NOTE: *Sandpit* will not automatically fill the viewport - if you're looking for something fullscreen, you'll need to make your sandpit 100% width and height via CSS. This is to ensure flexibility for different applications. You can also use `sandpit.resize = () => {}` if you'd like to use `window.innerWidth` and `window.innerHeight`, but it's probably easier to just set `canvas { width: 100vw; height: 100vh; }` in your CSS. Up to you!
 
 ```
 sandpit.resize = () => {

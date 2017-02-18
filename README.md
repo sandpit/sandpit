@@ -3,14 +3,12 @@
 
 A playground for creative coding using JavaScript and the canvas element.
 
-> NOTE / TODO: This repo has recently been split into [sandpit](https://github.com/sandpit/sandpit) and [sandpit-site](https://github.com/sandpit/sandpit-site), so documentation relating to the demos will likely be incorrect.
-
 ``` shell
 npm install sandpit --save
 ```
-[![npm](https://img.shields.io/npm/v/sandpit.svg)](https://www.npmjs.com/package/sandpit) [![Build Status](https://travis-ci.org/superhighfives/sandpit.svg?branch=master)](https://travis-ci.org/superhighfives/sandpit)
+[![npm](https://img.shields.io/npm/v/sandpit.svg)](https://www.npmjs.com/package/sandpit) [![Build Status](https://travis-ci.org/sandpit/sandpit.svg?branch=master)](https://travis-ci.org/sandpit/sandpit)
 
-> NOTE: `Sandpit` is really new, and so the API is likely to change between now and 1.0. Help shape it by leaving [issues and suggestions here](https://github.com/superhighfives/sandpit/issues). You are the best.
+> NOTE: `Sandpit` is pretty new, so the API is likely to change between now and 1.0. Help shape its ongoing development by [reporting issues and making suggestions](https://github.com/sandpit/sandpit/issues). 💖
 
 ![An example animation of Sandpit](https://sandpitjs.com/assets/images/animation.gif)
 
@@ -72,7 +70,7 @@ sandpit.loop = () => { console.log(sandpit.time) }
 sandpit.start()
 ```
 
-You can grab an example from [https://github.com/superhighfives/sandpit-demo](https://github.com/superhighfives/sandpit-demo).
+You can grab an example from [https://github.com/sandpit/sandpit-create-react-app-demo](https://github.com/superhighfives/sandpit-create-react-app-demo), too.
 
 ### Sticking with the script tag
 
@@ -95,7 +93,7 @@ Currently **Sandpit** targets modern browsers, including IE11 and Edge, and uses
 
 ## Why use Sandpit?
 
-The goal of **Sandpit** is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from [Processing.js](http://processingjs.org/) to [Three.js](http://threejs.org/), and an incredible community of people who have pushed the bar of [what can be done on the web](https://github.com/superhighfives/sandpit/wiki/Inspiration).
+The goal of **Sandpit** is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from [Processing.js](http://processingjs.org/) to [Three.js](http://threejs.org/), and an incredible community of people who have pushed the bar of [what can be done on the web](https://sandpitjs.com/docs/tutorial-02-inspiration.html).
 
 **Sandpit** supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:
 - Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom
@@ -110,7 +108,7 @@ The goal of **Sandpit** is to normalise and simplify the process of creating cod
 
 ![Some examples of Sandpit in action](https://sandpitjs.com/assets/images/examples.jpg)
 
-There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/superhighfives/sandpit/tree/master/src/demos>.
+There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/sandpit/sandpit-site/>.
 
 
 
@@ -121,7 +119,7 @@ There are a bunch of examples at <https://sandpitjs.com>, the source for which c
 
 ## Want to contribute?
 
-You 100% should. You can find out more about [contributing here](https://github.com/superhighfives/sandpit/blob/master/CONTRIBUTING.md).
+You 100% should. You can find out more about [contributing here](https://github.com/sandpit/sandpit/blob/master/CONTRIBUTING.md), and we more than appreciate [pull requests](https://github.com/sandpit/sandpit/pulls), [issues](https://github.com/sandpit/sandpit/issues), and seeing the rad stuff you've made.
 
 
 

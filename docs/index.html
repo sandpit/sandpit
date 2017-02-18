@@ -50,12 +50,9 @@
 
     <section class="readme">
         <article><h1>⛱ Sandpit</h1><p>A playground for creative coding using JavaScript and the canvas element.</p>
+<pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p><a href="https://www.npmjs.com/package/sandpit"><img src="https://img.shields.io/npm/v/sandpit.svg" alt="npm"></a> <a href="https://travis-ci.org/sandpit/sandpit"><img src="https://travis-ci.org/sandpit/sandpit.svg?branch=master" alt="Build Status"></a></p>
 <blockquote>
-<p>NOTE / TODO: This repo has recently been split into <a href="https://github.com/sandpit/sandpit">sandpit</a> and <a href="https://github.com/sandpit/sandpit-site">sandpit-site</a>, so documentation relating to the demos will likely be incorrect.</p>
-</blockquote>
-<pre class="prettyprint source lang-shell"><code>npm install sandpit --save</code></pre><p><a href="https://www.npmjs.com/package/sandpit"><img src="https://img.shields.io/npm/v/sandpit.svg" alt="npm"></a> <a href="https://travis-ci.org/superhighfives/sandpit"><img src="https://travis-ci.org/superhighfives/sandpit.svg?branch=master" alt="Build Status"></a></p>
-<blockquote>
-<p>NOTE: <code>Sandpit</code> is really new, and so the API is likely to change between now and 1.0. Help shape it by leaving <a href="https://github.com/superhighfives/sandpit/issues">issues and suggestions here</a>. You are the best.</p>
+<p>NOTE: <code>Sandpit</code> is pretty new, so the API is likely to change between now and 1.0. Help shape its ongoing development by <a href="https://github.com/sandpit/sandpit/issues">reporting issues and making suggestions</a>. 💖</p>
 </blockquote>
 <p><img src="https://sandpitjs.com/assets/images/animation.gif" alt="An example animation of Sandpit"></p>
 <p>Built in ES6, <strong>Sandpit</strong> uses dat.GUI to manage settings and encourages copy and paste sharing of ideas. It features a bunch of helpers so you can get straight down to coding.</p>
@@ -85,7 +82,7 @@ npm start</code></pre><p>Then replace <code>src/index.js</code> with:</p>
 var sandpit = new Sandpit('body', Sandpit.CANVAS)
 sandpit.settings = {youAreGreat: {value: true}}
 sandpit.loop = () => { console.log(sandpit.time) }
-sandpit.start()</code></pre><p>You can grab an example from <a href="https://github.com/superhighfives/sandpit-demo">https://github.com/superhighfives/sandpit-demo</a>.</p>
+sandpit.start()</code></pre><p>You can grab an example from <a href="https://github.com/sandpit/sandpit-create-react-app-demo">https://github.com/sandpit/sandpit-create-react-app-demo</a>.</p>
 <h3>Sticking with the script tag</h3><p>Alternatively, you can <a href="https://sandpitjs.com/dist/sandpit.min.js">use the latest <strong>Sandpit</strong> version</a> in the browser, which is useful for <a href="https://codepen.io/">Codepen</a> and the like.</p>
 <pre class="prettyprint source lang-js"><code>&lt;script src=&quot;https://sandpitjs.com/dist/sandpit.min.js&quot;>&lt;/script>
 &lt;script>var sandpit = new Sandpit('body', Sandpit.CANVAS)&lt;/script></code></pre><p>You can see it in action using <a href="https://codepen.io/superhighfives/pen/BpoPeJ">ES6</a>, and <a href="https://codepen.io/superhighfives/pen/RKroWB">ES5</a>.</p>
