@@ -190,7 +190,7 @@ sandpit.settings = {
 }
 ```
 
-> Tip! Don't forget the color parameter, or you'll just a string. Which would still work as a string, but you lose the fancy color picker. And no one wants that.
+> Tip! Don't forget the color parameter. This tells `dat.GUI` that it should use colour picker. It would still work as a string, but you lose the fanciness. And no one wants that.
 
 #### Editable
 If you'd prefer a setting not be editable, just add the `editable: false` property to it. You can see this being used in the demos.
