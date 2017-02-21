@@ -119,7 +119,7 @@ This is due to the different ways in which ES5 and ES6 manage named exports. If 
 <pre class="prettyprint source lang-js"><code>sandpit.settings = {
   strokeColor: {value: 'red', color: true}
 }</code></pre><blockquote>
-<p>Tip! Don't forget the color parameter, or you'll just a string. Which would still work as a string, but you lose the fancy color picker. And no one wants that.</p>
+<p>Tip! Don't forget the color parameter. This tells <code>dat.GUI</code> that it should use colour picker. It would still work as a string, but you lose the fanciness. And no one wants that.</p>
 </blockquote>
 <h4>Editable</h4><p>If you'd prefer a setting not be editable, just add the <code>editable: false</code> property to it. You can see this being used in the demos.</p>
 <pre class="prettyprint source lang-js"><code>sandpit.settings = {
