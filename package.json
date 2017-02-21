@@ -1,6 +1,6 @@
 {
   "name": "sandpit",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A playground for creative coding using JavaScript and the canvas element",
   "main": "dist/sandpit.js",
   "module": "dist/sandpit.es.js",
@@ -37,7 +37,7 @@
   "dependencies": {
     "color": "^1.0.3",
     "dat.gui": "^0.6.1",
-    "debounce": "^1.0.0",
+    "debounce": "^1.0.0g",
     "gyronorm": "git://github.com/superhighfives/gyronorm.js.git",
     "queryfetch": "^1.2.1",
     "seedrandom": "^2.4.2",
