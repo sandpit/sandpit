@@ -57,7 +57,7 @@
     "canvas": "^1.6.2",
     "chokidar": "^1.6.1",
     "jsdoc": "^3.4.3",
-    "minami": "git+ssh://git@github.com/superhighfives/minami.git",
+    "minami": "https://git@github.com/superhighfives/minami.git",
     "pushstate-server": "^2.1.0",
     "react-scripts": "0.8.5",
     "rollup": "^0.41.4",
