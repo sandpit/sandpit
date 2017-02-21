@@ -6,7 +6,7 @@
   "module": "dist/sandpit.es.js",
   "license": "MIT",
   "scripts": {
-    "start": "npm run watch",
+    "start": "npm run build:watch",
     "serve:docs": "npm run build:docs && pushstate-server docs",
     "prebuild:dist": "rm -rf dist/*",
     "build:dist": "npm run build:dist:umd && npm run build:dist:es && npm run build:dist:script",
