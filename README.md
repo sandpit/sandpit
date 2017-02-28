@@ -93,7 +93,7 @@ Currently **Sandpit** targets modern browsers, including IE11 and Edge, and uses
 
 ## Why use Sandpit?
 
-The goal of **Sandpit** is to normalise and simplify the process of creating coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from [Processing.js](http://processingjs.org/) to [Three.js](http://threejs.org/), and an incredible community of people who have pushed the bar of [what can be done on the web](https://sandpitjs.com/docs/tutorial-02-inspiration.html).
+The goal of **Sandpit** is to normalise and simplify the process of creative coding—using code to make pretty things. This usually takes the form of drawing onto the Canvas element, in either a 2d or 3d context. It has resulted in a ton of tools, from [Processing.js](http://processingjs.org/) to [Three.js](http://threejs.org/), and an incredible community of people who have pushed the bar of [what can be done on the web](https://sandpitjs.com/docs/tutorial-02-inspiration.html).
 
 **Sandpit** supports a bunch of key features that aim to simplify creative coding. Specifically, helps with the following:
 - Manages inputs, like touches, taps, clicks, force and the accelerometer, and takes care of touch event handling for multitouch on mobile so you don't have to worry about pinch to zoom
