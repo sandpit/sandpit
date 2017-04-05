@@ -1,6 +1,6 @@
 {
   "name": "sandpit",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "A playground for creative coding using JavaScript and the canvas element",
   "main": "dist/sandpit.js",
   "module": "dist/sandpit.es.js",
