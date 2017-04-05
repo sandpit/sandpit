@@ -6229,83 +6229,32 @@ var runtime = createCommonjsModule(function (module) {
           return doneResult();
         }
 
+        context.method = method;
+        context.arg = arg;
+
         while (true) {
           var delegate = context.delegate;
           if (delegate) {
-            if (method === "return" || method === "throw" && delegate.iterator[method] === undefined) {
-              // A return or throw (when the delegate iterator has no throw
-              // method) always terminates the yield* loop.
-              context.delegate = null;
-
-              // If the delegate iterator has a return method, give it a
-              // chance to clean up.
-              var returnMethod = delegate.iterator["return"];
-              if (returnMethod) {
-                var record = tryCatch(returnMethod, delegate.iterator, arg);
-                if (record.type === "throw") {
-                  // If the return method threw an exception, let that
-                  // exception prevail over the original return or throw.
-                  method = "throw";
-                  arg = record.arg;
-                  continue;
-                }
-              }
-
-              if (method === "return") {
-                // Continue with the outer return, now that the delegate
-                // iterator has been terminated.
-                continue;
-              }
+            var delegateResult = maybeInvokeDelegate(delegate, context);
+            if (delegateResult) {
+              if (delegateResult === ContinueSentinel) continue;
+              return delegateResult;
             }
-
-            var record = tryCatch(delegate.iterator[method], delegate.iterator, arg);
-
-            if (record.type === "throw") {
-              context.delegate = null;
-
-              // Like returning generator.throw(uncaught), but without the
-              // overhead of an extra function call.
-              method = "throw";
-              arg = record.arg;
-              continue;
-            }
-
-            // Delegate generator ran and handled its own exceptions so
-            // regardless of what the method was, we continue as if it is
-            // "next" with an undefined arg.
-            method = "next";
-            arg = undefined;
-
-            var info = record.arg;
-            if (info.done) {
-              context[delegate.resultName] = info.value;
-              context.next = delegate.nextLoc;
-            } else {
-              state = GenStateSuspendedYield;
-              return info;
-            }
-
-            context.delegate = null;
           }
 
-          if (method === "next") {
+          if (context.method === "next") {
             // Setting context._sent for legacy support of Babel's
             // function.sent implementation.
-            context.sent = context._sent = arg;
-          } else if (method === "throw") {
+            context.sent = context._sent = context.arg;
+          } else if (context.method === "throw") {
             if (state === GenStateSuspendedStart) {
               state = GenStateCompleted;
-              throw arg;
+              throw context.arg;
             }
 
-            if (context.dispatchException(arg)) {
-              // If the dispatched exception was caught by a catch block,
-              // then let that catch block handle the exception normally.
-              method = "next";
-              arg = undefined;
-            }
-          } else if (method === "return") {
-            context.abrupt("return", arg);
+            context.dispatchException(context.arg);
+          } else if (context.method === "return") {
+            context.abrupt("return", context.arg);
           }
 
           state = GenStateExecuting;
@@ -6316,29 +6265,103 @@ var runtime = createCommonjsModule(function (module) {
             // GenStateExecuting and loop back for another invocation.
             state = context.done ? GenStateCompleted : GenStateSuspendedYield;
 
-            var info = {
+            if (record.arg === ContinueSentinel) {
+              continue;
+            }
+
+            return {
               value: record.arg,
               done: context.done
             };
-
-            if (record.arg === ContinueSentinel) {
-              if (context.delegate && method === "next") {
-                // Deliberately forget the last sent value so that we don't
-                // accidentally pass it on to the delegate.
-                arg = undefined;
-              }
-            } else {
-              return info;
-            }
           } else if (record.type === "throw") {
             state = GenStateCompleted;
             // Dispatch the exception by looping back around to the
-            // context.dispatchException(arg) call above.
-            method = "throw";
-            arg = record.arg;
+            // context.dispatchException(context.arg) call above.
+            context.method = "throw";
+            context.arg = record.arg;
           }
         }
       };
+    }
+
+    // Call delegate.iterator[context.method](context.arg) and handle the
+    // result, either by returning a { value, done } result from the
+    // delegate iterator, or by modifying context.method and context.arg,
+    // setting context.delegate to null, and returning the ContinueSentinel.
+    function maybeInvokeDelegate(delegate, context) {
+      var method = delegate.iterator[context.method];
+      if (method === undefined) {
+        // A .throw or .return when the delegate iterator has no .throw
+        // method always terminates the yield* loop.
+        context.delegate = null;
+
+        if (context.method === "throw") {
+          if (delegate.iterator.return) {
+            // If the delegate iterator has a return method, give it a
+            // chance to clean up.
+            context.method = "return";
+            context.arg = undefined;
+            maybeInvokeDelegate(delegate, context);
+
+            if (context.method === "throw") {
+              // If maybeInvokeDelegate(context) changed context.method from
+              // "return" to "throw", let that override the TypeError below.
+              return ContinueSentinel;
+            }
+          }
+
+          context.method = "throw";
+          context.arg = new TypeError("The iterator does not provide a 'throw' method");
+        }
+
+        return ContinueSentinel;
+      }
+
+      var record = tryCatch(method, delegate.iterator, context.arg);
+
+      if (record.type === "throw") {
+        context.method = "throw";
+        context.arg = record.arg;
+        context.delegate = null;
+        return ContinueSentinel;
+      }
+
+      var info = record.arg;
+
+      if (!info) {
+        context.method = "throw";
+        context.arg = new TypeError("iterator result is not an object");
+        context.delegate = null;
+        return ContinueSentinel;
+      }
+
+      if (info.done) {
+        // Assign the result of the finished delegate to the temporary
+        // variable specified by delegate.resultName (see delegateYield).
+        context[delegate.resultName] = info.value;
+
+        // Resume execution at the desired location (see delegateYield).
+        context.next = delegate.nextLoc;
+
+        // If context.method was "throw" but the delegate handled the
+        // exception, let the outer generator proceed normally. If
+        // context.method was "next", forget context.arg since it has been
+        // "consumed" by the delegate iterator. If context.method was
+        // "return", allow the original .return call to continue in the
+        // outer generator.
+        if (context.method !== "return") {
+          context.method = "next";
+          context.arg = undefined;
+        }
+      } else {
+        // Re-yield the result returned by the delegate method.
+        return info;
+      }
+
+      // The delegate iterator is finished, so forget it and continue with
+      // the outer generator.
+      context.delegate = null;
+      return ContinueSentinel;
     }
 
     // Define Generator.prototype.{next,throw,return} in terms of the
@@ -6462,6 +6485,9 @@ var runtime = createCommonjsModule(function (module) {
         this.done = false;
         this.delegate = null;
 
+        this.method = "next";
+        this.arg = undefined;
+
         this.tryEntries.forEach(resetTryEntry);
 
         if (!skipTempReset) {
@@ -6496,6 +6522,14 @@ var runtime = createCommonjsModule(function (module) {
           record.type = "throw";
           record.arg = exception;
           context.next = loc;
+
+          if (caught) {
+            // If the dispatched exception was caught by a catch block,
+            // then let that catch block handle the exception normally.
+            context.method = "next";
+            context.arg = undefined;
+          }
+
           return !!caught;
         }
 
@@ -6555,12 +6589,12 @@ var runtime = createCommonjsModule(function (module) {
         record.arg = arg;
 
         if (finallyEntry) {
+          this.method = "next";
           this.next = finallyEntry.finallyLoc;
-        } else {
-          this.complete(record);
+          return ContinueSentinel;
         }
 
-        return ContinueSentinel;
+        return this.complete(record);
       },
 
       complete: function complete(record, afterLoc) {
@@ -6571,11 +6605,14 @@ var runtime = createCommonjsModule(function (module) {
         if (record.type === "break" || record.type === "continue") {
           this.next = record.arg;
         } else if (record.type === "return") {
-          this.rval = record.arg;
+          this.rval = this.arg = record.arg;
+          this.method = "return";
           this.next = "end";
         } else if (record.type === "normal" && afterLoc) {
           this.next = afterLoc;
         }
+
+        return ContinueSentinel;
       },
 
       finish: function finish(finallyLoc) {
@@ -6613,6 +6650,12 @@ var runtime = createCommonjsModule(function (module) {
           resultName: resultName,
           nextLoc: nextLoc
         };
+
+        if (this.method === "next") {
+          // Deliberately forget the last sent value so that we don't
+          // accidentally pass it on to the delegate.
+          this.arg = undefined;
+        }
 
         return ContinueSentinel;
       }
@@ -12523,8 +12566,8 @@ var index$7 = createCommonjsModule(function (module) {
 			return null;
 		}
 
-		var abbr = /^#([a-fA-F0-9]{3})$/;
-		var hex = /^#([a-fA-F0-9]{6})$/;
+		var abbr = /^#([a-f0-9]{3,4})$/i;
+		var hex = /^#([a-f0-9]{6})([a-f0-9]{2})?$/i;
 		var rgba = /^rgba?\(\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
 		var per = /^rgba?\(\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
 		var keyword = /(\D+)/;
@@ -12532,20 +12575,31 @@ var index$7 = createCommonjsModule(function (module) {
 		var rgb = [0, 0, 0, 1];
 		var match;
 		var i;
+		var hexAlpha;
 
-		if (match = string.match(abbr)) {
-			match = match[1];
-
-			for (i = 0; i < 3; i++) {
-				rgb[i] = parseInt(match[i] + match[i], 16);
-			}
-		} else if (match = string.match(hex)) {
+		if (match = string.match(hex)) {
+			hexAlpha = match[2];
 			match = match[1];
 
 			for (i = 0; i < 3; i++) {
 				// https://jsperf.com/slice-vs-substr-vs-substring-methods-long-string/19
 				var i2 = i * 2;
 				rgb[i] = parseInt(match.slice(i2, i2 + 2), 16);
+			}
+
+			if (hexAlpha) {
+				rgb[3] = Math.round(parseInt(hexAlpha, 16) / 255 * 100) / 100;
+			}
+		} else if (match = string.match(abbr)) {
+			match = match[1];
+			hexAlpha = match[3];
+
+			for (i = 0; i < 3; i++) {
+				rgb[i] = parseInt(match[i] + match[i], 16);
+			}
+
+			if (hexAlpha) {
+				rgb[3] = Math.round(parseInt(hexAlpha + hexAlpha, 16) / 255 * 100) / 100;
 			}
 		} else if (match = string.match(rgba)) {
 			for (i = 0; i < 3; i++) {
@@ -12577,9 +12631,11 @@ var index$7 = createCommonjsModule(function (module) {
 			rgb[3] = 1;
 
 			return rgb;
+		} else {
+			return null;
 		}
 
-		for (i = 0; i < rgb.length; i++) {
+		for (i = 0; i < 3; i++) {
 			rgb[i] = clamp(rgb[i], 0, 255);
 		}
 		rgb[3] = clamp(rgb[3], 0, 1);
@@ -12628,8 +12684,10 @@ var index$7 = createCommonjsModule(function (module) {
 		return null;
 	};
 
-	cs.to.hex = function (rgb) {
-		return '#' + hexDouble(rgb[0]) + hexDouble(rgb[1]) + hexDouble(rgb[2]);
+	cs.to.hex = function () {
+		var rgba = swizzle(arguments);
+
+		return '#' + hexDouble(rgba[0]) + hexDouble(rgba[1]) + hexDouble(rgba[2]) + (rgba[3] < 1 ? hexDouble(Math.round(rgba[3] * 255)) : '');
 	};
 
 	cs.to.rgb = function () {
@@ -17746,6 +17804,10 @@ var gyronorm_complete = createCommonjsModule(function (module) {
       headers.forEach(function (value, name) {
         this.append(name, value);
       }, this);
+    } else if (Array.isArray(headers)) {
+      headers.forEach(function (header) {
+        this.append(header[0], header[1]);
+      }, this);
     } else if (headers) {
       Object.getOwnPropertyNames(headers).forEach(function (name) {
         this.append(name, headers[name]);
@@ -18274,34 +18336,32 @@ var Sandpit$1 = function () {
       // for storing settings
       if (this._queryable) {
         if (window.location.search) {
-          (function () {
-            var params = queryfetch_umd.parse(window.location.search);
-            Object.keys(params).forEach(function (key) {
-              // If a setting matches the param, use the param
-              if (_this.defaults[key]) {
-                var param = params[key];
-                // Convert string to boolean if 'true' or 'false'
-                if (param === 'true') param = true;
-                if (param === 'false') param = false;
-                if (_typeof$7(_this.defaults[key].value) !== 'object') {
-                  // If sticky is true, stick with the default setting
-                  // otherwise set the default to the param
-                  if (!_this.defaults[key].sticky) {
-                    _this.defaults[key].value = param;
-                  }
+          var params = queryfetch_umd.parse(window.location.search);
+          Object.keys(params).forEach(function (key) {
+            // If a setting matches the param, use the param
+            if (_this.defaults[key]) {
+              var param = params[key];
+              // Convert string to boolean if 'true' or 'false'
+              if (param === 'true') param = true;
+              if (param === 'false') param = false;
+              if (_typeof$7(_this.defaults[key].value) !== 'object') {
+                // If sticky is true, stick with the default setting
+                // otherwise set the default to the param
+                if (!_this.defaults[key].sticky) {
+                  _this.defaults[key].value = param;
+                }
+              } else {
+                // If the param is an object, store the
+                // name in a selected property
+                if (!_this.defaults[key].sticky) {
+                  _this.defaults[key].selected = param;
                 } else {
-                  // If the param is an object, store the
-                  // name in a selected property
-                  if (!_this.defaults[key].sticky) {
-                    _this.defaults[key].selected = param;
-                  } else {
-                    // If sticky is true, force the default setting
-                    _this.defaults[key].selected = _this.defaults[key].value[Object.keys(_this.defaults[key].value)[0]];
-                  }
+                  // If sticky is true, force the default setting
+                  _this.defaults[key].selected = _this.defaults[key].value[Object.keys(_this.defaults[key].value)[0]];
                 }
               }
-            });
-          })();
+            }
+          });
         }
       }
 

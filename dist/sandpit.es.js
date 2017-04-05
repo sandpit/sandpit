@@ -5873,8 +5873,8 @@ var index$5 = createCommonjsModule(function (module) {
 			return null;
 		}
 
-		var abbr = /^#([a-fA-F0-9]{3})$/;
-		var hex = /^#([a-fA-F0-9]{6})$/;
+		var abbr = /^#([a-f0-9]{3,4})$/i;
+		var hex = /^#([a-f0-9]{6})([a-f0-9]{2})?$/i;
 		var rgba = /^rgba?\(\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
 		var per = /^rgba?\(\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*,\s*([+-]?[\d\.]+)\%\s*(?:,\s*([+-]?[\d\.]+)\s*)?\)$/;
 		var keyword = /(\D+)/;
@@ -5882,20 +5882,31 @@ var index$5 = createCommonjsModule(function (module) {
 		var rgb = [0, 0, 0, 1];
 		var match;
 		var i;
+		var hexAlpha;
 
-		if (match = string.match(abbr)) {
-			match = match[1];
-
-			for (i = 0; i < 3; i++) {
-				rgb[i] = parseInt(match[i] + match[i], 16);
-			}
-		} else if (match = string.match(hex)) {
+		if (match = string.match(hex)) {
+			hexAlpha = match[2];
 			match = match[1];
 
 			for (i = 0; i < 3; i++) {
 				// https://jsperf.com/slice-vs-substr-vs-substring-methods-long-string/19
 				var i2 = i * 2;
 				rgb[i] = parseInt(match.slice(i2, i2 + 2), 16);
+			}
+
+			if (hexAlpha) {
+				rgb[3] = Math.round(parseInt(hexAlpha, 16) / 255 * 100) / 100;
+			}
+		} else if (match = string.match(abbr)) {
+			match = match[1];
+			hexAlpha = match[3];
+
+			for (i = 0; i < 3; i++) {
+				rgb[i] = parseInt(match[i] + match[i], 16);
+			}
+
+			if (hexAlpha) {
+				rgb[3] = Math.round(parseInt(hexAlpha + hexAlpha, 16) / 255 * 100) / 100;
 			}
 		} else if (match = string.match(rgba)) {
 			for (i = 0; i < 3; i++) {
@@ -5927,9 +5938,11 @@ var index$5 = createCommonjsModule(function (module) {
 			rgb[3] = 1;
 
 			return rgb;
+		} else {
+			return null;
 		}
 
-		for (i = 0; i < rgb.length; i++) {
+		for (i = 0; i < 3; i++) {
 			rgb[i] = clamp(rgb[i], 0, 255);
 		}
 		rgb[3] = clamp(rgb[3], 0, 1);
@@ -5978,8 +5991,10 @@ var index$5 = createCommonjsModule(function (module) {
 		return null;
 	};
 
-	cs.to.hex = function (rgb) {
-		return '#' + hexDouble(rgb[0]) + hexDouble(rgb[1]) + hexDouble(rgb[2]);
+	cs.to.hex = function () {
+		var rgba = swizzle(arguments);
+
+		return '#' + hexDouble(rgba[0]) + hexDouble(rgba[1]) + hexDouble(rgba[2]) + (rgba[3] < 1 ? hexDouble(Math.round(rgba[3] * 255)) : '');
 	};
 
 	cs.to.rgb = function () {
@@ -11096,6 +11111,10 @@ var gyronorm_complete = createCommonjsModule(function (module) {
       headers.forEach(function (value, name) {
         this.append(name, value);
       }, this);
+    } else if (Array.isArray(headers)) {
+      headers.forEach(function (header) {
+        this.append(header[0], header[1]);
+      }, this);
     } else if (headers) {
       Object.getOwnPropertyNames(headers).forEach(function (name) {
         this.append(name, headers[name]);
@@ -11624,34 +11643,32 @@ var Sandpit = function () {
       // for storing settings
       if (this._queryable) {
         if (window.location.search) {
-          (function () {
-            var params = queryfetch_umd.parse(window.location.search);
-            Object.keys(params).forEach(function (key) {
-              // If a setting matches the param, use the param
-              if (_this.defaults[key]) {
-                var param = params[key];
-                // Convert string to boolean if 'true' or 'false'
-                if (param === 'true') param = true;
-                if (param === 'false') param = false;
-                if (_typeof(_this.defaults[key].value) !== 'object') {
-                  // If sticky is true, stick with the default setting
-                  // otherwise set the default to the param
-                  if (!_this.defaults[key].sticky) {
-                    _this.defaults[key].value = param;
-                  }
+          var params = queryfetch_umd.parse(window.location.search);
+          Object.keys(params).forEach(function (key) {
+            // If a setting matches the param, use the param
+            if (_this.defaults[key]) {
+              var param = params[key];
+              // Convert string to boolean if 'true' or 'false'
+              if (param === 'true') param = true;
+              if (param === 'false') param = false;
+              if (_typeof(_this.defaults[key].value) !== 'object') {
+                // If sticky is true, stick with the default setting
+                // otherwise set the default to the param
+                if (!_this.defaults[key].sticky) {
+                  _this.defaults[key].value = param;
+                }
+              } else {
+                // If the param is an object, store the
+                // name in a selected property
+                if (!_this.defaults[key].sticky) {
+                  _this.defaults[key].selected = param;
                 } else {
-                  // If the param is an object, store the
-                  // name in a selected property
-                  if (!_this.defaults[key].sticky) {
-                    _this.defaults[key].selected = param;
-                  } else {
-                    // If sticky is true, force the default setting
-                    _this.defaults[key].selected = _this.defaults[key].value[Object.keys(_this.defaults[key].value)[0]];
-                  }
+                  // If sticky is true, force the default setting
+                  _this.defaults[key].selected = _this.defaults[key].value[Object.keys(_this.defaults[key].value)[0]];
                 }
               }
-            });
-          })();
+            }
+          });
         }
       }
 
