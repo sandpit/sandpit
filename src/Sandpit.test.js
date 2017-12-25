@@ -58,7 +58,7 @@ describe('Sandpit', () => {
     })
 
     it('should add the settings to the query string', () => {
-      let params = queryfetch.parse(window.location.search)
+      let params = queryfetch(window.location.search).parse()
       expect(params).toEqual({beingGreat: 'true'})
     })
   })
