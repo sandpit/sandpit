@@ -108,7 +108,7 @@ The goal of **Sandpit** is to normalise and simplify the process of creative cod
 
 ![Some examples of Sandpit in action](https://sandpitjs.com/assets/images/examples.jpg)
 
-There are a bunch of examples at <https://sandpitjs.com>, the source for which can be found at <https://github.com/sandpit/sandpit-site/>.
+There are a bunch of examples at [https://sandpitjs.com](https://sandpitjs.com), the source for which can be found at [https://github.com/sandpit/sandpit-site/](https://github.com/sandpit/sandpit-site/).
 
 
 
