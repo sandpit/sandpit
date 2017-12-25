@@ -1,13 +1,9 @@
 {
-  "presets": [
-    "latest"
-  ],
+  "presets": ["env"],
   "plugins": [
     "add-module-exports",
     "transform-object-rest-spread",
     "transform-class-properties"
   ],
-  "ignore": [
-    "**/*.test.js"
-  ]
+  "ignore": ["**/*.test.js"]
 }
