@@ -20,20 +20,16 @@ console.log(`Creating ${mode} bundle with ${format}...`)
 console.log(`========================`)
 
 const output = prod
-  ? [
-    { 
-      file: 'dist/sandpit.min.js',
-      name: 'Sandpit', 
-      format: 'umd' 
-    }
-  ]
-  : [
-    {
-      file: es ? 'dist/sandpit.es.js' : 'dist/sandpit.js',
-      format: es ? 'es' : 'umd',
-      name: 'Sandpit'
-    }
-  ]
+  ? [{ 
+    file: 'dist/sandpit.min.js',
+    name: 'Sandpit',
+    format: 'umd'
+  }]
+  : [{
+    file: es ? 'dist/sandpit.es.js' : 'dist/sandpit.js',
+    format: es ? 'es' : 'umd',
+    name: 'Sandpit'
+  }]
 
 const plugins = [
   // Unlike Webpack and Browserify, Rollup doesn't automatically shim Node
@@ -60,7 +56,7 @@ const plugins = [
   babel({
     babelrc: false,
     presets: [
-      ['env', { "modules": false }]
+      ['env', { 'modules': false }]
     ],
     plugins: [
       'transform-object-rest-spread',
@@ -76,5 +72,8 @@ if (prod) plugins.push(uglify(), visualizer({ filename: './bundle-stats.html' })
 export default {
   exports: es ? 'named' : 'default',
   output,
-  plugins
+  plugins,
+  moduleContext: {
+    [require.resolve('whatwg-fetch')]: 'window'
+  }
 }

@@ -1,5 +1,5 @@
 import dat from 'dat.gui/build/dat.gui'
-import queryfetch from 'queryfetch'
+import queryString from 'query-string'
 import debounce from 'debounce'
 import seedrandom from 'seedrandom'
 
@@ -127,8 +127,12 @@ class Sandpit {
     // for storing settings
     if (this._queryable) {
       if (window.location.search) {
-        let params = queryfetch(window.location.search).parse()
+        let params = queryString.parse(window.location.search)
         Object.keys(params).forEach((key) => {
+          // Check if the param is a float, and if so, parse it
+          if (parseFloat(params[key])) {
+            params[key] = parseFloat(params[key])
+          }
           // If a setting matches the param, use the param
           if (this.defaults[key]) {
             let param = params[key]
@@ -226,7 +230,7 @@ class Sandpit {
     // If queryable is enabled, serialize the final settings
     // and push them to the query string
     if (this._queryable) {
-      const query = queryfetch(this._settings).serialize()
+      const query = queryString.stringify(this._settings)
       window.history.replaceState({}, null, `${this._getPathFromUrl()}?${query}`)
       // Adds a clear and reset button to the gui interface,
       // if they aren't disabled in the settings
@@ -264,7 +268,7 @@ class Sandpit {
   _change (name, value) {
     logger.info(`Update fired on ${name}: ${value}`)
     if (this._queryable) {
-      const query = queryfetch(this._settings).serialize()
+      const query = queryString.stringify(this._settings)
       window.history.pushState({}, null, `${this._getPathFromUrl()}?${query}`)
     }
     // If there is a change hook, use it

@@ -1961,7 +1961,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-dat.gui@^0.6.5:
+dat.gui@^0.6.1:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/dat.gui/-/dat.gui-0.6.5.tgz#97f384287790d1adc00f9c7ee3fa53f39e75cfe7"
   dependencies:
@@ -2009,6 +2009,10 @@ debug@^3.0.1, debug@^3.1.0:
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
+
+decode-uri-component@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
 
 deep-equal@^1.0.1:
   version "1.0.1"
@@ -5776,9 +5780,13 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
-queryfetch@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/queryfetch/-/queryfetch-2.1.0.tgz#360efcce4e71c67cd6ffc8a0bbf1f24e4b2ffd36"
+query-string@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.0.1.tgz#6e2b86fe0e08aef682ecbe86e85834765402bd88"
+  dependencies:
+    decode-uri-component "^0.2.0"
+    object-assign "^4.1.0"
+    strict-uri-encode "^1.0.0"
 
 querystring-es3@^0.2.0:
   version "0.2.1"

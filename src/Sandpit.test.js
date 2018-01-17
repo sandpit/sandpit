@@ -1,7 +1,7 @@
 /* global it, expect, describe */
 import Sandpit, { Is } from './Sandpit'
 import dat from 'dat.gui/build/dat.gui'
-import queryfetch from 'queryfetch'
+import queryString from 'query-string'
 import { requestAnimationFrame } from './helpers/requestAnimationFrame'
 import { performance } from './helpers/performance'
 
@@ -58,7 +58,7 @@ describe('Sandpit', () => {
     })
 
     it('should add the settings to the query string', () => {
-      let params = queryfetch(window.location.search).parse()
+      let params = queryString.parse(window.location.search)
       expect(params).toEqual({beingGreat: 'true'})
     })
   })
