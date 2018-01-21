@@ -19,14 +19,19 @@ console.log(`========================`)
 console.log(`Creating ${mode} bundle with ${format}...`)
 console.log(`========================`)
 
-const targets = prod
+const output = prod
   ? [
-    { dest: 'dist/sandpit.min.js', format: 'umd' }
+    { 
+      file: 'dist/sandpit.min.js',
+      name: 'Sandpit', 
+      format: 'umd' 
+    }
   ]
   : [
     {
-      dest: es ? 'dist/sandpit.es.js' : 'dist/sandpit.js',
-      format: es ? 'es' : 'umd'
+      file: es ? 'dist/sandpit.es.js' : 'dist/sandpit.js',
+      format: es ? 'es' : 'umd',
+      name: 'Sandpit'
     }
   ]
 
@@ -44,7 +49,7 @@ const plugins = [
       return null
     }
   },
-  nodeResolve(),
+  nodeResolve({browser: true}),
   commonjs(),
   replace({
     'process.env.NODE_ENV': JSON.stringify(prod ? 'production' : 'development')
@@ -55,11 +60,12 @@ const plugins = [
   babel({
     babelrc: false,
     presets: [
-      ['latest', { es2015: { modules: false } }]
+      ['env', { "modules": false }]
     ],
     plugins: [
       'transform-object-rest-spread',
-      'transform-class-properties'
+      'transform-class-properties',
+      'external-helpers'
     ]
   }),
   json()
@@ -68,8 +74,7 @@ const plugins = [
 if (prod) plugins.push(uglify(), visualizer({ filename: './bundle-stats.html' }))
 
 export default {
-  moduleName: 'Sandpit',
   exports: es ? 'named' : 'default',
-  targets,
+  output,
   plugins
 }

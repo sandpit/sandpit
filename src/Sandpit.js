@@ -127,7 +127,7 @@ class Sandpit {
     // for storing settings
     if (this._queryable) {
       if (window.location.search) {
-        let params = queryfetch.parse(window.location.search)
+        let params = queryfetch(window.location.search).parse()
         Object.keys(params).forEach((key) => {
           // If a setting matches the param, use the param
           if (this.defaults[key]) {
@@ -226,7 +226,7 @@ class Sandpit {
     // If queryable is enabled, serialize the final settings
     // and push them to the query string
     if (this._queryable) {
-      const query = queryfetch.serialize(this._settings)
+      const query = queryfetch(this._settings).serialize()
       window.history.replaceState({}, null, `${this._getPathFromUrl()}?${query}`)
       // Adds a clear and reset button to the gui interface,
       // if they aren't disabled in the settings
@@ -264,7 +264,7 @@ class Sandpit {
   _change (name, value) {
     logger.info(`Update fired on ${name}: ${value}`)
     if (this._queryable) {
-      const query = queryfetch.serialize(this._settings)
+      const query = queryfetch(this._settings).serialize()
       window.history.pushState({}, null, `${this._getPathFromUrl()}?${query}`)
     }
     // If there is a change hook, use it

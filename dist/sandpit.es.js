@@ -1,18 +1,54 @@
-import crypto from 'crypto';
-
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 
 
 function unwrapExports (x) {
-	return x && x.__esModule ? x['default'] : x;
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
 
 var dat_gui = createCommonjsModule(function (module, exports) {
 	(function webpackUniversalModuleDefinition(root, factory) {
@@ -67,51 +103,97 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 0 */
 			/***/function (module, exports, __webpack_require__) {
 
-				'use strict';
+				exports.__esModule = true;
 
-				module.exports = __webpack_require__(1);
+				var _index = __webpack_require__(1);
+
+				var _index2 = _interopRequireDefault(_index);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				exports.default = _index2.default; /**
+                                        * dat-gui JavaScript Controller Library
+                                        * http://code.google.com/p/dat-gui
+                                        *
+                                        * Copyright 2011 Data Arts Team, Google Creative Lab
+                                        *
+                                        * Licensed under the Apache License, Version 2.0 (the "License");
+                                        * you may not use this file except in compliance with the License.
+                                        * You may obtain a copy of the License at
+                                        *
+                                        * http://www.apache.org/licenses/LICENSE-2.0
+                                        */
+
+				module.exports = exports['default'];
 
 				/***/
 			},
 			/* 1 */
 			/***/function (module, exports, __webpack_require__) {
 
-				'use strict';
+				exports.__esModule = true;
 
-				module.exports = {
-					color: {
-						Color: __webpack_require__(2),
-						math: __webpack_require__(6),
-						interpret: __webpack_require__(3)
-					},
+				var _Color = __webpack_require__(2);
 
-					controllers: {
-						Controller: __webpack_require__(7),
-						BooleanController: __webpack_require__(8),
-						OptionController: __webpack_require__(10),
-						StringController: __webpack_require__(11),
-						NumberController: __webpack_require__(12),
-						NumberControllerBox: __webpack_require__(13),
-						NumberControllerSlider: __webpack_require__(14),
-						FunctionController: __webpack_require__(20),
-						ColorController: __webpack_require__(21)
-					},
+				var _Color2 = _interopRequireDefault(_Color);
 
-					dom: {
-						dom: __webpack_require__(9)
-					},
+				var _math = __webpack_require__(6);
 
-					gui: {
-						GUI: __webpack_require__(22)
-					},
+				var _math2 = _interopRequireDefault(_math);
 
-					GUI: __webpack_require__(22)
-				};
+				var _interpret = __webpack_require__(3);
 
-				/***/
-			},
-			/* 2 */
-			/***/function (module, exports, __webpack_require__) {
+				var _interpret2 = _interopRequireDefault(_interpret);
+
+				var _Controller = __webpack_require__(7);
+
+				var _Controller2 = _interopRequireDefault(_Controller);
+
+				var _BooleanController = __webpack_require__(8);
+
+				var _BooleanController2 = _interopRequireDefault(_BooleanController);
+
+				var _OptionController = __webpack_require__(10);
+
+				var _OptionController2 = _interopRequireDefault(_OptionController);
+
+				var _StringController = __webpack_require__(11);
+
+				var _StringController2 = _interopRequireDefault(_StringController);
+
+				var _NumberController = __webpack_require__(12);
+
+				var _NumberController2 = _interopRequireDefault(_NumberController);
+
+				var _NumberControllerBox = __webpack_require__(13);
+
+				var _NumberControllerBox2 = _interopRequireDefault(_NumberControllerBox);
+
+				var _NumberControllerSlider = __webpack_require__(14);
+
+				var _NumberControllerSlider2 = _interopRequireDefault(_NumberControllerSlider);
+
+				var _FunctionController = __webpack_require__(15);
+
+				var _FunctionController2 = _interopRequireDefault(_FunctionController);
+
+				var _ColorController = __webpack_require__(16);
+
+				var _ColorController2 = _interopRequireDefault(_ColorController);
+
+				var _dom = __webpack_require__(9);
+
+				var _dom2 = _interopRequireDefault(_dom);
+
+				var _GUI = __webpack_require__(17);
+
+				var _GUI2 = _interopRequireDefault(_GUI);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
 
 				/**
      * dat-gui JavaScript Controller Library
@@ -126,19 +208,43 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      * http://www.apache.org/licenses/LICENSE-2.0
      */
 
-				'use strict';
+				exports.default = {
+					color: {
+						Color: _Color2.default,
+						math: _math2.default,
+						interpret: _interpret2.default
+					},
+
+					controllers: {
+						Controller: _Controller2.default,
+						BooleanController: _BooleanController2.default,
+						OptionController: _OptionController2.default,
+						StringController: _StringController2.default,
+						NumberController: _NumberController2.default,
+						NumberControllerBox: _NumberControllerBox2.default,
+						NumberControllerSlider: _NumberControllerSlider2.default,
+						FunctionController: _FunctionController2.default,
+						ColorController: _ColorController2.default
+					},
+
+					dom: {
+						dom: _dom2.default
+					},
+
+					gui: {
+						GUI: _GUI2.default
+					},
+
+					GUI: _GUI2.default
+				};
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 2 */
+			/***/function (module, exports, __webpack_require__) {
 
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
 
 				var _interpret = __webpack_require__(3);
 
@@ -152,15 +258,36 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 				var _toString2 = _interopRequireDefault(_toString);
 
-				var _utilsCommon = __webpack_require__(5);
+				var _common = __webpack_require__(5);
 
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				var Color = function () {
 					function Color() {
 						_classCallCheck(this, Color);
 
-						this.__state = _interpret2['default'].apply(this, arguments);
+						this.__state = _interpret2.default.apply(this, arguments);
 
 						if (this.__state === false) {
 							throw new Error('Failed to interpret color arguments');
@@ -170,7 +297,11 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					}
 
 					Color.prototype.toString = function toString() {
-						return _toString2['default'](this);
+						return (0, _toString2.default)(this);
+					};
+
+					Color.prototype.toHexString = function toHexString() {
+						return (0, _toString2.default)(this, true);
 					};
 
 					Color.prototype.toOriginal = function toOriginal() {
@@ -180,27 +311,73 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					return Color;
 				}();
 
+				function defineRGBComponent(target, component, componentHexIndex) {
+					Object.defineProperty(target, component, {
+						get: function get$$1() {
+							if (this.__state.space === 'RGB') {
+								return this.__state[component];
+							}
+
+							Color.recalculateRGB(this, component, componentHexIndex);
+
+							return this.__state[component];
+						},
+
+						set: function set$$1(v) {
+							if (this.__state.space !== 'RGB') {
+								Color.recalculateRGB(this, component, componentHexIndex);
+								this.__state.space = 'RGB';
+							}
+
+							this.__state[component] = v;
+						}
+					});
+				}
+
+				function defineHSVComponent(target, component) {
+					Object.defineProperty(target, component, {
+						get: function get$$1() {
+							if (this.__state.space === 'HSV') {
+								return this.__state[component];
+							}
+
+							Color.recalculateHSV(this);
+
+							return this.__state[component];
+						},
+
+						set: function set$$1(v) {
+							if (this.__state.space !== 'HSV') {
+								Color.recalculateHSV(this);
+								this.__state.space = 'HSV';
+							}
+
+							this.__state[component] = v;
+						}
+					});
+				}
+
 				Color.recalculateRGB = function (color, component, componentHexIndex) {
 					if (color.__state.space === 'HEX') {
-						color.__state[component] = _math2['default'].component_from_hex(color.__state.hex, componentHexIndex);
+						color.__state[component] = _math2.default.component_from_hex(color.__state.hex, componentHexIndex);
 					} else if (color.__state.space === 'HSV') {
-						_utilsCommon2['default'].extend(color.__state, _math2['default'].hsv_to_rgb(color.__state.h, color.__state.s, color.__state.v));
+						_common2.default.extend(color.__state, _math2.default.hsv_to_rgb(color.__state.h, color.__state.s, color.__state.v));
 					} else {
 						throw new Error('Corrupted color state');
 					}
 				};
 
 				Color.recalculateHSV = function (color) {
-					var result = _math2['default'].rgb_to_hsv(color.r, color.g, color.b);
+					var result = _math2.default.rgb_to_hsv(color.r, color.g, color.b);
 
-					_utilsCommon2['default'].extend(color.__state, {
+					_common2.default.extend(color.__state, {
 						s: result.s,
 						v: result.v
 					});
 
-					if (!_utilsCommon2['default'].isNaN(result.h)) {
+					if (!_common2.default.isNaN(result.h)) {
 						color.__state.h = result.h;
-					} else if (_utilsCommon2['default'].isUndefined(color.__state.h)) {
+					} else if (_common2.default.isUndefined(color.__state.h)) {
 						color.__state.h = 0;
 					}
 				};
@@ -216,83 +393,51 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 				defineHSVComponent(Color.prototype, 'v');
 
 				Object.defineProperty(Color.prototype, 'a', {
-					get: function get() {
+					get: function get$$1() {
 						return this.__state.a;
 					},
 
-					set: function set(v) {
+					set: function set$$1(v) {
 						this.__state.a = v;
 					}
 				});
 
 				Object.defineProperty(Color.prototype, 'hex', {
-					get: function get() {
+					get: function get$$1() {
 						if (!this.__state.space !== 'HEX') {
-							this.__state.hex = _math2['default'].rgb_to_hex(this.r, this.g, this.b);
+							this.__state.hex = _math2.default.rgb_to_hex(this.r, this.g, this.b);
 						}
 
 						return this.__state.hex;
 					},
 
-					set: function set(v) {
+					set: function set$$1(v) {
 						this.__state.space = 'HEX';
 						this.__state.hex = v;
 					}
 				});
 
-				function defineRGBComponent(target, component, componentHexIndex) {
-					Object.defineProperty(target, component, {
-						get: function get() {
-							if (this.__state.space === 'RGB') {
-								return this.__state[component];
-							}
-
-							Color.recalculateRGB(this, component, componentHexIndex);
-
-							return this.__state[component];
-						},
-
-						set: function set(v) {
-							if (this.__state.space !== 'RGB') {
-								Color.recalculateRGB(this, component, componentHexIndex);
-								this.__state.space = 'RGB';
-							}
-
-							this.__state[component] = v;
-						}
-					});
-				}
-
-				function defineHSVComponent(target, component) {
-					Object.defineProperty(target, component, {
-						get: function get() {
-							if (this.__state.space === 'HSV') {
-								return this.__state[component];
-							}
-
-							Color.recalculateHSV(this);
-
-							return this.__state[component];
-						},
-
-						set: function set(v) {
-							if (this.__state.space !== 'HSV') {
-								Color.recalculateHSV(this);
-								this.__state.space = 'HSV';
-							}
-
-							this.__state[component] = v;
-						}
-					});
-				}
-
-				exports['default'] = Color;
+				exports.default = Color;
 				module.exports = exports['default'];
 
 				/***/
 			},
 			/* 3 */
 			/***/function (module, exports, __webpack_require__) {
+
+				exports.__esModule = true;
+
+				var _toString = __webpack_require__(4);
+
+				var _toString2 = _interopRequireDefault(_toString);
+
+				var _common = __webpack_require__(5);
+
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
 
 				/**
      * dat-gui JavaScript Controller Library
@@ -307,26 +452,10 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      * http://www.apache.org/licenses/LICENSE-2.0
      */
 
-				'use strict';
-
-				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				var _toString = __webpack_require__(4);
-
-				var _toString2 = _interopRequireDefault(_toString);
-
-				var _utilsCommon = __webpack_require__(5);
-
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
 				var INTERPRETATIONS = [
 				// Strings
 				{
-					litmus: _utilsCommon2['default'].isString,
+					litmus: _common2.default.isString,
 					conversions: {
 						THREE_CHAR_HEX: {
 							read: function read(original) {
@@ -341,7 +470,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 								};
 							},
 
-							write: _toString2['default']
+							write: _toString2.default
 						},
 
 						SIX_CHAR_HEX: {
@@ -357,7 +486,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 								};
 							},
 
-							write: _toString2['default']
+							write: _toString2.default
 						},
 
 						CSS_RGB: {
@@ -375,12 +504,12 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 								};
 							},
 
-							write: _toString2['default']
+							write: _toString2.default
 						},
 
 						CSS_RGBA: {
 							read: function read(original) {
-								var test = original.match(/^rgba\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\,\s*(.+)\s*\)/);
+								var test = original.match(/^rgba\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\)/);
 								if (test === null) {
 									return false;
 								}
@@ -394,14 +523,14 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 								};
 							},
 
-							write: _toString2['default']
+							write: _toString2.default
 						}
 					}
 				},
 
 				// Numbers
 				{
-					litmus: _utilsCommon2['default'].isNumber,
+					litmus: _common2.default.isNumber,
 
 					conversions: {
 
@@ -425,7 +554,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 				// Arrays
 				{
-					litmus: _utilsCommon2['default'].isArray,
+					litmus: _common2.default.isArray,
 					conversions: {
 						RGB_ARRAY: {
 							read: function read(original) {
@@ -467,12 +596,12 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 				// Objects
 				{
-					litmus: _utilsCommon2['default'].isObject,
+					litmus: _common2.default.isObject,
 					conversions: {
 
 						RGBA_OBJ: {
 							read: function read(original) {
-								if (_utilsCommon2['default'].isNumber(original.r) && _utilsCommon2['default'].isNumber(original.g) && _utilsCommon2['default'].isNumber(original.b) && _utilsCommon2['default'].isNumber(original.a)) {
+								if (_common2.default.isNumber(original.r) && _common2.default.isNumber(original.g) && _common2.default.isNumber(original.b) && _common2.default.isNumber(original.a)) {
 									return {
 										space: 'RGB',
 										r: original.r,
@@ -496,7 +625,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 						RGB_OBJ: {
 							read: function read(original) {
-								if (_utilsCommon2['default'].isNumber(original.r) && _utilsCommon2['default'].isNumber(original.g) && _utilsCommon2['default'].isNumber(original.b)) {
+								if (_common2.default.isNumber(original.r) && _common2.default.isNumber(original.g) && _common2.default.isNumber(original.b)) {
 									return {
 										space: 'RGB',
 										r: original.r,
@@ -518,7 +647,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 						HSVA_OBJ: {
 							read: function read(original) {
-								if (_utilsCommon2['default'].isNumber(original.h) && _utilsCommon2['default'].isNumber(original.s) && _utilsCommon2['default'].isNumber(original.v) && _utilsCommon2['default'].isNumber(original.a)) {
+								if (_common2.default.isNumber(original.h) && _common2.default.isNumber(original.s) && _common2.default.isNumber(original.v) && _common2.default.isNumber(original.a)) {
 									return {
 										space: 'HSV',
 										h: original.h,
@@ -542,7 +671,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 						HSV_OBJ: {
 							read: function read(original) {
-								if (_utilsCommon2['default'].isNumber(original.h) && _utilsCommon2['default'].isNumber(original.s) && _utilsCommon2['default'].isNumber(original.v)) {
+								if (_common2.default.isNumber(original.h) && _common2.default.isNumber(original.s) && _common2.default.isNumber(original.v)) {
 									return {
 										space: 'HSV',
 										h: original.h,
@@ -564,85 +693,102 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					}
 				}];
 
-				var result = undefined;
-				var toReturn = undefined;
+				var result = void 0;
+				var toReturn = void 0;
 
 				var interpret = function interpret() {
 					toReturn = false;
 
-					var original = arguments.length > 1 ? _utilsCommon2['default'].toArray(arguments) : arguments[0];
-					_utilsCommon2['default'].each(INTERPRETATIONS, function (family) {
+					var original = arguments.length > 1 ? _common2.default.toArray(arguments) : arguments[0];
+					_common2.default.each(INTERPRETATIONS, function (family) {
 						if (family.litmus(original)) {
-							_utilsCommon2['default'].each(family.conversions, function (conversion, conversionName) {
+							_common2.default.each(family.conversions, function (conversion, conversionName) {
 								result = conversion.read(original);
 
 								if (toReturn === false && result !== false) {
 									toReturn = result;
 									result.conversionName = conversionName;
 									result.conversion = conversion;
-									return _utilsCommon2['default'].BREAK;
+									return _common2.default.BREAK;
 								}
 							});
 
-							return _utilsCommon2['default'].BREAK;
+							return _common2.default.BREAK;
 						}
 					});
 
 					return toReturn;
 				};
 
-				exports['default'] = interpret;
+				exports.default = interpret;
 				module.exports = exports['default'];
 
 				/***/
 			},
 			/* 4 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
+			/***/function (module, exports) {
 
 				exports.__esModule = true;
 
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
+				exports.default = function (color, forceCSSHex) {
+					var colorFormat = color.__state.conversionName.toString();
 
-				var _utilsCommon = __webpack_require__(5);
+					var r = Math.round(color.r);
+					var g = Math.round(color.g);
+					var b = Math.round(color.b);
+					var a = color.a;
+					var h = Math.round(color.h);
+					var s = color.s.toFixed(1);
+					var v = color.v.toFixed(1);
 
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
-				exports['default'] = function (color) {
-					if (color.a === 1 || _utilsCommon2['default'].isUndefined(color.a)) {
-						var s = color.hex.toString(16);
-						while (s.length < 6) {
-							s = '0' + s;
+					if (forceCSSHex || colorFormat === 'THREE_CHAR_HEX' || colorFormat === 'SIX_CHAR_HEX') {
+						var str = color.hex.toString(16);
+						while (str.length < 6) {
+							str = '0' + str;
 						}
-						return '#' + s;
+						return '#' + str;
+					} else if (colorFormat === 'CSS_RGB') {
+						return 'rgb(' + r + ',' + g + ',' + b + ')';
+					} else if (colorFormat === 'CSS_RGBA') {
+						return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+					} else if (colorFormat === 'HEX') {
+						return '0x' + color.hex.toString(16);
+					} else if (colorFormat === 'RGB_ARRAY') {
+						return '[' + r + ',' + g + ',' + b + ']';
+					} else if (colorFormat === 'RGBA_ARRAY') {
+						return '[' + r + ',' + g + ',' + b + ',' + a + ']';
+					} else if (colorFormat === 'RGB_OBJ') {
+						return '{r:' + r + ',g:' + g + ',b:' + b + '}';
+					} else if (colorFormat === 'RGBA_OBJ') {
+						return '{r:' + r + ',g:' + g + ',b:' + b + ',a:' + a + '}';
+					} else if (colorFormat === 'HSV_OBJ') {
+						return '{h:' + h + ',s:' + s + ',v:' + v + '}';
+					} else if (colorFormat === 'HSVA_OBJ') {
+						return '{h:' + h + ',s:' + s + ',v:' + v + ',a:' + a + '}';
 					}
 
-					return 'rgba(' + Math.round(color.r) + ',' + Math.round(color.g) + ',' + Math.round(color.b) + ',' + color.a + ')';
+					return 'unknown format';
 				};
 
-				module.exports = exports['default'];
+				module.exports = exports['default']; /**
+                                          * dat-gui JavaScript Controller Library
+                                          * http://code.google.com/p/dat-gui
+                                          *
+                                          * Copyright 2011 Data Arts Team, Google Creative Lab
+                                          *
+                                          * Licensed under the Apache License, Version 2.0 (the "License");
+                                          * you may not use this file except in compliance with the License.
+                                          * You may obtain a copy of the License at
+                                          *
+                                          * http://www.apache.org/licenses/LICENSE-2.0
+                                          */
 
 				/***/
 			},
 			/* 5 */
 			/***/function (module, exports) {
 
+				exports.__esModule = true;
 				/**
      * dat-gui JavaScript Controller Library
      * http://code.google.com/p/dat-gui
@@ -656,9 +802,6 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      * http://www.apache.org/licenses/LICENSE-2.0
      */
 
-				'use strict';
-
-				exports.__esModule = true;
 				var ARR_EACH = Array.prototype.forEach;
 				var ARR_SLICE = Array.prototype.slice;
 
@@ -673,23 +816,25 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 					extend: function extend(target) {
 						this.each(ARR_SLICE.call(arguments, 1), function (obj) {
-							for (var key in obj) {
+							var keys = this.isObject(obj) ? Object.keys(obj) : [];
+							keys.forEach(function (key) {
 								if (!this.isUndefined(obj[key])) {
 									target[key] = obj[key];
 								}
-							}
+							}.bind(this));
 						}, this);
 
 						return target;
 					},
 
-					defaults: function defaults(target) {
+					defaults: function defaults$$1(target) {
 						this.each(ARR_SLICE.call(arguments, 1), function (obj) {
-							for (var key in obj) {
+							var keys = this.isObject(obj) ? Object.keys(obj) : [];
+							keys.forEach(function (key) {
 								if (this.isUndefined(target[key])) {
 									target[key] = obj[key];
 								}
-							}
+							}.bind(this));
 						}, this);
 
 						return target;
@@ -715,16 +860,16 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 							obj.forEach(itr, scope);
 						} else if (obj.length === obj.length + 0) {
 							// Is number but not NaN
-							var key = undefined;
-							var l = undefined;
+							var key = void 0;
+							var l = void 0;
 							for (key = 0, l = obj.length; key < l; key++) {
 								if (key in obj && itr.call(scope, obj[key], key) === this.BREAK) {
 									return;
 								}
 							}
 						} else {
-							for (var key in obj) {
-								if (itr.call(scope, obj[key], key) === this.BREAK) {
+							for (var _key in obj) {
+								if (itr.call(scope, obj[_key], _key) === this.BREAK) {
 									return;
 								}
 							}
@@ -735,7 +880,30 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						setTimeout(fnc, 0);
 					},
 
-					toArray: function toArray(obj) {
+					// if the function is called repeatedly, wait until threshold passes until we execute the function
+					debounce: function debounce(func, threshold, callImmediately) {
+						var timeout = void 0;
+
+						return function () {
+							var obj = this;
+							var args = arguments;
+							function delayed() {
+								timeout = null;
+								if (!callImmediately) func.apply(obj, args);
+							}
+
+							var callNow = callImmediately || !timeout;
+
+							clearTimeout(timeout);
+							timeout = setTimeout(delayed, threshold);
+
+							if (callNow) {
+								func.apply(obj, args);
+							}
+						};
+					},
+
+					toArray: function toArray$$1(obj) {
 						if (obj.toArray) return obj.toArray();
 						return ARR_SLICE.call(obj);
 					},
@@ -788,7 +956,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 				};
 
-				exports['default'] = Common;
+				exports.default = Common;
 				module.exports = exports['default'];
 
 				/***/
@@ -796,6 +964,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 6 */
 			/***/function (module, exports) {
 
+				exports.__esModule = true;
 				/**
      * dat-gui JavaScript Controller Library
      * http://code.google.com/p/dat-gui
@@ -809,10 +978,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      * http://www.apache.org/licenses/LICENSE-2.0
      */
 
-				"use strict";
-
-				exports.__esModule = true;
-				var tmpComponent = undefined;
+				var tmpComponent = void 0;
 
 				var ColorMath = {
 					hsv_to_rgb: function hsv_to_rgb(h, s, v) {
@@ -836,8 +1002,8 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						var min = Math.min(r, g, b);
 						var max = Math.max(r, g, b);
 						var delta = max - min;
-						var h = undefined;
-						var s = undefined;
+						var h = void 0;
+						var s = void 0;
 
 						if (max !== 0) {
 							s = delta / max;
@@ -884,13 +1050,21 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					}
 				};
 
-				exports["default"] = ColorMath;
+				exports.default = ColorMath;
 				module.exports = exports["default"];
 
 				/***/
 			},
 			/* 7 */
 			/***/function (module, exports) {
+
+				exports.__esModule = true;
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
 
 				/**
      * dat-gui JavaScript Controller Library
@@ -913,16 +1087,6 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      *
      * @member dat.controllers
      */
-				'use strict';
-
-				exports.__esModule = true;
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
 				var Controller = function () {
 					function Controller(object, property) {
 						_classCallCheck(this, Controller);
@@ -1038,7 +1202,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					return Controller;
 				}();
 
-				exports['default'] = Controller;
+				exports.default = Controller;
 				module.exports = exports['default'];
 
 				/***/
@@ -1046,46 +1210,48 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 8 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
 
 				var _Controller2 = __webpack_require__(7);
 
 				var _Controller3 = _interopRequireDefault(_Controller2);
 
-				var _domDom = __webpack_require__(9);
+				var _dom = __webpack_require__(9);
 
-				var _domDom2 = _interopRequireDefault(_domDom);
+				var _dom2 = _interopRequireDefault(_dom);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				/**
      * @class Provides a checkbox input to alter the boolean property of an object.
@@ -1096,31 +1262,31 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      *
      * @member dat.controllers
      */
-
 				var BooleanController = function (_Controller) {
 					_inherits(BooleanController, _Controller);
 
 					function BooleanController(object, property) {
 						_classCallCheck(this, BooleanController);
 
-						_Controller.call(this, object, property);
+						var _this2 = _possibleConstructorReturn(this, _Controller.call(this, object, property));
 
-						var _this = this;
-						this.__prev = this.getValue();
+						var _this = _this2;
+						_this2.__prev = _this2.getValue();
 
-						this.__checkbox = document.createElement('input');
-						this.__checkbox.setAttribute('type', 'checkbox');
+						_this2.__checkbox = document.createElement('input');
+						_this2.__checkbox.setAttribute('type', 'checkbox');
 
 						function onChange() {
 							_this.setValue(!_this.__prev);
 						}
 
-						_domDom2['default'].bind(this.__checkbox, 'change', onChange, false);
+						_dom2.default.bind(_this2.__checkbox, 'change', onChange, false);
 
-						this.domElement.appendChild(this.__checkbox);
+						_this2.domElement.appendChild(_this2.__checkbox);
 
 						// Match original value
-						this.updateDisplay();
+						_this2.updateDisplay();
+						return _this2;
 					}
 
 					BooleanController.prototype.setValue = function setValue(v) {
@@ -1136,17 +1302,19 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						if (this.getValue() === true) {
 							this.__checkbox.setAttribute('checked', 'checked');
 							this.__checkbox.checked = true;
+							this.__prev = true;
 						} else {
 							this.__checkbox.checked = false;
+							this.__prev = false;
 						}
 
 						return _Controller.prototype.updateDisplay.call(this);
 					};
 
 					return BooleanController;
-				}(_Controller3['default']);
+				}(_Controller3.default);
 
-				exports['default'] = BooleanController;
+				exports.default = BooleanController;
 				module.exports = exports['default'];
 
 				/***/
@@ -1154,40 +1322,36 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 9 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
 
+				var _common = __webpack_require__(5);
+
+				var _common2 = _interopRequireDefault(_common);
+
 				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
+					return obj && obj.__esModule ? obj : { default: obj };
 				}
 
-				var _utilsCommon = __webpack_require__(5);
-
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
 				var EVENT_MAP = {
-					'HTMLEvents': ['change'],
-					'MouseEvents': ['click', 'mousemove', 'mousedown', 'mouseup', 'mouseover'],
-					'KeyboardEvents': ['keydown']
-				};
+					HTMLEvents: ['change'],
+					MouseEvents: ['click', 'mousemove', 'mousedown', 'mouseup', 'mouseover'],
+					KeyboardEvents: ['keydown']
+				}; /**
+        * dat-gui JavaScript Controller Library
+        * http://code.google.com/p/dat-gui
+        *
+        * Copyright 2011 Data Arts Team, Google Creative Lab
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        * http://www.apache.org/licenses/LICENSE-2.0
+        */
 
 				var EVENT_MAP_INV = {};
-				_utilsCommon2['default'].each(EVENT_MAP, function (v, k) {
-					_utilsCommon2['default'].each(v, function (e) {
+				_common2.default.each(EVENT_MAP, function (v, k) {
+					_common2.default.each(v, function (e) {
 						EVENT_MAP_INV[e] = k;
 					});
 				});
@@ -1195,13 +1359,13 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 				var CSS_VALUE_PIXELS = /(\d+(\.\d+)?)px/;
 
 				function cssValueToPixels(val) {
-					if (val === '0' || _utilsCommon2['default'].isUndefined(val)) {
+					if (val === '0' || _common2.default.isUndefined(val)) {
 						return 0;
 					}
 
 					var match = val.match(CSS_VALUE_PIXELS);
 
-					if (!_utilsCommon2['default'].isNull(match)) {
+					if (!_common2.default.isNull(match)) {
 						return parseFloat(match[1]);
 					}
 
@@ -1243,11 +1407,11 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						var vertical = vert;
 						var horizontal = hor;
 
-						if (_utilsCommon2['default'].isUndefined(horizontal)) {
+						if (_common2.default.isUndefined(horizontal)) {
 							horizontal = true;
 						}
 
-						if (_utilsCommon2['default'].isUndefined(vertical)) {
+						if (_common2.default.isUndefined(vertical)) {
 							vertical = true;
 						}
 
@@ -1291,7 +1455,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 							case 'KeyboardEvents':
 								{
 									var init = evt.initKeyboardEvent || evt.initKeyEvent; // webkit || moz
-									_utilsCommon2['default'].defaults(params, {
+									_common2.default.defaults(params, {
 										cancelable: true,
 										ctrlKey: false,
 										altKey: false,
@@ -1309,7 +1473,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 									break;
 								}
 						}
-						_utilsCommon2['default'].defaults(evt, aux);
+						_common2.default.defaults(evt, aux);
 						elem.dispatchEvent(evt);
 					},
 
@@ -1440,7 +1604,7 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 				};
 
-				exports['default'] = dom;
+				exports.default = dom;
 				module.exports = exports['default'];
 
 				/***/
@@ -1448,50 +1612,52 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 10 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
 
 				var _Controller2 = __webpack_require__(7);
 
 				var _Controller3 = _interopRequireDefault(_Controller2);
 
-				var _domDom = __webpack_require__(9);
+				var _dom = __webpack_require__(9);
 
-				var _domDom2 = _interopRequireDefault(_domDom);
+				var _dom2 = _interopRequireDefault(_dom);
 
-				var _utilsCommon = __webpack_require__(5);
+				var _common = __webpack_require__(5);
 
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				/**
      * @class Provides a select input to alter the property of an object, using a
@@ -1506,36 +1672,33 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      *
      * @member dat.controllers
      */
-
 				var OptionController = function (_Controller) {
 					_inherits(OptionController, _Controller);
 
 					function OptionController(object, property, opts) {
 						_classCallCheck(this, OptionController);
 
-						_Controller.call(this, object, property);
+						var _this2 = _possibleConstructorReturn(this, _Controller.call(this, object, property));
 
 						var options = opts;
 
-						var _this = this;
+						var _this = _this2;
 
 						/**
        * The drop down menu
        * @ignore
        */
-						this.__select = document.createElement('select');
+						_this2.__select = document.createElement('select');
 
-						if (_utilsCommon2['default'].isArray(options)) {
-							(function () {
-								var map = {};
-								_utilsCommon2['default'].each(options, function (element) {
-									map[element] = element;
-								});
-								options = map;
-							})();
+						if (_common2.default.isArray(options)) {
+							var map = {};
+							_common2.default.each(options, function (element) {
+								map[element] = element;
+							});
+							options = map;
 						}
 
-						_utilsCommon2['default'].each(options, function (value, key) {
+						_common2.default.each(options, function (value, key) {
 							var opt = document.createElement('option');
 							opt.innerHTML = key;
 							opt.setAttribute('value', value);
@@ -1543,14 +1706,15 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						});
 
 						// Acknowledge original value
-						this.updateDisplay();
+						_this2.updateDisplay();
 
-						_domDom2['default'].bind(this.__select, 'change', function () {
+						_dom2.default.bind(_this2.__select, 'change', function () {
 							var desiredValue = this.options[this.selectedIndex].value;
 							_this.setValue(desiredValue);
 						});
 
-						this.domElement.appendChild(this.__select);
+						_this2.domElement.appendChild(_this2.__select);
+						return _this2;
 					}
 
 					OptionController.prototype.setValue = function setValue(v) {
@@ -1563,14 +1727,15 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					};
 
 					OptionController.prototype.updateDisplay = function updateDisplay() {
+						if (_dom2.default.isActive(this.__select)) return this; // prevent number from updating if user is trying to manually update
 						this.__select.value = this.getValue();
 						return _Controller.prototype.updateDisplay.call(this);
 					};
 
 					return OptionController;
-				}(_Controller3['default']);
+				}(_Controller3.default);
 
-				exports['default'] = OptionController;
+				exports.default = OptionController;
 				module.exports = exports['default'];
 
 				/***/
@@ -1578,46 +1743,48 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 11 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
 
 				var _Controller2 = __webpack_require__(7);
 
 				var _Controller3 = _interopRequireDefault(_Controller2);
 
-				var _domDom = __webpack_require__(9);
+				var _dom = __webpack_require__(9);
 
-				var _domDom2 = _interopRequireDefault(_domDom);
+				var _dom2 = _interopRequireDefault(_dom);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				/**
      * @class Provides a text input to alter the string property of an object.
@@ -1629,28 +1796,15 @@ var dat_gui = createCommonjsModule(function (module, exports) {
      *
      * @member dat.controllers
      */
-
 				var StringController = function (_Controller) {
 					_inherits(StringController, _Controller);
 
 					function StringController(object, property) {
 						_classCallCheck(this, StringController);
 
-						_Controller.call(this, object, property);
+						var _this2 = _possibleConstructorReturn(this, _Controller.call(this, object, property));
 
-						var _this = this;
-
-						this.__input = document.createElement('input');
-						this.__input.setAttribute('type', 'text');
-
-						_domDom2['default'].bind(this.__input, 'keyup', onChange);
-						_domDom2['default'].bind(this.__input, 'change', onChange);
-						_domDom2['default'].bind(this.__input, 'blur', onBlur);
-						_domDom2['default'].bind(this.__input, 'keydown', function (e) {
-							if (e.keyCode === 13) {
-								this.blur();
-							}
-						});
+						var _this = _this2;
 
 						function onChange() {
 							_this.setValue(_this.__input.value);
@@ -1662,24 +1816,37 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 							}
 						}
 
-						this.updateDisplay();
+						_this2.__input = document.createElement('input');
+						_this2.__input.setAttribute('type', 'text');
 
-						this.domElement.appendChild(this.__input);
+						_dom2.default.bind(_this2.__input, 'keyup', onChange);
+						_dom2.default.bind(_this2.__input, 'change', onChange);
+						_dom2.default.bind(_this2.__input, 'blur', onBlur);
+						_dom2.default.bind(_this2.__input, 'keydown', function (e) {
+							if (e.keyCode === 13) {
+								this.blur();
+							}
+						});
+
+						_this2.updateDisplay();
+
+						_this2.domElement.appendChild(_this2.__input);
+						return _this2;
 					}
 
 					StringController.prototype.updateDisplay = function updateDisplay() {
 						// Stops the caret from moving on account of:
 						// keyup -> setValue -> updateDisplay
-						if (!_domDom2['default'].isActive(this.__input)) {
+						if (!_dom2.default.isActive(this.__input)) {
 							this.__input.value = this.getValue();
 						}
 						return _Controller.prototype.updateDisplay.call(this);
 					};
 
 					return StringController;
-				}(_Controller3['default']);
+				}(_Controller3.default);
 
-				exports['default'] = StringController;
+				exports.default = StringController;
 				module.exports = exports['default'];
 
 				/***/
@@ -1687,46 +1854,48 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 12 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
 
 				var _Controller2 = __webpack_require__(7);
 
 				var _Controller3 = _interopRequireDefault(_Controller2);
 
-				var _utilsCommon = __webpack_require__(5);
+				var _common = __webpack_require__(5);
 
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				function numDecimals(x) {
 					var _x = x.toString();
@@ -1758,26 +1927,27 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					function NumberController(object, property, params) {
 						_classCallCheck(this, NumberController);
 
-						_Controller.call(this, object, property);
+						var _this = _possibleConstructorReturn(this, _Controller.call(this, object, property));
 
 						var _params = params || {};
 
-						this.__min = _params.min;
-						this.__max = _params.max;
-						this.__step = _params.step;
+						_this.__min = _params.min;
+						_this.__max = _params.max;
+						_this.__step = _params.step;
 
-						if (_utilsCommon2['default'].isUndefined(this.__step)) {
-							if (this.initialValue === 0) {
-								this.__impliedStep = 1; // What are we, psychics?
+						if (_common2.default.isUndefined(_this.__step)) {
+							if (_this.initialValue === 0) {
+								_this.__impliedStep = 1; // What are we, psychics?
 							} else {
 								// Hey Doug, check this out.
-								this.__impliedStep = Math.pow(10, Math.floor(Math.log(Math.abs(this.initialValue)) / Math.LN10)) / 10;
+								_this.__impliedStep = Math.pow(10, Math.floor(Math.log(Math.abs(_this.initialValue)) / Math.LN10)) / 10;
 							}
 						} else {
-							this.__impliedStep = this.__step;
+							_this.__impliedStep = _this.__step;
 						}
 
-						this.__precision = numDecimals(this.__impliedStep);
+						_this.__precision = numDecimals(_this.__impliedStep);
+						return _this;
 					}
 
 					NumberController.prototype.setValue = function setValue(v) {
@@ -1841,9 +2011,9 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					};
 
 					return NumberController;
-				}(_Controller3['default']);
+				}(_Controller3.default);
 
-				exports['default'] = NumberController;
+				exports.default = NumberController;
 				module.exports = exports['default'];
 
 				/***/
@@ -1851,50 +2021,52 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 13 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
 
 				var _NumberController2 = __webpack_require__(12);
 
 				var _NumberController3 = _interopRequireDefault(_NumberController2);
 
-				var _domDom = __webpack_require__(9);
+				var _dom = __webpack_require__(9);
 
-				var _domDom2 = _interopRequireDefault(_domDom);
+				var _dom2 = _interopRequireDefault(_dom);
 
-				var _utilsCommon = __webpack_require__(5);
+				var _common = __webpack_require__(5);
 
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				function roundToDecimal(value, decimals) {
 					var tenTo = Math.pow(10, decimals);
@@ -1924,53 +2096,33 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					function NumberControllerBox(object, property, params) {
 						_classCallCheck(this, NumberControllerBox);
 
-						_NumberController.call(this, object, property, params);
+						var _this2 = _possibleConstructorReturn(this, _NumberController.call(this, object, property, params));
 
-						this.__truncationSuspended = false;
+						_this2.__truncationSuspended = false;
 
-						var _this = this;
+						var _this = _this2;
 
 						/**
        * {Number} Previous mouse y position
        * @ignore
        */
-						var prevY = undefined;
-
-						this.__input = document.createElement('input');
-						this.__input.setAttribute('type', 'text');
-
-						// Makes it so manually specified values are not truncated.
-
-						_domDom2['default'].bind(this.__input, 'change', onChange);
-						_domDom2['default'].bind(this.__input, 'blur', onBlur);
-						_domDom2['default'].bind(this.__input, 'mousedown', onMouseDown);
-						_domDom2['default'].bind(this.__input, 'keydown', function (e) {
-							// When pressing entire, you can be as precise as you want.
-							if (e.keyCode === 13) {
-								_this.__truncationSuspended = true;
-								this.blur();
-								_this.__truncationSuspended = false;
-							}
-						});
+						var prevY = void 0;
 
 						function onChange() {
 							var attempted = parseFloat(_this.__input.value);
-							if (!_utilsCommon2['default'].isNaN(attempted)) {
+							if (!_common2.default.isNaN(attempted)) {
 								_this.setValue(attempted);
 							}
 						}
 
-						function onBlur() {
-							onChange();
+						function onFinish() {
 							if (_this.__onFinishChange) {
 								_this.__onFinishChange.call(_this, _this.getValue());
 							}
 						}
 
-						function onMouseDown(e) {
-							_domDom2['default'].bind(window, 'mousemove', onMouseDrag);
-							_domDom2['default'].bind(window, 'mouseup', onMouseUp);
-							prevY = e.clientY;
+						function onBlur() {
+							onFinish();
 						}
 
 						function onMouseDrag(e) {
@@ -1981,13 +2133,39 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						}
 
 						function onMouseUp() {
-							_domDom2['default'].unbind(window, 'mousemove', onMouseDrag);
-							_domDom2['default'].unbind(window, 'mouseup', onMouseUp);
+							_dom2.default.unbind(window, 'mousemove', onMouseDrag);
+							_dom2.default.unbind(window, 'mouseup', onMouseUp);
+							onFinish();
 						}
 
-						this.updateDisplay();
+						function onMouseDown(e) {
+							_dom2.default.bind(window, 'mousemove', onMouseDrag);
+							_dom2.default.bind(window, 'mouseup', onMouseUp);
+							prevY = e.clientY;
+						}
 
-						this.domElement.appendChild(this.__input);
+						_this2.__input = document.createElement('input');
+						_this2.__input.setAttribute('type', 'text');
+
+						// Makes it so manually specified values are not truncated.
+
+						_dom2.default.bind(_this2.__input, 'change', onChange);
+						_dom2.default.bind(_this2.__input, 'blur', onBlur);
+						_dom2.default.bind(_this2.__input, 'mousedown', onMouseDown);
+						_dom2.default.bind(_this2.__input, 'keydown', function (e) {
+							// When pressing enter, you can be as precise as you want.
+							if (e.keyCode === 13) {
+								_this.__truncationSuspended = true;
+								this.blur();
+								_this.__truncationSuspended = false;
+								onFinish();
+							}
+						});
+
+						_this2.updateDisplay();
+
+						_this2.domElement.appendChild(_this2.__input);
+						return _this2;
 					}
 
 					NumberControllerBox.prototype.updateDisplay = function updateDisplay() {
@@ -1996,9 +2174,9 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					};
 
 					return NumberControllerBox;
-				}(_NumberController3['default']);
+				}(_NumberController3.default);
 
-				exports['default'] = NumberControllerBox;
+				exports.default = NumberControllerBox;
 				module.exports = exports['default'];
 
 				/***/
@@ -2006,54 +2184,48 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 			/* 14 */
 			/***/function (module, exports, __webpack_require__) {
 
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
 				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
 
 				var _NumberController2 = __webpack_require__(12);
 
 				var _NumberController3 = _interopRequireDefault(_NumberController2);
 
-				var _domDom = __webpack_require__(9);
+				var _dom = __webpack_require__(9);
 
-				var _domDom2 = _interopRequireDefault(_domDom);
+				var _dom2 = _interopRequireDefault(_dom);
 
-				var _utilsCss = __webpack_require__(15);
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
 
-				var _utilsCss2 = _interopRequireDefault(_utilsCss);
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
 
-				var _styleCssSassNumberControllerSliderScss = __webpack_require__(16);
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
 
-				var _styleCssSassNumberControllerSliderScss2 = _interopRequireDefault(_styleCssSassNumberControllerSliderScss);
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				function map(v, i1, i2, o1, o2) {
 					return o1 + (o2 - o1) * ((v - i1) / (i2 - i1));
@@ -2084,21 +2256,23 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					function NumberControllerSlider(object, property, min, max, step) {
 						_classCallCheck(this, NumberControllerSlider);
 
-						_NumberController.call(this, object, property, { min: min, max: max, step: step });
+						var _this2 = _possibleConstructorReturn(this, _NumberController.call(this, object, property, { min: min, max: max, step: step }));
 
-						var _this = this;
+						var _this = _this2;
 
-						this.__background = document.createElement('div');
-						this.__foreground = document.createElement('div');
+						_this2.__background = document.createElement('div');
+						_this2.__foreground = document.createElement('div');
 
-						_domDom2['default'].bind(this.__background, 'mousedown', onMouseDown);
+						_dom2.default.bind(_this2.__background, 'mousedown', onMouseDown);
 
-						_domDom2['default'].addClass(this.__background, 'slider');
-						_domDom2['default'].addClass(this.__foreground, 'slider-fg');
+						_dom2.default.addClass(_this2.__background, 'slider');
+						_dom2.default.addClass(_this2.__foreground, 'slider-fg');
 
 						function onMouseDown(e) {
-							_domDom2['default'].bind(window, 'mousemove', onMouseDrag);
-							_domDom2['default'].bind(window, 'mouseup', onMouseUp);
+							document.activeElement.blur();
+
+							_dom2.default.bind(window, 'mousemove', onMouseDrag);
+							_dom2.default.bind(window, 'mouseup', onMouseUp);
 
 							onMouseDrag(e);
 						}
@@ -2106,31 +2280,27 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						function onMouseDrag(e) {
 							e.preventDefault();
 
-							var offset = _domDom2['default'].getOffset(_this.__background);
-							var width = _domDom2['default'].getWidth(_this.__background);
+							var bgRect = _this.__background.getBoundingClientRect();
 
-							_this.setValue(map(e.clientX, offset.left, offset.left + width, _this.__min, _this.__max));
+							_this.setValue(map(e.clientX, bgRect.left, bgRect.right, _this.__min, _this.__max));
 
 							return false;
 						}
 
 						function onMouseUp() {
-							_domDom2['default'].unbind(window, 'mousemove', onMouseDrag);
-							_domDom2['default'].unbind(window, 'mouseup', onMouseUp);
+							_dom2.default.unbind(window, 'mousemove', onMouseDrag);
+							_dom2.default.unbind(window, 'mouseup', onMouseUp);
 							if (_this.__onFinishChange) {
 								_this.__onFinishChange.call(_this, _this.getValue());
 							}
 						}
 
-						this.updateDisplay();
+						_this2.updateDisplay();
 
-						this.__background.appendChild(this.__foreground);
-						this.domElement.appendChild(this.__background);
+						_this2.__background.appendChild(_this2.__foreground);
+						_this2.domElement.appendChild(_this2.__background);
+						return _this2;
 					}
-
-					/**
-      * Injects default stylesheet for slider elements.
-      */
 
 					NumberControllerSlider.prototype.updateDisplay = function updateDisplay() {
 						var pct = (this.getValue() - this.__min) / (this.__max - this.__min);
@@ -2139,34 +2309,1777 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 					};
 
 					return NumberControllerSlider;
-				}(_NumberController3['default']);
+				}(_NumberController3.default);
 
-				NumberControllerSlider.useDefaultStyles = function () {
-					_utilsCss2['default'].inject(_styleCssSassNumberControllerSliderScss2['default']);
-				};
-
-				exports['default'] = NumberControllerSlider;
+				exports.default = NumberControllerSlider;
 				module.exports = exports['default'];
 
 				/***/
 			},
 			/* 15 */
-			/***/function (module, exports) {
+			/***/function (module, exports, __webpack_require__) {
+
+				exports.__esModule = true;
+
+				var _Controller2 = __webpack_require__(7);
+
+				var _Controller3 = _interopRequireDefault(_Controller2);
+
+				var _dom = __webpack_require__(9);
+
+				var _dom2 = _interopRequireDefault(_dom);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
 
 				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
+     * @class Provides a GUI interface to fire a specified method, a property of an object.
      *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
+     * @extends dat.controllers.Controller
      *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
+     * @param {Object} object The object to be manipulated
+     * @param {string} property The name of the property to be manipulated
      *
-     * http://www.apache.org/licenses/LICENSE-2.0
+     * @member dat.controllers
      */
+				var FunctionController = function (_Controller) {
+					_inherits(FunctionController, _Controller);
 
-				'use strict';
+					function FunctionController(object, property, text) {
+						_classCallCheck(this, FunctionController);
+
+						var _this2 = _possibleConstructorReturn(this, _Controller.call(this, object, property));
+
+						var _this = _this2;
+
+						_this2.__button = document.createElement('div');
+						_this2.__button.innerHTML = text === undefined ? 'Fire' : text;
+
+						_dom2.default.bind(_this2.__button, 'click', function (e) {
+							e.preventDefault();
+							_this.fire();
+							return false;
+						});
+
+						_dom2.default.addClass(_this2.__button, 'button');
+
+						_this2.domElement.appendChild(_this2.__button);
+						return _this2;
+					}
+
+					FunctionController.prototype.fire = function fire() {
+						if (this.__onChange) {
+							this.__onChange.call(this);
+						}
+						this.getValue().call(this.object);
+						if (this.__onFinishChange) {
+							this.__onFinishChange.call(this, this.getValue());
+						}
+					};
+
+					return FunctionController;
+				}(_Controller3.default);
+
+				exports.default = FunctionController;
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 16 */
+			/***/function (module, exports, __webpack_require__) {
+
+				exports.__esModule = true;
+
+				var _Controller2 = __webpack_require__(7);
+
+				var _Controller3 = _interopRequireDefault(_Controller2);
+
+				var _dom = __webpack_require__(9);
+
+				var _dom2 = _interopRequireDefault(_dom);
+
+				var _Color = __webpack_require__(2);
+
+				var _Color2 = _interopRequireDefault(_Color);
+
+				var _interpret = __webpack_require__(3);
+
+				var _interpret2 = _interopRequireDefault(_interpret);
+
+				var _common = __webpack_require__(5);
+
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				}
+
+				function _possibleConstructorReturn(self, call) {
+					if (!self) {
+						throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+					}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+				}
+
+				function _inherits(subClass, superClass) {
+					if (typeof superClass !== "function" && superClass !== null) {
+						throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
+
+				var ColorController = function (_Controller) {
+					_inherits(ColorController, _Controller);
+
+					function ColorController(object, property) {
+						_classCallCheck(this, ColorController);
+
+						var _this2 = _possibleConstructorReturn(this, _Controller.call(this, object, property));
+
+						_this2.__color = new _Color2.default(_this2.getValue());
+						_this2.__temp = new _Color2.default(0);
+
+						var _this = _this2;
+
+						_this2.domElement = document.createElement('div');
+
+						_dom2.default.makeSelectable(_this2.domElement, false);
+
+						_this2.__selector = document.createElement('div');
+						_this2.__selector.className = 'selector';
+
+						_this2.__saturation_field = document.createElement('div');
+						_this2.__saturation_field.className = 'saturation-field';
+
+						_this2.__field_knob = document.createElement('div');
+						_this2.__field_knob.className = 'field-knob';
+						_this2.__field_knob_border = '2px solid ';
+
+						_this2.__hue_knob = document.createElement('div');
+						_this2.__hue_knob.className = 'hue-knob';
+
+						_this2.__hue_field = document.createElement('div');
+						_this2.__hue_field.className = 'hue-field';
+
+						_this2.__input = document.createElement('input');
+						_this2.__input.type = 'text';
+						_this2.__input_textShadow = '0 1px 1px ';
+
+						_dom2.default.bind(_this2.__input, 'keydown', function (e) {
+							if (e.keyCode === 13) {
+								// on enter
+								onBlur.call(this);
+							}
+						});
+
+						_dom2.default.bind(_this2.__input, 'blur', onBlur);
+
+						_dom2.default.bind(_this2.__selector, 'mousedown', function () /* e */{
+							_dom2.default.addClass(this, 'drag').bind(window, 'mouseup', function () /* e */{
+								_dom2.default.removeClass(_this.__selector, 'drag');
+							});
+						});
+
+						var valueField = document.createElement('div');
+
+						_common2.default.extend(_this2.__selector.style, {
+							width: '122px',
+							height: '102px',
+							padding: '3px',
+							backgroundColor: '#222',
+							boxShadow: '0px 1px 3px rgba(0,0,0,0.3)'
+						});
+
+						_common2.default.extend(_this2.__field_knob.style, {
+							position: 'absolute',
+							width: '12px',
+							height: '12px',
+							border: _this2.__field_knob_border + (_this2.__color.v < 0.5 ? '#fff' : '#000'),
+							boxShadow: '0px 1px 3px rgba(0,0,0,0.5)',
+							borderRadius: '12px',
+							zIndex: 1
+						});
+
+						_common2.default.extend(_this2.__hue_knob.style, {
+							position: 'absolute',
+							width: '15px',
+							height: '2px',
+							borderRight: '4px solid #fff',
+							zIndex: 1
+						});
+
+						_common2.default.extend(_this2.__saturation_field.style, {
+							width: '100px',
+							height: '100px',
+							border: '1px solid #555',
+							marginRight: '3px',
+							display: 'inline-block',
+							cursor: 'pointer'
+						});
+
+						_common2.default.extend(valueField.style, {
+							width: '100%',
+							height: '100%',
+							background: 'none'
+						});
+
+						linearGradient(valueField, 'top', 'rgba(0,0,0,0)', '#000');
+
+						_common2.default.extend(_this2.__hue_field.style, {
+							width: '15px',
+							height: '100px',
+							border: '1px solid #555',
+							cursor: 'ns-resize',
+							position: 'absolute',
+							top: '3px',
+							right: '3px'
+						});
+
+						hueGradient(_this2.__hue_field);
+
+						_common2.default.extend(_this2.__input.style, {
+							outline: 'none',
+							//      width: '120px',
+							textAlign: 'center',
+							//      padding: '4px',
+							//      marginBottom: '6px',
+							color: '#fff',
+							border: 0,
+							fontWeight: 'bold',
+							textShadow: _this2.__input_textShadow + 'rgba(0,0,0,0.7)'
+						});
+
+						_dom2.default.bind(_this2.__saturation_field, 'mousedown', fieldDown);
+						_dom2.default.bind(_this2.__field_knob, 'mousedown', fieldDown);
+
+						_dom2.default.bind(_this2.__hue_field, 'mousedown', function (e) {
+							setH(e);
+							_dom2.default.bind(window, 'mousemove', setH);
+							_dom2.default.bind(window, 'mouseup', fieldUpH);
+						});
+
+						function fieldDown(e) {
+							setSV(e);
+							// document.body.style.cursor = 'none';
+							_dom2.default.bind(window, 'mousemove', setSV);
+							_dom2.default.bind(window, 'mouseup', fieldUpSV);
+						}
+
+						function fieldUpSV() {
+							_dom2.default.unbind(window, 'mousemove', setSV);
+							_dom2.default.unbind(window, 'mouseup', fieldUpSV);
+							// document.body.style.cursor = 'default';
+							onFinish();
+						}
+
+						function onBlur() {
+							var i = (0, _interpret2.default)(this.value);
+							if (i !== false) {
+								_this.__color.__state = i;
+								_this.setValue(_this.__color.toOriginal());
+							} else {
+								this.value = _this.__color.toString();
+							}
+						}
+
+						function fieldUpH() {
+							_dom2.default.unbind(window, 'mousemove', setH);
+							_dom2.default.unbind(window, 'mouseup', fieldUpH);
+							onFinish();
+						}
+
+						function onFinish() {
+							if (_this.__onFinishChange) {
+								_this.__onFinishChange.call(_this, _this.__color.toOriginal());
+							}
+						}
+
+						_this2.__saturation_field.appendChild(valueField);
+						_this2.__selector.appendChild(_this2.__field_knob);
+						_this2.__selector.appendChild(_this2.__saturation_field);
+						_this2.__selector.appendChild(_this2.__hue_field);
+						_this2.__hue_field.appendChild(_this2.__hue_knob);
+
+						_this2.domElement.appendChild(_this2.__input);
+						_this2.domElement.appendChild(_this2.__selector);
+
+						_this2.updateDisplay();
+
+						function setSV(e) {
+							e.preventDefault();
+
+							var fieldRect = _this.__saturation_field.getBoundingClientRect();
+							var s = (e.clientX - fieldRect.left) / (fieldRect.right - fieldRect.left);
+							var v = 1 - (e.clientY - fieldRect.top) / (fieldRect.bottom - fieldRect.top);
+
+							if (v > 1) {
+								v = 1;
+							} else if (v < 0) {
+								v = 0;
+							}
+
+							if (s > 1) {
+								s = 1;
+							} else if (s < 0) {
+								s = 0;
+							}
+
+							_this.__color.v = v;
+							_this.__color.s = s;
+
+							_this.setValue(_this.__color.toOriginal());
+
+							return false;
+						}
+
+						function setH(e) {
+							e.preventDefault();
+
+							var fieldRect = _this.__hue_field.getBoundingClientRect();
+							var h = 1 - (e.clientY - fieldRect.top) / (fieldRect.bottom - fieldRect.top);
+
+							if (h > 1) {
+								h = 1;
+							} else if (h < 0) {
+								h = 0;
+							}
+
+							_this.__color.h = h * 360;
+
+							_this.setValue(_this.__color.toOriginal());
+
+							return false;
+						}
+						return _this2;
+					}
+
+					ColorController.prototype.updateDisplay = function updateDisplay() {
+						var i = (0, _interpret2.default)(this.getValue());
+
+						if (i !== false) {
+							var mismatch = false;
+
+							// Check for mismatch on the interpreted value.
+
+							_common2.default.each(_Color2.default.COMPONENTS, function (component) {
+								if (!_common2.default.isUndefined(i[component]) && !_common2.default.isUndefined(this.__color.__state[component]) && i[component] !== this.__color.__state[component]) {
+									mismatch = true;
+									return {}; // break
+								}
+							}, this);
+
+							// If nothing diverges, we keep our previous values
+							// for statefulness, otherwise we recalculate fresh
+							if (mismatch) {
+								_common2.default.extend(this.__color.__state, i);
+							}
+						}
+
+						_common2.default.extend(this.__temp.__state, this.__color.__state);
+
+						this.__temp.a = 1;
+
+						var flip = this.__color.v < 0.5 || this.__color.s > 0.5 ? 255 : 0;
+						var _flip = 255 - flip;
+
+						_common2.default.extend(this.__field_knob.style, {
+							marginLeft: 100 * this.__color.s - 7 + 'px',
+							marginTop: 100 * (1 - this.__color.v) - 7 + 'px',
+							backgroundColor: this.__temp.toHexString(),
+							border: this.__field_knob_border + 'rgb(' + flip + ',' + flip + ',' + flip + ')'
+						});
+
+						this.__hue_knob.style.marginTop = (1 - this.__color.h / 360) * 100 + 'px';
+
+						this.__temp.s = 1;
+						this.__temp.v = 1;
+
+						linearGradient(this.__saturation_field, 'left', '#fff', this.__temp.toHexString());
+
+						this.__input.value = this.__color.toString();
+
+						_common2.default.extend(this.__input.style, {
+							backgroundColor: this.__color.toHexString(),
+							color: 'rgb(' + flip + ',' + flip + ',' + flip + ')',
+							textShadow: this.__input_textShadow + 'rgba(' + _flip + ',' + _flip + ',' + _flip + ',.7)'
+						});
+					};
+
+					return ColorController;
+				}(_Controller3.default);
+
+				var vendors = ['-moz-', '-o-', '-webkit-', '-ms-', ''];
+
+				function linearGradient(elem, x, a, b) {
+					elem.style.background = '';
+					_common2.default.each(vendors, function (vendor) {
+						elem.style.cssText += 'background: ' + vendor + 'linear-gradient(' + x + ', ' + a + ' 0%, ' + b + ' 100%); ';
+					});
+				}
+
+				function hueGradient(elem) {
+					elem.style.background = '';
+					elem.style.cssText += 'background: -moz-linear-gradient(top,  #ff0000 0%, #ff00ff 17%, #0000ff 34%, #00ffff 50%, #00ff00 67%, #ffff00 84%, #ff0000 100%);';
+					elem.style.cssText += 'background: -webkit-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
+					elem.style.cssText += 'background: -o-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
+					elem.style.cssText += 'background: -ms-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
+					elem.style.cssText += 'background: linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
+				}
+
+				exports.default = ColorController;
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 17 */
+			/***/function (module, exports, __webpack_require__) {
+
+				exports.__esModule = true;
+
+				var _typeof$$1 = typeof Symbol === "function" && _typeof(Symbol.iterator) === "symbol" ? function (obj) {
+					return typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+				} : function (obj) {
+					return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+				}; /**
+        * dat-gui JavaScript Controller Library
+        * http://code.google.com/p/dat-gui
+        *
+        * Copyright 2011 Data Arts Team, Google Creative Lab
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        * http://www.apache.org/licenses/LICENSE-2.0
+        */
+
+				var _css = __webpack_require__(18);
+
+				var _css2 = _interopRequireDefault(_css);
+
+				var _saveDialogue = __webpack_require__(19);
+
+				var _saveDialogue2 = _interopRequireDefault(_saveDialogue);
+
+				var _ControllerFactory = __webpack_require__(20);
+
+				var _ControllerFactory2 = _interopRequireDefault(_ControllerFactory);
+
+				var _Controller = __webpack_require__(7);
+
+				var _Controller2 = _interopRequireDefault(_Controller);
+
+				var _BooleanController = __webpack_require__(8);
+
+				var _BooleanController2 = _interopRequireDefault(_BooleanController);
+
+				var _FunctionController = __webpack_require__(15);
+
+				var _FunctionController2 = _interopRequireDefault(_FunctionController);
+
+				var _NumberControllerBox = __webpack_require__(13);
+
+				var _NumberControllerBox2 = _interopRequireDefault(_NumberControllerBox);
+
+				var _NumberControllerSlider = __webpack_require__(14);
+
+				var _NumberControllerSlider2 = _interopRequireDefault(_NumberControllerSlider);
+
+				var _ColorController = __webpack_require__(16);
+
+				var _ColorController2 = _interopRequireDefault(_ColorController);
+
+				var _requestAnimationFrame = __webpack_require__(21);
+
+				var _requestAnimationFrame2 = _interopRequireDefault(_requestAnimationFrame);
+
+				var _CenteredDiv = __webpack_require__(22);
+
+				var _CenteredDiv2 = _interopRequireDefault(_CenteredDiv);
+
+				var _dom = __webpack_require__(9);
+
+				var _dom2 = _interopRequireDefault(_dom);
+
+				var _common = __webpack_require__(5);
+
+				var _common2 = _interopRequireDefault(_common);
+
+				var _style = __webpack_require__(23);
+
+				var _style2 = _interopRequireDefault(_style);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				// CSS to embed in build
+
+				_css2.default.inject(_style2.default);
+
+				/** Outer-most className for GUI's */
+				var CSS_NAMESPACE = 'dg';
+
+				var HIDE_KEY_CODE = 72;
+
+				/** The only value shared between the JS and SCSS. Use caution. */
+				var CLOSE_BUTTON_HEIGHT = 20;
+
+				var DEFAULT_DEFAULT_PRESET_NAME = 'Default';
+
+				var SUPPORTS_LOCAL_STORAGE = function () {
+					try {
+						return 'localStorage' in window && window.localStorage !== null;
+					} catch (e) {
+						return false;
+					}
+				}();
+
+				var SAVE_DIALOGUE = void 0;
+
+				/** Have we yet to create an autoPlace GUI? */
+				var autoPlaceVirgin = true;
+
+				/** Fixed position div that auto place GUI's go inside */
+				var autoPlaceContainer = void 0;
+
+				/** Are we hiding the GUI's ? */
+				var hide = false;
+
+				/** GUI's which should be hidden */
+				var hideableGuis = [];
+
+				/**
+     * A lightweight controller library for JavaScript. It allows you to easily
+     * manipulate variables and fire functions on the fly.
+     * @class
+     *
+     * @member dat.gui
+     *
+     * @param {Object} [params]
+     * @param {String} [params.name] The name of this GUI.
+     * @param {Object} [params.load] JSON object representing the saved state of
+     * this GUI.
+     * @param {Boolean} [params.auto=true]
+     * @param {dat.gui.GUI} [params.parent] The GUI I'm nested in.
+     * @param {Boolean} [params.closed] If true, starts closed
+     * @param {Boolean} [params.closeOnTop] If true, close/open button shows on top of the GUI
+     */
+				var GUI = function GUI(pars) {
+					var _this = this;
+
+					var params = pars || {};
+
+					/**
+      * Outermost DOM Element
+      * @type DOMElement
+      */
+					this.domElement = document.createElement('div');
+					this.__ul = document.createElement('ul');
+					this.domElement.appendChild(this.__ul);
+
+					_dom2.default.addClass(this.domElement, CSS_NAMESPACE);
+
+					/**
+      * Nested GUI's by name
+      * @ignore
+      */
+					this.__folders = {};
+
+					this.__controllers = [];
+
+					/**
+      * List of objects I'm remembering for save, only used in top level GUI
+      * @ignore
+      */
+					this.__rememberedObjects = [];
+
+					/**
+      * Maps the index of remembered objects to a map of controllers, only used
+      * in top level GUI.
+      *
+      * @private
+      * @ignore
+      *
+      * @example
+      * [
+      *  {
+        *    propertyName: Controller,
+        *    anotherPropertyName: Controller
+        *  },
+      *  {
+        *    propertyName: Controller
+        *  }
+      * ]
+      */
+					this.__rememberedObjectIndecesToControllers = [];
+
+					this.__listening = [];
+
+					// Default parameters
+					params = _common2.default.defaults(params, {
+						closeOnTop: false,
+						autoPlace: true,
+						width: GUI.DEFAULT_WIDTH
+					});
+
+					params = _common2.default.defaults(params, {
+						resizable: params.autoPlace,
+						hideable: params.autoPlace
+					});
+
+					if (!_common2.default.isUndefined(params.load)) {
+						// Explicit preset
+						if (params.preset) {
+							params.load.preset = params.preset;
+						}
+					} else {
+						params.load = { preset: DEFAULT_DEFAULT_PRESET_NAME };
+					}
+
+					if (_common2.default.isUndefined(params.parent) && params.hideable) {
+						hideableGuis.push(this);
+					}
+
+					// Only root level GUI's are resizable.
+					params.resizable = _common2.default.isUndefined(params.parent) && params.resizable;
+
+					if (params.autoPlace && _common2.default.isUndefined(params.scrollable)) {
+						params.scrollable = true;
+					}
+					//    params.scrollable = common.isUndefined(params.parent) && params.scrollable === true;
+
+					// Not part of params because I don't want people passing this in via
+					// constructor. Should be a 'remembered' value.
+					var useLocalStorage = SUPPORTS_LOCAL_STORAGE && localStorage.getItem(getLocalStorageHash(this, 'isLocal')) === 'true';
+
+					var saveToLocalStorage = void 0;
+
+					Object.defineProperties(this,
+					/** @lends dat.gui.GUI.prototype */
+					{
+						/**
+       * The parent <code>GUI</code>
+       * @type dat.gui.GUI
+       */
+						parent: {
+							get: function get$$1() {
+								return params.parent;
+							}
+						},
+
+						scrollable: {
+							get: function get$$1() {
+								return params.scrollable;
+							}
+						},
+
+						/**
+       * Handles <code>GUI</code>'s element placement for you
+       * @type Boolean
+       */
+						autoPlace: {
+							get: function get$$1() {
+								return params.autoPlace;
+							}
+						},
+
+						/**
+       * Handles <code>GUI</code>'s position of open/close button
+       * @type Boolean
+       */
+						closeOnTop: {
+							get: function get$$1() {
+								return params.closeOnTop;
+							}
+						},
+
+						/**
+       * The identifier for a set of saved values
+       * @type String
+       */
+						preset: {
+							get: function get$$1() {
+								if (_this.parent) {
+									return _this.getRoot().preset;
+								}
+
+								return params.load.preset;
+							},
+
+							set: function set$$1(v) {
+								if (_this.parent) {
+									_this.getRoot().preset = v;
+								} else {
+									params.load.preset = v;
+								}
+								setPresetSelectIndex(this);
+								_this.revert();
+							}
+						},
+
+						/**
+       * The width of <code>GUI</code> element
+       * @type Number
+       */
+						width: {
+							get: function get$$1() {
+								return params.width;
+							},
+							set: function set$$1(v) {
+								params.width = v;
+								setWidth(_this, v);
+							}
+						},
+
+						/**
+       * The name of <code>GUI</code>. Used for folders. i.e
+       * a folder's name
+       * @type String
+       */
+						name: {
+							get: function get$$1() {
+								return params.name;
+							},
+							set: function set$$1(v) {
+								// TODO Check for collisions among sibling folders
+								params.name = v;
+								if (titleRowName) {
+									titleRowName.innerHTML = params.name;
+								}
+							}
+						},
+
+						/**
+       * Whether the <code>GUI</code> is collapsed or not
+       * @type Boolean
+       */
+						closed: {
+							get: function get$$1() {
+								return params.closed;
+							},
+							set: function set$$1(v) {
+								params.closed = v;
+								if (params.closed) {
+									_dom2.default.addClass(_this.__ul, GUI.CLASS_CLOSED);
+								} else {
+									_dom2.default.removeClass(_this.__ul, GUI.CLASS_CLOSED);
+								}
+								// For browsers that aren't going to respect the CSS transition,
+								// Lets just check our height against the window height right off
+								// the bat.
+								this.onResize();
+
+								if (_this.__closeButton) {
+									_this.__closeButton.innerHTML = v ? GUI.TEXT_OPEN : GUI.TEXT_CLOSED;
+								}
+							}
+						},
+
+						/**
+       * Contains all presets
+       * @type Object
+       */
+						load: {
+							get: function get$$1() {
+								return params.load;
+							}
+						},
+
+						/**
+       * Determines whether or not to use <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">localStorage</a> as the means for
+       * <code>remember</code>ing
+       * @type Boolean
+       */
+						useLocalStorage: {
+
+							get: function get$$1() {
+								return useLocalStorage;
+							},
+							set: function set$$1(bool) {
+								if (SUPPORTS_LOCAL_STORAGE) {
+									useLocalStorage = bool;
+									if (bool) {
+										_dom2.default.bind(window, 'unload', saveToLocalStorage);
+									} else {
+										_dom2.default.unbind(window, 'unload', saveToLocalStorage);
+									}
+									localStorage.setItem(getLocalStorageHash(_this, 'isLocal'), bool);
+								}
+							}
+						}
+					});
+
+					// Are we a root level GUI?
+					if (_common2.default.isUndefined(params.parent)) {
+						params.closed = false;
+
+						_dom2.default.addClass(this.domElement, GUI.CLASS_MAIN);
+						_dom2.default.makeSelectable(this.domElement, false);
+
+						// Are we supposed to be loading locally?
+						if (SUPPORTS_LOCAL_STORAGE) {
+							if (useLocalStorage) {
+								_this.useLocalStorage = true;
+
+								var savedGui = localStorage.getItem(getLocalStorageHash(this, 'gui'));
+
+								if (savedGui) {
+									params.load = JSON.parse(savedGui);
+								}
+							}
+						}
+
+						this.__closeButton = document.createElement('div');
+						this.__closeButton.innerHTML = GUI.TEXT_CLOSED;
+						_dom2.default.addClass(this.__closeButton, GUI.CLASS_CLOSE_BUTTON);
+						if (params.closeOnTop) {
+							_dom2.default.addClass(this.__closeButton, GUI.CLASS_CLOSE_TOP);
+							this.domElement.insertBefore(this.__closeButton, this.domElement.childNodes[0]);
+						} else {
+							_dom2.default.addClass(this.__closeButton, GUI.CLASS_CLOSE_BOTTOM);
+							this.domElement.appendChild(this.__closeButton);
+						}
+
+						_dom2.default.bind(this.__closeButton, 'click', function () {
+							_this.closed = !_this.closed;
+						});
+						// Oh, you're a nested GUI!
+					} else {
+						if (params.closed === undefined) {
+							params.closed = true;
+						}
+
+						var _titleRowName = document.createTextNode(params.name);
+						_dom2.default.addClass(_titleRowName, 'controller-name');
+
+						var titleRow = addRow(_this, _titleRowName);
+
+						var onClickTitle = function onClickTitle(e) {
+							e.preventDefault();
+							_this.closed = !_this.closed;
+							return false;
+						};
+
+						_dom2.default.addClass(this.__ul, GUI.CLASS_CLOSED);
+
+						_dom2.default.addClass(titleRow, 'title');
+						_dom2.default.bind(titleRow, 'click', onClickTitle);
+
+						if (!params.closed) {
+							this.closed = false;
+						}
+					}
+
+					if (params.autoPlace) {
+						if (_common2.default.isUndefined(params.parent)) {
+							if (autoPlaceVirgin) {
+								autoPlaceContainer = document.createElement('div');
+								_dom2.default.addClass(autoPlaceContainer, CSS_NAMESPACE);
+								_dom2.default.addClass(autoPlaceContainer, GUI.CLASS_AUTO_PLACE_CONTAINER);
+								document.body.appendChild(autoPlaceContainer);
+								autoPlaceVirgin = false;
+							}
+
+							// Put it in the dom for you.
+							autoPlaceContainer.appendChild(this.domElement);
+
+							// Apply the auto styles
+							_dom2.default.addClass(this.domElement, GUI.CLASS_AUTO_PLACE);
+						}
+
+						// Make it not elastic.
+						if (!this.parent) {
+							setWidth(_this, params.width);
+						}
+					}
+
+					this.__resizeHandler = function () {
+						_this.onResizeDebounced();
+					};
+
+					_dom2.default.bind(window, 'resize', this.__resizeHandler);
+					_dom2.default.bind(this.__ul, 'webkitTransitionEnd', this.__resizeHandler);
+					_dom2.default.bind(this.__ul, 'transitionend', this.__resizeHandler);
+					_dom2.default.bind(this.__ul, 'oTransitionEnd', this.__resizeHandler);
+					this.onResize();
+
+					if (params.resizable) {
+						addResizeHandle(this);
+					}
+
+					saveToLocalStorage = function saveToLocalStorage() {
+						if (SUPPORTS_LOCAL_STORAGE && localStorage.getItem(getLocalStorageHash(_this, 'isLocal')) === 'true') {
+							localStorage.setItem(getLocalStorageHash(_this, 'gui'), JSON.stringify(_this.getSaveObject()));
+						}
+					};
+
+					// expose this method publicly
+					this.saveToLocalStorageIfPossible = saveToLocalStorage;
+
+					function resetWidth() {
+						var root = _this.getRoot();
+						root.width += 1;
+						_common2.default.defer(function () {
+							root.width -= 1;
+						});
+					}
+
+					if (!params.parent) {
+						resetWidth();
+					}
+				};
+
+				GUI.toggleHide = function () {
+					hide = !hide;
+					_common2.default.each(hideableGuis, function (gui) {
+						gui.domElement.style.display = hide ? 'none' : '';
+					});
+				};
+
+				GUI.CLASS_AUTO_PLACE = 'a';
+				GUI.CLASS_AUTO_PLACE_CONTAINER = 'ac';
+				GUI.CLASS_MAIN = 'main';
+				GUI.CLASS_CONTROLLER_ROW = 'cr';
+				GUI.CLASS_TOO_TALL = 'taller-than-window';
+				GUI.CLASS_CLOSED = 'closed';
+				GUI.CLASS_CLOSE_BUTTON = 'close-button';
+				GUI.CLASS_CLOSE_TOP = 'close-top';
+				GUI.CLASS_CLOSE_BOTTOM = 'close-bottom';
+				GUI.CLASS_DRAG = 'drag';
+
+				GUI.DEFAULT_WIDTH = 245;
+				GUI.TEXT_CLOSED = 'Close Controls';
+				GUI.TEXT_OPEN = 'Open Controls';
+
+				GUI._keydownHandler = function (e) {
+					if (document.activeElement.type !== 'text' && (e.which === HIDE_KEY_CODE || e.keyCode === HIDE_KEY_CODE)) {
+						GUI.toggleHide();
+					}
+				};
+				_dom2.default.bind(window, 'keydown', GUI._keydownHandler, false);
+
+				_common2.default.extend(GUI.prototype,
+
+				/** @lends dat.gui.GUI */
+				{
+
+					/**
+      * @param object
+      * @param property
+      * @returns {dat.controllers.Controller} The new controller that was added.
+      * @instance
+      */
+					add: function add(object, property) {
+						return _add(this, object, property, {
+							factoryArgs: Array.prototype.slice.call(arguments, 2)
+						});
+					},
+
+					/**
+      * @param object
+      * @param property
+      * @returns {dat.controllers.ColorController} The new controller that was added.
+      * @instance
+      */
+					addColor: function addColor(object, property) {
+						return _add(this, object, property, {
+							color: true
+						});
+					},
+
+					/**
+      * @param controller
+      * @instance
+      */
+					remove: function remove(controller) {
+						// TODO listening?
+						this.__ul.removeChild(controller.__li);
+						this.__controllers.splice(this.__controllers.indexOf(controller), 1);
+						var _this = this;
+						_common2.default.defer(function () {
+							_this.onResize();
+						});
+					},
+
+					destroy: function destroy() {
+						if (this.autoPlace) {
+							autoPlaceContainer.removeChild(this.domElement);
+						}
+
+						_dom2.default.unbind(window, 'keydown', GUI._keydownHandler, false);
+						_dom2.default.unbind(window, 'resize', this.__resizeHandler);
+
+						if (this.saveToLocalStorageIfPossible) {
+							_dom2.default.unbind(window, 'unload', this.saveToLocalStorageIfPossible);
+						}
+					},
+
+					/**
+      * @param name
+      * @returns {dat.gui.GUI} The new folder.
+      * @throws {Error} if this GUI already has a folder by the specified
+      * name
+      * @instance
+      */
+					addFolder: function addFolder(name) {
+						// We have to prevent collisions on names in order to have a key
+						// by which to remember saved values
+						if (this.__folders[name] !== undefined) {
+							throw new Error('You already have a folder in this GUI by the' + ' name "' + name + '"');
+						}
+
+						var newGuiParams = { name: name, parent: this };
+
+						// We need to pass down the autoPlace trait so that we can
+						// attach event listeners to open/close folder actions to
+						// ensure that a scrollbar appears if the window is too short.
+						newGuiParams.autoPlace = this.autoPlace;
+
+						// Do we have saved appearance data for this folder?
+						if (this.load && // Anything loaded?
+						this.load.folders && // Was my parent a dead-end?
+						this.load.folders[name]) {
+							// Did daddy remember me?
+							// Start me closed if I was closed
+							newGuiParams.closed = this.load.folders[name].closed;
+
+							// Pass down the loaded data
+							newGuiParams.load = this.load.folders[name];
+						}
+
+						var gui = new GUI(newGuiParams);
+						this.__folders[name] = gui;
+
+						var li = addRow(this, gui.domElement);
+						_dom2.default.addClass(li, 'folder');
+						return gui;
+					},
+
+					open: function open() {
+						this.closed = false;
+					},
+
+					close: function close() {
+						this.closed = true;
+					},
+
+					onResize: function onResize() {
+						// we debounce this function to prevent performance issues when rotating on tablet/mobile
+						var root = this.getRoot();
+						if (root.scrollable) {
+							var top = _dom2.default.getOffset(root.__ul).top;
+							var h = 0;
+
+							_common2.default.each(root.__ul.childNodes, function (node) {
+								if (!(root.autoPlace && node === root.__save_row)) {
+									h += _dom2.default.getHeight(node);
+								}
+							});
+
+							if (window.innerHeight - top - CLOSE_BUTTON_HEIGHT < h) {
+								_dom2.default.addClass(root.domElement, GUI.CLASS_TOO_TALL);
+								root.__ul.style.height = window.innerHeight - top - CLOSE_BUTTON_HEIGHT + 'px';
+							} else {
+								_dom2.default.removeClass(root.domElement, GUI.CLASS_TOO_TALL);
+								root.__ul.style.height = 'auto';
+							}
+						}
+
+						if (root.__resize_handle) {
+							_common2.default.defer(function () {
+								root.__resize_handle.style.height = root.__ul.offsetHeight + 'px';
+							});
+						}
+
+						if (root.__closeButton) {
+							root.__closeButton.style.width = root.width + 'px';
+						}
+					},
+
+					onResizeDebounced: _common2.default.debounce(function () {
+						this.onResize();
+					}, 50),
+
+					/**
+      * Mark objects for saving. The order of these objects cannot change as
+      * the GUI grows. When remembering new objects, append them to the end
+      * of the list.
+      *
+      * @param {Object...} objects
+      * @throws {Error} if not called on a top level GUI.
+      * @instance
+      */
+					remember: function remember() {
+						if (_common2.default.isUndefined(SAVE_DIALOGUE)) {
+							SAVE_DIALOGUE = new _CenteredDiv2.default();
+							SAVE_DIALOGUE.domElement.innerHTML = _saveDialogue2.default;
+						}
+
+						if (this.parent) {
+							throw new Error('You can only call remember on a top level GUI.');
+						}
+
+						var _this = this;
+
+						_common2.default.each(Array.prototype.slice.call(arguments), function (object) {
+							if (_this.__rememberedObjects.length === 0) {
+								addSaveMenu(_this);
+							}
+							if (_this.__rememberedObjects.indexOf(object) === -1) {
+								_this.__rememberedObjects.push(object);
+							}
+						});
+
+						if (this.autoPlace) {
+							// Set save row width
+							setWidth(this, this.width);
+						}
+					},
+
+					/**
+      * @returns {dat.gui.GUI} the topmost parent GUI of a nested GUI.
+      * @instance
+      */
+					getRoot: function getRoot() {
+						var gui = this;
+						while (gui.parent) {
+							gui = gui.parent;
+						}
+						return gui;
+					},
+
+					/**
+      * @returns {Object} a JSON object representing the current state of
+      * this GUI as well as its remembered properties.
+      * @instance
+      */
+					getSaveObject: function getSaveObject() {
+						var toReturn = this.load;
+						toReturn.closed = this.closed;
+
+						// Am I remembering any values?
+						if (this.__rememberedObjects.length > 0) {
+							toReturn.preset = this.preset;
+
+							if (!toReturn.remembered) {
+								toReturn.remembered = {};
+							}
+
+							toReturn.remembered[this.preset] = getCurrentPreset(this);
+						}
+
+						toReturn.folders = {};
+						_common2.default.each(this.__folders, function (element, key) {
+							toReturn.folders[key] = element.getSaveObject();
+						});
+
+						return toReturn;
+					},
+
+					save: function save() {
+						if (!this.load.remembered) {
+							this.load.remembered = {};
+						}
+
+						this.load.remembered[this.preset] = getCurrentPreset(this);
+						markPresetModified(this, false);
+						this.saveToLocalStorageIfPossible();
+					},
+
+					saveAs: function saveAs(presetName) {
+						if (!this.load.remembered) {
+							// Retain default values upon first save
+							this.load.remembered = {};
+							this.load.remembered[DEFAULT_DEFAULT_PRESET_NAME] = getCurrentPreset(this, true);
+						}
+
+						this.load.remembered[presetName] = getCurrentPreset(this);
+						this.preset = presetName;
+						addPresetOption(this, presetName, true);
+						this.saveToLocalStorageIfPossible();
+					},
+
+					revert: function revert(gui) {
+						_common2.default.each(this.__controllers, function (controller) {
+							// Make revert work on Default.
+							if (!this.getRoot().load.remembered) {
+								controller.setValue(controller.initialValue);
+							} else {
+								recallSavedValue(gui || this.getRoot(), controller);
+							}
+
+							// fire onFinishChange callback
+							if (controller.__onFinishChange) {
+								controller.__onFinishChange.call(controller, controller.getValue());
+							}
+						}, this);
+
+						_common2.default.each(this.__folders, function (folder) {
+							folder.revert(folder);
+						});
+
+						if (!gui) {
+							markPresetModified(this.getRoot(), false);
+						}
+					},
+
+					listen: function listen(controller) {
+						var init = this.__listening.length === 0;
+						this.__listening.push(controller);
+						if (init) {
+							updateDisplays(this.__listening);
+						}
+					},
+
+					updateDisplay: function updateDisplay() {
+						_common2.default.each(this.__controllers, function (controller) {
+							controller.updateDisplay();
+						});
+						_common2.default.each(this.__folders, function (folder) {
+							folder.updateDisplay();
+						});
+					}
+				});
+
+				/**
+     * Add a row to the end of the GUI or before another row.
+     *
+     * @param gui
+     * @param [newDom] If specified, inserts the dom content in the new row
+     * @param [liBefore] If specified, places the new row before another row
+     */
+				function addRow(gui, newDom, liBefore) {
+					var li = document.createElement('li');
+					if (newDom) {
+						li.appendChild(newDom);
+					}
+
+					if (liBefore) {
+						gui.__ul.insertBefore(li, liBefore);
+					} else {
+						gui.__ul.appendChild(li);
+					}
+					gui.onResize();
+					return li;
+				}
+
+				function markPresetModified(gui, modified) {
+					var opt = gui.__preset_select[gui.__preset_select.selectedIndex];
+
+					// console.log('mark', modified, opt);
+					if (modified) {
+						opt.innerHTML = opt.value + '*';
+					} else {
+						opt.innerHTML = opt.value;
+					}
+				}
+
+				function augmentController(gui, li, controller) {
+					controller.__li = li;
+					controller.__gui = gui;
+
+					_common2.default.extend(controller, {
+						options: function options(_options) {
+							if (arguments.length > 1) {
+								var nextSibling = controller.__li.nextElementSibling;
+								controller.remove();
+
+								return _add(gui, controller.object, controller.property, {
+									before: nextSibling,
+									factoryArgs: [_common2.default.toArray(arguments)]
+								});
+							}
+
+							if (_common2.default.isArray(_options) || _common2.default.isObject(_options)) {
+								var _nextSibling = controller.__li.nextElementSibling;
+								controller.remove();
+
+								return _add(gui, controller.object, controller.property, {
+									before: _nextSibling,
+									factoryArgs: [_options]
+								});
+							}
+						},
+
+						name: function name(v) {
+							controller.__li.firstElementChild.firstElementChild.innerHTML = v;
+							return controller;
+						},
+
+						listen: function listen() {
+							controller.__gui.listen(controller);
+							return controller;
+						},
+
+						remove: function remove() {
+							controller.__gui.remove(controller);
+							return controller;
+						}
+					});
+
+					// All sliders should be accompanied by a box.
+					if (controller instanceof _NumberControllerSlider2.default) {
+						var box = new _NumberControllerBox2.default(controller.object, controller.property, { min: controller.__min, max: controller.__max, step: controller.__step });
+
+						_common2.default.each(['updateDisplay', 'onChange', 'onFinishChange', 'step'], function (method) {
+							var pc = controller[method];
+							var pb = box[method];
+							controller[method] = box[method] = function () {
+								var args = Array.prototype.slice.call(arguments);
+								pb.apply(box, args);
+								return pc.apply(controller, args);
+							};
+						});
+
+						_dom2.default.addClass(li, 'has-slider');
+						controller.domElement.insertBefore(box.domElement, controller.domElement.firstElementChild);
+					} else if (controller instanceof _NumberControllerBox2.default) {
+						var r = function r(returned) {
+							// Have we defined both boundaries?
+							if (_common2.default.isNumber(controller.__min) && _common2.default.isNumber(controller.__max)) {
+								// Well, then lets just replace this with a slider.
+
+								// lets remember if the old controller had a specific name or was listening
+								var oldName = controller.__li.firstElementChild.firstElementChild.innerHTML;
+								var wasListening = controller.__gui.__listening.indexOf(controller) > -1;
+
+								controller.remove();
+								var newController = _add(gui, controller.object, controller.property, {
+									before: controller.__li.nextElementSibling,
+									factoryArgs: [controller.__min, controller.__max, controller.__step]
+								});
+
+								newController.name(oldName);
+								if (wasListening) newController.listen();
+
+								return newController;
+							}
+
+							return returned;
+						};
+
+						controller.min = _common2.default.compose(r, controller.min);
+						controller.max = _common2.default.compose(r, controller.max);
+					} else if (controller instanceof _BooleanController2.default) {
+						_dom2.default.bind(li, 'click', function () {
+							_dom2.default.fakeEvent(controller.__checkbox, 'click');
+						});
+
+						_dom2.default.bind(controller.__checkbox, 'click', function (e) {
+							e.stopPropagation(); // Prevents double-toggle
+						});
+					} else if (controller instanceof _FunctionController2.default) {
+						_dom2.default.bind(li, 'click', function () {
+							_dom2.default.fakeEvent(controller.__button, 'click');
+						});
+
+						_dom2.default.bind(li, 'mouseover', function () {
+							_dom2.default.addClass(controller.__button, 'hover');
+						});
+
+						_dom2.default.bind(li, 'mouseout', function () {
+							_dom2.default.removeClass(controller.__button, 'hover');
+						});
+					} else if (controller instanceof _ColorController2.default) {
+						_dom2.default.addClass(li, 'color');
+						controller.updateDisplay = _common2.default.compose(function (val) {
+							li.style.borderLeftColor = controller.__color.toString();
+							return val;
+						}, controller.updateDisplay);
+
+						controller.updateDisplay();
+					}
+
+					controller.setValue = _common2.default.compose(function (val) {
+						if (gui.getRoot().__preset_select && controller.isModified()) {
+							markPresetModified(gui.getRoot(), true);
+						}
+
+						return val;
+					}, controller.setValue);
+				}
+
+				function recallSavedValue(gui, controller) {
+					// Find the topmost GUI, that's where remembered objects live.
+					var root = gui.getRoot();
+
+					// Does the object we're controlling match anything we've been told to
+					// remember?
+					var matchedIndex = root.__rememberedObjects.indexOf(controller.object);
+
+					// Why yes, it does!
+					if (matchedIndex !== -1) {
+						// Let me fetch a map of controllers for thcommon.isObject.
+						var controllerMap = root.__rememberedObjectIndecesToControllers[matchedIndex];
+
+						// Ohp, I believe this is the first controller we've created for this
+						// object. Lets make the map fresh.
+						if (controllerMap === undefined) {
+							controllerMap = {};
+							root.__rememberedObjectIndecesToControllers[matchedIndex] = controllerMap;
+						}
+
+						// Keep track of this controller
+						controllerMap[controller.property] = controller;
+
+						// Okay, now have we saved any values for this controller?
+						if (root.load && root.load.remembered) {
+							var presetMap = root.load.remembered;
+
+							// Which preset are we trying to load?
+							var preset = void 0;
+
+							if (presetMap[gui.preset]) {
+								preset = presetMap[gui.preset];
+							} else if (presetMap[DEFAULT_DEFAULT_PRESET_NAME]) {
+								// Uhh, you can have the default instead?
+								preset = presetMap[DEFAULT_DEFAULT_PRESET_NAME];
+							} else {
+								// Nada.
+								return;
+							}
+
+							// Did the loaded object remember thcommon.isObject? &&  Did we remember this particular property?
+							if (preset[matchedIndex] && preset[matchedIndex][controller.property] !== undefined) {
+								// We did remember something for this guy ...
+								var value = preset[matchedIndex][controller.property];
+
+								// And that's what it is.
+								controller.initialValue = value;
+								controller.setValue(value);
+							}
+						}
+					}
+				}
+
+				function _add(gui, object, property, params) {
+					if (object[property] === undefined) {
+						throw new Error('Object "' + object + '" has no property "' + property + '"');
+					}
+
+					var controller = void 0;
+
+					if (params.color) {
+						controller = new _ColorController2.default(object, property);
+					} else {
+						var factoryArgs = [object, property].concat(params.factoryArgs);
+						controller = _ControllerFactory2.default.apply(gui, factoryArgs);
+					}
+
+					if (params.before instanceof _Controller2.default) {
+						params.before = params.before.__li;
+					}
+
+					recallSavedValue(gui, controller);
+
+					_dom2.default.addClass(controller.domElement, 'c');
+
+					var name = document.createElement('span');
+					_dom2.default.addClass(name, 'property-name');
+					name.innerHTML = controller.property;
+
+					var container = document.createElement('div');
+					container.appendChild(name);
+					container.appendChild(controller.domElement);
+
+					var li = addRow(gui, container, params.before);
+
+					_dom2.default.addClass(li, GUI.CLASS_CONTROLLER_ROW);
+					if (controller instanceof _ColorController2.default) {
+						_dom2.default.addClass(li, 'color');
+					} else {
+						_dom2.default.addClass(li, _typeof$$1(controller.getValue()));
+					}
+
+					augmentController(gui, li, controller);
+
+					gui.__controllers.push(controller);
+
+					return controller;
+				}
+
+				function getLocalStorageHash(gui, key) {
+					// TODO how does this deal with multiple GUI's?
+					return document.location.href + '.' + key;
+				}
+
+				function addPresetOption(gui, name, setSelected) {
+					var opt = document.createElement('option');
+					opt.innerHTML = name;
+					opt.value = name;
+					gui.__preset_select.appendChild(opt);
+					if (setSelected) {
+						gui.__preset_select.selectedIndex = gui.__preset_select.length - 1;
+					}
+				}
+
+				function showHideExplain(gui, explain) {
+					explain.style.display = gui.useLocalStorage ? 'block' : 'none';
+				}
+
+				function addSaveMenu(gui) {
+					var div = gui.__save_row = document.createElement('li');
+
+					_dom2.default.addClass(gui.domElement, 'has-save');
+
+					gui.__ul.insertBefore(div, gui.__ul.firstChild);
+
+					_dom2.default.addClass(div, 'save-row');
+
+					var gears = document.createElement('span');
+					gears.innerHTML = '&nbsp;';
+					_dom2.default.addClass(gears, 'button gears');
+
+					// TODO replace with FunctionController
+					var button = document.createElement('span');
+					button.innerHTML = 'Save';
+					_dom2.default.addClass(button, 'button');
+					_dom2.default.addClass(button, 'save');
+
+					var button2 = document.createElement('span');
+					button2.innerHTML = 'New';
+					_dom2.default.addClass(button2, 'button');
+					_dom2.default.addClass(button2, 'save-as');
+
+					var button3 = document.createElement('span');
+					button3.innerHTML = 'Revert';
+					_dom2.default.addClass(button3, 'button');
+					_dom2.default.addClass(button3, 'revert');
+
+					var select = gui.__preset_select = document.createElement('select');
+
+					if (gui.load && gui.load.remembered) {
+						_common2.default.each(gui.load.remembered, function (value, key) {
+							addPresetOption(gui, key, key === gui.preset);
+						});
+					} else {
+						addPresetOption(gui, DEFAULT_DEFAULT_PRESET_NAME, false);
+					}
+
+					_dom2.default.bind(select, 'change', function () {
+						for (var index = 0; index < gui.__preset_select.length; index++) {
+							gui.__preset_select[index].innerHTML = gui.__preset_select[index].value;
+						}
+
+						gui.preset = this.value;
+					});
+
+					div.appendChild(select);
+					div.appendChild(gears);
+					div.appendChild(button);
+					div.appendChild(button2);
+					div.appendChild(button3);
+
+					if (SUPPORTS_LOCAL_STORAGE) {
+						var explain = document.getElementById('dg-local-explain');
+						var localStorageCheckBox = document.getElementById('dg-local-storage');
+						var saveLocally = document.getElementById('dg-save-locally');
+
+						saveLocally.style.display = 'block';
+
+						if (localStorage.getItem(getLocalStorageHash(gui, 'isLocal')) === 'true') {
+							localStorageCheckBox.setAttribute('checked', 'checked');
+						}
+
+						showHideExplain(gui, explain);
+
+						// TODO: Use a boolean controller, fool!
+						_dom2.default.bind(localStorageCheckBox, 'change', function () {
+							gui.useLocalStorage = !gui.useLocalStorage;
+							showHideExplain(gui, explain);
+						});
+					}
+
+					var newConstructorTextArea = document.getElementById('dg-new-constructor');
+
+					_dom2.default.bind(newConstructorTextArea, 'keydown', function (e) {
+						if (e.metaKey && (e.which === 67 || e.keyCode === 67)) {
+							SAVE_DIALOGUE.hide();
+						}
+					});
+
+					_dom2.default.bind(gears, 'click', function () {
+						newConstructorTextArea.innerHTML = JSON.stringify(gui.getSaveObject(), undefined, 2);
+						SAVE_DIALOGUE.show();
+						newConstructorTextArea.focus();
+						newConstructorTextArea.select();
+					});
+
+					_dom2.default.bind(button, 'click', function () {
+						gui.save();
+					});
+
+					_dom2.default.bind(button2, 'click', function () {
+						var presetName = prompt('Enter a new preset name.');
+						if (presetName) {
+							gui.saveAs(presetName);
+						}
+					});
+
+					_dom2.default.bind(button3, 'click', function () {
+						gui.revert();
+					});
+
+					// div.appendChild(button2);
+				}
+
+				function addResizeHandle(gui) {
+					var pmouseX = void 0;
+
+					gui.__resize_handle = document.createElement('div');
+
+					_common2.default.extend(gui.__resize_handle.style, {
+
+						width: '6px',
+						marginLeft: '-3px',
+						height: '200px',
+						cursor: 'ew-resize',
+						position: 'absolute'
+						// border: '1px solid blue'
+
+					});
+
+					function drag(e) {
+						e.preventDefault();
+
+						gui.width += pmouseX - e.clientX;
+						gui.onResize();
+						pmouseX = e.clientX;
+
+						return false;
+					}
+
+					function dragStop() {
+						_dom2.default.removeClass(gui.__closeButton, GUI.CLASS_DRAG);
+						_dom2.default.unbind(window, 'mousemove', drag);
+						_dom2.default.unbind(window, 'mouseup', dragStop);
+					}
+
+					function dragStart(e) {
+						e.preventDefault();
+
+						pmouseX = e.clientX;
+
+						_dom2.default.addClass(gui.__closeButton, GUI.CLASS_DRAG);
+						_dom2.default.bind(window, 'mousemove', drag);
+						_dom2.default.bind(window, 'mouseup', dragStop);
+
+						return false;
+					}
+
+					_dom2.default.bind(gui.__resize_handle, 'mousedown', dragStart);
+					_dom2.default.bind(gui.__closeButton, 'mousedown', dragStart);
+
+					gui.domElement.insertBefore(gui.__resize_handle, gui.domElement.firstElementChild);
+				}
+
+				function setWidth(gui, w) {
+					gui.domElement.style.width = w + 'px';
+					// Auto placed save-rows are position fixed, so we have to
+					// set the width manually if we want it to bleed to the edge
+					if (gui.__save_row && gui.autoPlace) {
+						gui.__save_row.style.width = w + 'px';
+					}
+					if (gui.__closeButton) {
+						gui.__closeButton.style.width = w + 'px';
+					}
+				}
+
+				function getCurrentPreset(gui, useInitialValues) {
+					var toReturn = {};
+
+					// For each object I'm remembering
+					_common2.default.each(gui.__rememberedObjects, function (val, index) {
+						var savedValues = {};
+
+						// The controllers I've made for thcommon.isObject by property
+						var controllerMap = gui.__rememberedObjectIndecesToControllers[index];
+
+						// Remember each value for each property
+						_common2.default.each(controllerMap, function (controller, property) {
+							savedValues[property] = useInitialValues ? controller.initialValue : controller.getValue();
+						});
+
+						// Save the values for thcommon.isObject
+						toReturn[index] = savedValues;
+					});
+
+					return toReturn;
+				}
+
+				function setPresetSelectIndex(gui) {
+					for (var index = 0; index < gui.__preset_select.length; index++) {
+						if (gui.__preset_select[index].value === gui.preset) {
+							gui.__preset_select.selectedIndex = index;
+						}
+					}
+				}
+
+				function updateDisplays(controllerArray) {
+					if (controllerArray.length !== 0) {
+						_requestAnimationFrame2.default.call(window, function () {
+							updateDisplays(controllerArray);
+						});
+					}
+
+					_common2.default.each(controllerArray, function (c) {
+						c.updateDisplay();
+					});
+				}
+
+				exports.default = GUI;
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 18 */
+			/***/function (module, exports) {
 
 				module.exports = {
 					load: function load(url, indoc) {
@@ -2183,44 +4096,291 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 						var injected = document.createElement('style');
 						injected.type = 'text/css';
 						injected.innerHTML = css;
-						doc.getElementsByTagName('head')[0].appendChild(injected);
+						var head = doc.getElementsByTagName('head')[0];
+						try {
+							head.appendChild(injected);
+						} catch (e) {// Unable to inject CSS, probably because of a Content Security Policy
+						}
 					}
 				};
 
 				/***/
 			},
-			/* 16 */
-			/***/function (module, exports, __webpack_require__) {
+			/* 19 */
+			/***/function (module, exports) {
 
-				// style-loader: Adds some css to the DOM by adding a <style> tag
-
-				// load the styles
-				var content = __webpack_require__(17);
-				if (typeof content === 'string') content = [[module.id, content, '']];
-				// add the styles to the DOM
-				var update = __webpack_require__(19)(content, {});
-				if (content.locals) module.exports = content.locals;
-				// Hot Module Replacement
-				
+				module.exports = "<div id=\"dg-save\" class=\"dg dialogue\">\n\n  Here's the new load parameter for your <code>GUI</code>'s constructor:\n\n  <textarea id=\"dg-new-constructor\"></textarea>\n\n  <div id=\"dg-save-locally\">\n\n    <input id=\"dg-local-storage\" type=\"checkbox\"/> Automatically save\n    values to <code>localStorage</code> on exit.\n\n    <div id=\"dg-local-explain\">The values saved to <code>localStorage</code> will\n      override those passed to <code>dat.GUI</code>'s constructor. This makes it\n      easier to work incrementally, but <code>localStorage</code> is fragile,\n      and your friends may not see the same values you do.\n\n    </div>\n\n  </div>\n\n</div>";
 
 				/***/
 			},
-			/* 17 */
+			/* 20 */
 			/***/function (module, exports, __webpack_require__) {
 
-				exports = module.exports = __webpack_require__(18)();
+				exports.__esModule = true;
+
+				var _OptionController = __webpack_require__(10);
+
+				var _OptionController2 = _interopRequireDefault(_OptionController);
+
+				var _NumberControllerBox = __webpack_require__(13);
+
+				var _NumberControllerBox2 = _interopRequireDefault(_NumberControllerBox);
+
+				var _NumberControllerSlider = __webpack_require__(14);
+
+				var _NumberControllerSlider2 = _interopRequireDefault(_NumberControllerSlider);
+
+				var _StringController = __webpack_require__(11);
+
+				var _StringController2 = _interopRequireDefault(_StringController);
+
+				var _FunctionController = __webpack_require__(15);
+
+				var _FunctionController2 = _interopRequireDefault(_FunctionController);
+
+				var _BooleanController = __webpack_require__(8);
+
+				var _BooleanController2 = _interopRequireDefault(_BooleanController);
+
+				var _common = __webpack_require__(5);
+
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				var ControllerFactory = function ControllerFactory(object, property) {
+					var initialValue = object[property];
+
+					// Providing options?
+					if (_common2.default.isArray(arguments[2]) || _common2.default.isObject(arguments[2])) {
+						return new _OptionController2.default(object, property, arguments[2]);
+					}
+
+					// Providing a map?
+					if (_common2.default.isNumber(initialValue)) {
+						// Has min and max? (slider)
+						if (_common2.default.isNumber(arguments[2]) && _common2.default.isNumber(arguments[3])) {
+							// has step?
+							if (_common2.default.isNumber(arguments[4])) {
+								return new _NumberControllerSlider2.default(object, property, arguments[2], arguments[3], arguments[4]);
+							}
+
+							return new _NumberControllerSlider2.default(object, property, arguments[2], arguments[3]);
+						}
+
+						// number box
+						if (_common2.default.isNumber(arguments[4])) {
+							// has step
+							return new _NumberControllerBox2.default(object, property, { min: arguments[2], max: arguments[3], step: arguments[4] });
+						}
+						return new _NumberControllerBox2.default(object, property, { min: arguments[2], max: arguments[3] });
+					}
+
+					if (_common2.default.isString(initialValue)) {
+						return new _StringController2.default(object, property);
+					}
+
+					if (_common2.default.isFunction(initialValue)) {
+						return new _FunctionController2.default(object, property, '');
+					}
+
+					if (_common2.default.isBoolean(initialValue)) {
+						return new _BooleanController2.default(object, property);
+					}
+
+					return null;
+				}; /**
+        * dat-gui JavaScript Controller Library
+        * http://code.google.com/p/dat-gui
+        *
+        * Copyright 2011 Data Arts Team, Google Creative Lab
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        * http://www.apache.org/licenses/LICENSE-2.0
+        */
+
+				exports.default = ControllerFactory;
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 21 */
+			/***/function (module, exports) {
+
+				exports.__esModule = true;
+				/**
+     * dat-gui JavaScript Controller Library
+     * http://code.google.com/p/dat-gui
+     *
+     * Copyright 2011 Data Arts Team, Google Creative Lab
+     *
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     */
+
+				function requestAnimationFrame(callback) {
+					setTimeout(callback, 1000 / 60);
+				}
+
+				exports.default = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || requestAnimationFrame;
+				module.exports = exports["default"];
+
+				/***/
+			},
+			/* 22 */
+			/***/function (module, exports, __webpack_require__) {
+
+				exports.__esModule = true;
+
+				var _dom = __webpack_require__(9);
+
+				var _dom2 = _interopRequireDefault(_dom);
+
+				var _common = __webpack_require__(5);
+
+				var _common2 = _interopRequireDefault(_common);
+
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : { default: obj };
+				}
+
+				function _classCallCheck(instance, Constructor) {
+					if (!(instance instanceof Constructor)) {
+						throw new TypeError("Cannot call a class as a function");
+					}
+				} /**
+       * dat-gui JavaScript Controller Library
+       * http://code.google.com/p/dat-gui
+       *
+       * Copyright 2011 Data Arts Team, Google Creative Lab
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       *
+       * http://www.apache.org/licenses/LICENSE-2.0
+       */
+
+				var CenteredDiv = function () {
+					function CenteredDiv() {
+						_classCallCheck(this, CenteredDiv);
+
+						this.backgroundElement = document.createElement('div');
+						_common2.default.extend(this.backgroundElement.style, {
+							backgroundColor: 'rgba(0,0,0,0.8)',
+							top: 0,
+							left: 0,
+							display: 'none',
+							zIndex: '1000',
+							opacity: 0,
+							WebkitTransition: 'opacity 0.2s linear',
+							transition: 'opacity 0.2s linear'
+						});
+
+						_dom2.default.makeFullscreen(this.backgroundElement);
+						this.backgroundElement.style.position = 'fixed';
+
+						this.domElement = document.createElement('div');
+						_common2.default.extend(this.domElement.style, {
+							position: 'fixed',
+							display: 'none',
+							zIndex: '1001',
+							opacity: 0,
+							WebkitTransition: '-webkit-transform 0.2s ease-out, opacity 0.2s linear',
+							transition: 'transform 0.2s ease-out, opacity 0.2s linear'
+						});
+
+						document.body.appendChild(this.backgroundElement);
+						document.body.appendChild(this.domElement);
+
+						var _this = this;
+						_dom2.default.bind(this.backgroundElement, 'click', function () {
+							_this.hide();
+						});
+					}
+
+					CenteredDiv.prototype.show = function show() {
+						var _this = this;
+
+						this.backgroundElement.style.display = 'block';
+
+						this.domElement.style.display = 'block';
+						this.domElement.style.opacity = 0;
+						//    this.domElement.style.top = '52%';
+						this.domElement.style.webkitTransform = 'scale(1.1)';
+
+						this.layout();
+
+						_common2.default.defer(function () {
+							_this.backgroundElement.style.opacity = 1;
+							_this.domElement.style.opacity = 1;
+							_this.domElement.style.webkitTransform = 'scale(1)';
+						});
+					};
+
+					/**
+      * Hide centered div
+      */
+
+					CenteredDiv.prototype.hide = function hide() {
+						var _this = this;
+
+						var hide = function hide() {
+							_this.domElement.style.display = 'none';
+							_this.backgroundElement.style.display = 'none';
+
+							_dom2.default.unbind(_this.domElement, 'webkitTransitionEnd', hide);
+							_dom2.default.unbind(_this.domElement, 'transitionend', hide);
+							_dom2.default.unbind(_this.domElement, 'oTransitionEnd', hide);
+						};
+
+						_dom2.default.bind(this.domElement, 'webkitTransitionEnd', hide);
+						_dom2.default.bind(this.domElement, 'transitionend', hide);
+						_dom2.default.bind(this.domElement, 'oTransitionEnd', hide);
+
+						this.backgroundElement.style.opacity = 0;
+						//    this.domElement.style.top = '48%';
+						this.domElement.style.opacity = 0;
+						this.domElement.style.webkitTransform = 'scale(1.1)';
+					};
+
+					CenteredDiv.prototype.layout = function layout() {
+						this.domElement.style.left = window.innerWidth / 2 - _dom2.default.getWidth(this.domElement) / 2 + 'px';
+						this.domElement.style.top = window.innerHeight / 2 - _dom2.default.getHeight(this.domElement) / 2 + 'px';
+					};
+
+					return CenteredDiv;
+				}();
+
+				exports.default = CenteredDiv;
+				module.exports = exports['default'];
+
+				/***/
+			},
+			/* 23 */
+			/***/function (module, exports, __webpack_require__) {
+
+				exports = module.exports = __webpack_require__(24)();
 				// imports
 
 
 				// module
-				exports.push([module.id, "/**\n * dat-gui JavaScript Controller Library\n * http://code.google.com/p/dat-gui\n *\n * Copyright 2011 Data Arts Team, Google Creative Lab\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n */\n.slider {\n  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);\n  height: 1em;\n  border-radius: 1em;\n  background-color: #eee;\n  padding: 0 0.5em;\n  overflow: hidden; }\n\n.slider-fg {\n  padding: 1px 0 2px 0;\n  background-color: #aaa;\n  height: 1em;\n  margin-left: -0.5em;\n  padding-right: 0.5em;\n  border-radius: 1em 0 0 1em; }\n\n.slider-fg:after {\n  display: inline-block;\n  border-radius: 1em;\n  background-color: #fff;\n  border: 1px solid #aaa;\n  content: '';\n  float: right;\n  margin-right: -1em;\n  margin-top: -1px;\n  height: 0.9em;\n  width: 0.9em; }\n", ""]);
+				exports.push([module.id, ".dg {\n  /** Clear list styles */\n  /* Auto-place container */\n  /* Auto-placed GUI's */\n  /* Line items that don't contain folders. */\n  /** Folder names */\n  /** Hides closed items */\n  /** Controller row */\n  /** Name-half (left) */\n  /** Controller-half (right) */\n  /** Controller placement */\n  /** Shorter number boxes when slider is present. */\n  /** Ensure the entire boolean and function row shows a hand */\n  /** allow overflow for color selector */ }\n  .dg ul {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    width: 100%;\n    clear: both; }\n  .dg.ac {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    height: 0;\n    z-index: 0; }\n  .dg:not(.ac) .main {\n    /** Exclude mains in ac so that we don't hide close button */\n    overflow: hidden; }\n  .dg.main {\n    -webkit-transition: opacity 0.1s linear;\n    -o-transition: opacity 0.1s linear;\n    -moz-transition: opacity 0.1s linear;\n    transition: opacity 0.1s linear; }\n    .dg.main.taller-than-window {\n      overflow-y: auto; }\n      .dg.main.taller-than-window .close-button {\n        opacity: 1;\n        /* TODO, these are style notes */\n        margin-top: -1px;\n        border-top: 1px solid #2c2c2c; }\n    .dg.main ul.closed .close-button {\n      opacity: 1 !important; }\n    .dg.main:hover .close-button,\n    .dg.main .close-button.drag {\n      opacity: 1; }\n    .dg.main .close-button {\n      /*opacity: 0;*/\n      -webkit-transition: opacity 0.1s linear;\n      -o-transition: opacity 0.1s linear;\n      -moz-transition: opacity 0.1s linear;\n      transition: opacity 0.1s linear;\n      border: 0;\n      line-height: 19px;\n      height: 20px;\n      /* TODO, these are style notes */\n      cursor: pointer;\n      text-align: center;\n      background-color: #000; }\n      .dg.main .close-button.close-top {\n        position: relative; }\n      .dg.main .close-button.close-bottom {\n        position: absolute; }\n      .dg.main .close-button:hover {\n        background-color: #111; }\n  .dg.a {\n    float: right;\n    margin-right: 15px;\n    overflow-y: visible; }\n    .dg.a.has-save > ul.close-top {\n      margin-top: 0; }\n    .dg.a.has-save > ul.close-bottom {\n      margin-top: 27px; }\n    .dg.a.has-save > ul.closed {\n      margin-top: 0; }\n    .dg.a .save-row {\n      top: 0;\n      z-index: 1002; }\n      .dg.a .save-row.close-top {\n        position: relative; }\n      .dg.a .save-row.close-bottom {\n        position: fixed; }\n  .dg li {\n    -webkit-transition: height 0.1s ease-out;\n    -o-transition: height 0.1s ease-out;\n    -moz-transition: height 0.1s ease-out;\n    transition: height 0.1s ease-out;\n    -webkit-transition: overflow 0.1s linear;\n    -o-transition: overflow 0.1s linear;\n    -moz-transition: overflow 0.1s linear;\n    transition: overflow 0.1s linear; }\n  .dg li:not(.folder) {\n    cursor: auto;\n    height: 27px;\n    line-height: 27px;\n    padding: 0 4px 0 5px; }\n  .dg li.folder {\n    padding: 0;\n    border-left: 4px solid transparent; }\n  .dg li.title {\n    cursor: pointer;\n    margin-left: -4px; }\n  .dg .closed li:not(.title),\n  .dg .closed ul li,\n  .dg .closed ul li > * {\n    height: 0;\n    overflow: hidden;\n    border: 0; }\n  .dg .cr {\n    clear: both;\n    padding-left: 3px;\n    height: 27px;\n    overflow: hidden; }\n  .dg .property-name {\n    cursor: default;\n    float: left;\n    clear: left;\n    width: 40%;\n    overflow: hidden;\n    text-overflow: ellipsis; }\n  .dg .c {\n    float: left;\n    width: 60%;\n    position: relative; }\n  .dg .c input[type=text] {\n    border: 0;\n    margin-top: 4px;\n    padding: 3px;\n    width: 100%;\n    float: right; }\n  .dg .has-slider input[type=text] {\n    width: 30%;\n    /*display: none;*/\n    margin-left: 0; }\n  .dg .slider {\n    float: left;\n    width: 66%;\n    margin-left: -5px;\n    margin-right: 0;\n    height: 19px;\n    margin-top: 4px; }\n  .dg .slider-fg {\n    height: 100%; }\n  .dg .c input[type=checkbox] {\n    margin-top: 7px; }\n  .dg .c select {\n    margin-top: 5px; }\n  .dg .cr.function,\n  .dg .cr.function .property-name,\n  .dg .cr.function *,\n  .dg .cr.boolean,\n  .dg .cr.boolean * {\n    cursor: pointer; }\n  .dg .cr.color {\n    overflow: visible; }\n  .dg .selector {\n    display: none;\n    position: absolute;\n    margin-left: -9px;\n    margin-top: 23px;\n    z-index: 10; }\n  .dg .c:hover .selector,\n  .dg .selector.drag {\n    display: block; }\n  .dg li.save-row {\n    padding: 0; }\n    .dg li.save-row .button {\n      display: inline-block;\n      padding: 0px 6px; }\n  .dg.dialogue {\n    background-color: #222;\n    width: 460px;\n    padding: 15px;\n    font-size: 13px;\n    line-height: 15px; }\n\n/* TODO Separate style and structure */\n#dg-new-constructor {\n  padding: 10px;\n  color: #222;\n  font-family: Monaco, monospace;\n  font-size: 10px;\n  border: 0;\n  resize: none;\n  box-shadow: inset 1px 1px 1px #888;\n  word-wrap: break-word;\n  margin: 12px 0;\n  display: block;\n  width: 440px;\n  overflow-y: scroll;\n  height: 100px;\n  position: relative; }\n\n#dg-local-explain {\n  display: none;\n  font-size: 11px;\n  line-height: 17px;\n  border-radius: 3px;\n  background-color: #333;\n  padding: 8px;\n  margin-top: 10px; }\n  #dg-local-explain code {\n    font-size: 10px; }\n\n#dat-gui-save-locally {\n  display: none; }\n\n/** Main type */\n.dg {\n  color: #eee;\n  font: 11px 'Lucida Grande', sans-serif;\n  text-shadow: 0 -1px 0 #111;\n  /** Auto place */\n  /* Controller row, <li> */\n  /** Controllers */ }\n  .dg.main {\n    /** Scrollbar */ }\n    .dg.main::-webkit-scrollbar {\n      width: 5px;\n      background: #1a1a1a; }\n    .dg.main::-webkit-scrollbar-corner {\n      height: 0;\n      display: none; }\n    .dg.main::-webkit-scrollbar-thumb {\n      border-radius: 5px;\n      background: #676767; }\n  .dg li:not(.folder) {\n    background: #1a1a1a;\n    border-bottom: 1px solid #2c2c2c; }\n  .dg li.save-row {\n    line-height: 25px;\n    background: #dad5cb;\n    border: 0; }\n    .dg li.save-row select {\n      margin-left: 5px;\n      width: 108px; }\n    .dg li.save-row .button {\n      margin-left: 5px;\n      margin-top: 1px;\n      border-radius: 2px;\n      font-size: 9px;\n      line-height: 7px;\n      padding: 4px 4px 5px 4px;\n      background: #c5bdad;\n      color: #fff;\n      text-shadow: 0 1px 0 #b0a58f;\n      box-shadow: 0 -1px 0 #b0a58f;\n      cursor: pointer; }\n      .dg li.save-row .button.gears {\n        background: #c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;\n        height: 7px;\n        width: 8px; }\n      .dg li.save-row .button:hover {\n        background-color: #bab19e;\n        box-shadow: 0 -1px 0 #b0a58f; }\n  .dg li.folder {\n    border-bottom: 0; }\n  .dg li.title {\n    padding-left: 16px;\n    background: #000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;\n    cursor: pointer;\n    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }\n  .dg .closed li.title {\n    background-image: url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==); }\n  .dg .cr.boolean {\n    border-left: 3px solid #806787; }\n  .dg .cr.color {\n    border-left: 3px solid; }\n  .dg .cr.function {\n    border-left: 3px solid #e61d5f; }\n  .dg .cr.number {\n    border-left: 3px solid #2FA1D6; }\n    .dg .cr.number input[type=text] {\n      color: #2FA1D6; }\n  .dg .cr.string {\n    border-left: 3px solid #1ed36f; }\n    .dg .cr.string input[type=text] {\n      color: #1ed36f; }\n  .dg .cr.function:hover, .dg .cr.boolean:hover {\n    background: #111; }\n  .dg .c input[type=text] {\n    background: #303030;\n    outline: none; }\n    .dg .c input[type=text]:hover {\n      background: #3c3c3c; }\n    .dg .c input[type=text]:focus {\n      background: #494949;\n      color: #fff; }\n  .dg .c .slider {\n    background: #303030;\n    cursor: ew-resize; }\n  .dg .c .slider-fg {\n    background: #2FA1D6;\n    max-width: 100%; }\n  .dg .c .slider:hover {\n    background: #3c3c3c; }\n    .dg .c .slider:hover .slider-fg {\n      background: #44abda; }\n", ""]);
 
 				// exports
 
 
 				/***/
 			},
-			/* 18 */
+			/* 24 */
 			/***/function (module, exports) {
 
 				/*
@@ -2273,2216 +4433,6 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 				};
 
 				/***/
-			},
-			/* 19 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/*
-    	MIT License http://www.opensource.org/licenses/mit-license.php
-    	Author Tobias Koppers @sokra
-    */
-				var stylesInDom = {},
-				    memoize = function memoize(fn) {
-					var memo;
-					return function () {
-						if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-						return memo;
-					};
-				},
-				    isOldIE = memoize(function () {
-					return (/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())
-					);
-				}),
-				    getHeadElement = memoize(function () {
-					return document.head || document.getElementsByTagName("head")[0];
-				}),
-				    singletonElement = null,
-				    singletonCounter = 0;
-
-				module.exports = function (list, options) {
-					options = options || {};
-					// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-					// tags it will allow on a page
-					if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
-					var styles = listToStyles(list);
-					addStylesToDom(styles, options);
-
-					return function update(newList) {
-						var mayRemove = [];
-						for (var i = 0; i < styles.length; i++) {
-							var item = styles[i];
-							var domStyle = stylesInDom[item.id];
-							domStyle.refs--;
-							mayRemove.push(domStyle);
-						}
-						if (newList) {
-							var newStyles = listToStyles(newList);
-							addStylesToDom(newStyles, options);
-						}
-						for (var i = 0; i < mayRemove.length; i++) {
-							var domStyle = mayRemove[i];
-							if (domStyle.refs === 0) {
-								for (var j = 0; j < domStyle.parts.length; j++) {
-									domStyle.parts[j]();
-								}delete stylesInDom[domStyle.id];
-							}
-						}
-					};
-				};
-
-				function addStylesToDom(styles, options) {
-					for (var i = 0; i < styles.length; i++) {
-						var item = styles[i];
-						var domStyle = stylesInDom[item.id];
-						if (domStyle) {
-							domStyle.refs++;
-							for (var j = 0; j < domStyle.parts.length; j++) {
-								domStyle.parts[j](item.parts[j]);
-							}
-							for (; j < item.parts.length; j++) {
-								domStyle.parts.push(addStyle(item.parts[j], options));
-							}
-						} else {
-							var parts = [];
-							for (var j = 0; j < item.parts.length; j++) {
-								parts.push(addStyle(item.parts[j], options));
-							}
-							stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts };
-						}
-					}
-				}
-
-				function listToStyles(list) {
-					var styles = [];
-					var newStyles = {};
-					for (var i = 0; i < list.length; i++) {
-						var item = list[i];
-						var id = item[0];
-						var css = item[1];
-						var media = item[2];
-						var sourceMap = item[3];
-						var part = { css: css, media: media, sourceMap: sourceMap };
-						if (!newStyles[id]) styles.push(newStyles[id] = { id: id, parts: [part] });else newStyles[id].parts.push(part);
-					}
-					return styles;
-				}
-
-				function createStyleElement() {
-					var styleElement = document.createElement("style");
-					var head = getHeadElement();
-					styleElement.type = "text/css";
-					head.appendChild(styleElement);
-					return styleElement;
-				}
-
-				function createLinkElement() {
-					var linkElement = document.createElement("link");
-					var head = getHeadElement();
-					linkElement.rel = "stylesheet";
-					head.appendChild(linkElement);
-					return linkElement;
-				}
-
-				function addStyle(obj, options) {
-					var styleElement, update, remove;
-
-					if (options.singleton) {
-						var styleIndex = singletonCounter++;
-						styleElement = singletonElement || (singletonElement = createStyleElement());
-						update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-						remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-					} else if (obj.sourceMap && typeof URL === "function" && typeof URL.createObjectURL === "function" && typeof URL.revokeObjectURL === "function" && typeof Blob === "function" && typeof btoa === "function") {
-						styleElement = createLinkElement();
-						update = updateLink.bind(null, styleElement);
-						remove = function remove() {
-							styleElement.parentNode.removeChild(styleElement);
-							if (styleElement.href) URL.revokeObjectURL(styleElement.href);
-						};
-					} else {
-						styleElement = createStyleElement();
-						update = applyToTag.bind(null, styleElement);
-						remove = function remove() {
-							styleElement.parentNode.removeChild(styleElement);
-						};
-					}
-
-					update(obj);
-
-					return function updateStyle(newObj) {
-						if (newObj) {
-							if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) return;
-							update(obj = newObj);
-						} else {
-							remove();
-						}
-					};
-				}
-
-				var replaceText = function () {
-					var textStore = [];
-
-					return function (index, replacement) {
-						textStore[index] = replacement;
-						return textStore.filter(Boolean).join('\n');
-					};
-				}();
-
-				function applyToSingletonTag(styleElement, index, remove, obj) {
-					var css = remove ? "" : obj.css;
-
-					if (styleElement.styleSheet) {
-						styleElement.styleSheet.cssText = replaceText(index, css);
-					} else {
-						var cssNode = document.createTextNode(css);
-						var childNodes = styleElement.childNodes;
-						if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-						if (childNodes.length) {
-							styleElement.insertBefore(cssNode, childNodes[index]);
-						} else {
-							styleElement.appendChild(cssNode);
-						}
-					}
-				}
-
-				function applyToTag(styleElement, obj) {
-					var css = obj.css;
-					var media = obj.media;
-					var sourceMap = obj.sourceMap;
-
-					if (media) {
-						styleElement.setAttribute("media", media);
-					}
-
-					if (styleElement.styleSheet) {
-						styleElement.styleSheet.cssText = css;
-					} else {
-						while (styleElement.firstChild) {
-							styleElement.removeChild(styleElement.firstChild);
-						}
-						styleElement.appendChild(document.createTextNode(css));
-					}
-				}
-
-				function updateLink(linkElement, obj) {
-					var css = obj.css;
-					var media = obj.media;
-					var sourceMap = obj.sourceMap;
-
-					if (sourceMap) {
-						// http://stackoverflow.com/a/26603875
-						css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-					}
-
-					var blob = new Blob([css], { type: "text/css" });
-
-					var oldSrc = linkElement.href;
-
-					linkElement.href = URL.createObjectURL(blob);
-
-					if (oldSrc) URL.revokeObjectURL(oldSrc);
-				}
-
-				/***/
-			},
-			/* 20 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
-				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
-
-				var _Controller2 = __webpack_require__(7);
-
-				var _Controller3 = _interopRequireDefault(_Controller2);
-
-				var _domDom = __webpack_require__(9);
-
-				var _domDom2 = _interopRequireDefault(_domDom);
-
-				/**
-     * @class Provides a GUI interface to fire a specified method, a property of an object.
-     *
-     * @extends dat.controllers.Controller
-     *
-     * @param {Object} object The object to be manipulated
-     * @param {string} property The name of the property to be manipulated
-     *
-     * @member dat.controllers
-     */
-
-				var FunctionController = function (_Controller) {
-					_inherits(FunctionController, _Controller);
-
-					function FunctionController(object, property, text) {
-						_classCallCheck(this, FunctionController);
-
-						_Controller.call(this, object, property);
-
-						var _this = this;
-
-						this.__button = document.createElement('div');
-						this.__button.innerHTML = text === undefined ? 'Fire' : text;
-
-						_domDom2['default'].bind(this.__button, 'click', function (e) {
-							e.preventDefault();
-							_this.fire();
-							return false;
-						});
-
-						_domDom2['default'].addClass(this.__button, 'button');
-
-						this.domElement.appendChild(this.__button);
-					}
-
-					FunctionController.prototype.fire = function fire() {
-						if (this.__onChange) {
-							this.__onChange.call(this);
-						}
-						this.getValue().call(this.object);
-						if (this.__onFinishChange) {
-							this.__onFinishChange.call(this, this.getValue());
-						}
-					};
-
-					return FunctionController;
-				}(_Controller3['default']);
-
-				exports['default'] = FunctionController;
-				module.exports = exports['default'];
-
-				/***/
-			},
-			/* 21 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
-				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				function _inherits(subClass, superClass) {
-					if (typeof superClass !== 'function' && superClass !== null) {
-						throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof$1(superClass)));
-					}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-				}
-
-				var _Controller2 = __webpack_require__(7);
-
-				var _Controller3 = _interopRequireDefault(_Controller2);
-
-				var _domDom = __webpack_require__(9);
-
-				var _domDom2 = _interopRequireDefault(_domDom);
-
-				var _colorColor = __webpack_require__(2);
-
-				var _colorColor2 = _interopRequireDefault(_colorColor);
-
-				var _colorInterpret = __webpack_require__(3);
-
-				var _colorInterpret2 = _interopRequireDefault(_colorInterpret);
-
-				var _utilsCommon = __webpack_require__(5);
-
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
-				var ColorController = function (_Controller) {
-					_inherits(ColorController, _Controller);
-
-					function ColorController(object, property) {
-						_classCallCheck(this, ColorController);
-
-						_Controller.call(this, object, property);
-
-						this.__color = new _colorColor2['default'](this.getValue());
-						this.__temp = new _colorColor2['default'](0);
-
-						var _this = this;
-
-						this.domElement = document.createElement('div');
-
-						_domDom2['default'].makeSelectable(this.domElement, false);
-
-						this.__selector = document.createElement('div');
-						this.__selector.className = 'selector';
-
-						this.__saturation_field = document.createElement('div');
-						this.__saturation_field.className = 'saturation-field';
-
-						this.__field_knob = document.createElement('div');
-						this.__field_knob.className = 'field-knob';
-						this.__field_knob_border = '2px solid ';
-
-						this.__hue_knob = document.createElement('div');
-						this.__hue_knob.className = 'hue-knob';
-
-						this.__hue_field = document.createElement('div');
-						this.__hue_field.className = 'hue-field';
-
-						this.__input = document.createElement('input');
-						this.__input.type = 'text';
-						this.__input_textShadow = '0 1px 1px ';
-
-						_domDom2['default'].bind(this.__input, 'keydown', function (e) {
-							if (e.keyCode === 13) {
-								// on enter
-								onBlur.call(this);
-							}
-						});
-
-						_domDom2['default'].bind(this.__input, 'blur', onBlur);
-
-						_domDom2['default'].bind(this.__selector, 'mousedown', function () /* e */{
-							_domDom2['default'].addClass(this, 'drag').bind(window, 'mouseup', function () /* e */{
-								_domDom2['default'].removeClass(_this.__selector, 'drag');
-							});
-						});
-
-						var valueField = document.createElement('div');
-
-						_utilsCommon2['default'].extend(this.__selector.style, {
-							width: '122px',
-							height: '102px',
-							padding: '3px',
-							backgroundColor: '#222',
-							boxShadow: '0px 1px 3px rgba(0,0,0,0.3)'
-						});
-
-						_utilsCommon2['default'].extend(this.__field_knob.style, {
-							position: 'absolute',
-							width: '12px',
-							height: '12px',
-							border: this.__field_knob_border + (this.__color.v < 0.5 ? '#fff' : '#000'),
-							boxShadow: '0px 1px 3px rgba(0,0,0,0.5)',
-							borderRadius: '12px',
-							zIndex: 1
-						});
-
-						_utilsCommon2['default'].extend(this.__hue_knob.style, {
-							position: 'absolute',
-							width: '15px',
-							height: '2px',
-							borderRight: '4px solid #fff',
-							zIndex: 1
-						});
-
-						_utilsCommon2['default'].extend(this.__saturation_field.style, {
-							width: '100px',
-							height: '100px',
-							border: '1px solid #555',
-							marginRight: '3px',
-							display: 'inline-block',
-							cursor: 'pointer'
-						});
-
-						_utilsCommon2['default'].extend(valueField.style, {
-							width: '100%',
-							height: '100%',
-							background: 'none'
-						});
-
-						linearGradient(valueField, 'top', 'rgba(0,0,0,0)', '#000');
-
-						_utilsCommon2['default'].extend(this.__hue_field.style, {
-							width: '15px',
-							height: '100px',
-							display: 'inline-block',
-							border: '1px solid #555',
-							cursor: 'ns-resize'
-						});
-
-						hueGradient(this.__hue_field);
-
-						_utilsCommon2['default'].extend(this.__input.style, {
-							outline: 'none',
-							//      width: '120px',
-							textAlign: 'center',
-							//      padding: '4px',
-							//      marginBottom: '6px',
-							color: '#fff',
-							border: 0,
-							fontWeight: 'bold',
-							textShadow: this.__input_textShadow + 'rgba(0,0,0,0.7)'
-						});
-
-						_domDom2['default'].bind(this.__saturation_field, 'mousedown', fieldDown);
-						_domDom2['default'].bind(this.__field_knob, 'mousedown', fieldDown);
-
-						_domDom2['default'].bind(this.__hue_field, 'mousedown', function (e) {
-							setH(e);
-							_domDom2['default'].bind(window, 'mousemove', setH);
-							_domDom2['default'].bind(window, 'mouseup', unbindH);
-						});
-
-						function fieldDown(e) {
-							setSV(e);
-							// document.body.style.cursor = 'none';
-							_domDom2['default'].bind(window, 'mousemove', setSV);
-							_domDom2['default'].bind(window, 'mouseup', unbindSV);
-						}
-
-						function unbindSV() {
-							_domDom2['default'].unbind(window, 'mousemove', setSV);
-							_domDom2['default'].unbind(window, 'mouseup', unbindSV);
-							// document.body.style.cursor = 'default';
-						}
-
-						function onBlur() {
-							var i = _colorInterpret2['default'](this.value);
-							if (i !== false) {
-								_this.__color.__state = i;
-								_this.setValue(_this.__color.toOriginal());
-							} else {
-								this.value = _this.__color.toString();
-							}
-						}
-
-						function unbindH() {
-							_domDom2['default'].unbind(window, 'mousemove', setH);
-							_domDom2['default'].unbind(window, 'mouseup', unbindH);
-						}
-
-						this.__saturation_field.appendChild(valueField);
-						this.__selector.appendChild(this.__field_knob);
-						this.__selector.appendChild(this.__saturation_field);
-						this.__selector.appendChild(this.__hue_field);
-						this.__hue_field.appendChild(this.__hue_knob);
-
-						this.domElement.appendChild(this.__input);
-						this.domElement.appendChild(this.__selector);
-
-						this.updateDisplay();
-
-						function setSV(e) {
-							e.preventDefault();
-
-							var w = _domDom2['default'].getWidth(_this.__saturation_field);
-							var o = _domDom2['default'].getOffset(_this.__saturation_field);
-							var s = (e.clientX - o.left + document.body.scrollLeft) / w;
-							var v = 1 - (e.clientY - o.top + document.body.scrollTop) / w;
-
-							if (v > 1) {
-								v = 1;
-							} else if (v < 0) {
-								v = 0;
-							}
-
-							if (s > 1) {
-								s = 1;
-							} else if (s < 0) {
-								s = 0;
-							}
-
-							_this.__color.v = v;
-							_this.__color.s = s;
-
-							_this.setValue(_this.__color.toOriginal());
-
-							return false;
-						}
-
-						function setH(e) {
-							e.preventDefault();
-
-							var s = _domDom2['default'].getHeight(_this.__hue_field);
-							var o = _domDom2['default'].getOffset(_this.__hue_field);
-							var h = 1 - (e.clientY - o.top + document.body.scrollTop) / s;
-
-							if (h > 1) {
-								h = 1;
-							} else if (h < 0) {
-								h = 0;
-							}
-
-							_this.__color.h = h * 360;
-
-							_this.setValue(_this.__color.toOriginal());
-
-							return false;
-						}
-					}
-
-					ColorController.prototype.updateDisplay = function updateDisplay() {
-						var i = _colorInterpret2['default'](this.getValue());
-
-						if (i !== false) {
-							var mismatch = false;
-
-							// Check for mismatch on the interpreted value.
-
-							_utilsCommon2['default'].each(_colorColor2['default'].COMPONENTS, function (component) {
-								if (!_utilsCommon2['default'].isUndefined(i[component]) && !_utilsCommon2['default'].isUndefined(this.__color.__state[component]) && i[component] !== this.__color.__state[component]) {
-									mismatch = true;
-									return {}; // break
-								}
-							}, this);
-
-							// If nothing diverges, we keep our previous values
-							// for statefulness, otherwise we recalculate fresh
-							if (mismatch) {
-								_utilsCommon2['default'].extend(this.__color.__state, i);
-							}
-						}
-
-						_utilsCommon2['default'].extend(this.__temp.__state, this.__color.__state);
-
-						this.__temp.a = 1;
-
-						var flip = this.__color.v < 0.5 || this.__color.s > 0.5 ? 255 : 0;
-						var _flip = 255 - flip;
-
-						_utilsCommon2['default'].extend(this.__field_knob.style, {
-							marginLeft: 100 * this.__color.s - 7 + 'px',
-							marginTop: 100 * (1 - this.__color.v) - 7 + 'px',
-							backgroundColor: this.__temp.toString(),
-							border: this.__field_knob_border + 'rgb(' + flip + ',' + flip + ',' + flip + ')'
-						});
-
-						this.__hue_knob.style.marginTop = (1 - this.__color.h / 360) * 100 + 'px';
-
-						this.__temp.s = 1;
-						this.__temp.v = 1;
-
-						linearGradient(this.__saturation_field, 'left', '#fff', this.__temp.toString());
-
-						_utilsCommon2['default'].extend(this.__input.style, {
-							backgroundColor: this.__input.value = this.__color.toString(),
-							color: 'rgb(' + flip + ',' + flip + ',' + flip + ')',
-							textShadow: this.__input_textShadow + 'rgba(' + _flip + ',' + _flip + ',' + _flip + ',.7)'
-						});
-					};
-
-					return ColorController;
-				}(_Controller3['default']);
-
-				var vendors = ['-moz-', '-o-', '-webkit-', '-ms-', ''];
-
-				function linearGradient(elem, x, a, b) {
-					elem.style.background = '';
-					_utilsCommon2['default'].each(vendors, function (vendor) {
-						elem.style.cssText += 'background: ' + vendor + 'linear-gradient(' + x + ', ' + a + ' 0%, ' + b + ' 100%); ';
-					});
-				}
-
-				function hueGradient(elem) {
-					elem.style.background = '';
-					elem.style.cssText += 'background: -moz-linear-gradient(top,  #ff0000 0%, #ff00ff 17%, #0000ff 34%, #00ffff 50%, #00ff00 67%, #ffff00 84%, #ff0000 100%);';
-					elem.style.cssText += 'background: -webkit-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
-					elem.style.cssText += 'background: -o-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
-					elem.style.cssText += 'background: -ms-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
-					elem.style.cssText += 'background: linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
-				}
-
-				exports['default'] = ColorController;
-				module.exports = exports['default'];
-
-				/***/
-			},
-			/* 22 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				var _utilsCss = __webpack_require__(15);
-
-				var _utilsCss2 = _interopRequireDefault(_utilsCss);
-
-				var _htmlSaveDialogueHtml = __webpack_require__(23);
-
-				var _htmlSaveDialogueHtml2 = _interopRequireDefault(_htmlSaveDialogueHtml);
-
-				var _styleCssSassStyleScss = __webpack_require__(24);
-
-				var _styleCssSassStyleScss2 = _interopRequireDefault(_styleCssSassStyleScss);
-
-				var _controllersControllerFactory = __webpack_require__(26);
-
-				var _controllersControllerFactory2 = _interopRequireDefault(_controllersControllerFactory);
-
-				var _controllersController = __webpack_require__(7);
-
-				var _controllersController2 = _interopRequireDefault(_controllersController);
-
-				var _controllersBooleanController = __webpack_require__(8);
-
-				var _controllersBooleanController2 = _interopRequireDefault(_controllersBooleanController);
-
-				var _controllersFunctionController = __webpack_require__(20);
-
-				var _controllersFunctionController2 = _interopRequireDefault(_controllersFunctionController);
-
-				var _controllersNumberControllerBox = __webpack_require__(13);
-
-				var _controllersNumberControllerBox2 = _interopRequireDefault(_controllersNumberControllerBox);
-
-				var _controllersNumberControllerSlider = __webpack_require__(14);
-
-				var _controllersNumberControllerSlider2 = _interopRequireDefault(_controllersNumberControllerSlider);
-
-				var _controllersColorController = __webpack_require__(21);
-
-				var _controllersColorController2 = _interopRequireDefault(_controllersColorController);
-
-				var _utilsRequestAnimationFrame = __webpack_require__(27);
-
-				var _utilsRequestAnimationFrame2 = _interopRequireDefault(_utilsRequestAnimationFrame);
-
-				var _domCenteredDiv = __webpack_require__(28);
-
-				var _domCenteredDiv2 = _interopRequireDefault(_domCenteredDiv);
-
-				var _domDom = __webpack_require__(9);
-
-				var _domDom2 = _interopRequireDefault(_domDom);
-
-				var _utilsCommon = __webpack_require__(5);
-
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
-				_utilsCss2['default'].inject(_styleCssSassStyleScss2['default']);
-
-				/** Outer-most className for GUI's */
-				var CSS_NAMESPACE = 'dg';
-
-				var HIDE_KEY_CODE = 72;
-
-				/** The only value shared between the JS and SCSS. Use caution. */
-				var CLOSE_BUTTON_HEIGHT = 20;
-
-				var DEFAULT_DEFAULT_PRESET_NAME = 'Default';
-
-				var SUPPORTS_LOCAL_STORAGE = function () {
-					try {
-						return 'localStorage' in window && window.localStorage !== null;
-					} catch (e) {
-						return false;
-					}
-				}();
-
-				var SAVE_DIALOGUE = undefined;
-
-				/** Have we yet to create an autoPlace GUI? */
-				var autoPlaceVirgin = true;
-
-				/** Fixed position div that auto place GUI's go inside */
-				var autoPlaceContainer = undefined;
-
-				/** Are we hiding the GUI's ? */
-				var hide = false;
-
-				/** GUI's which should be hidden */
-				var hideableGuis = [];
-
-				/**
-     * A lightweight controller library for JavaScript. It allows you to easily
-     * manipulate variables and fire functions on the fly.
-     * @class
-     *
-     * @member dat.gui
-     *
-     * @param {Object} [params]
-     * @param {String} [params.name] The name of this GUI.
-     * @param {Object} [params.load] JSON object representing the saved state of
-     * this GUI.
-     * @param {Boolean} [params.auto=true]
-     * @param {dat.gui.GUI} [params.parent] The GUI I'm nested in.
-     * @param {Boolean} [params.closed] If true, starts closed
-     */
-				var GUI = function GUI(pars) {
-					var _this = this;
-
-					var params = pars || {};
-
-					/**
-      * Outermost DOM Element
-      * @type DOMElement
-      */
-					this.domElement = document.createElement('div');
-					this.__ul = document.createElement('ul');
-					this.domElement.appendChild(this.__ul);
-
-					_domDom2['default'].addClass(this.domElement, CSS_NAMESPACE);
-
-					/**
-      * Nested GUI's by name
-      * @ignore
-      */
-					this.__folders = {};
-
-					this.__controllers = [];
-
-					/**
-      * List of objects I'm remembering for save, only used in top level GUI
-      * @ignore
-      */
-					this.__rememberedObjects = [];
-
-					/**
-      * Maps the index of remembered objects to a map of controllers, only used
-      * in top level GUI.
-      *
-      * @private
-      * @ignore
-      *
-      * @example
-      * [
-      *  {
-        *    propertyName: Controller,
-        *    anotherPropertyName: Controller
-        *  },
-      *  {
-        *    propertyName: Controller
-        *  }
-      * ]
-      */
-					this.__rememberedObjectIndecesToControllers = [];
-
-					this.__listening = [];
-
-					// Default parameters
-					params = _utilsCommon2['default'].defaults(params, {
-						autoPlace: true,
-						width: GUI.DEFAULT_WIDTH
-					});
-
-					params = _utilsCommon2['default'].defaults(params, {
-						resizable: params.autoPlace,
-						hideable: params.autoPlace
-					});
-
-					if (!_utilsCommon2['default'].isUndefined(params.load)) {
-						// Explicit preset
-						if (params.preset) {
-							params.load.preset = params.preset;
-						}
-					} else {
-						params.load = { preset: DEFAULT_DEFAULT_PRESET_NAME };
-					}
-
-					if (_utilsCommon2['default'].isUndefined(params.parent) && params.hideable) {
-						hideableGuis.push(this);
-					}
-
-					// Only root level GUI's are resizable.
-					params.resizable = _utilsCommon2['default'].isUndefined(params.parent) && params.resizable;
-
-					if (params.autoPlace && _utilsCommon2['default'].isUndefined(params.scrollable)) {
-						params.scrollable = true;
-					}
-					//    params.scrollable = common.isUndefined(params.parent) && params.scrollable === true;
-
-					// Not part of params because I don't want people passing this in via
-					// constructor. Should be a 'remembered' value.
-					var useLocalStorage = SUPPORTS_LOCAL_STORAGE && localStorage.getItem(getLocalStorageHash(this, 'isLocal')) === 'true';
-
-					var saveToLocalStorage = undefined;
-
-					Object.defineProperties(this,
-					/** @lends dat.gui.GUI.prototype */
-					{
-						/**
-       * The parent <code>GUI</code>
-       * @type dat.gui.GUI
-       */
-						parent: {
-							get: function get() {
-								return params.parent;
-							}
-						},
-
-						scrollable: {
-							get: function get() {
-								return params.scrollable;
-							}
-						},
-
-						/**
-       * Handles <code>GUI</code>'s element placement for you
-       * @type Boolean
-       */
-						autoPlace: {
-							get: function get() {
-								return params.autoPlace;
-							}
-						},
-
-						/**
-       * The identifier for a set of saved values
-       * @type String
-       */
-						preset: {
-							get: function get() {
-								if (_this.parent) {
-									return _this.getRoot().preset;
-								}
-
-								return params.load.preset;
-							},
-
-							set: function set(v) {
-								if (_this.parent) {
-									_this.getRoot().preset = v;
-								} else {
-									params.load.preset = v;
-								}
-								setPresetSelectIndex(this);
-								_this.revert();
-							}
-						},
-
-						/**
-       * The width of <code>GUI</code> element
-       * @type Number
-       */
-						width: {
-							get: function get() {
-								return params.width;
-							},
-							set: function set(v) {
-								params.width = v;
-								setWidth(_this, v);
-							}
-						},
-
-						/**
-       * The name of <code>GUI</code>. Used for folders. i.e
-       * a folder's name
-       * @type String
-       */
-						name: {
-							get: function get() {
-								return params.name;
-							},
-							set: function set(v) {
-								// TODO Check for collisions among sibling folders
-								params.name = v;
-								if (titleRowName) {
-									titleRowName.innerHTML = params.name;
-								}
-							}
-						},
-
-						/**
-       * Whether the <code>GUI</code> is collapsed or not
-       * @type Boolean
-       */
-						closed: {
-							get: function get() {
-								return params.closed;
-							},
-							set: function set(v) {
-								params.closed = v;
-								if (params.closed) {
-									_domDom2['default'].addClass(_this.__ul, GUI.CLASS_CLOSED);
-								} else {
-									_domDom2['default'].removeClass(_this.__ul, GUI.CLASS_CLOSED);
-								}
-								// For browsers that aren't going to respect the CSS transition,
-								// Lets just check our height against the window height right off
-								// the bat.
-								this.onResize();
-
-								if (_this.__closeButton) {
-									_this.__closeButton.innerHTML = v ? GUI.TEXT_OPEN : GUI.TEXT_CLOSED;
-								}
-							}
-						},
-
-						/**
-       * Contains all presets
-       * @type Object
-       */
-						load: {
-							get: function get() {
-								return params.load;
-							}
-						},
-
-						/**
-       * Determines whether or not to use <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">localStorage</a> as the means for
-       * <code>remember</code>ing
-       * @type Boolean
-       */
-						useLocalStorage: {
-
-							get: function get() {
-								return useLocalStorage;
-							},
-							set: function set(bool) {
-								if (SUPPORTS_LOCAL_STORAGE) {
-									useLocalStorage = bool;
-									if (bool) {
-										_domDom2['default'].bind(window, 'unload', saveToLocalStorage);
-									} else {
-										_domDom2['default'].unbind(window, 'unload', saveToLocalStorage);
-									}
-									localStorage.setItem(getLocalStorageHash(_this, 'isLocal'), bool);
-								}
-							}
-						}
-					});
-
-					// Are we a root level GUI?
-					if (_utilsCommon2['default'].isUndefined(params.parent)) {
-						params.closed = false;
-
-						_domDom2['default'].addClass(this.domElement, GUI.CLASS_MAIN);
-						_domDom2['default'].makeSelectable(this.domElement, false);
-
-						// Are we supposed to be loading locally?
-						if (SUPPORTS_LOCAL_STORAGE) {
-							if (useLocalStorage) {
-								_this.useLocalStorage = true;
-
-								var savedGui = localStorage.getItem(getLocalStorageHash(this, 'gui'));
-
-								if (savedGui) {
-									params.load = JSON.parse(savedGui);
-								}
-							}
-						}
-
-						this.__closeButton = document.createElement('div');
-						this.__closeButton.innerHTML = GUI.TEXT_CLOSED;
-						_domDom2['default'].addClass(this.__closeButton, GUI.CLASS_CLOSE_BUTTON);
-						this.domElement.appendChild(this.__closeButton);
-
-						_domDom2['default'].bind(this.__closeButton, 'click', function () {
-							_this.closed = !_this.closed;
-						});
-						// Oh, you're a nested GUI!
-					} else {
-						if (params.closed === undefined) {
-							params.closed = true;
-						}
-
-						var _titleRowName = document.createTextNode(params.name);
-						_domDom2['default'].addClass(_titleRowName, 'controller-name');
-
-						var titleRow = addRow(_this, _titleRowName);
-
-						var onClickTitle = function onClickTitle(e) {
-							e.preventDefault();
-							_this.closed = !_this.closed;
-							return false;
-						};
-
-						_domDom2['default'].addClass(this.__ul, GUI.CLASS_CLOSED);
-
-						_domDom2['default'].addClass(titleRow, 'title');
-						_domDom2['default'].bind(titleRow, 'click', onClickTitle);
-
-						if (!params.closed) {
-							this.closed = false;
-						}
-					}
-
-					if (params.autoPlace) {
-						if (_utilsCommon2['default'].isUndefined(params.parent)) {
-							if (autoPlaceVirgin) {
-								autoPlaceContainer = document.createElement('div');
-								_domDom2['default'].addClass(autoPlaceContainer, CSS_NAMESPACE);
-								_domDom2['default'].addClass(autoPlaceContainer, GUI.CLASS_AUTO_PLACE_CONTAINER);
-								document.body.appendChild(autoPlaceContainer);
-								autoPlaceVirgin = false;
-							}
-
-							// Put it in the dom for you.
-							autoPlaceContainer.appendChild(this.domElement);
-
-							// Apply the auto styles
-							_domDom2['default'].addClass(this.domElement, GUI.CLASS_AUTO_PLACE);
-						}
-
-						// Make it not elastic.
-						if (!this.parent) {
-							setWidth(_this, params.width);
-						}
-					}
-
-					_domDom2['default'].bind(window, 'resize', function () {
-						_this.onResize();
-					});
-					_domDom2['default'].bind(this.__ul, 'webkitTransitionEnd', function () {
-						_this.onResize();
-					});
-					_domDom2['default'].bind(this.__ul, 'transitionend', function () {
-						_this.onResize();
-					});
-					_domDom2['default'].bind(this.__ul, 'oTransitionEnd', function () {
-						_this.onResize();
-					});
-					this.onResize();
-
-					if (params.resizable) {
-						addResizeHandle(this);
-					}
-
-					saveToLocalStorage = function saveToLocalStorage() {
-						if (SUPPORTS_LOCAL_STORAGE && localStorage.getItem(getLocalStorageHash(_this, 'isLocal')) === 'true') {
-							localStorage.setItem(getLocalStorageHash(_this, 'gui'), JSON.stringify(_this.getSaveObject()));
-						}
-					};
-
-					// expose this method publicly
-					this.saveToLocalStorageIfPossible = saveToLocalStorage;
-
-					function resetWidth() {
-						var root = _this.getRoot();
-						root.width += 1;
-						_utilsCommon2['default'].defer(function () {
-							root.width -= 1;
-						});
-					}
-
-					if (!params.parent) {
-						resetWidth();
-					}
-				};
-
-				GUI.toggleHide = function () {
-					hide = !hide;
-					_utilsCommon2['default'].each(hideableGuis, function (gui) {
-						gui.domElement.style.zIndex = hide ? -999 : 999;
-						gui.domElement.style.opacity = hide ? 0 : 1;
-					});
-				};
-
-				GUI.CLASS_AUTO_PLACE = 'a';
-				GUI.CLASS_AUTO_PLACE_CONTAINER = 'ac';
-				GUI.CLASS_MAIN = 'main';
-				GUI.CLASS_CONTROLLER_ROW = 'cr';
-				GUI.CLASS_TOO_TALL = 'taller-than-window';
-				GUI.CLASS_CLOSED = 'closed';
-				GUI.CLASS_CLOSE_BUTTON = 'close-button';
-				GUI.CLASS_DRAG = 'drag';
-
-				GUI.DEFAULT_WIDTH = 245;
-				GUI.TEXT_CLOSED = 'Close Controls';
-				GUI.TEXT_OPEN = 'Open Controls';
-
-				_domDom2['default'].bind(window, 'keydown', function (e) {
-					if (document.activeElement.type !== 'text' && (e.which === HIDE_KEY_CODE || e.keyCode === HIDE_KEY_CODE)) {
-						GUI.toggleHide();
-					}
-				}, false);
-
-				_utilsCommon2['default'].extend(GUI.prototype,
-
-				/** @lends dat.gui.GUI */
-				{
-
-					/**
-      * @param object
-      * @param property
-      * @returns {dat.controllers.Controller} The new controller that was added.
-      * @instance
-      */
-					add: function (_add) {
-						function add(_x, _x2) {
-							return _add.apply(this, arguments);
-						}
-
-						add.toString = function () {
-							return _add.toString();
-						};
-
-						return add;
-					}(function (object, property) {
-						return add(this, object, property, {
-							factoryArgs: Array.prototype.slice.call(arguments, 2)
-						});
-					}),
-
-					/**
-      * @param object
-      * @param property
-      * @returns {dat.controllers.ColorController} The new controller that was added.
-      * @instance
-      */
-					addColor: function addColor(object, property) {
-						return add(this, object, property, {
-							color: true
-						});
-					},
-
-					/**
-      * @param controller
-      * @instance
-      */
-					remove: function remove(controller) {
-						// TODO listening?
-						this.__ul.removeChild(controller.__li);
-						this.__controllers.splice(this.__controllers.indexOf(controller), 1);
-						var _this = this;
-						_utilsCommon2['default'].defer(function () {
-							_this.onResize();
-						});
-					},
-
-					destroy: function destroy() {
-						if (this.autoPlace) {
-							autoPlaceContainer.removeChild(this.domElement);
-						}
-					},
-
-					/**
-      * @param name
-      * @returns {dat.gui.GUI} The new folder.
-      * @throws {Error} if this GUI already has a folder by the specified
-      * name
-      * @instance
-      */
-					addFolder: function addFolder(name) {
-						// We have to prevent collisions on names in order to have a key
-						// by which to remember saved values
-						if (this.__folders[name] !== undefined) {
-							throw new Error('You already have a folder in this GUI by the' + ' name "' + name + '"');
-						}
-
-						var newGuiParams = { name: name, parent: this };
-
-						// We need to pass down the autoPlace trait so that we can
-						// attach event listeners to open/close folder actions to
-						// ensure that a scrollbar appears if the window is too short.
-						newGuiParams.autoPlace = this.autoPlace;
-
-						// Do we have saved appearance data for this folder?
-
-						if (this.load && // Anything loaded?
-						this.load.folders && // Was my parent a dead-end?
-						this.load.folders[name]) {
-							// Did daddy remember me?
-
-							// Start me closed if I was closed
-							newGuiParams.closed = this.load.folders[name].closed;
-
-							// Pass down the loaded data
-							newGuiParams.load = this.load.folders[name];
-						}
-
-						var gui = new GUI(newGuiParams);
-						this.__folders[name] = gui;
-
-						var li = addRow(this, gui.domElement);
-						_domDom2['default'].addClass(li, 'folder');
-						return gui;
-					},
-
-					open: function open() {
-						this.closed = false;
-					},
-
-					close: function close() {
-						this.closed = true;
-					},
-
-					onResize: function onResize() {
-						var root = this.getRoot();
-						if (root.scrollable) {
-							var _top = _domDom2['default'].getOffset(root.__ul).top;
-							var h = 0;
-
-							_utilsCommon2['default'].each(root.__ul.childNodes, function (node) {
-								if (!(root.autoPlace && node === root.__save_row)) {
-									h += _domDom2['default'].getHeight(node);
-								}
-							});
-
-							if (window.innerHeight - _top - CLOSE_BUTTON_HEIGHT < h) {
-								_domDom2['default'].addClass(root.domElement, GUI.CLASS_TOO_TALL);
-								root.__ul.style.height = window.innerHeight - _top - CLOSE_BUTTON_HEIGHT + 'px';
-							} else {
-								_domDom2['default'].removeClass(root.domElement, GUI.CLASS_TOO_TALL);
-								root.__ul.style.height = 'auto';
-							}
-						}
-
-						if (root.__resize_handle) {
-							_utilsCommon2['default'].defer(function () {
-								root.__resize_handle.style.height = root.__ul.offsetHeight + 'px';
-							});
-						}
-
-						if (root.__closeButton) {
-							root.__closeButton.style.width = root.width + 'px';
-						}
-					},
-
-					/**
-      * Mark objects for saving. The order of these objects cannot change as
-      * the GUI grows. When remembering new objects, append them to the end
-      * of the list.
-      *
-      * @param {Object...} objects
-      * @throws {Error} if not called on a top level GUI.
-      * @instance
-      */
-					remember: function remember() {
-						if (_utilsCommon2['default'].isUndefined(SAVE_DIALOGUE)) {
-							SAVE_DIALOGUE = new _domCenteredDiv2['default']();
-							SAVE_DIALOGUE.domElement.innerHTML = _htmlSaveDialogueHtml2['default'];
-						}
-
-						if (this.parent) {
-							throw new Error('You can only call remember on a top level GUI.');
-						}
-
-						var _this = this;
-
-						_utilsCommon2['default'].each(Array.prototype.slice.call(arguments), function (object) {
-							if (_this.__rememberedObjects.length === 0) {
-								addSaveMenu(_this);
-							}
-							if (_this.__rememberedObjects.indexOf(object) === -1) {
-								_this.__rememberedObjects.push(object);
-							}
-						});
-
-						if (this.autoPlace) {
-							// Set save row width
-							setWidth(this, this.width);
-						}
-					},
-
-					/**
-      * @returns {dat.gui.GUI} the topmost parent GUI of a nested GUI.
-      * @instance
-      */
-					getRoot: function getRoot() {
-						var gui = this;
-						while (gui.parent) {
-							gui = gui.parent;
-						}
-						return gui;
-					},
-
-					/**
-      * @returns {Object} a JSON object representing the current state of
-      * this GUI as well as its remembered properties.
-      * @instance
-      */
-					getSaveObject: function getSaveObject() {
-						var toReturn = this.load;
-						toReturn.closed = this.closed;
-
-						// Am I remembering any values?
-						if (this.__rememberedObjects.length > 0) {
-							toReturn.preset = this.preset;
-
-							if (!toReturn.remembered) {
-								toReturn.remembered = {};
-							}
-
-							toReturn.remembered[this.preset] = getCurrentPreset(this);
-						}
-
-						toReturn.folders = {};
-						_utilsCommon2['default'].each(this.__folders, function (element, key) {
-							toReturn.folders[key] = element.getSaveObject();
-						});
-
-						return toReturn;
-					},
-
-					save: function save() {
-						if (!this.load.remembered) {
-							this.load.remembered = {};
-						}
-
-						this.load.remembered[this.preset] = getCurrentPreset(this);
-						markPresetModified(this, false);
-						this.saveToLocalStorageIfPossible();
-					},
-
-					saveAs: function saveAs(presetName) {
-						if (!this.load.remembered) {
-							// Retain default values upon first save
-							this.load.remembered = {};
-							this.load.remembered[DEFAULT_DEFAULT_PRESET_NAME] = getCurrentPreset(this, true);
-						}
-
-						this.load.remembered[presetName] = getCurrentPreset(this);
-						this.preset = presetName;
-						addPresetOption(this, presetName, true);
-						this.saveToLocalStorageIfPossible();
-					},
-
-					revert: function revert(gui) {
-						_utilsCommon2['default'].each(this.__controllers, function (controller) {
-							// Make revert work on Default.
-							if (!this.getRoot().load.remembered) {
-								controller.setValue(controller.initialValue);
-							} else {
-								recallSavedValue(gui || this.getRoot(), controller);
-							}
-						}, this);
-
-						_utilsCommon2['default'].each(this.__folders, function (folder) {
-							folder.revert(folder);
-						});
-
-						if (!gui) {
-							markPresetModified(this.getRoot(), false);
-						}
-					},
-
-					listen: function listen(controller) {
-						var init = this.__listening.length === 0;
-						this.__listening.push(controller);
-						if (init) {
-							updateDisplays(this.__listening);
-						}
-					}
-				});
-
-				/**
-     * Add a row to the end of the GUI or before another row.
-     *
-     * @param gui
-     * @param [newDom] If specified, inserts the dom content in the new row
-     * @param [liBefore] If specified, places the new row before another row
-     */
-				function addRow(gui, newDom, liBefore) {
-					var li = document.createElement('li');
-					if (newDom) {
-						li.appendChild(newDom);
-					}
-
-					if (liBefore) {
-						gui.__ul.insertBefore(li, params.before);
-					} else {
-						gui.__ul.appendChild(li);
-					}
-					gui.onResize();
-					return li;
-				}
-
-				function markPresetModified(gui, modified) {
-					var opt = gui.__preset_select[gui.__preset_select.selectedIndex];
-
-					// console.log('mark', modified, opt);
-					if (modified) {
-						opt.innerHTML = opt.value + '*';
-					} else {
-						opt.innerHTML = opt.value;
-					}
-				}
-
-				function augmentController(gui, li, controller) {
-					controller.__li = li;
-					controller.__gui = gui;
-
-					_utilsCommon2['default'].extend(controller, {
-						options: function options(_options) {
-							if (arguments.length > 1) {
-								controller.remove();
-
-								return add(gui, controller.object, controller.property, {
-									before: controller.__li.nextElementSibling,
-									factoryArgs: [_utilsCommon2['default'].toArray(arguments)]
-								});
-							}
-
-							if (_utilsCommon2['default'].isArray(_options) || _utilsCommon2['default'].isObject(_options)) {
-								controller.remove();
-
-								return add(gui, controller.object, controller.property, {
-									before: controller.__li.nextElementSibling,
-									factoryArgs: [_options]
-								});
-							}
-						},
-
-						name: function name(v) {
-							controller.__li.firstElementChild.firstElementChild.innerHTML = v;
-							return controller;
-						},
-
-						listen: function listen() {
-							controller.__gui.listen(controller);
-							return controller;
-						},
-
-						remove: function remove() {
-							controller.__gui.remove(controller);
-							return controller;
-						}
-					});
-
-					// All sliders should be accompanied by a box.
-					if (controller instanceof _controllersNumberControllerSlider2['default']) {
-						(function () {
-							var box = new _controllersNumberControllerBox2['default'](controller.object, controller.property, { min: controller.__min, max: controller.__max, step: controller.__step });
-
-							_utilsCommon2['default'].each(['updateDisplay', 'onChange', 'onFinishChange'], function (method) {
-								var pc = controller[method];
-								var pb = box[method];
-								controller[method] = box[method] = function () {
-									var args = Array.prototype.slice.call(arguments);
-									pc.apply(controller, args);
-									return pb.apply(box, args);
-								};
-							});
-
-							_domDom2['default'].addClass(li, 'has-slider');
-							controller.domElement.insertBefore(box.domElement, controller.domElement.firstElementChild);
-						})();
-					} else if (controller instanceof _controllersNumberControllerBox2['default']) {
-						var r = function r(returned) {
-							// Have we defined both boundaries?
-							if (_utilsCommon2['default'].isNumber(controller.__min) && _utilsCommon2['default'].isNumber(controller.__max)) {
-								// Well, then lets just replace this with a slider.
-								controller.remove();
-								return add(gui, controller.object, controller.property, {
-									before: controller.__li.nextElementSibling,
-									factoryArgs: [controller.__min, controller.__max, controller.__step]
-								});
-							}
-
-							return returned;
-						};
-
-						controller.min = _utilsCommon2['default'].compose(r, controller.min);
-						controller.max = _utilsCommon2['default'].compose(r, controller.max);
-					} else if (controller instanceof _controllersBooleanController2['default']) {
-						_domDom2['default'].bind(li, 'click', function () {
-							_domDom2['default'].fakeEvent(controller.__checkbox, 'click');
-						});
-
-						_domDom2['default'].bind(controller.__checkbox, 'click', function (e) {
-							e.stopPropagation(); // Prevents double-toggle
-						});
-					} else if (controller instanceof _controllersFunctionController2['default']) {
-						_domDom2['default'].bind(li, 'click', function () {
-							_domDom2['default'].fakeEvent(controller.__button, 'click');
-						});
-
-						_domDom2['default'].bind(li, 'mouseover', function () {
-							_domDom2['default'].addClass(controller.__button, 'hover');
-						});
-
-						_domDom2['default'].bind(li, 'mouseout', function () {
-							_domDom2['default'].removeClass(controller.__button, 'hover');
-						});
-					} else if (controller instanceof _controllersColorController2['default']) {
-						_domDom2['default'].addClass(li, 'color');
-						controller.updateDisplay = _utilsCommon2['default'].compose(function (val) {
-							li.style.borderLeftColor = controller.__color.toString();
-							return val;
-						}, controller.updateDisplay);
-
-						controller.updateDisplay();
-					}
-
-					controller.setValue = _utilsCommon2['default'].compose(function (val) {
-						if (gui.getRoot().__preset_select && controller.isModified()) {
-							markPresetModified(gui.getRoot(), true);
-						}
-
-						return val;
-					}, controller.setValue);
-				}
-
-				function recallSavedValue(gui, controller) {
-					// Find the topmost GUI, that's where remembered objects live.
-					var root = gui.getRoot();
-
-					// Does the object we're controlling match anything we've been told to
-					// remember?
-					var matchedIndex = root.__rememberedObjects.indexOf(controller.object);
-
-					// Why yes, it does!
-					if (matchedIndex !== -1) {
-						// Let me fetch a map of controllers for thcommon.isObject.
-						var controllerMap = root.__rememberedObjectIndecesToControllers[matchedIndex];
-
-						// Ohp, I believe this is the first controller we've created for this
-						// object. Lets make the map fresh.
-						if (controllerMap === undefined) {
-							controllerMap = {};
-							root.__rememberedObjectIndecesToControllers[matchedIndex] = controllerMap;
-						}
-
-						// Keep track of this controller
-						controllerMap[controller.property] = controller;
-
-						// Okay, now have we saved any values for this controller?
-						if (root.load && root.load.remembered) {
-							var presetMap = root.load.remembered;
-
-							// Which preset are we trying to load?
-							var preset = undefined;
-
-							if (presetMap[gui.preset]) {
-								preset = presetMap[gui.preset];
-							} else if (presetMap[DEFAULT_DEFAULT_PRESET_NAME]) {
-								// Uhh, you can have the default instead?
-								preset = presetMap[DEFAULT_DEFAULT_PRESET_NAME];
-							} else {
-								// Nada.
-								return;
-							}
-
-							// Did the loaded object remember thcommon.isObject? &&  Did we remember this particular property?
-							if (preset[matchedIndex] && preset[matchedIndex][controller.property] !== undefined) {
-								// We did remember something for this guy ...
-								var value = preset[matchedIndex][controller.property];
-
-								// And that's what it is.
-								controller.initialValue = value;
-								controller.setValue(value);
-							}
-						}
-					}
-				}
-
-				function add(gui, object, property, params) {
-					if (object[property] === undefined) {
-						throw new Error('Object "' + object + '" has no property "' + property + '"');
-					}
-
-					var controller = undefined;
-
-					if (params.color) {
-						controller = new _controllersColorController2['default'](object, property);
-					} else {
-						var factoryArgs = [object, property].concat(params.factoryArgs);
-						controller = _controllersControllerFactory2['default'].apply(gui, factoryArgs);
-					}
-
-					if (params.before instanceof _controllersController2['default']) {
-						params.before = params.before.__li;
-					}
-
-					recallSavedValue(gui, controller);
-
-					_domDom2['default'].addClass(controller.domElement, 'c');
-
-					var name = document.createElement('span');
-					_domDom2['default'].addClass(name, 'property-name');
-					name.innerHTML = controller.property;
-
-					var container = document.createElement('div');
-					container.appendChild(name);
-					container.appendChild(controller.domElement);
-
-					var li = addRow(gui, container, params.before);
-
-					_domDom2['default'].addClass(li, GUI.CLASS_CONTROLLER_ROW);
-					if (controller instanceof _controllersColorController2['default']) {
-						_domDom2['default'].addClass(li, 'color');
-					} else {
-						_domDom2['default'].addClass(li, _typeof$1(controller.getValue()));
-					}
-
-					augmentController(gui, li, controller);
-
-					gui.__controllers.push(controller);
-
-					return controller;
-				}
-
-				function getLocalStorageHash(gui, key) {
-					// TODO how does this deal with multiple GUI's?
-					return document.location.href + '.' + key;
-				}
-
-				function addPresetOption(gui, name, setSelected) {
-					var opt = document.createElement('option');
-					opt.innerHTML = name;
-					opt.value = name;
-					gui.__preset_select.appendChild(opt);
-					if (setSelected) {
-						gui.__preset_select.selectedIndex = gui.__preset_select.length - 1;
-					}
-				}
-
-				function showHideExplain(gui, explain) {
-					explain.style.display = gui.useLocalStorage ? 'block' : 'none';
-				}
-
-				function addSaveMenu(gui) {
-					var div = gui.__save_row = document.createElement('li');
-
-					_domDom2['default'].addClass(gui.domElement, 'has-save');
-
-					gui.__ul.insertBefore(div, gui.__ul.firstChild);
-
-					_domDom2['default'].addClass(div, 'save-row');
-
-					var gears = document.createElement('span');
-					gears.innerHTML = '&nbsp;';
-					_domDom2['default'].addClass(gears, 'button gears');
-
-					// TODO replace with FunctionController
-					var button = document.createElement('span');
-					button.innerHTML = 'Save';
-					_domDom2['default'].addClass(button, 'button');
-					_domDom2['default'].addClass(button, 'save');
-
-					var button2 = document.createElement('span');
-					button2.innerHTML = 'New';
-					_domDom2['default'].addClass(button2, 'button');
-					_domDom2['default'].addClass(button2, 'save-as');
-
-					var button3 = document.createElement('span');
-					button3.innerHTML = 'Revert';
-					_domDom2['default'].addClass(button3, 'button');
-					_domDom2['default'].addClass(button3, 'revert');
-
-					var select = gui.__preset_select = document.createElement('select');
-
-					if (gui.load && gui.load.remembered) {
-						_utilsCommon2['default'].each(gui.load.remembered, function (value, key) {
-							addPresetOption(gui, key, key === gui.preset);
-						});
-					} else {
-						addPresetOption(gui, DEFAULT_DEFAULT_PRESET_NAME, false);
-					}
-
-					_domDom2['default'].bind(select, 'change', function () {
-						for (var index = 0; index < gui.__preset_select.length; index++) {
-							gui.__preset_select[index].innerHTML = gui.__preset_select[index].value;
-						}
-
-						gui.preset = this.value;
-					});
-
-					div.appendChild(select);
-					div.appendChild(gears);
-					div.appendChild(button);
-					div.appendChild(button2);
-					div.appendChild(button3);
-
-					if (SUPPORTS_LOCAL_STORAGE) {
-						(function () {
-							var explain = document.getElementById('dg-local-explain');
-							var localStorageCheckBox = document.getElementById('dg-local-storage');
-							var saveLocally = document.getElementById('dg-save-locally');
-
-							saveLocally.style.display = 'block';
-
-							if (localStorage.getItem(getLocalStorageHash(gui, 'isLocal')) === 'true') {
-								localStorageCheckBox.setAttribute('checked', 'checked');
-							}
-
-							showHideExplain(gui, explain);
-
-							// TODO: Use a boolean controller, fool!
-							_domDom2['default'].bind(localStorageCheckBox, 'change', function () {
-								gui.useLocalStorage = !gui.useLocalStorage;
-								showHideExplain(gui, explain);
-							});
-						})();
-					}
-
-					var newConstructorTextArea = document.getElementById('dg-new-constructor');
-
-					_domDom2['default'].bind(newConstructorTextArea, 'keydown', function (e) {
-						if (e.metaKey && (e.which === 67 || e.keyCode === 67)) {
-							SAVE_DIALOGUE.hide();
-						}
-					});
-
-					_domDom2['default'].bind(gears, 'click', function () {
-						newConstructorTextArea.innerHTML = JSON.stringify(gui.getSaveObject(), undefined, 2);
-						SAVE_DIALOGUE.show();
-						newConstructorTextArea.focus();
-						newConstructorTextArea.select();
-					});
-
-					_domDom2['default'].bind(button, 'click', function () {
-						gui.save();
-					});
-
-					_domDom2['default'].bind(button2, 'click', function () {
-						var presetName = prompt('Enter a new preset name.');
-						if (presetName) {
-							gui.saveAs(presetName);
-						}
-					});
-
-					_domDom2['default'].bind(button3, 'click', function () {
-						gui.revert();
-					});
-
-					// div.appendChild(button2);
-				}
-
-				function addResizeHandle(gui) {
-					var pmouseX = undefined;
-
-					gui.__resize_handle = document.createElement('div');
-
-					_utilsCommon2['default'].extend(gui.__resize_handle.style, {
-
-						width: '6px',
-						marginLeft: '-3px',
-						height: '200px',
-						cursor: 'ew-resize',
-						position: 'absolute'
-						// border: '1px solid blue'
-
-					});
-
-					function drag(e) {
-						e.preventDefault();
-
-						gui.width += pmouseX - e.clientX;
-						gui.onResize();
-						pmouseX = e.clientX;
-
-						return false;
-					}
-
-					function dragStop() {
-						_domDom2['default'].removeClass(gui.__closeButton, GUI.CLASS_DRAG);
-						_domDom2['default'].unbind(window, 'mousemove', drag);
-						_domDom2['default'].unbind(window, 'mouseup', dragStop);
-					}
-
-					function dragStart(e) {
-						e.preventDefault();
-
-						pmouseX = e.clientX;
-
-						_domDom2['default'].addClass(gui.__closeButton, GUI.CLASS_DRAG);
-						_domDom2['default'].bind(window, 'mousemove', drag);
-						_domDom2['default'].bind(window, 'mouseup', dragStop);
-
-						return false;
-					}
-
-					_domDom2['default'].bind(gui.__resize_handle, 'mousedown', dragStart);
-					_domDom2['default'].bind(gui.__closeButton, 'mousedown', dragStart);
-
-					gui.domElement.insertBefore(gui.__resize_handle, gui.domElement.firstElementChild);
-				}
-
-				function setWidth(gui, w) {
-					gui.domElement.style.width = w + 'px';
-					// Auto placed save-rows are position fixed, so we have to
-					// set the width manually if we want it to bleed to the edge
-					if (gui.__save_row && gui.autoPlace) {
-						gui.__save_row.style.width = w + 'px';
-					}
-					if (gui.__closeButton) {
-						gui.__closeButton.style.width = w + 'px';
-					}
-				}
-
-				function getCurrentPreset(gui, useInitialValues) {
-					var toReturn = {};
-
-					// For each object I'm remembering
-					_utilsCommon2['default'].each(gui.__rememberedObjects, function (val, index) {
-						var savedValues = {};
-
-						// The controllers I've made for thcommon.isObject by property
-						var controllerMap = gui.__rememberedObjectIndecesToControllers[index];
-
-						// Remember each value for each property
-						_utilsCommon2['default'].each(controllerMap, function (controller, property) {
-							savedValues[property] = useInitialValues ? controller.initialValue : controller.getValue();
-						});
-
-						// Save the values for thcommon.isObject
-						toReturn[index] = savedValues;
-					});
-
-					return toReturn;
-				}
-
-				function setPresetSelectIndex(gui) {
-					for (var index = 0; index < gui.__preset_select.length; index++) {
-						if (gui.__preset_select[index].value === gui.preset) {
-							gui.__preset_select.selectedIndex = index;
-						}
-					}
-				}
-
-				function updateDisplays(controllerArray) {
-					if (controllerArray.length !== 0) {
-						_utilsRequestAnimationFrame2['default'](function () {
-							updateDisplays(controllerArray);
-						});
-					}
-
-					_utilsCommon2['default'].each(controllerArray, function (c) {
-						c.updateDisplay();
-					});
-				}
-
-				module.exports = GUI;
-
-				/***/
-			},
-			/* 23 */
-			/***/function (module, exports) {
-
-				module.exports = "<div id=\"dg-save\" class=\"dg dialogue\">\n\n  Here's the new load parameter for your <code>GUI</code>'s constructor:\n\n  <textarea id=\"dg-new-constructor\"></textarea>\n\n  <div id=\"dg-save-locally\">\n\n    <input id=\"dg-local-storage\" type=\"checkbox\"/> Automatically save\n    values to <code>localStorage</code> on exit.\n\n    <div id=\"dg-local-explain\">The values saved to <code>localStorage</code> will\n      override those passed to <code>dat.GUI</code>'s constructor. This makes it\n      easier to work incrementally, but <code>localStorage</code> is fragile,\n      and your friends may not see the same values you do.\n\n    </div>\n\n  </div>\n\n</div>";
-
-				/***/
-			},
-			/* 24 */
-			/***/function (module, exports, __webpack_require__) {
-
-				// style-loader: Adds some css to the DOM by adding a <style> tag
-
-				// load the styles
-				var content = __webpack_require__(25);
-				if (typeof content === 'string') content = [[module.id, content, '']];
-				// add the styles to the DOM
-				var update = __webpack_require__(19)(content, {});
-				if (content.locals) module.exports = content.locals;
-				// Hot Module Replacement
-				
-
-				/***/
-			},
-			/* 25 */
-			/***/function (module, exports, __webpack_require__) {
-
-				exports = module.exports = __webpack_require__(18)();
-				// imports
-
-
-				// module
-				exports.push([module.id, ".dg {\n  /** Clear list styles */\n  /* Auto-place container */\n  /* Auto-placed GUI's */\n  /* Line items that don't contain folders. */\n  /** Folder names */\n  /** Hides closed items */\n  /** Controller row */\n  /** Name-half (left) */\n  /** Controller-half (right) */\n  /** Controller placement */\n  /** Shorter number boxes when slider is present. */\n  /** Ensure the entire boolean and function row shows a hand */ }\n  .dg ul {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    width: 100%;\n    clear: both; }\n  .dg.ac {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    height: 0;\n    z-index: 0; }\n  .dg:not(.ac) .main {\n    /** Exclude mains in ac so that we don't hide close button */\n    overflow: hidden; }\n  .dg.main {\n    -webkit-transition: opacity 0.1s linear;\n    -o-transition: opacity 0.1s linear;\n    -moz-transition: opacity 0.1s linear;\n    transition: opacity 0.1s linear; }\n    .dg.main.taller-than-window {\n      overflow-y: auto; }\n      .dg.main.taller-than-window .close-button {\n        opacity: 1;\n        /* TODO, these are style notes */\n        margin-top: -1px;\n        border-top: 1px solid #2c2c2c; }\n    .dg.main ul.closed .close-button {\n      opacity: 1 !important; }\n    .dg.main:hover .close-button,\n    .dg.main .close-button.drag {\n      opacity: 1; }\n    .dg.main .close-button {\n      /*opacity: 0;*/\n      -webkit-transition: opacity 0.1s linear;\n      -o-transition: opacity 0.1s linear;\n      -moz-transition: opacity 0.1s linear;\n      transition: opacity 0.1s linear;\n      border: 0;\n      position: absolute;\n      line-height: 19px;\n      height: 20px;\n      /* TODO, these are style notes */\n      cursor: pointer;\n      text-align: center;\n      background-color: #000; }\n      .dg.main .close-button:hover {\n        background-color: #111; }\n  .dg.a {\n    float: right;\n    margin-right: 15px;\n    overflow-x: hidden; }\n    .dg.a.has-save > ul {\n      margin-top: 27px; }\n      .dg.a.has-save > ul.closed {\n        margin-top: 0; }\n    .dg.a .save-row {\n      position: fixed;\n      top: 0;\n      z-index: 1002; }\n  .dg li {\n    -webkit-transition: height 0.1s ease-out;\n    -o-transition: height 0.1s ease-out;\n    -moz-transition: height 0.1s ease-out;\n    transition: height 0.1s ease-out; }\n  .dg li:not(.folder) {\n    cursor: auto;\n    height: 27px;\n    line-height: 27px;\n    overflow: hidden;\n    padding: 0 4px 0 5px; }\n  .dg li.folder {\n    padding: 0;\n    border-left: 4px solid transparent; }\n  .dg li.title {\n    cursor: pointer;\n    margin-left: -4px; }\n  .dg .closed li:not(.title),\n  .dg .closed ul li,\n  .dg .closed ul li > * {\n    height: 0;\n    overflow: hidden;\n    border: 0; }\n  .dg .cr {\n    clear: both;\n    padding-left: 3px;\n    height: 27px; }\n  .dg .property-name {\n    cursor: default;\n    float: left;\n    clear: left;\n    width: 40%;\n    overflow: hidden;\n    text-overflow: ellipsis; }\n  .dg .c {\n    float: left;\n    width: 60%; }\n  .dg .c input[type=text] {\n    border: 0;\n    margin-top: 4px;\n    padding: 3px;\n    width: 100%;\n    float: right; }\n  .dg .has-slider input[type=text] {\n    width: 30%;\n    /*display: none;*/\n    margin-left: 0; }\n  .dg .slider {\n    float: left;\n    width: 66%;\n    margin-left: -5px;\n    margin-right: 0;\n    height: 19px;\n    margin-top: 4px; }\n  .dg .slider-fg {\n    height: 100%; }\n  .dg .c input[type=checkbox] {\n    margin-top: 9px; }\n  .dg .c select {\n    margin-top: 5px; }\n  .dg .cr.function,\n  .dg .cr.function .property-name, .dg .cr.function *,\n  .dg .cr.boolean,\n  .dg .cr.boolean * {\n    cursor: pointer; }\n  .dg .selector {\n    display: none;\n    position: absolute;\n    margin-left: -9px;\n    margin-top: 23px;\n    z-index: 10; }\n  .dg .c:hover .selector,\n  .dg .selector.drag {\n    display: block; }\n  .dg li.save-row {\n    padding: 0; }\n    .dg li.save-row .button {\n      display: inline-block;\n      padding: 0px 6px; }\n  .dg.dialogue {\n    background-color: #222;\n    width: 460px;\n    padding: 15px;\n    font-size: 13px;\n    line-height: 15px; }\n\n/* TODO Separate style and structure */\n#dg-new-constructor {\n  padding: 10px;\n  color: #222;\n  font-family: Monaco, monospace;\n  font-size: 10px;\n  border: 0;\n  resize: none;\n  box-shadow: inset 1px 1px 1px #888;\n  word-wrap: break-word;\n  margin: 12px 0;\n  display: block;\n  width: 440px;\n  overflow-y: scroll;\n  height: 100px;\n  position: relative; }\n\n#dg-local-explain {\n  display: none;\n  font-size: 11px;\n  line-height: 17px;\n  border-radius: 3px;\n  background-color: #333;\n  padding: 8px;\n  margin-top: 10px; }\n  #dg-local-explain code {\n    font-size: 10px; }\n\n#dat-gui-save-locally {\n  display: none; }\n\n/** Main type */\n.dg {\n  color: #eee;\n  font: 11px 'Lucida Grande', sans-serif;\n  text-shadow: 0 -1px 0 #111;\n  /** Auto place */\n  /* Controller row, <li> */\n  /** Controllers */ }\n  .dg.main {\n    /** Scrollbar */ }\n    .dg.main::-webkit-scrollbar {\n      width: 5px;\n      background: #1a1a1a; }\n    .dg.main::-webkit-scrollbar-corner {\n      height: 0;\n      display: none; }\n    .dg.main::-webkit-scrollbar-thumb {\n      border-radius: 5px;\n      background: #676767; }\n  .dg li:not(.folder) {\n    background: #1a1a1a;\n    border-bottom: 1px solid #2c2c2c; }\n  .dg li.save-row {\n    line-height: 25px;\n    background: #dad5cb;\n    border: 0; }\n    .dg li.save-row select {\n      margin-left: 5px;\n      width: 108px; }\n    .dg li.save-row .button {\n      margin-left: 5px;\n      margin-top: 1px;\n      border-radius: 2px;\n      font-size: 9px;\n      line-height: 7px;\n      padding: 4px 4px 5px 4px;\n      background: #c5bdad;\n      color: #fff;\n      text-shadow: 0 1px 0 #b0a58f;\n      box-shadow: 0 -1px 0 #b0a58f;\n      cursor: pointer; }\n      .dg li.save-row .button.gears {\n        background: #c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;\n        height: 7px;\n        width: 8px; }\n      .dg li.save-row .button:hover {\n        background-color: #bab19e;\n        box-shadow: 0 -1px 0 #b0a58f; }\n  .dg li.folder {\n    border-bottom: 0; }\n  .dg li.title {\n    padding-left: 16px;\n    background: #000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;\n    cursor: pointer;\n    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }\n  .dg .closed li.title {\n    background-image: url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==); }\n  .dg .cr.boolean {\n    border-left: 3px solid #806787; }\n  .dg .cr.color {\n    border-left: 3px solid; }\n  .dg .cr.function {\n    border-left: 3px solid #e61d5f; }\n  .dg .cr.number {\n    border-left: 3px solid #2FA1D6; }\n    .dg .cr.number input[type=text] {\n      color: #2FA1D6; }\n  .dg .cr.string {\n    border-left: 3px solid #1ed36f; }\n    .dg .cr.string input[type=text] {\n      color: #1ed36f; }\n  .dg .cr.function:hover,\n  .dg .cr.boolean:hover {\n    background: #111; }\n  .dg .c input[type=text] {\n    background: #303030;\n    outline: none; }\n    .dg .c input[type=text]:hover {\n      background: #3c3c3c; }\n    .dg .c input[type=text]:focus {\n      background: #494949;\n      color: #fff; }\n  .dg .c .slider {\n    background: #303030;\n    cursor: ew-resize; }\n  .dg .c .slider-fg {\n    background: #2FA1D6; }\n  .dg .c .slider:hover {\n    background: #3c3c3c; }\n    .dg .c .slider:hover .slider-fg {\n      background: #44abda; }\n", ""]);
-
-				// exports
-
-
-				/***/
-			},
-			/* 26 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
-				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				var _OptionController = __webpack_require__(10);
-
-				var _OptionController2 = _interopRequireDefault(_OptionController);
-
-				var _NumberControllerBox = __webpack_require__(13);
-
-				var _NumberControllerBox2 = _interopRequireDefault(_NumberControllerBox);
-
-				var _NumberControllerSlider = __webpack_require__(14);
-
-				var _NumberControllerSlider2 = _interopRequireDefault(_NumberControllerSlider);
-
-				var _StringController = __webpack_require__(11);
-
-				var _StringController2 = _interopRequireDefault(_StringController);
-
-				var _FunctionController = __webpack_require__(20);
-
-				var _FunctionController2 = _interopRequireDefault(_FunctionController);
-
-				var _BooleanController = __webpack_require__(8);
-
-				var _BooleanController2 = _interopRequireDefault(_BooleanController);
-
-				var _utilsCommon = __webpack_require__(5);
-
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
-				var ControllerFactory = function ControllerFactory(object, property) {
-					var initialValue = object[property];
-
-					// Providing options?
-					if (_utilsCommon2['default'].isArray(arguments[2]) || _utilsCommon2['default'].isObject(arguments[2])) {
-						return new _OptionController2['default'](object, property, arguments[2]);
-					}
-
-					// Providing a map?
-					if (_utilsCommon2['default'].isNumber(initialValue)) {
-						if (_utilsCommon2['default'].isNumber(arguments[2]) && _utilsCommon2['default'].isNumber(arguments[3])) {
-							// Has min and max.
-							if (_utilsCommon2['default'].isNumber(arguments[4])) {
-								// has step
-								return new _NumberControllerSlider2['default'](object, property, arguments[2], arguments[3], arguments[4]);
-							}
-
-							return new _NumberControllerSlider2['default'](object, property, arguments[2], arguments[3]);
-						}
-						return new _NumberControllerBox2['default'](object, property, { min: arguments[2], max: arguments[3] });
-					}
-
-					if (_utilsCommon2['default'].isString(initialValue)) {
-						return new _StringController2['default'](object, property);
-					}
-
-					if (_utilsCommon2['default'].isFunction(initialValue)) {
-						return new _FunctionController2['default'](object, property, '');
-					}
-
-					if (_utilsCommon2['default'].isBoolean(initialValue)) {
-						return new _BooleanController2['default'](object, property);
-					}
-				};
-
-				exports['default'] = ControllerFactory;
-				module.exports = exports['default'];
-
-				/***/
-			},
-			/* 27 */
-			/***/function (module, exports) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				"use strict";
-
-				exports.__esModule = true;
-
-				exports["default"] = function () {
-					function requestAnimationFrame(callback) {
-						// TODO: Get rid of window
-						window.setTimeout(callback, 1000 / 60);
-					}
-
-					return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || requestAnimationFrame;
-				};
-
-				module.exports = exports["default"];
-
-				/***/
-			},
-			/* 28 */
-			/***/function (module, exports, __webpack_require__) {
-
-				/**
-     * dat-gui JavaScript Controller Library
-     * http://code.google.com/p/dat-gui
-     *
-     * Copyright 2011 Data Arts Team, Google Creative Lab
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     */
-
-				'use strict';
-
-				exports.__esModule = true;
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { 'default': obj };
-				}
-
-				function _classCallCheck(instance, Constructor) {
-					if (!(instance instanceof Constructor)) {
-						throw new TypeError('Cannot call a class as a function');
-					}
-				}
-
-				var _domDom = __webpack_require__(9);
-
-				var _domDom2 = _interopRequireDefault(_domDom);
-
-				var _utilsCommon = __webpack_require__(5);
-
-				var _utilsCommon2 = _interopRequireDefault(_utilsCommon);
-
-				var CenteredDiv = function () {
-					function CenteredDiv() {
-						_classCallCheck(this, CenteredDiv);
-
-						this.backgroundElement = document.createElement('div');
-						_utilsCommon2['default'].extend(this.backgroundElement.style, {
-							backgroundColor: 'rgba(0,0,0,0.8)',
-							top: 0,
-							left: 0,
-							display: 'none',
-							zIndex: '1000',
-							opacity: 0,
-							WebkitTransition: 'opacity 0.2s linear',
-							transition: 'opacity 0.2s linear'
-						});
-
-						_domDom2['default'].makeFullscreen(this.backgroundElement);
-						this.backgroundElement.style.position = 'fixed';
-
-						this.domElement = document.createElement('div');
-						_utilsCommon2['default'].extend(this.domElement.style, {
-							position: 'fixed',
-							display: 'none',
-							zIndex: '1001',
-							opacity: 0,
-							WebkitTransition: '-webkit-transform 0.2s ease-out, opacity 0.2s linear',
-							transition: 'transform 0.2s ease-out, opacity 0.2s linear'
-						});
-
-						document.body.appendChild(this.backgroundElement);
-						document.body.appendChild(this.domElement);
-
-						var _this = this;
-						_domDom2['default'].bind(this.backgroundElement, 'click', function () {
-							_this.hide();
-						});
-					}
-
-					CenteredDiv.prototype.show = function show() {
-						var _this = this;
-
-						this.backgroundElement.style.display = 'block';
-
-						this.domElement.style.display = 'block';
-						this.domElement.style.opacity = 0;
-						//    this.domElement.style.top = '52%';
-						this.domElement.style.webkitTransform = 'scale(1.1)';
-
-						this.layout();
-
-						_utilsCommon2['default'].defer(function () {
-							_this.backgroundElement.style.opacity = 1;
-							_this.domElement.style.opacity = 1;
-							_this.domElement.style.webkitTransform = 'scale(1)';
-						});
-					};
-
-					/**
-      * Hide centered div
-      */
-
-					CenteredDiv.prototype.hide = function hide() {
-						var _this = this;
-
-						var hide = function hide() {
-							_this.domElement.style.display = 'none';
-							_this.backgroundElement.style.display = 'none';
-
-							_domDom2['default'].unbind(_this.domElement, 'webkitTransitionEnd', hide);
-							_domDom2['default'].unbind(_this.domElement, 'transitionend', hide);
-							_domDom2['default'].unbind(_this.domElement, 'oTransitionEnd', hide);
-						};
-
-						_domDom2['default'].bind(this.domElement, 'webkitTransitionEnd', hide);
-						_domDom2['default'].bind(this.domElement, 'transitionend', hide);
-						_domDom2['default'].bind(this.domElement, 'oTransitionEnd', hide);
-
-						this.backgroundElement.style.opacity = 0;
-						//    this.domElement.style.top = '48%';
-						this.domElement.style.opacity = 0;
-						this.domElement.style.webkitTransform = 'scale(1.1)';
-					};
-
-					CenteredDiv.prototype.layout = function layout() {
-						this.domElement.style.left = window.innerWidth / 2 - _domDom2['default'].getWidth(this.domElement) / 2 + 'px';
-						this.domElement.style.top = window.innerHeight / 2 - _domDom2['default'].getHeight(this.domElement) / 2 + 'px';
-					};
-
-					return CenteredDiv;
-				}();
-
-				exports['default'] = CenteredDiv;
-				module.exports = exports['default'];
-
-				/***/
 			}
 			/******/])
 		);
@@ -4493,61 +4443,54 @@ var dat_gui = createCommonjsModule(function (module, exports) {
 
 var dat = unwrapExports(dat_gui);
 
-var queryfetch_umd = createCommonjsModule(function (module, exports) {
-  !function (e, r) {
-    module.exports = r();
+var queryfetch = createCommonjsModule(function (module, exports) {
+  !function (r, e) {
+    module.exports = e();
   }(commonjsGlobal, function () {
-    "use strict";
-    var e = {};return e.serialize = function (r, n) {
-      var t = Object.keys(r),
-          o = t.map(function (t) {
-        var o = r[t],
-            a = n ? n + "[" + t + "]" : t;return o instanceof Object ? e.serialize(o, a) : [a, o].map(encodeURIComponent).join("=");
-      });return o.join("&");
-    }, e.parse = function (e) {
-      var r = {},
-          n = e.startsWith("?") ? e.substr(1) : e,
-          t = n.replace(/(;+|&+)/g, "&").split("&");return t.forEach(function (e) {
-        var n = e.split("=").map(decodeURIComponent),
-            t = n[0],
-            o = n[1];if (!t) return 0;if (o = o ? isNaN(o) ? o : new Number(o).valueOf() : null, !t.includes("[")) return r[t] = r.hasOwnProperty(t) ? Array.isArray(r[t]) ? r[t].push(o) : [r[t], o] : o;var a = t.split("["),
-            i = a[0],
-            u = a[1],
-            f = u ? u.replace("]", "") : 0,
-            s = !isNaN(f),
-            c = f ? s ? parseInt(f) : f : 0;return r[i] = r.hasOwnProperty(i) ? r[i] : s ? [] : {}, c ? r[i][c] = o : r[i].push(o);
+    var r = function r(_r) {
+      this.src = _r;
+    };r.prototype.serialize = function (r, e) {
+      var t = this,
+          n = this.src;return Object.keys(r || n).map(function (r) {
+        var s = e ? e + "['" + r + "']" : r,
+            i = e ? e.replace(/\[\'/g, ".").replace(/\'\]/g, "") : r,
+            o = n;return (e ? i + "." + r : r).split(".").forEach(function (r) {
+          return o = o[r];
+        }), o instanceof Object ? t.serialize(o, s) : [s, o].join("=");
+      }).join("&").replace(/\'/g, "");
+    }, r.prototype.parse = function () {
+      var r = {};return (this.src.startsWith("?") ? this.src.substr(1) : this.src).replace(/(;+|&+)/g, "&").split("&").forEach(function (e) {
+        var t = e.split("=").map(decodeURIComponent),
+            n = t[0],
+            s = t[1];if (!n) return 0;if (s = s ? isNaN(s) ? s : new Number(s).valueOf() : null, !n.includes("[")) return r[n] = r.hasOwnProperty(n) ? Array.isArray(r[n]) ? r[n].push(s) : [r[n], s] : s;var i = n.split("["),
+            o = i[0],
+            a = i[1],
+            c = a ? a.replace("]", "") : 0,
+            f = !isNaN(c),
+            u = c ? f ? parseInt(c) : c : 0;return r[o] = r.hasOwnProperty(o) ? r[o] : f ? [] : {}, u ? r[o][u] = s : r[o].push(s);
       }), r;
-    }, e.form = function (e) {
-      if ("undefined" == typeof FormData) return console.error("FormData not supported");if (e instanceof FormData) return e;if ("undefined" != typeof HTMLFormElement && e instanceof HTMLFormElement) return new FormData(e);if (e instanceof Object) {
-        var r = new FormData();try {
-          for (var n in e) {
-            e.hasOwnProperty(n) && r.append(n, e[n]);
+    }, r.prototype.form = function () {
+      var r = this;if ("undefined" == typeof FormData) return console.error("FormData not supported");if (this.src instanceof FormData) return this.src;if ("undefined" != typeof HTMLFormElement && this.src instanceof HTMLFormElement) return new FormData(this.src);if ("string" == typeof this.src) return this.form(this.parse());if (this.src instanceof Object) {
+        var e = new FormData();try {
+          for (var t in r.src) {
+            r.src.hasOwnProperty(t) && e.append(t, r.src[t]);
           }
-        } catch (e) {
-          console.error(e.message);
-        }return r;
-      }return "string" == typeof e ? e : null;
-    }, e;
+        } catch (r) {
+          console.error(r.message);
+        }return e;
+      }return this.src;
+    };return function (e) {
+      return new r(e);
+    };
   });
 });
-
-var index$1 = Date.now || now$1;
-
-function now$1() {
-    return new Date().getTime();
-}
-
-/**
- * Module dependencies.
- */
-
-var now = index$1;
 
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
  * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing.
+ * leading edge, instead of the trailing. The function also has a property 'clear' 
+ * that is a function which will clear the timer to prevent previously scheduled executions. 
  *
  * @source underscore.js
  * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
@@ -4557,28 +4500,28 @@ var now = index$1;
  * @api public
  */
 
-var index = function debounce(func, wait, immediate) {
+var debounce = function debounce(func, wait, immediate) {
   var timeout, args, context, timestamp, result;
   if (null == wait) wait = 100;
 
   function later() {
-    var last = now() - timestamp;
+    var last = Date.now() - timestamp;
 
-    if (last < wait && last > 0) {
+    if (last < wait && last >= 0) {
       timeout = setTimeout(later, wait - last);
     } else {
       timeout = null;
       if (!immediate) {
         result = func.apply(context, args);
-        if (!timeout) context = args = null;
+        context = args = null;
       }
     }
   }
 
-  return function debounced() {
+  var debounced = function debounced() {
     context = this;
     args = arguments;
-    timestamp = now();
+    timestamp = Date.now();
     var callNow = immediate && !timeout;
     if (!timeout) timeout = setTimeout(later, wait);
     if (callNow) {
@@ -4588,11 +4531,28 @@ var index = function debounce(func, wait, immediate) {
 
     return result;
   };
+
+  debounced.clear = function () {
+    if (timeout) {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+  };
+
+  debounced.flush = function () {
+    if (timeout) {
+      result = func.apply(context, args);
+      context = args = null;
+
+      clearTimeout(timeout);
+      timeout = null;
+    }
+  };
+
+  return debounced;
 };
 
-var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var alea$1 = createCommonjsModule(function (module) {
+var alea = createCommonjsModule(function (module) {
   // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
   // http://baagoe.com/en/RandomMusings/javascript/
   // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
@@ -4672,7 +4632,7 @@ var alea$1 = createCommonjsModule(function (module) {
       };
       prng.quick = prng;
       if (state) {
-        if ((typeof state === 'undefined' ? 'undefined' : _typeof$2(state)) == 'object') copy(state, xg);
+        if ((typeof state === 'undefined' ? 'undefined' : _typeof(state)) == 'object') copy(state, xg);
         prng.state = function () {
           return copy(xg, {});
         };
@@ -4715,9 +4675,7 @@ var alea$1 = createCommonjsModule(function (module) {
   );
 });
 
-var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var xor128$1 = createCommonjsModule(function (module) {
+var xor128 = createCommonjsModule(function (module) {
   // A Javascript implementaion of the "xor128" prng algorithm by
   // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -4781,7 +4739,7 @@ var xor128$1 = createCommonjsModule(function (module) {
       prng.int32 = xg.next;
       prng.quick = prng;
       if (state) {
-        if ((typeof state === 'undefined' ? 'undefined' : _typeof$3(state)) == 'object') copy(state, xg);
+        if ((typeof state === 'undefined' ? 'undefined' : _typeof(state)) == 'object') copy(state, xg);
         prng.state = function () {
           return copy(xg, {});
         };
@@ -4803,9 +4761,7 @@ var xor128$1 = createCommonjsModule(function (module) {
   );
 });
 
-var _typeof$4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var xorwow$1 = createCommonjsModule(function (module) {
+var xorwow = createCommonjsModule(function (module) {
   // A Javascript implementaion of the "xorwow" prng algorithm by
   // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -4873,7 +4829,7 @@ var xorwow$1 = createCommonjsModule(function (module) {
       prng.int32 = xg.next;
       prng.quick = prng;
       if (state) {
-        if ((typeof state === 'undefined' ? 'undefined' : _typeof$4(state)) == 'object') copy(state, xg);
+        if ((typeof state === 'undefined' ? 'undefined' : _typeof(state)) == 'object') copy(state, xg);
         prng.state = function () {
           return copy(xg, {});
         };
@@ -4895,7 +4851,7 @@ var xorwow$1 = createCommonjsModule(function (module) {
   );
 });
 
-var xorshift7$1 = createCommonjsModule(function (module) {
+var xorshift7 = createCommonjsModule(function (module) {
   // A Javascript implementaion of the "xorshift7" algorithm by
   // François Panneton and Pierre L'ecuyer:
   // "On the Xorgshift Random Number Generators"
@@ -4912,8 +4868,7 @@ var xorshift7$1 = createCommonjsModule(function (module) {
         var X = me.x,
             i = me.i,
             t,
-            v,
-            w;
+            v;
         t = X[i];t ^= t >>> 7;v = t ^ t << 24;
         t = X[i + 1 & 7];v ^= t ^ t >>> 10;
         t = X[i + 3 & 7];v ^= t ^ t >>> 3;
@@ -5003,7 +4958,7 @@ var xorshift7$1 = createCommonjsModule(function (module) {
   );
 });
 
-var xor4096$1 = createCommonjsModule(function (module) {
+var xor4096 = createCommonjsModule(function (module) {
   // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
   //
   // This fast non-cryptographic random number generator is designed for
@@ -5012,7 +4967,7 @@ var xor4096$1 = createCommonjsModule(function (module) {
   // of stasticial tests for randomness while consuming only a few nanoseconds
   // for each prng generated.  For background on the generator, see Brent's
   // paper: "Some long-period random number generators using shifts and xors."
-  // http://arxiv.org/pdf/1104.3115.pdf
+  // http://arxiv.org/pdf/1004.3115v1.pdf
   //
   // Usage:
   //
@@ -5165,9 +5120,7 @@ var xor4096$1 = createCommonjsModule(function (module) {
   );
 });
 
-var _typeof$5 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var tychei$1 = createCommonjsModule(function (module) {
+var tychei = createCommonjsModule(function (module) {
   // A Javascript implementaion of the "Tyche-i" prng algorithm by
   // Samuel Neves and Filipe Araujo.
   // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
@@ -5256,7 +5209,7 @@ var tychei$1 = createCommonjsModule(function (module) {
       prng.int32 = xg.next;
       prng.quick = prng;
       if (state) {
-        if ((typeof state === 'undefined' ? 'undefined' : _typeof$5(state)) == 'object') copy(state, xg);
+        if ((typeof state === 'undefined' ? 'undefined' : _typeof(state)) == 'object') copy(state, xg);
         prng.state = function () {
           return copy(xg, {});
         };
@@ -5278,9 +5231,15 @@ var tychei$1 = createCommonjsModule(function (module) {
   );
 });
 
-var _typeof$6 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var empty = {};
 
-var seedrandom$1 = createCommonjsModule(function (module) {
+var empty$1 = Object.freeze({
+	default: empty
+});
+
+var require$$0 = ( empty$1 && empty ) || empty$1;
+
+var seedrandom$2 = createCommonjsModule(function (module) {
   /*
   Copyright 2014 David Bau.
   
@@ -5467,7 +5426,7 @@ var seedrandom$1 = createCommonjsModule(function (module) {
     //
     function flatten(obj, depth) {
       var result = [],
-          typ = typeof obj === 'undefined' ? 'undefined' : _typeof$6(obj),
+          typ = typeof obj === 'undefined' ? 'undefined' : _typeof(obj),
           prop;
       if (depth && typ == 'object') {
         for (prop in obj) {
@@ -5501,11 +5460,14 @@ var seedrandom$1 = createCommonjsModule(function (module) {
     //
     function autoseed() {
       try {
-        if (nodecrypto) {
-          return tostring(nodecrypto.randomBytes(width));
+        var out;
+        if (nodecrypto && (out = nodecrypto.randomBytes)) {
+          // The use of 'out' to remember randomBytes makes tight minified code.
+          out = out(width);
+        } else {
+          out = new Uint8Array(width);
+          (global.crypto || global.msCrypto).getRandomValues(out);
         }
-        var out = new Uint8Array(width);
-        (global.crypto || global.msCrypto).getRandomValues(out);
         return tostring(out);
       } catch (e) {
         var browser = global.navigator,
@@ -5539,7 +5501,7 @@ var seedrandom$1 = createCommonjsModule(function (module) {
       module.exports = seedrandom;
       // When in node.js, try using crypto package for autoseeding.
       try {
-        nodecrypto = crypto;
+        nodecrypto = require$$0;
       } catch (ex) {}
     } else if (typeof undefined == 'function' && undefined.amd) {
       undefined(function () {
@@ -5565,17 +5527,17 @@ var seedrandom$1 = createCommonjsModule(function (module) {
 // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
 // Period: ~2^116
 // Reported to pass all BigCrush tests.
-var alea = alea$1;
+
 
 // xor128, a pure xor-shift generator by George Marsaglia.
 // Period: 2^128-1.
 // Reported to fail: MatrixRank and LinearComp.
-var xor128 = xor128$1;
+
 
 // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
 // Period: 2^192-2^32
 // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
-var xorwow = xorwow$1;
+
 
 // xorshift7, by François Panneton and Pierre L'ecuyer, takes
 // a different approach: it adds robustness by allowing more shifts
@@ -5583,7 +5545,7 @@ var xorwow = xorwow$1;
 // with 256 bits, that passes BigCrush with no systmatic failures.
 // Period 2^256-1.
 // No systematic BigCrush failures reported.
-var xorshift7 = xorshift7$1;
+
 
 // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
 // very long period that also adds a Weyl generator. It also passes
@@ -5592,27 +5554,27 @@ var xorshift7 = xorshift7$1;
 // collisions.
 // Period: 2^4128-2^32.
 // No systematic BigCrush failures reported.
-var xor4096 = xor4096$1;
+
 
 // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
 // number generator derived from ChaCha, a modern stream cipher.
 // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
 // Period: ~2^127
 // No systematic BigCrush failures reported.
-var tychei = tychei$1;
+
 
 // The original ARC4-based prng included in this library.
 // Period: ~2^1600
-var sr = seedrandom$1;
 
-sr.alea = alea;
-sr.xor128 = xor128;
-sr.xorwow = xorwow;
-sr.xorshift7 = xorshift7;
-sr.xor4096 = xor4096;
-sr.tychei = tychei;
 
-var index$3 = sr;
+seedrandom$2.alea = alea;
+seedrandom$2.xor128 = xor128;
+seedrandom$2.xorwow = xorwow;
+seedrandom$2.xorshift7 = xorshift7;
+seedrandom$2.xor4096 = xor4096;
+seedrandom$2.tychei = tychei;
+
+var seedrandom = seedrandom$2;
 
 var logger = {
   active: false,
@@ -5633,7 +5595,7 @@ var logger = {
   }
 };
 
-var index$7 = {
+var colorName = {
 	"aliceblue": [240, 248, 255],
 	"antiquewhite": [250, 235, 215],
 	"aqua": [0, 255, 255],
@@ -5784,7 +5746,7 @@ var index$7 = {
 	"yellowgreen": [154, 205, 50]
 };
 
-var index$11 = function isArrayish(obj) {
+var isArrayish = function isArrayish(obj) {
 	if (!obj || typeof obj === 'string') {
 		return false;
 	}
@@ -5792,11 +5754,7 @@ var index$11 = function isArrayish(obj) {
 	return obj instanceof Array || Array.isArray(obj) || obj.length >= 0 && (obj.splice instanceof Function || Object.getOwnPropertyDescriptor(obj, obj.length - 1) && obj.constructor.name !== 'String');
 };
 
-var index$9 = createCommonjsModule(function (module) {
-	'use strict';
-
-	var isArrayish = index$11;
-
+var simpleSwizzle = createCommonjsModule(function (module) {
 	var concat = Array.prototype.concat;
 	var slice = Array.prototype.slice;
 
@@ -5824,17 +5782,15 @@ var index$9 = createCommonjsModule(function (module) {
 	};
 });
 
-var index$5 = createCommonjsModule(function (module) {
+var colorString = createCommonjsModule(function (module) {
 	/* MIT license */
-	var colorNames = index$7;
-	var swizzle = index$9;
 
 	var reverseNames = {};
 
 	// create a list of reverse color names
-	for (var name in colorNames) {
-		if (colorNames.hasOwnProperty(name)) {
-			reverseNames[colorNames[name]] = name;
+	for (var name in colorName) {
+		if (colorName.hasOwnProperty(name)) {
+			reverseNames[colorName[name]] = name;
 		}
 	}
 
@@ -5929,7 +5885,7 @@ var index$5 = createCommonjsModule(function (module) {
 				return [0, 0, 0, 0];
 			}
 
-			rgb = colorNames[match[1]];
+			rgb = colorName[match[1]];
 
 			if (!rgb) {
 				return null;
@@ -5992,19 +5948,19 @@ var index$5 = createCommonjsModule(function (module) {
 	};
 
 	cs.to.hex = function () {
-		var rgba = swizzle(arguments);
+		var rgba = simpleSwizzle(arguments);
 
 		return '#' + hexDouble(rgba[0]) + hexDouble(rgba[1]) + hexDouble(rgba[2]) + (rgba[3] < 1 ? hexDouble(Math.round(rgba[3] * 255)) : '');
 	};
 
 	cs.to.rgb = function () {
-		var rgba = swizzle(arguments);
+		var rgba = simpleSwizzle(arguments);
 
 		return rgba.length < 4 || rgba[3] === 1 ? 'rgb(' + Math.round(rgba[0]) + ', ' + Math.round(rgba[1]) + ', ' + Math.round(rgba[2]) + ')' : 'rgba(' + Math.round(rgba[0]) + ', ' + Math.round(rgba[1]) + ', ' + Math.round(rgba[2]) + ', ' + rgba[3] + ')';
 	};
 
 	cs.to.rgb.percent = function () {
-		var rgba = swizzle(arguments);
+		var rgba = simpleSwizzle(arguments);
 
 		var r = Math.round(rgba[0] / 255 * 100);
 		var g = Math.round(rgba[1] / 255 * 100);
@@ -6014,14 +5970,14 @@ var index$5 = createCommonjsModule(function (module) {
 	};
 
 	cs.to.hsl = function () {
-		var hsla = swizzle(arguments);
+		var hsla = simpleSwizzle(arguments);
 		return hsla.length < 4 || hsla[3] === 1 ? 'hsl(' + hsla[0] + ', ' + hsla[1] + '%, ' + hsla[2] + '%)' : 'hsla(' + hsla[0] + ', ' + hsla[1] + '%, ' + hsla[2] + '%, ' + hsla[3] + ')';
 	};
 
 	// hwb is a bit different than rgb(a) & hsl(a) since there is no alpha specific syntax
 	// (hwb have alpha optional & 1 is default value)
 	cs.to.hwb = function () {
-		var hwba = swizzle(arguments);
+		var hwba = simpleSwizzle(arguments);
 
 		var a = '';
 		if (hwba.length >= 4 && hwba[3] !== 1) {
@@ -6046,18 +6002,19 @@ var index$5 = createCommonjsModule(function (module) {
 	}
 });
 
-var conversions$1 = createCommonjsModule(function (module) {
+var colorString_1 = colorString.to;
+
+var conversions = createCommonjsModule(function (module) {
 	/* MIT license */
-	var cssKeywords = index$7;
 
 	// NOTE: conversions should only return primitive values (i.e. arrays, or
 	//       values that give correct `typeof` results).
 	//       do not use box values types (i.e. Number(), String(), etc.)
 
 	var reverseKeywords = {};
-	for (var key in cssKeywords) {
-		if (cssKeywords.hasOwnProperty(key)) {
-			reverseKeywords[cssKeywords[key]] = key;
+	for (var key in colorName) {
+		if (colorName.hasOwnProperty(key)) {
+			reverseKeywords[colorName[key]] = key;
 		}
 	}
 
@@ -6226,9 +6183,9 @@ var conversions$1 = createCommonjsModule(function (module) {
 		var currentClosestDistance = Infinity;
 		var currentClosestKeyword;
 
-		for (var keyword in cssKeywords) {
-			if (cssKeywords.hasOwnProperty(keyword)) {
-				var value = cssKeywords[keyword];
+		for (var keyword in colorName) {
+			if (colorName.hasOwnProperty(keyword)) {
+				var value = colorName[keyword];
 
 				// Compute comparative distance
 				var distance = comparativeDistance(rgb, value);
@@ -6245,7 +6202,7 @@ var conversions$1 = createCommonjsModule(function (module) {
 	};
 
 	convert.keyword.rgb = function (keyword) {
-		return cssKeywords[keyword];
+		return colorName[keyword];
 	};
 
 	convert.rgb.xyz = function (rgb) {
@@ -6891,7 +6848,21 @@ var conversions$1 = createCommonjsModule(function (module) {
 	};
 });
 
-var conversions$3 = conversions$1;
+var conversions_1 = conversions.rgb;
+var conversions_2 = conversions.hsl;
+var conversions_3 = conversions.hsv;
+var conversions_4 = conversions.hwb;
+var conversions_5 = conversions.cmyk;
+var conversions_6 = conversions.xyz;
+var conversions_7 = conversions.lab;
+var conversions_8 = conversions.lch;
+var conversions_9 = conversions.hex;
+var conversions_10 = conversions.keyword;
+var conversions_11 = conversions.ansi16;
+var conversions_12 = conversions.ansi256;
+var conversions_13 = conversions.hcg;
+var conversions_14 = conversions.apple;
+var conversions_15 = conversions.gray;
 
 /*
 	this function routes a model to all other models.
@@ -6904,14 +6875,13 @@ var conversions$3 = conversions$1;
 	conversions that are not possible simply are not included.
 */
 
-// https://jsperf.com/object-keys-vs-for-in-with-closure/3
-var models$1 = Object.keys(conversions$3);
-
 function buildGraph() {
 	var graph = {};
+	// https://jsperf.com/object-keys-vs-for-in-with-closure/3
+	var models = Object.keys(conversions);
 
-	for (var len = models$1.length, i = 0; i < len; i++) {
-		graph[models$1[i]] = {
+	for (var len = models.length, i = 0; i < len; i++) {
+		graph[models[i]] = {
 			// http://jsperf.com/1-vs-infinity
 			// micro-opt, but this is simple.
 			distance: -1,
@@ -6931,7 +6901,7 @@ function deriveBFS(fromModel) {
 
 	while (queue.length) {
 		var current = queue.pop();
-		var adjacents = Object.keys(conversions$3[current]);
+		var adjacents = Object.keys(conversions[current]);
 
 		for (var len = adjacents.length, i = 0; i < len; i++) {
 			var adjacent = adjacents[i];
@@ -6956,12 +6926,12 @@ function link(from, to) {
 
 function wrapConversion(toModel, graph) {
 	var path = [graph[toModel].parent, toModel];
-	var fn = conversions$3[graph[toModel].parent][toModel];
+	var fn = conversions[graph[toModel].parent][toModel];
 
 	var cur = graph[toModel].parent;
 	while (graph[cur].parent) {
 		path.unshift(graph[cur].parent);
-		fn = link(conversions$3[graph[cur].parent][cur], fn);
+		fn = link(conversions[graph[cur].parent][cur], fn);
 		cur = graph[cur].parent;
 	}
 
@@ -6969,7 +6939,7 @@ function wrapConversion(toModel, graph) {
 	return fn;
 }
 
-var route$1 = function route(fromModel) {
+var route = function route(fromModel) {
 	var graph = deriveBFS(fromModel);
 	var conversion = {};
 
@@ -6989,12 +6959,7 @@ var route$1 = function route(fromModel) {
 	return conversion;
 };
 
-var _typeof$7 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var conversions = conversions$1;
-var route = route$1;
-
-var convert$1 = {};
+var convert = {};
 
 var models = Object.keys(conversions);
 
@@ -7034,7 +6999,7 @@ function wrapRounded(fn) {
 		// we're assuming the result is an array here.
 		// see notice in conversions.js; don't use box types
 		// in conversion functions.
-		if ((typeof result === 'undefined' ? 'undefined' : _typeof$7(result)) === 'object') {
+		if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) === 'object') {
 			for (var len = result.length, i = 0; i < len; i++) {
 				result[i] = Math.round(result[i]);
 			}
@@ -7052,10 +7017,10 @@ function wrapRounded(fn) {
 }
 
 models.forEach(function (fromModel) {
-	convert$1[fromModel] = {};
+	convert[fromModel] = {};
 
-	Object.defineProperty(convert$1[fromModel], 'channels', { value: conversions[fromModel].channels });
-	Object.defineProperty(convert$1[fromModel], 'labels', { value: conversions[fromModel].labels });
+	Object.defineProperty(convert[fromModel], 'channels', { value: conversions[fromModel].channels });
+	Object.defineProperty(convert[fromModel], 'labels', { value: conversions[fromModel].labels });
 
 	var routes = route(fromModel);
 	var routeModels = Object.keys(routes);
@@ -7063,15 +7028,12 @@ models.forEach(function (fromModel) {
 	routeModels.forEach(function (toModel) {
 		var fn = routes[toModel];
 
-		convert$1[fromModel][toModel] = wrapRounded(fn);
-		convert$1[fromModel][toModel].raw = wrapRaw(fn);
+		convert[fromModel][toModel] = wrapRounded(fn);
+		convert[fromModel][toModel].raw = wrapRaw(fn);
 	});
 });
 
-var index$13 = convert$1;
-
-var colorString = index$5;
-var convert = index$13;
+var colorConvert = convert;
 
 var _slice = [].slice;
 
@@ -7086,8 +7048,8 @@ var skippedModels = [
 'hex'];
 
 var hashedModelKeys = {};
-Object.keys(convert).forEach(function (model) {
-	hashedModelKeys[_slice.call(convert[model].labels).sort().join('')] = model;
+Object.keys(colorConvert).forEach(function (model) {
+	hashedModelKeys[_slice.call(colorConvert[model].labels).sort().join('')] = model;
 });
 
 var limiters = {};
@@ -7101,7 +7063,7 @@ function Color$1(obj, model) {
 		model = null;
 	}
 
-	if (model && !(model in convert)) {
+	if (model && !(model in colorConvert)) {
 		throw new Error('Unknown model: ' + model);
 	}
 
@@ -7123,12 +7085,12 @@ function Color$1(obj, model) {
 		}
 
 		this.model = result.model;
-		channels = convert[this.model].channels;
+		channels = colorConvert[this.model].channels;
 		this.color = result.value.slice(0, channels);
 		this.valpha = typeof result.value[channels] === 'number' ? result.value[channels] : 1;
 	} else if (obj.length) {
 		this.model = model || 'rgb';
-		channels = convert[this.model].channels;
+		channels = colorConvert[this.model].channels;
 		var newArr = _slice.call(obj, 0, channels);
 		this.color = zeroArray(newArr, channels);
 		this.valpha = typeof obj[channels] === 'number' ? obj[channels] : 1;
@@ -7154,7 +7116,7 @@ function Color$1(obj, model) {
 
 		this.model = hashedModelKeys[hashedKeys];
 
-		var labels = convert[this.model].labels;
+		var labels = colorConvert[this.model].labels;
 		var color = [];
 		for (i = 0; i < labels.length; i++) {
 			color.push(obj[labels[i]]);
@@ -7165,7 +7127,7 @@ function Color$1(obj, model) {
 
 	// perform limitations (clamping, etc.)
 	if (limiters[this.model]) {
-		channels = convert[this.model].channels;
+		channels = colorConvert[this.model].channels;
 		for (i = 0; i < channels; i++) {
 			var limit = limiters[this.model][i];
 			if (limit) {
@@ -7209,8 +7171,8 @@ Color$1.prototype = {
 
 	object: function object() {
 		var result = {};
-		var channels = convert[this.model].channels;
-		var labels = convert[this.model].labels;
+		var channels = colorConvert[this.model].channels;
+		var labels = colorConvert[this.model].labels;
 
 		for (var i = 0; i < channels; i++) {
 			result[labels[i]] = this.color[i];
@@ -7301,7 +7263,7 @@ Color$1.prototype = {
 			return new Color$1(val);
 		}
 
-		return convert[this.model].keyword(this.color);
+		return colorConvert[this.model].keyword(this.color);
 	},
 
 	hex: function hex(val) {
@@ -7433,8 +7395,8 @@ Color$1.prototype = {
 	mix: function mix(mixinColor, weight) {
 		// ported from sass implementation in C
 		// https://github.com/sass/libsass/blob/0e6b4a2850092356aa3ece07c6b249f0221caced/functions.cpp#L209
-		var color1 = this.rgb();
-		var color2 = mixinColor.rgb();
+		var color1 = mixinColor.rgb();
+		var color2 = this.rgb();
 		var p = weight === undefined ? 0.5 : weight;
 
 		var w = 2 * p - 1;
@@ -7448,12 +7410,12 @@ Color$1.prototype = {
 };
 
 // model conversion methods and static constructors
-Object.keys(convert).forEach(function (model) {
+Object.keys(colorConvert).forEach(function (model) {
 	if (skippedModels.indexOf(model) !== -1) {
 		return;
 	}
 
-	var channels = convert[model].channels;
+	var channels = colorConvert[model].channels;
 
 	// conversion methods
 	Color$1.prototype[model] = function () {
@@ -7466,7 +7428,7 @@ Object.keys(convert).forEach(function (model) {
 		}
 
 		var newAlpha = typeof arguments[channels] === 'number' ? channels : this.valpha;
-		return new Color$1(assertArray(convert[this.model][model].raw(this.color)).concat(newAlpha), model);
+		return new Color$1(assertArray(colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
 	};
 
 	// 'static' construction methods
@@ -7539,7 +7501,7 @@ function zeroArray(arr, length) {
 	return arr;
 }
 
-var index$4 = Color$1;
+var color = Color$1;
 
 /**
  * A utility for editing colors:
@@ -7547,21 +7509,15 @@ var index$4 = Color$1;
  * @class Color
  */
 
-var _typeof$8 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
  * A utility for testing the type of a reference
  */
 var Is = function () {
   function Is() {
-    _classCallCheck$1(this, Is);
+    classCallCheck(this, Is);
   }
 
-  _createClass$1(Is, null, [{
+  createClass(Is, null, [{
     key: 'element',
 
     /**
@@ -7578,7 +7534,7 @@ var Is = function () {
         // Browsers not supporting W3 DOM2 don't have HTMLElement and
         // an exception is thrown and we end up here. Testing some
         // properties that all elements have. (works on IE7)
-        return (typeof object === 'undefined' ? 'undefined' : _typeof$8(object)) === 'object' && object.nodeType === 1 && _typeof$8(object.style) === 'object' && _typeof$8(object.ownerDocument) === 'object';
+        return (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && object.nodeType === 1 && _typeof(object.style) === 'object' && _typeof(object.ownerDocument) === 'object';
       }
     }
 
@@ -7603,7 +7559,7 @@ var Is = function () {
   }, {
     key: 'object',
     value: function object(_object) {
-      return (typeof _object === 'undefined' ? 'undefined' : _typeof$8(_object)) === 'object' && !this.array(_object);
+      return (typeof _object === 'undefined' ? 'undefined' : _typeof(_object)) === 'object' && !this.array(_object);
     }
 
     /**
@@ -7618,13 +7574,8 @@ var Is = function () {
       return !!object.getContext;
     }
   }]);
-
   return Is;
 }();
-
-var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * A utility for math stuff
@@ -7632,10 +7583,10 @@ function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Co
 
 var Mathematics = function () {
   function Mathematics() {
-    _classCallCheck$2(this, Mathematics);
+    classCallCheck(this, Mathematics);
   }
 
-  _createClass$2(Mathematics, null, [{
+  createClass(Mathematics, null, [{
     key: 'randomBetween',
 
 
@@ -7677,25 +7628,24 @@ var Mathematics = function () {
     key: 'TWO_PI',
 
     /** Returns PI * 2 */
-    get: function get() {
+    get: function get$$1() {
       return Math.PI * 2;
     }
     /** Returns PI / 2 */
 
   }, {
     key: 'HALF_PI',
-    get: function get() {
+    get: function get$$1() {
       return Math.PI / 2;
     }
     /** Returns PI / 4 */
 
   }, {
     key: 'QUARTER_PI',
-    get: function get() {
+    get: function get$$1() {
       return Math.PI / 4;
     }
   }]);
-
   return Mathematics;
 }();
 
@@ -7755,7 +7705,7 @@ var stats_min = createCommonjsModule(function (module, exports) {
  * @class Stats
  */
 
-var index$15 = createCommonjsModule(function (module, exports) {
+var victor = createCommonjsModule(function (module, exports) {
   exports = module.exports = Victor;
 
   /**
@@ -9091,7 +9041,7 @@ var index$15 = createCommonjsModule(function (module, exports) {
  * of additional helpers: {@link http://victorjs.org/}
  * @class Vector
  */
-index$15.prototype.setLength = function (scalar) {
+victor.prototype.setLength = function (scalar) {
   var length = this.length();
   if (scalar >= 0 && length !== 0) {
     var sinA = this.y / length;
@@ -9102,11 +9052,9 @@ index$15.prototype.setLength = function (scalar) {
   return this;
 };
 
-index$15.prototype.addLength = function (scalar) {
+victor.prototype.addLength = function (scalar) {
   return this.setLength(this.length() + scalar);
 };
-
-var _typeof$9 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var gyronorm_complete = createCommonjsModule(function (module) {
 	(function (root) {
@@ -9125,7 +9073,7 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 		}
 
 		function Promise(fn) {
-			if (_typeof$9(this) !== 'object') throw new TypeError('Promises must be constructed via new');
+			if (_typeof(this) !== 'object') throw new TypeError('Promises must be constructed via new');
 			if (typeof fn !== 'function') throw new TypeError('not a function');
 			this._state = 0;
 			this._handled = false;
@@ -9165,7 +9113,7 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 			try {
 				// Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
 				if (newValue === self) throw new TypeError('A promise cannot be resolved with itself.');
-				if (newValue && ((typeof newValue === 'undefined' ? 'undefined' : _typeof$9(newValue)) === 'object' || typeof newValue === 'function')) {
+				if (newValue && ((typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) === 'object' || typeof newValue === 'function')) {
 					var then = newValue.then;
 					if (newValue instanceof Promise) {
 						self._state = 3;
@@ -9257,7 +9205,7 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 
 				function res(i, val) {
 					try {
-						if (val && ((typeof val === 'undefined' ? 'undefined' : _typeof$9(val)) === 'object' || typeof val === 'function')) {
+						if (val && ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object' || typeof val === 'function')) {
 							var then = val.then;
 							if (typeof then === 'function') {
 								then.call(val, function (val) {
@@ -9282,7 +9230,7 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 		};
 
 		Promise.resolve = function (value) {
-			if (value && (typeof value === 'undefined' ? 'undefined' : _typeof$9(value)) === 'object' && value.constructor === Promise) {
+			if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value.constructor === Promise) {
 				return value;
 			}
 
@@ -10170,8 +10118,6 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 			rotateByAxisAngle: function () {
 
 				var _matrix = new FULLTILT.RotationMatrix();
-				var outEuler;
-
 				return function (targetEuler, axis, angle) {
 
 					_matrix.setFromEuler(targetEuler);
@@ -10704,7 +10650,6 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 		/* PRIVATE VARIABLES */
 
 		var _interval = null; // Timer to return values
-		var _isCalibrating = false; // Flag if calibrating
 		var _calibrationValue = 0; // Alpha offset value
 		var _gravityCoefficient = 0; // Coefficient to normalze gravity related values
 		var _isRunning = false; // Boolean value if GyroNorm is tracking
@@ -10720,35 +10665,6 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 		var _decimalCount = 2; // Number of digits after the decimals point for the return values
 		var _logger = null; // Function to callback on error. There is no default value. It can only be set by the user on gn.init()
 		var _screenAdjusted = false; // If set to true it will return screen adjusted values. (e.g. On a horizontal orientation of a mobile device, the head would be one of the sides, instead of  the actual head of the device.)
-
-		var _values = {
-			do: {
-				alpha: 0,
-				beta: 0,
-				gamma: 0,
-				absolute: false
-			},
-			dm: {
-				x: 0,
-				y: 0,
-				z: 0,
-				gx: 0,
-				gy: 0,
-				gz: 0,
-				alpha: 0,
-				beta: 0,
-				gamma: 0
-			}
-		};
-
-		/*-------------------------------------------------------*/
-		/* PUBLIC FUNCTIONS */
-
-		/*
-  *
-  * Constructor function
-  *
-  */
 
 		var GyroNorm = function GyroNorm(options) {};
 
@@ -11036,8 +10952,6 @@ var gyronorm_complete = createCommonjsModule(function (module) {
 });
 
 (function (self) {
-  'use strict';
-
   if (self.fetch) {
     return;
   }
@@ -11493,30 +11407,24 @@ var gyronorm_complete = createCommonjsModule(function (module) {
   self.fetch.polyfill = true;
 })(typeof self !== 'undefined' ? self : undefined);
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
  * A playground for creative coding
  */
 
 var Sandpit = function () {
-  _createClass(Sandpit, null, [{
+  createClass(Sandpit, null, [{
     key: 'CANVAS',
-    get: function get() {
+    get: function get$$1() {
       return '2d';
     }
   }, {
     key: 'WEBGL',
-    get: function get() {
+    get: function get$$1() {
       return 'webgl';
     }
   }, {
     key: 'EXPERIMENTAL_WEBGL',
-    get: function get() {
+    get: function get$$1() {
       return 'experimental-webgl';
     }
 
@@ -11530,7 +11438,7 @@ var Sandpit = function () {
   }]);
 
   function Sandpit(container, type, options) {
-    _classCallCheck(this, Sandpit);
+    classCallCheck(this, Sandpit);
 
     logger.info('⛱ Welcome to Sandpit');
     this._queryable = options && options.hasOwnProperty('queryable') ? options.queryable : true;
@@ -11545,7 +11453,7 @@ var Sandpit = function () {
    */
 
 
-  _createClass(Sandpit, [{
+  createClass(Sandpit, [{
     key: '_setupContext',
     value: function _setupContext(container, type, retina) {
       // Check that the correct container type has been passed
@@ -11643,7 +11551,7 @@ var Sandpit = function () {
       // for storing settings
       if (this._queryable) {
         if (window.location.search) {
-          var params = queryfetch_umd.parse(window.location.search);
+          var params = queryfetch(window.location.search).parse();
           Object.keys(params).forEach(function (key) {
             // If a setting matches the param, use the param
             if (_this.defaults[key]) {
@@ -11709,7 +11617,7 @@ var Sandpit = function () {
           }
 
           // Handle the change event
-          guiField.onChange(index(function (value) {
+          guiField.onChange(debounce(function (value) {
             _this._change(name, value);
           }), 300);
         } else {
@@ -11738,7 +11646,7 @@ var Sandpit = function () {
       // If queryable is enabled, serialize the final settings
       // and push them to the query string
       if (this._queryable) {
-        var query = queryfetch_umd.serialize(this._settings);
+        var query = queryfetch(this._settings).serialize();
         window.history.replaceState({}, null, this._getPathFromUrl() + '?' + query);
         // Adds a clear and reset button to the gui interface,
         // if they aren't disabled in the settings
@@ -11786,7 +11694,7 @@ var Sandpit = function () {
     value: function _change(name, value) {
       logger.info('Update fired on ' + name + ': ' + value);
       if (this._queryable) {
-        var query = queryfetch_umd.serialize(this._settings);
+        var query = queryfetch(this._settings).serialize();
         window.history.pushState({}, null, this._getPathFromUrl() + '?' + query);
       }
       // If there is a change hook, use it
@@ -12209,8 +12117,8 @@ var Sandpit = function () {
      * @param {string} color - The color to fill with, in string format
      * (for example, '#000', 'rgba(0, 0, 0, 0.5)')
      */
-    value: function fill(color) {
-      this._fill = color;
+    value: function fill(color$$1) {
+      this._fill = color$$1;
       if (this._type === Sandpit.CANVAS) {
         this._context.fillStyle = this._fill;
         this._context.fillRect(0, 0, this.width, this.height);
@@ -12228,7 +12136,7 @@ var Sandpit = function () {
 
   }, {
     key: 'get',
-    value: function get(url) {
+    value: function get$$1(url) {
       return new Promise(function (resolve, reject) {
         fetch(url).then(function (response) {
           resolve(response.text());
@@ -12250,7 +12158,7 @@ var Sandpit = function () {
     value: function random() {
       var seed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '123456';
 
-      return index$3(seed);
+      return seedrandom(seed);
     }
 
     /**
@@ -12338,7 +12246,7 @@ var Sandpit = function () {
     }
   }, {
     key: 'settings',
-    set: function set(settings) {
+    set: function set$$1(settings) {
       // Sets up settings
       if (settings && Object.keys(settings).length) {
         this.defaults = settings;
@@ -12351,7 +12259,7 @@ var Sandpit = function () {
      * @return {object} settings
      */
     ,
-    get: function get() {
+    get: function get$$1() {
       return this._settings;
     }
 
@@ -12363,7 +12271,7 @@ var Sandpit = function () {
 
   }, {
     key: 'debug',
-    set: function set(boolean) {
+    set: function set$$1(boolean) {
       logger.active = boolean;
     }
 
@@ -12372,7 +12280,7 @@ var Sandpit = function () {
      * @return {boolean} active
      */
     ,
-    get: function get() {
+    get: function get$$1() {
       return logger.active;
     }
 
@@ -12383,7 +12291,7 @@ var Sandpit = function () {
 
   }, {
     key: 'autoClear',
-    set: function set(boolean) {
+    set: function set$$1(boolean) {
       this._autoClear = boolean;
     }
 
@@ -12392,12 +12300,12 @@ var Sandpit = function () {
      * @return {boolean} active
      */
     ,
-    get: function get() {
+    get: function get$$1() {
       return this._autoClear;
     }
   }, {
     key: 'focusTouchesOnCanvas',
-    set: function set(boolean) {
+    set: function set$$1(boolean) {
       this._focusTouchesOnCanvas = boolean;
     }
 
@@ -12406,7 +12314,7 @@ var Sandpit = function () {
      * @return {boolean} active
      */
     ,
-    get: function get() {
+    get: function get$$1() {
       return this._focusTouchesOnCanvas;
     }
 
@@ -12417,7 +12325,7 @@ var Sandpit = function () {
 
   }, {
     key: 'context',
-    get: function get() {
+    get: function get$$1() {
       return this._context;
     }
 
@@ -12428,7 +12336,7 @@ var Sandpit = function () {
 
   }, {
     key: 'canvas',
-    get: function get() {
+    get: function get$$1() {
       return this._canvas;
     }
 
@@ -12439,7 +12347,7 @@ var Sandpit = function () {
 
   }, {
     key: 'time',
-    get: function get() {
+    get: function get$$1() {
       return this._time;
     }
 
@@ -12450,7 +12358,7 @@ var Sandpit = function () {
 
   }, {
     key: 'width',
-    get: function get() {
+    get: function get$$1() {
       return this._canvas.clientWidth;
     }
 
@@ -12459,7 +12367,7 @@ var Sandpit = function () {
      * @param {number} width - The width to make the canvas
      */
     ,
-    set: function set(width) {
+    set: function set$$1(width) {
       this._canvas.width = width;
     }
 
@@ -12470,7 +12378,7 @@ var Sandpit = function () {
 
   }, {
     key: 'height',
-    get: function get() {
+    get: function get$$1() {
       return this._canvas.clientHeight;
     }
 
@@ -12479,12 +12387,12 @@ var Sandpit = function () {
      * @param {number} height - The height to make the canvas
      */
     ,
-    set: function set(height) {
+    set: function set$$1(height) {
       this._canvas.height = height;
     }
   }]);
-
   return Sandpit;
 }();
 
-export { Is, Mathematics, index$4 as Color, index$15 as Vector, stats_min as Stats };export default Sandpit;
+export { Is, Mathematics, color as Color, victor as Vector, stats_min as Stats };
+export default Sandpit;
