@@ -36,10 +36,10 @@
   "author": "Charlie Gleason (http://charliegleason.com/)",
   "dependencies": {
     "color": "^2.0.1",
-    "dat.gui": "^0.6.5",
+    "dat.gui": "^0.6.1",
     "debounce": "^1.1.0",
     "gyronorm": "git://github.com/superhighfives/gyronorm.js.git",
-    "queryfetch": "^2.1.0",
+    "query-string": "^5.0.1",
     "seedrandom": "^2.4.3",
     "stats.js": "^0.17.0",
     "victor": "^1.1.0",
