@@ -5580,7 +5580,7 @@ var empty$1 = Object.freeze({
 
 var require$$0 = ( empty$1 && empty ) || empty$1;
 
-var seedrandom$2 = createCommonjsModule(function (module) {
+var seedrandom = createCommonjsModule(function (module) {
   /*
   Copyright 2014 David Bau.
   
@@ -5908,14 +5908,14 @@ var seedrandom$2 = createCommonjsModule(function (module) {
 // Period: ~2^1600
 
 
-seedrandom$2.alea = alea;
-seedrandom$2.xor128 = xor128;
-seedrandom$2.xorwow = xorwow;
-seedrandom$2.xorshift7 = xorshift7;
-seedrandom$2.xor4096 = xor4096;
-seedrandom$2.tychei = tychei;
+seedrandom.alea = alea;
+seedrandom.xor128 = xor128;
+seedrandom.xorwow = xorwow;
+seedrandom.xorshift7 = xorshift7;
+seedrandom.xor4096 = xor4096;
+seedrandom.tychei = tychei;
 
-var seedrandom = seedrandom$2;
+var seedrandom$2 = seedrandom;
 
 var logger = {
   active: false,
@@ -7395,9 +7395,9 @@ Object.keys(colorConvert).forEach(function (model) {
 
 var limiters = {};
 
-function Color$1(obj, model) {
-	if (!(this instanceof Color$1)) {
-		return new Color$1(obj, model);
+function Color(obj, model) {
+	if (!(this instanceof Color)) {
+		return new Color(obj, model);
 	}
 
 	if (model && model in skippedModels) {
@@ -7415,7 +7415,7 @@ function Color$1(obj, model) {
 		this.model = 'rgb';
 		this.color = [0, 0, 0];
 		this.valpha = 1;
-	} else if (obj instanceof Color$1) {
+	} else if (obj instanceof Color) {
 		this.model = obj.model;
 		this.color = obj.color.slice();
 		this.valpha = obj.valpha;
@@ -7484,7 +7484,7 @@ function Color$1(obj, model) {
 	}
 }
 
-Color$1.prototype = {
+Color.prototype = {
 	toString: function toString() {
 		return this.string();
 	},
@@ -7554,12 +7554,12 @@ Color$1.prototype = {
 
 	round: function round(places) {
 		places = Math.max(places || 0, 0);
-		return new Color$1(this.color.map(roundToPlace(places)).concat(this.valpha), this.model);
+		return new Color(this.color.map(roundToPlace(places)).concat(this.valpha), this.model);
 	},
 
 	alpha: function alpha(val) {
 		if (arguments.length) {
-			return new Color$1(this.color.concat(Math.max(0, Math.min(1, val))), this.model);
+			return new Color(this.color.concat(Math.max(0, Math.min(1, val))), this.model);
 		}
 
 		return this.valpha;
@@ -7601,7 +7601,7 @@ Color$1.prototype = {
 
 	keyword: function keyword(val) {
 		if (arguments.length) {
-			return new Color$1(val);
+			return new Color(val);
 		}
 
 		return colorConvert[this.model].keyword(this.color);
@@ -7609,7 +7609,7 @@ Color$1.prototype = {
 
 	hex: function hex(val) {
 		if (arguments.length) {
-			return new Color$1(val);
+			return new Color(val);
 		}
 
 		return colorString.to.hex(this.rgb().round().color);
@@ -7713,7 +7713,7 @@ Color$1.prototype = {
 		// http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
 		var rgb = this.rgb().color;
 		var val = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
-		return Color$1.rgb(val, val, val);
+		return Color.rgb(val, val, val);
 	},
 
 	fade: function fade(ratio) {
@@ -7746,7 +7746,7 @@ Color$1.prototype = {
 		var w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
 		var w2 = 1 - w1;
 
-		return Color$1.rgb(w1 * color1.red() + w2 * color2.red(), w1 * color1.green() + w2 * color2.green(), w1 * color1.blue() + w2 * color2.blue(), color1.alpha() * p + color2.alpha() * (1 - p));
+		return Color.rgb(w1 * color1.red() + w2 * color2.red(), w1 * color1.green() + w2 * color2.green(), w1 * color1.blue() + w2 * color2.blue(), color1.alpha() * p + color2.alpha() * (1 - p));
 	}
 };
 
@@ -7759,25 +7759,25 @@ Object.keys(colorConvert).forEach(function (model) {
 	var channels = colorConvert[model].channels;
 
 	// conversion methods
-	Color$1.prototype[model] = function () {
+	Color.prototype[model] = function () {
 		if (this.model === model) {
-			return new Color$1(this);
+			return new Color(this);
 		}
 
 		if (arguments.length) {
-			return new Color$1(arguments, model);
+			return new Color(arguments, model);
 		}
 
 		var newAlpha = typeof arguments[channels] === 'number' ? channels : this.valpha;
-		return new Color$1(assertArray(colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
+		return new Color(assertArray(colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
 	};
 
 	// 'static' construction methods
-	Color$1[model] = function (color) {
+	Color[model] = function (color) {
 		if (typeof color === 'number') {
 			color = zeroArray(_slice.call(arguments), channels);
 		}
-		return new Color$1(color, model);
+		return new Color(color, model);
 	};
 });
 
@@ -7842,7 +7842,7 @@ function zeroArray(arr, length) {
 	return arr;
 }
 
-var color = Color$1;
+var color = Color;
 
 /**
  * A utility for editing colors:
@@ -12503,7 +12503,7 @@ var Sandpit = function () {
     value: function random() {
       var seed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '123456';
 
-      return seedrandom(seed);
+      return seedrandom$2(seed);
     }
 
     /**

@@ -126,14 +126,14 @@ var _toPrimitive = function _toPrimitive(it, S) {
   throw TypeError("Can't convert object to primitive value");
 };
 
-var dP$1 = Object.defineProperty;
+var dP = Object.defineProperty;
 
 var f = _descriptors ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   _anObject(O);
   P = _toPrimitive(P, true);
   _anObject(Attributes);
   if (_ie8DomDefine) try {
-    return dP$1(O, P, Attributes);
+    return dP(O, P, Attributes);
   } catch (e) {/* empty */}
   if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
   if ('value' in Attributes) O[P] = Attributes.value;
@@ -226,7 +226,7 @@ var _ctx = function _ctx(fn, that, length) {
   };
 };
 
-var PROTOTYPE$1 = 'prototype';
+var PROTOTYPE = 'prototype';
 
 var $export = function $export(type, name, source) {
   var IS_FORCED = type & $export.F;
@@ -234,9 +234,9 @@ var $export = function $export(type, name, source) {
   var IS_STATIC = type & $export.S;
   var IS_PROTO = type & $export.P;
   var IS_BIND = type & $export.B;
-  var target = IS_GLOBAL ? _global : IS_STATIC ? _global[name] || (_global[name] = {}) : (_global[name] || {})[PROTOTYPE$1];
+  var target = IS_GLOBAL ? _global : IS_STATIC ? _global[name] || (_global[name] = {}) : (_global[name] || {})[PROTOTYPE];
   var exports = IS_GLOBAL ? _core : _core[name] || (_core[name] = {});
-  var expProto = exports[PROTOTYPE$1] || (exports[PROTOTYPE$1] = {});
+  var expProto = exports[PROTOTYPE] || (exports[PROTOTYPE] = {});
   var key, own, out, exp;
   if (IS_GLOBAL) source = name;
   for (key in source) {
@@ -527,7 +527,7 @@ var _html = document$2 && document$2.documentElement;
 
 var IE_PROTO$1 = _sharedKey('IE_PROTO');
 var Empty = function Empty() {/* empty */};
-var PROTOTYPE$2 = 'prototype';
+var PROTOTYPE$1 = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var _createDict = function createDict() {
@@ -548,16 +548,16 @@ var _createDict = function createDict() {
   iframeDocument.close();
   _createDict = iframeDocument.F;
   while (i--) {
-    delete _createDict[PROTOTYPE$2][_enumBugKeys[i]];
+    delete _createDict[PROTOTYPE$1][_enumBugKeys[i]];
   }return _createDict();
 };
 
 var _objectCreate = Object.create || function create(O, Properties) {
   var result;
   if (O !== null) {
-    Empty[PROTOTYPE$2] = _anObject(O);
+    Empty[PROTOTYPE$1] = _anObject(O);
     result = new Empty();
-    Empty[PROTOTYPE$2] = null;
+    Empty[PROTOTYPE$1] = null;
     // add "__proto__" for Object.getPrototypeOf polyfill
     result[IE_PROTO$1] = O;
   } else result = _createDict();
@@ -568,12 +568,12 @@ var _objectCreate = Object.create || function create(O, Properties) {
 
 var hiddenKeys = _enumBugKeys.concat('length', 'prototype');
 
-var f$5 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+var f$4 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return _objectKeysInternal(O, hiddenKeys);
 };
 
 var _objectGopn = {
-  f: f$5
+  f: f$4
 };
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -591,21 +591,21 @@ var getWindowNames = function getWindowNames(it) {
   }
 };
 
-var f$4 = function getOwnPropertyNames(it) {
+var f$5 = function getOwnPropertyNames(it) {
   return windowNames && toString$1.call(it) == '[object Window]' ? getWindowNames(it) : gOPN$1(_toIobject(it));
 };
 
 var _objectGopnExt = {
-  f: f$4
+  f: f$5
 };
 
-var gOPD$1 = Object.getOwnPropertyDescriptor;
+var gOPD = Object.getOwnPropertyDescriptor;
 
-var f$6 = _descriptors ? gOPD$1 : function getOwnPropertyDescriptor(O, P) {
+var f$6 = _descriptors ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = _toIobject(O);
   P = _toPrimitive(P, true);
   if (_ie8DomDefine) try {
-    return gOPD$1(O, P);
+    return gOPD(O, P);
   } catch (e) {/* empty */}
   if (_has(O, P)) return _propertyDesc(!_objectPie.f.call(O, P), O[P]);
 };
@@ -619,41 +619,41 @@ var _objectGopd = {
 
 var META = _meta.KEY;
 
-var gOPD = _objectGopd.f;
-var dP = _objectDp.f;
-var gOPN = _objectGopnExt.f;
+var gOPD$1 = _objectGopd.f;
+var dP$1 = _objectDp.f;
+var gOPN$2 = _objectGopnExt.f;
 var $Symbol = _global.Symbol;
 var $JSON = _global.JSON;
 var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
+var PROTOTYPE$2 = 'prototype';
 var HIDDEN = _wks('_hidden');
 var TO_PRIMITIVE = _wks('toPrimitive');
 var isEnum = {}.propertyIsEnumerable;
 var SymbolRegistry = _shared('symbol-registry');
 var AllSymbols = _shared('symbols');
 var OPSymbols = _shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
+var ObjectProto = Object[PROTOTYPE$2];
 var USE_NATIVE = typeof $Symbol == 'function';
 var QObject = _global.QObject;
 // Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+var setter = !QObject || !QObject[PROTOTYPE$2] || !QObject[PROTOTYPE$2].findChild;
 
 // fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
 var setSymbolDesc = _descriptors && _fails(function () {
-  return _objectCreate(dP({}, 'a', {
+  return _objectCreate(dP$1({}, 'a', {
     get: function get$$1() {
-      return dP(this, 'a', { value: 7 }).a;
+      return dP$1(this, 'a', { value: 7 }).a;
     }
   })).a != 7;
 }) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
+  var protoDesc = gOPD$1(ObjectProto, key);
   if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
+  dP$1(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP$1(ObjectProto, key, protoDesc);
+} : dP$1;
 
 var wrap = function wrap(tag) {
-  var sym = AllSymbols[tag] = _objectCreate($Symbol[PROTOTYPE]);
+  var sym = AllSymbols[tag] = _objectCreate($Symbol[PROTOTYPE$2]);
   sym._k = tag;
   return sym;
 };
@@ -664,20 +664,20 @@ var isSymbol = USE_NATIVE && _typeof($Symbol.iterator) == 'symbol' ? function (i
   return it instanceof $Symbol;
 };
 
-var $defineProperty = function defineProperty$$1(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+var $defineProperty$1 = function defineProperty$$1(it, key, D) {
+  if (it === ObjectProto) $defineProperty$1(OPSymbols, key, D);
   _anObject(it);
   key = _toPrimitive(key, true);
   _anObject(D);
   if (_has(AllSymbols, key)) {
     if (!D.enumerable) {
-      if (!_has(it, HIDDEN)) dP(it, HIDDEN, _propertyDesc(1, {}));
+      if (!_has(it, HIDDEN)) dP$1(it, HIDDEN, _propertyDesc(1, {}));
       it[HIDDEN][key] = true;
     } else {
       if (_has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
       D = _objectCreate(D, { enumerable: _propertyDesc(0, false) });
     }return setSymbolDesc(it, key, D);
-  }return dP(it, key, D);
+  }return dP$1(it, key, D);
 };
 var $defineProperties = function defineProperties(it, P) {
   _anObject(it);
@@ -686,7 +686,7 @@ var $defineProperties = function defineProperties(it, P) {
   var l = keys.length;
   var key;
   while (l > i) {
-    $defineProperty(it, key = keys[i++], P[key]);
+    $defineProperty$1(it, key = keys[i++], P[key]);
   }return it;
 };
 var $create = function create$$1(it, P) {
@@ -701,12 +701,12 @@ var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
   it = _toIobject(it);
   key = _toPrimitive(key, true);
   if (it === ObjectProto && _has(AllSymbols, key) && !_has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
+  var D = gOPD$1(it, key);
   if (D && _has(AllSymbols, key) && !(_has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
   return D;
 };
 var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(_toIobject(it));
+  var names = gOPN$2(_toIobject(it));
   var result = [];
   var i = 0;
   var key;
@@ -716,7 +716,7 @@ var $getOwnPropertyNames = function getOwnPropertyNames(it) {
 };
 var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
   var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : _toIobject(it));
+  var names = gOPN$2(IS_OP ? OPSymbols : _toIobject(it));
   var result = [];
   var i = 0;
   var key;
@@ -738,12 +738,12 @@ if (!USE_NATIVE) {
     if (_descriptors && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
     return wrap(tag);
   };
-  _redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+  _redefine($Symbol[PROTOTYPE$2], 'toString', function toString() {
     return this._k;
   });
 
   _objectGopd.f = $getOwnPropertyDescriptor;
-  _objectDp.f = $defineProperty;
+  _objectDp.f = $defineProperty$1;
   _objectGopn.f = _objectGopnExt.f = $getOwnPropertyNames;
   _objectPie.f = $propertyIsEnumerable;
   _objectGops.f = $getOwnPropertySymbols;
@@ -789,7 +789,7 @@ _export(_export.S + _export.F * !USE_NATIVE, 'Object', {
   // 19.1.2.2 Object.create(O [, Properties])
   create: $create,
   // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
+  defineProperty: $defineProperty$1,
   // 19.1.2.3 Object.defineProperties(O, Properties)
   defineProperties: $defineProperties,
   // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
@@ -826,7 +826,7 @@ $JSON && _export(_export.S + _export.F * (!USE_NATIVE || _fails(function () {
 });
 
 // 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || _hide($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+$Symbol[PROTOTYPE$2][TO_PRIMITIVE] || _hide($Symbol[PROTOTYPE$2], TO_PRIMITIVE, $Symbol[PROTOTYPE$2].valueOf);
 // 19.4.3.5 Symbol.prototype[@@toStringTag]
 _setToStringTag($Symbol, 'Symbol');
 // 20.2.1.9 Math[@@toStringTag]
@@ -910,31 +910,31 @@ _objectSap('getOwnPropertyNames', function () {
 
 // 19.1.2.5 Object.freeze(O)
 
-var meta = _meta.onFreeze;
+var meta$1 = _meta.onFreeze;
 
 _objectSap('freeze', function ($freeze) {
   return function freeze(it) {
-    return $freeze && _isObject(it) ? $freeze(meta(it)) : it;
+    return $freeze && _isObject(it) ? $freeze(meta$1(it)) : it;
   };
 });
 
 // 19.1.2.17 Object.seal(O)
 
-var meta$1 = _meta.onFreeze;
+var meta$2 = _meta.onFreeze;
 
 _objectSap('seal', function ($seal) {
   return function seal(it) {
-    return $seal && _isObject(it) ? $seal(meta$1(it)) : it;
+    return $seal && _isObject(it) ? $seal(meta$2(it)) : it;
   };
 });
 
 // 19.1.2.15 Object.preventExtensions(O)
 
-var meta$2 = _meta.onFreeze;
+var meta$3 = _meta.onFreeze;
 
 _objectSap('preventExtensions', function ($preventExtensions) {
   return function preventExtensions(it) {
-    return $preventExtensions && _isObject(it) ? $preventExtensions(meta$2(it)) : it;
+    return $preventExtensions && _isObject(it) ? $preventExtensions(meta$3(it)) : it;
   };
 });
 
@@ -2688,7 +2688,7 @@ if (_descriptors && /./g.flags != 'g') _objectDp.f(RegExp.prototype, 'flags', {
 var TO_STRING$1 = 'toString';
 var $toString$1 = /./[TO_STRING$1];
 
-var define$1 = function define(fn) {
+var define = function define(fn) {
   _redefine(RegExp.prototype, TO_STRING$1, fn, true);
 };
 
@@ -2696,13 +2696,13 @@ var define$1 = function define(fn) {
 if (_fails(function () {
   return $toString$1.call({ source: 'a', flags: 'b' }) != '/a/b';
 })) {
-  define$1(function toString() {
+  define(function toString() {
     var R = _anObject(this);
     return '/'.concat(R.source, '/', 'flags' in R ? R.flags : !_descriptors && R instanceof RegExp ? _flags.call(R) : undefined);
   });
   // FF44- RegExp#toString has a wrong name
 } else if ($toString$1.name != TO_STRING$1) {
-  define$1(function toString() {
+  define(function toString() {
     return $toString$1.call(this);
   });
 }
@@ -2867,7 +2867,7 @@ var _speciesConstructor = function _speciesConstructor(O, D) {
   return C === undefined || (S = _anObject(C)[SPECIES$2]) == undefined ? D : _aFunction(S);
 };
 
-var process$1 = _global.process;
+var process = _global.process;
 var setTask = _global.setImmediate;
 var clearTask = _global.clearImmediate;
 var MessageChannel = _global.MessageChannel;
@@ -2908,9 +2908,9 @@ if (!setTask || !clearTask) {
     delete queue[id];
   };
   // Node.js 0.8-
-  if (_cof(process$1) == 'process') {
+  if (_cof(process) == 'process') {
     defer = function defer(id) {
-      process$1.nextTick(_ctx(run, id, 1));
+      process.nextTick(_ctx(run, id, 1));
     };
     // Sphere (JS game engine) Dispatch API
   } else if (Dispatch && Dispatch.now) {
@@ -2952,16 +2952,16 @@ var _task = {
 
 var macrotask = _task.set;
 var Observer = _global.MutationObserver || _global.WebKitMutationObserver;
-var process$2 = _global.process;
+var process$1 = _global.process;
 var Promise$1 = _global.Promise;
-var isNode$1 = _cof(process$2) == 'process';
+var isNode = _cof(process$1) == 'process';
 
 var _microtask = function _microtask() {
   var head, last, notify;
 
   var flush = function flush() {
     var parent, fn;
-    if (isNode$1 && (parent = process$2.domain)) parent.exit();
+    if (isNode && (parent = process$1.domain)) parent.exit();
     while (head) {
       fn = head.fn;
       head = head.next;
@@ -2976,9 +2976,9 @@ var _microtask = function _microtask() {
   };
 
   // Node.js
-  if (isNode$1) {
+  if (isNode) {
     notify = function notify() {
-      process$2.nextTick(flush);
+      process$1.nextTick(flush);
     };
     // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
   } else if (Observer && !(_global.navigator && _global.navigator.standalone)) {
@@ -3067,15 +3067,15 @@ var microtask = _microtask();
 
 var PROMISE = 'Promise';
 var TypeError$1 = _global.TypeError;
-var process = _global.process;
+var process$2 = _global.process;
 var $Promise = _global[PROMISE];
-var isNode = _classof(process) == 'process';
+var isNode$1 = _classof(process$2) == 'process';
 var empty = function empty() {/* empty */};
 var Internal;
 var newGenericPromiseCapability;
 var OwnPromiseCapability;
 var Wrapper;
-var newPromiseCapability = newGenericPromiseCapability = _newPromiseCapability.f;
+var newPromiseCapability$1 = newGenericPromiseCapability = _newPromiseCapability.f;
 
 var USE_NATIVE$1 = !!function () {
   try {
@@ -3085,7 +3085,7 @@ var USE_NATIVE$1 = !!function () {
       exec(empty, empty);
     };
     // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
+    return (isNode$1 || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
   } catch (e) {/* empty */}
 }();
 
@@ -3144,8 +3144,8 @@ var onUnhandled = function onUnhandled(promise) {
     var result, handler, console;
     if (unhandled) {
       result = _perform(function () {
-        if (isNode) {
-          process.emit('unhandledRejection', value, promise);
+        if (isNode$1) {
+          process$2.emit('unhandledRejection', value, promise);
         } else if (handler = _global.onunhandledrejection) {
           handler({ promise: promise, reason: value });
         } else if ((console = _global.console) && console.error) {
@@ -3153,7 +3153,7 @@ var onUnhandled = function onUnhandled(promise) {
         }
       });
       // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+      promise._h = isNode$1 || isUnhandled(promise) ? 2 : 1;
     }promise._a = undefined;
     if (unhandled && result.e) throw result.v;
   });
@@ -3164,8 +3164,8 @@ var isUnhandled = function isUnhandled(promise) {
 var onHandleUnhandled = function onHandleUnhandled(promise) {
   task.call(_global, function () {
     var handler;
-    if (isNode) {
-      process.emit('rejectionHandled', promise);
+    if (isNode$1) {
+      process$2.emit('rejectionHandled', promise);
     } else if (handler = _global.onrejectionhandled) {
       handler({ promise: promise, reason: promise._v });
     }
@@ -3234,10 +3234,10 @@ if (!USE_NATIVE$1) {
   Internal.prototype = _redefineAll($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
-      var reaction = newPromiseCapability(_speciesConstructor(this, $Promise));
+      var reaction = newPromiseCapability$1(_speciesConstructor(this, $Promise));
       reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
       reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode ? process.domain : undefined;
+      reaction.domain = isNode$1 ? process$2.domain : undefined;
       this._c.push(reaction);
       if (this._a) this._a.push(reaction);
       if (this._s) notify(this, false);
@@ -3254,7 +3254,7 @@ if (!USE_NATIVE$1) {
     this.resolve = _ctx($resolve, promise, 1);
     this.reject = _ctx($reject, promise, 1);
   };
-  _newPromiseCapability.f = newPromiseCapability = function newPromiseCapability(C) {
+  _newPromiseCapability.f = newPromiseCapability$1 = function newPromiseCapability$$1(C) {
     return C === $Promise || C === Wrapper ? new OwnPromiseCapability(C) : newGenericPromiseCapability(C);
   };
 }
@@ -3268,7 +3268,7 @@ Wrapper = _core[PROMISE];
 _export(_export.S + _export.F * !USE_NATIVE$1, PROMISE, {
   // 25.4.4.5 Promise.reject(r)
   reject: function reject(r) {
-    var capability = newPromiseCapability(this);
+    var capability = newPromiseCapability$1(this);
     var $$reject = capability.reject;
     $$reject(r);
     return capability.promise;
@@ -3286,7 +3286,7 @@ _export(_export.S + _export.F * !(USE_NATIVE$1 && _iterDetect(function (iter) {
   // 25.4.4.1 Promise.all(iterable)
   all: function all(iterable) {
     var C = this;
-    var capability = newPromiseCapability(C);
+    var capability = newPromiseCapability$1(C);
     var resolve = capability.resolve;
     var reject = capability.reject;
     var result = _perform(function () {
@@ -3313,7 +3313,7 @@ _export(_export.S + _export.F * !(USE_NATIVE$1 && _iterDetect(function (iter) {
   // 25.4.4.4 Promise.race(iterable)
   race: function race(iterable) {
     var C = this;
-    var capability = newPromiseCapability(C);
+    var capability = newPromiseCapability$1(C);
     var reject = capability.reject;
     var result = _perform(function () {
       _forOf(iterable, false, function (promise) {
@@ -3728,7 +3728,7 @@ _collection(WEAK_SET, function (get) {
 }, _collectionWeak, false, true);
 
 var TYPED = _uid('typed_array');
-var VIEW$1 = _uid('view');
+var VIEW = _uid('view');
 var ABV = !!(_global.ArrayBuffer && _global.DataView);
 var CONSTR = ABV;
 var i$1 = 0;
@@ -3740,7 +3740,7 @@ var TypedArrayConstructors = 'Int8Array,Uint8Array,Uint8ClampedArray,Int16Array,
 while (i$1 < l) {
   if (Typed = _global[TypedArrayConstructors[i$1++]]) {
     _hide(Typed.prototype, TYPED, true);
-    _hide(Typed.prototype, VIEW$1, true);
+    _hide(Typed.prototype, VIEW, true);
   } else CONSTR = false;
 }
 
@@ -3748,7 +3748,7 @@ var _typed = {
   ABV: ABV,
   CONSTR: CONSTR,
   TYPED: TYPED,
-  VIEW: VIEW$1
+  VIEW: VIEW
 };
 
 // https://tc39.github.io/ecma262/#sec-toindex
@@ -4038,7 +4038,7 @@ var $ArrayBuffer = _typedBuffer.ArrayBuffer;
 var $DataView = _typedBuffer.DataView;
 var $isView = _typed.ABV && ArrayBuffer$1.isView;
 var $slice = $ArrayBuffer.prototype.slice;
-var VIEW = _typed.VIEW;
+var VIEW$1 = _typed.VIEW;
 var ARRAY_BUFFER = 'ArrayBuffer';
 
 _export(_export.G + _export.W + _export.F * (ArrayBuffer$1 !== $ArrayBuffer), { ArrayBuffer: $ArrayBuffer });
@@ -4046,7 +4046,7 @@ _export(_export.G + _export.W + _export.F * (ArrayBuffer$1 !== $ArrayBuffer), { 
 _export(_export.S + _export.F * !_typed.CONSTR, ARRAY_BUFFER, {
   // 24.1.3.1 ArrayBuffer.isView(arg)
   isView: function isView(it) {
-    return $isView && $isView(it) || _isObject(it) && VIEW in it;
+    return $isView && $isView(it) || _isObject(it) && VIEW$1 in it;
   }
 });
 
@@ -5432,7 +5432,7 @@ var ordinaryGetOwnMetadata = function ordinaryGetOwnMetadata(MetadataKey, O, P) 
   var metadataMap = getOrCreateMetadataMap(O, P, false);
   return metadataMap === undefined ? undefined : metadataMap.get(MetadataKey);
 };
-var ordinaryDefineOwnMetadata$1 = function ordinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
+var ordinaryDefineOwnMetadata = function ordinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
   getOrCreateMetadataMap(O, P, true).set(MetadataKey, MetadataValue);
 };
 var ordinaryOwnMetadataKeys = function ordinaryOwnMetadataKeys(target, targetKey) {
@@ -5443,7 +5443,7 @@ var ordinaryOwnMetadataKeys = function ordinaryOwnMetadataKeys(target, targetKey
   });
   return keys;
 };
-var toMetaKey$1 = function toMetaKey(it) {
+var toMetaKey = function toMetaKey(it) {
   return it === undefined || (typeof it === 'undefined' ? 'undefined' : _typeof(it)) == 'symbol' ? it : String(it);
 };
 var exp$3 = function exp(O) {
@@ -5455,17 +5455,17 @@ var _metadata = {
   map: getOrCreateMetadataMap,
   has: ordinaryHasOwnMetadata,
   get: ordinaryGetOwnMetadata,
-  set: ordinaryDefineOwnMetadata$1,
+  set: ordinaryDefineOwnMetadata,
   keys: ordinaryOwnMetadataKeys,
-  key: toMetaKey$1,
+  key: toMetaKey,
   exp: exp$3
 };
 
-var toMetaKey = _metadata.key;
-var ordinaryDefineOwnMetadata = _metadata.set;
+var toMetaKey$1 = _metadata.key;
+var ordinaryDefineOwnMetadata$1 = _metadata.set;
 
 _metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValue, target, targetKey) {
-    ordinaryDefineOwnMetadata(metadataKey, metadataValue, _anObject(target), toMetaKey(targetKey));
+    ordinaryDefineOwnMetadata$1(metadataKey, metadataValue, _anObject(target), toMetaKey$1(targetKey));
   } });
 
 var toMetaKey$2 = _metadata.key;
@@ -6579,7 +6579,7 @@ if (commonjsGlobal._babelPolyfill) {
 commonjsGlobal._babelPolyfill = true;
 
 var DEFINE_PROPERTY = "defineProperty";
-function define(O, key, value) {
+function define$1(O, key, value) {
   O[key] || Object[DEFINE_PROPERTY](O, key, {
     writable: true,
     configurable: true,
@@ -6587,11 +6587,11 @@ function define(O, key, value) {
   });
 }
 
-define(String.prototype, "padLeft", "".padStart);
-define(String.prototype, "padRight", "".padEnd);
+define$1(String.prototype, "padLeft", "".padStart);
+define$1(String.prototype, "padRight", "".padEnd);
 
 "pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill".split(",").forEach(function (key) {
-  [][key] && define(Array, key, Function.call.bind([][key]));
+  [][key] && define$1(Array, key, Function.call.bind([][key]));
 });
 
 var dat_gui = createCommonjsModule(function (module, exports) {
@@ -12122,9 +12122,9 @@ var empty$2 = Object.freeze({
 	default: empty$1
 });
 
-var require$$0$30 = ( empty$2 && empty$1 ) || empty$2;
+var require$$0$29 = ( empty$2 && empty$1 ) || empty$2;
 
-var seedrandom$2 = createCommonjsModule(function (module) {
+var seedrandom = createCommonjsModule(function (module) {
   /*
   Copyright 2014 David Bau.
   
@@ -12386,7 +12386,7 @@ var seedrandom$2 = createCommonjsModule(function (module) {
       module.exports = seedrandom;
       // When in node.js, try using crypto package for autoseeding.
       try {
-        nodecrypto = require$$0$30;
+        nodecrypto = require$$0$29;
       } catch (ex) {}
     } else if (typeof undefined == 'function' && undefined.amd) {
       undefined(function () {
@@ -12452,14 +12452,14 @@ var seedrandom$2 = createCommonjsModule(function (module) {
 // Period: ~2^1600
 
 
-seedrandom$2.alea = alea;
-seedrandom$2.xor128 = xor128;
-seedrandom$2.xorwow = xorwow;
-seedrandom$2.xorshift7 = xorshift7;
-seedrandom$2.xor4096 = xor4096;
-seedrandom$2.tychei = tychei;
+seedrandom.alea = alea;
+seedrandom.xor128 = xor128;
+seedrandom.xorwow = xorwow;
+seedrandom.xorshift7 = xorshift7;
+seedrandom.xor4096 = xor4096;
+seedrandom.tychei = tychei;
 
-var seedrandom = seedrandom$2;
+var seedrandom$2 = seedrandom;
 
 var logger = {
   active: false,
@@ -13939,9 +13939,9 @@ Object.keys(colorConvert).forEach(function (model) {
 
 var limiters = {};
 
-function Color$1(obj, model) {
-	if (!(this instanceof Color$1)) {
-		return new Color$1(obj, model);
+function Color(obj, model) {
+	if (!(this instanceof Color)) {
+		return new Color(obj, model);
 	}
 
 	if (model && model in skippedModels) {
@@ -13959,7 +13959,7 @@ function Color$1(obj, model) {
 		this.model = 'rgb';
 		this.color = [0, 0, 0];
 		this.valpha = 1;
-	} else if (obj instanceof Color$1) {
+	} else if (obj instanceof Color) {
 		this.model = obj.model;
 		this.color = obj.color.slice();
 		this.valpha = obj.valpha;
@@ -14028,7 +14028,7 @@ function Color$1(obj, model) {
 	}
 }
 
-Color$1.prototype = {
+Color.prototype = {
 	toString: function toString() {
 		return this.string();
 	},
@@ -14098,12 +14098,12 @@ Color$1.prototype = {
 
 	round: function round(places) {
 		places = Math.max(places || 0, 0);
-		return new Color$1(this.color.map(roundToPlace(places)).concat(this.valpha), this.model);
+		return new Color(this.color.map(roundToPlace(places)).concat(this.valpha), this.model);
 	},
 
 	alpha: function alpha(val) {
 		if (arguments.length) {
-			return new Color$1(this.color.concat(Math.max(0, Math.min(1, val))), this.model);
+			return new Color(this.color.concat(Math.max(0, Math.min(1, val))), this.model);
 		}
 
 		return this.valpha;
@@ -14145,7 +14145,7 @@ Color$1.prototype = {
 
 	keyword: function keyword(val) {
 		if (arguments.length) {
-			return new Color$1(val);
+			return new Color(val);
 		}
 
 		return colorConvert[this.model].keyword(this.color);
@@ -14153,7 +14153,7 @@ Color$1.prototype = {
 
 	hex: function hex(val) {
 		if (arguments.length) {
-			return new Color$1(val);
+			return new Color(val);
 		}
 
 		return colorString.to.hex(this.rgb().round().color);
@@ -14257,7 +14257,7 @@ Color$1.prototype = {
 		// http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
 		var rgb = this.rgb().color;
 		var val = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
-		return Color$1.rgb(val, val, val);
+		return Color.rgb(val, val, val);
 	},
 
 	fade: function fade(ratio) {
@@ -14290,7 +14290,7 @@ Color$1.prototype = {
 		var w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
 		var w2 = 1 - w1;
 
-		return Color$1.rgb(w1 * color1.red() + w2 * color2.red(), w1 * color1.green() + w2 * color2.green(), w1 * color1.blue() + w2 * color2.blue(), color1.alpha() * p + color2.alpha() * (1 - p));
+		return Color.rgb(w1 * color1.red() + w2 * color2.red(), w1 * color1.green() + w2 * color2.green(), w1 * color1.blue() + w2 * color2.blue(), color1.alpha() * p + color2.alpha() * (1 - p));
 	}
 };
 
@@ -14303,25 +14303,25 @@ Object.keys(colorConvert).forEach(function (model) {
 	var channels = colorConvert[model].channels;
 
 	// conversion methods
-	Color$1.prototype[model] = function () {
+	Color.prototype[model] = function () {
 		if (this.model === model) {
-			return new Color$1(this);
+			return new Color(this);
 		}
 
 		if (arguments.length) {
-			return new Color$1(arguments, model);
+			return new Color(arguments, model);
 		}
 
 		var newAlpha = typeof arguments[channels] === 'number' ? channels : this.valpha;
-		return new Color$1(assertArray(colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
+		return new Color(assertArray(colorConvert[this.model][model].raw(this.color)).concat(newAlpha), model);
 	};
 
 	// 'static' construction methods
-	Color$1[model] = function (color) {
+	Color[model] = function (color) {
 		if (typeof color === 'number') {
 			color = zeroArray(_slice.call(arguments), channels);
 		}
-		return new Color$1(color, model);
+		return new Color(color, model);
 	};
 });
 
@@ -14386,7 +14386,7 @@ function zeroArray(arr, length) {
 	return arr;
 }
 
-var color = Color$1;
+var color = Color;
 
 /**
  * A utility for editing colors:
@@ -18296,7 +18296,7 @@ var gyronorm_complete = createCommonjsModule(function (module) {
  * A playground for creative coding
  */
 
-var Sandpit$1 = function () {
+var Sandpit = function () {
   createClass(Sandpit, null, [{
     key: 'CANVAS',
     get: function get$$1() {
@@ -19047,7 +19047,7 @@ var Sandpit$1 = function () {
     value: function random() {
       var seed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '123456';
 
-      return seedrandom(seed);
+      return seedrandom$2(seed);
     }
 
     /**
@@ -19283,12 +19283,12 @@ var Sandpit$1 = function () {
   return Sandpit;
 }();
 
-Sandpit$1.Color = color;
-Sandpit$1.Is = Is;
-Sandpit$1.Mathematics = Mathematics;
-Sandpit$1.Stats = stats_min;
-Sandpit$1.Vector = victor;
+Sandpit.Color = color;
+Sandpit.Is = Is;
+Sandpit.Mathematics = Mathematics;
+Sandpit.Stats = stats_min;
+Sandpit.Vector = victor;
 
-return Sandpit$1;
+return Sandpit;
 
 })));
