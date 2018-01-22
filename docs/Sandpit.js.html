@@ -25,7 +25,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h3><a href="index.html">⛱&nbsp;&nbsp;Sandpit</a></h3><h3></h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h2 class="version">v0.1.13</h2>
+    <h3><a href="index.html">⛱&nbsp;&nbsp;Sandpit</a></h3><h3></h3><ul><li><a href="tutorial-01-documentation.html"> Documentation</a></li><li><a href="tutorial-02-inspiration.html"> Inspiration</a></li></ul><h3>Classes</h3><ul><li><a href="Color.html">Color</a></li><li><a href="Is.html">Is</a><ul class='methods'><li data-type='method'><a href="Is.html#.array">array</a></li><li data-type='method'><a href="Is.html#.canvas">canvas</a></li><li data-type='method'><a href="Is.html#.element">element</a></li><li data-type='method'><a href="Is.html#.object">object</a></li></ul></li><li><a href="Mathematics.html">Mathematics</a><ul class='methods'><li data-type='method'><a href="Mathematics.html#.randomBetween">randomBetween</a></li><li data-type='method'><a href="Mathematics.html#.randomFrom">randomFrom</a></li></ul></li><li><a href="Sandpit.html">Sandpit</a><ul class='methods'><li data-type='method'><a href="Sandpit.html#clear">clear</a></li><li data-type='method'><a href="Sandpit.html#clearQueryString">clearQueryString</a></li><li data-type='method'><a href="Sandpit.html#fill">fill</a></li><li data-type='method'><a href="Sandpit.html#get">get</a></li><li data-type='method'><a href="Sandpit.html#random">random</a></li><li data-type='method'><a href="Sandpit.html#resizeCanvas">resizeCanvas</a></li><li data-type='method'><a href="Sandpit.html#setupStats">setupStats</a></li><li data-type='method'><a href="Sandpit.html#start">start</a></li><li data-type='method'><a href="Sandpit.html#stop">stop</a></li></ul></li><li><a href="Stats.html">Stats</a></li><li><a href="Vector.html">Vector</a></li></ul><h2 class="version">v0.1.14</h2>
 </nav>
 
 <div id="main">
@@ -41,7 +41,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import dat from 'dat.gui/build/dat.gui'
-import queryfetch from 'queryfetch'
+import queryString from 'query-string'
 import debounce from 'debounce'
 import seedrandom from 'seedrandom'
 
@@ -169,8 +169,12 @@ class Sandpit {
     // for storing settings
     if (this._queryable) {
       if (window.location.search) {
-        let params = queryfetch(window.location.search).parse()
+        let params = queryString.parse(window.location.search)
         Object.keys(params).forEach((key) => {
+          // Check if the param is a float, and if so, parse it
+          if (parseFloat(params[key])) {
+            params[key] = parseFloat(params[key])
+          }
           // If a setting matches the param, use the param
           if (this.defaults[key]) {
             let param = params[key]
@@ -268,7 +272,7 @@ class Sandpit {
     // If queryable is enabled, serialize the final settings
     // and push them to the query string
     if (this._queryable) {
-      const query = queryfetch(this._settings).serialize()
+      const query = queryString.stringify(this._settings)
       window.history.replaceState({}, null, `${this._getPathFromUrl()}?${query}`)
       // Adds a clear and reset button to the gui interface,
       // if they aren't disabled in the settings
@@ -306,7 +310,7 @@ class Sandpit {
   _change (name, value) {
     logger.info(`Update fired on ${name}: ${value}`)
     if (this._queryable) {
-      const query = queryfetch(this._settings).serialize()
+      const query = queryString.stringify(this._settings)
       window.history.pushState({}, null, `${this._getPathFromUrl()}?${query}`)
     }
     // If there is a change hook, use it
