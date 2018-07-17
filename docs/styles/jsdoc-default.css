@@ -93,7 +93,7 @@ h6 {
 }
 
 tt, code, kbd, samp {
-  font-family: "Operator Mono SSm A", "Operator Mono SSm B", "Fira Code", monospace;
+  font-family: "Fira Code", monospace;
   background: #f4f4f4;
   padding: 1px 5px;
   border-radius: 5px;
